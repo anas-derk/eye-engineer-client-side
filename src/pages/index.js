@@ -24,7 +24,7 @@ export default function Home() {
         <title>{t([process.env.websiteName])} Home</title>
       </Head>
       {!isLoadingPage && !errorMsgOnLoadingThePage && <>
-        <h1 className="hover:bg-white text-center">Hello In Eye Enginner !!</h1>
+        <h1 className="text-center font-bold text-[25px]">Hello In Eye Enginner !!</h1>
       </>}
       {isLoadingPage && !errorMsgOnLoadingThePage && <LoaderPage />}
       {errorMsgOnLoadingThePage && <ErrorOnLoadingThePage errorMsg={errorMsgOnLoadingThePage} />}
