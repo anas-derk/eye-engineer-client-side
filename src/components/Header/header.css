@@ -3,7 +3,7 @@
 }
 
 .global-header .navbar {
-  background-color: var(--main-color-two);
+  background-color: var(--main-color-one);
 }
 
 .global-header .navbar .navbar-nav {
@@ -12,7 +12,7 @@
 
 .global-header .navbar .navbar-nav .nav-link {
   color: #000;
-  font-size: 13px;
+  font-size: 15px;
   transition: 0.5s;
 }
 
