@@ -8,16 +8,20 @@
 
 .global-header .navbar .navbar-nav {
   align-items: center;
+  gap: 10px;
 }
 
 .global-header .navbar .navbar-nav .nav-link {
   color: #000;
   font-size: 15px;
   transition: 0.5s;
+  border-radius: 10px;
+  font-weight: bold;
 }
 
 .global-header .navbar .navbar-nav .nav-link:hover {
   background-color: #CCC;
+  color: var(--main-color-two);
 }
 
 .global-header .navbar .navbar-nav .nav-link .icon-box {
@@ -33,6 +37,15 @@
   color: #FFF;
   border-radius: 50%;
   text-align: center;
+}
+
+.global-header .navbar .navbar-nav .orange-btn {
+  background-color: var(--main-color-two);
+  border-radius: 10px;
+}
+
+.global-header .navbar .navbar-nav .orange-btn:hover {
+  background-color: var(--main-color-three);
 }
 
 .global-header .navbar .navbar-nav .dropdown .dropdown-item {

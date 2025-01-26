@@ -1,0 +1,17 @@
+.home .carousel {
+  position: static;
+}
+
+.home .carousel .carousel-caption {
+  position: static;
+  padding: 0;
+}
+
+.home .carousel .carousel-caption .ads-content {
+  margin: 0;
+  font-size: 20px;
+}
+
+.home .text-ads {
+  background-color: var(--main-color-one);
+}

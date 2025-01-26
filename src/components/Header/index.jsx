@@ -80,7 +80,7 @@ export default function Header() {
                             <Nav.Link href="/" as={Link}>
                                 {t("Contact Us")}
                             </Nav.Link>
-                            <NavDropdown title={<GrLanguage />} id="languages-nav-dropdown">
+                            <NavDropdown title={<GrLanguage />} id="languages-nav-dropdown" className="orange-btn">
                                 <NavDropdown.Item onClick={() => handleChangeLanguage("ar")}>{t("Arabic")}</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={() => handleChangeLanguage("en")}>{t("English")}</NavDropdown.Item>
@@ -90,10 +90,10 @@ export default function Header() {
                                 <NavDropdown.Item onClick={() => handleChangeLanguage("de")}>{t("German")}</NavDropdown.Item>
                             </NavDropdown>
                             {!token && <>
-                                <Nav.Link href="/auth" as={Link}>
+                                <Nav.Link href="/auth" as={Link} className="orange-btn">
                                     {t("Sign Up")}
                                 </Nav.Link>
-                                <Nav.Link href="/auth" as={Link}>
+                                <Nav.Link href="/auth" as={Link} className="orange-btn">
                                     {t("Login")}
                                 </Nav.Link>
                             </>}

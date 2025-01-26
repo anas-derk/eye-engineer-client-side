@@ -4,12 +4,16 @@
         background-color: var(--main-color-one);
         .navbar-nav{
             align-items: center;
+            gap: 10px;
             .nav-link{
                 color: #000;
                 font-size: 15px;
                 transition: 0.5s;
+                border-radius: 10px;
+                font-weight: bold;
                 &:hover{
                     background-color: #CCC;
+                    color: var(--main-color-two);
                 }
                 .icon-box{
                     position: relative;
@@ -23,6 +27,13 @@
                         border-radius: 50%;
                         text-align: center;
                     }
+                }
+            }
+            .orange-btn{
+                background-color: var(--main-color-two);
+                border-radius: 10px;
+                &:hover{
+                    background-color: var(--main-color-three);
                 }
             }
             .dropdown{
