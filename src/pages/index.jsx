@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="home">
       <Head>
-        <title>{t([process.env.websiteName])} Home</title>
+        <title>{t([process.env.websiteName])} {t("Home")}</title>
       </Head>
       {!isLoadingPage && !errorMsgOnLoadingThePage && <>
         <Header />
