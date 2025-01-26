@@ -1,4 +1,5 @@
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
+import Header from "@/components/Header";
 import LoaderPage from "@/components/LoaderPage";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -24,6 +25,7 @@ export default function Home() {
         <title>{t([process.env.websiteName])} Home</title>
       </Head>
       {!isLoadingPage && !errorMsgOnLoadingThePage && <>
+        <Header />
         <h1 className="text-center font-bold text-[25px]">Hello In Eye Enginner !!</h1>
       </>}
       {isLoadingPage && !errorMsgOnLoadingThePage && <LoaderPage />}
