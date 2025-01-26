@@ -1,6 +1,12 @@
+import "../../config/i18n";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import store from "@/store";
 import { Provider } from "react-redux";
+import "../Scss/index.css";
+import "@/components/Header/header.css";
+import "@/components/Footer/footer.css";
+import "../components/SectionLoader/section_loader.css";
+import "../components/ErrorOnLoadingThePage/error_on_loading_the_page.css";
 
 export default function App({ Component, pageProps }) {
   return <Provider store={store}>
