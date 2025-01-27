@@ -15,6 +15,7 @@ import ServiceImage5 from "../../public/images/Services/Terminologies.png";
 import ServiceImage6 from "../../public/images/Services/Offices.png";
 import ServiceImage7 from "../../public/images/Services/PropertyValuation.png";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export default function Home() {
 
@@ -56,7 +57,7 @@ export default function Home() {
       imageSrc: ServiceImage6.src,
     },
     {
-      title: "Property valuation",
+      title: "Property Valuation",
       description: "Provides property valuations by experts",
       imageSrc: ServiceImage7.src,
     },
@@ -126,6 +127,7 @@ export default function Home() {
             </div>
           </section>
           {/* End Services Section */}
+          <Footer />
         </div>
       </>}
       {isLoadingPage && !errorMsgOnLoadingThePage && <LoaderPage />}

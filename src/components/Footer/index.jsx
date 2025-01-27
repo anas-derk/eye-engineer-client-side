@@ -5,13 +5,12 @@ import { FaLongArrowAltRight, FaLongArrowAltLeft, FaCcPaypal, FaInstagram, FaTik
 import { FaXTwitter } from "react-icons/fa6";
 import { LiaCcVisa } from "react-icons/lia";
 import { FaCcMastercard } from "react-icons/fa";
-import KnetLogo from "../../../public/images/knet-logo.png";
-import TabbyLogo from "../../../public/images/tabby-logo.png";
 import { IoLogoFacebook } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import axios from "axios";
 import { getAnimationSettings, getInitialStateForElementBeforeAnimation, handleSelectUserLanguage } from "../../../public/global_functions/popular";
 import { motion } from "motion/react";
+import WebsiteLogo from "../../../public/images/LogoWithTransparentBackground.png"
 
 export default function Footer() {
 
@@ -67,6 +66,21 @@ export default function Footer() {
             <div className="container">
                 <div className="row align-items-center mb-4">
                     <motion.div
+                        className="col-xl-3 p-4"
+                        initial={{
+                            scale: 0.7,
+                        }}
+                        whileInView={{
+                            scale: 1,
+                            transition: {
+                                duration: 0.4,
+                            }
+                        }}
+                    >
+                        <img src={WebsiteLogo.src} alt={`${process.env.websiteName} Image`} className="mw-100 mb-4" />
+                        {!waitMsg && !successMsg && !errMsg && <Link className="btn orange-btn d-block w-100" href="/">{t("Send Message")}</Link>}
+                    </motion.div>
+                    <motion.div
                         className="col-xl-3"
                         initial={{
                             scale: 0.7,
@@ -78,17 +92,13 @@ export default function Footer() {
                             }
                         }}
                     >
-                        <h5 className="fw-bold mb-4 border-bottom border-dark border-2 pb-2 title">{t("Our links").toUpperCase()}</h5>
+                        <h5 className="fw-bold mb-4 border-bottom border-dark border-2 pb-2 title">{t("Useful Links").toUpperCase()}</h5>
                         <ul
                             className="links-list"
                         >
                             <li className="link-item fw-bold mb-3">
                                 {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
-                                <Link href="/" className="text-dark link-btn">{t("Main").toUpperCase()}</Link>
-                            </li>
-                            <li className="link-item fw-bold mb-3">
-                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
-                                <Link href="/auth" className="text-dark link-btn">{t("login").toUpperCase()}</Link>
+                                <Link href="/" className="text-dark link-btn">{t("Home").toUpperCase()}</Link>
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
@@ -96,15 +106,77 @@ export default function Footer() {
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
-                                <Link href="/polices-terms-and-conditions" className="text-dark link-btn">{t("Polices-Terms & Conditions").toUpperCase()}</Link>
+                                <Link href="/capabilities" className="text-dark link-btn">{t("Capabilities").toUpperCase()}</Link>
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
-                                <Link href="/return-and-refund-policy" className="text-dark link-btn">{t("Return & Refund Policy").toUpperCase()}</Link>
+                                <Link href="/contact-us" className="text-dark link-btn">{t("Contact Us").toUpperCase()}</Link>
+                            </li>
+                            <li className="link-item fw-bold mb-3">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/return-and-refund-policy" className="text-dark link-btn">{t("Reserve Office").toUpperCase()}</Link>
+                            </li>
+                            <li className="link-item fw-bold mb-3">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/return-and-delivery-sheet" className="text-dark link-btn">{t("Intelligent Translator").toUpperCase()}</Link>
+                            </li>
+                            <li className="link-item fw-bold mb-3">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/return-and-delivery-sheet" className="text-dark link-btn">{t("Privacy Policy").toUpperCase()}</Link>
+                            </li>
+                            <li className="link-item fw-bold mb-3">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/return-and-delivery-sheet" className="text-dark link-btn">{t("Articles Policy").toUpperCase()}</Link>
                             </li>
                             <li className="link-item fw-bold">
                                 {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
-                                <Link href="/return-and-delivery-sheet" className="text-dark link-btn">{t("Return And Delivery Sheet").toUpperCase()}</Link>
+                                <Link href="/return-and-delivery-sheet" className="text-dark link-btn">{t("Questions Policy").toUpperCase()}</Link>
+                            </li>
+                        </ul>
+                    </motion.div>
+                    <motion.div
+                        className="col-xl-3"
+                        initial={{
+                            scale: 0.7,
+                        }}
+                        whileInView={{
+                            scale: 1,
+                            transition: {
+                                duration: 0.4,
+                            }
+                        }}
+                    >
+                        <h5 className="fw-bold mb-4 border-bottom border-dark border-2 pb-2 title">{t("Our Services").toUpperCase()}</h5>
+                        <ul
+                            className="links-list"
+                        >
+                            <li className="link-item fw-bold mb-3">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/" className="text-dark link-btn">{t("Geometries").toUpperCase()}</Link>
+                            </li>
+                            <li className="link-item fw-bold mb-3">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/about-us" className="text-dark link-btn">{t("Educational Videos").toUpperCase()}</Link>
+                            </li>
+                            <li className="link-item fw-bold mb-3">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/about-us" className="text-dark link-btn">{t("Recents").toUpperCase()}</Link>
+                            </li>
+                            <li className="link-item fw-bold mb-3">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/capabilities" className="text-dark link-btn">{t("Engineering Articles").toUpperCase()}</Link>
+                            </li>
+                            <li className="link-item fw-bold mb-3">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/contact-us" className="text-dark link-btn">{t("Terminologies").toUpperCase()}</Link>
+                            </li>
+                            <li className="link-item fw-bold mb-3">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/return-and-refund-policy" className="text-dark link-btn">{t("Offices").toUpperCase()}</Link>
+                            </li>
+                            <li className="link-item fw-bold">
+                                {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2" /> : <FaLongArrowAltLeft className="ms-2" />}
+                                <Link href="/return-and-delivery-sheet" className="text-dark link-btn">{t("Property Valuation").toUpperCase()}</Link>
                             </li>
                         </ul>
                     </motion.div>
@@ -126,10 +198,6 @@ export default function Footer() {
                                 <Link href="https://www.instagram.com/ubuyblues" target="_blank" className="text-dark link-btn">{t("Instagram").toUpperCase()}</Link>
                             </li>
                             <li className="link-item fw-bold mb-3">
-                                <FaXTwitter className={`${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <Link href="https://x.com/ubuyblues" target="_blank" className="text-dark link-btn">{t("x").toUpperCase()}</Link>
-                            </li>
-                            <li className="link-item fw-bold mb-3">
                                 <FaTiktok className={`${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
                                 <Link href="https://www.tiktok.com/@ubuyblues" target="_blank" className="text-dark link-btn">{t("Tiktok").toUpperCase()}</Link>
                             </li>
@@ -139,76 +207,9 @@ export default function Footer() {
                             </li>
                         </ul>
                     </motion.div>
-                    <motion.div
-                        className="col-xl-3"
-                        initial={{
-                            scale: 0.7,
-                        }}
-                        whileInView={{
-                            scale: 1,
-                            transition: {
-                                duration: 0.4,
-                            }
-                        }}
-                    >
-                        <h5 className="fw-bold mb-4 border-bottom border-dark border-2 pb-2 title">{t("Payment Methods").toUpperCase()}</h5>
-                        <ul
-                            className="payment-methods-list mb-5"
-                        >
-                            <li className="payment-method-item fw-bold mb-3">
-                                <FaCcPaypal className={`icon paypal-icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <span>{t("PayPal")}</span>
-                            </li>
-                            <li className="payment-method-item fw-bold mb-3">
-                                <LiaCcVisa className={`icon visa-icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <span>{t("Visa Card")}</span>
-                            </li>
-                            <li className="payment-method-item fw-bold mb-3">
-                                <FaCcMastercard className={`icon visa-icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <span>{t("Master Card")}</span>
-                            </li>
-                            <li className="payment-method-item fw-bold mb-3">
-                                <img src={KnetLogo.src} alt="Knet Logo" className={`icon-as-image knet-icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <span>{t("Knet")}</span>
-                            </li>
-                            <li className="payment-method-item fw-bold mb-3">
-                                <img src={TabbyLogo.src} alt="Tabby Logo" className={`icon-as-image tabby-icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <span>{t("Tabby")}</span>
-                            </li>
-                        </ul>
-                    </motion.div>
-                    <motion.div
-                        className="col-xl-3"
-                        initial={{
-                            scale: 0.7,
-                        }}
-                        whileInView={{
-                            scale: 1,
-                            transition: {
-                                duration: 0.4,
-                            }
-                        }}
-                    >
-                        <h5 className="fw-bold mb-3 border-bottom border-dark border-2 pb-2 title">{t("Subscription").toUpperCase()}</h5>
-                        <p className="mb-3">{t("Enter your email address")}</p>
-                        <p className="mb-3">{"(" + t("I want to receive all the latest updates via email") + " )"}</p>
-                        <form className="subscription-form" onSubmit={(e) => handleSubscription(e, email)}>
-                            <input
-                                type="email"
-                                className="form-control p-2 d-block w-75 mb-3"
-                                placeholder={t("Please Enter Email Here")}
-                                onChange={(e) => setEmail(e.target.value.trim())}
-                                required
-                            />
-                            {!waitMsg && !successMsg && !errMsg && <button type="submit" className="btn btn-info">{t("Subscription")}</button>}
-                            {waitMsg && <button type="button" disabled className="btn btn-info">{waitMsg}</button>}
-                            {successMsg && <button type="button" disabled className="btn btn-success">{successMsg}</button>}
-                            {errMsg && <button type="button" disabled className="btn btn-danger">{errMsg}</button>}
-                        </form>
-                    </motion.div>
                 </div>
                 <p className="mb-0 text-center fw-bold">
-                    {t("All Rights Reserved For")} <Link href="/" className="text-danger">Ubuyblues</Link>
+                    {t("All Rights Reserved For")} <Link href="/" className="text-danger">{process.env.WebsiteName}</Link>
                 </p>
             </div>
         </footer>
