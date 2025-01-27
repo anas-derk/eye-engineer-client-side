@@ -14,4 +14,9 @@
 
 .home .text-ads {
   background-color: var(--main-color-one);
+  border-bottom: 2px solid var(--main-text-color);
+}
+
+.home .text-ads .ad-content {
+  color: var(--main-text-color);
 }

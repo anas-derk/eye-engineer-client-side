@@ -12,5 +12,9 @@
     }
     .text-ads{
         background-color: var(--main-color-one);
+        border-bottom: 2px solid var(--main-text-color);
+        .ad-content{
+            color: var(--main-text-color);
+        }
     }
 }

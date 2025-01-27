@@ -24,11 +24,12 @@ export default function Header() {
     const { i18n, t } = useTranslation();
 
     useEffect(() => {
-        const tempLightMode = localStorage.getItem("eye-engineer-store-light-mode");
+        const tempLightMode = localStorage.getItem(process.env.userThemeModeFieldNameInLocalStorage);
         if (tempLightMode && (tempLightMode === "dark" || tempLightMode === "sunny")) {
             setLightMode(tempLightMode);
             let rootElement = document.documentElement;
-            rootElement.style.setProperty("--main-color-one", tempLightMode === "sunny" ? "#6A017A" : "#000");
+            rootElement.style.setProperty("--main-color-one", tempLightMode === "sunny" ? "#f0fdf4" : "#15202b");
+            rootElement.style.setProperty("--main-text-color", tempLightMode === "sunny" ? "#000" : "#FFF");
         }
     }, []);
 
@@ -43,8 +44,9 @@ export default function Header() {
         const newLightMode = lightMode == "sunny" ? "dark" : "sunny";
         setLightMode(newLightMode);
         let rootElement = document.documentElement;
-        rootElement.style.setProperty("--main-color-one", newLightMode === "sunny" ? "#6A017A" : "#000");
-        localStorage.setItem("asfour-store-light-mode", newLightMode);
+        rootElement.style.setProperty("--main-color-one", newLightMode === "sunny" ? "#f0fdf4" : "#15202b");
+        rootElement.style.setProperty("--main-text-color", newLightMode === "sunny" ? "#000" : "#FFF");
+        localStorage.setItem(process.env.userThemeModeFieldNameInLocalStorage, newLightMode);
     }
 
     const userLogout = async () => {
@@ -59,7 +61,7 @@ export default function Header() {
     }
 
     return (
-        <header className="global-header border-2 border-bottom border-dark">
+        <header className="global-header">
             <Navbar expand="lg" className="bg-body-tertiary pb-1 pt-1" fixed="top">
                 <Container fluid>
                     <Navbar.Brand href="/" as={Link}>
@@ -71,13 +73,13 @@ export default function Header() {
                             <Nav.Link href="/" as={Link}>
                                 {t("Home")}
                             </Nav.Link>
-                            <Nav.Link href="/" as={Link}>
+                            <Nav.Link href="/about-us" as={Link}>
                                 {t("About Us")}
                             </Nav.Link>
-                            <Nav.Link href="/" as={Link}>
+                            <Nav.Link href="/capabilities" as={Link}>
                                 {t("Capabilities")}
                             </Nav.Link>
-                            <Nav.Link href="/" as={Link}>
+                            <Nav.Link href="/contact-us" as={Link}>
                                 {t("Contact Us")}
                             </Nav.Link>
                             <NavDropdown title={<GrLanguage />} id="languages-nav-dropdown" className="orange-btn">
@@ -90,10 +92,10 @@ export default function Header() {
                                 <NavDropdown.Item onClick={() => handleChangeLanguage("de")}>{t("German")}</NavDropdown.Item>
                             </NavDropdown>
                             {!token && <>
-                                <Nav.Link href="/auth" as={Link} className="orange-btn">
+                                <Nav.Link href="/sign-up" as={Link} className="orange-btn">
                                     {t("Sign Up")}
                                 </Nav.Link>
-                                <Nav.Link href="/auth" as={Link} className="orange-btn">
+                                <Nav.Link href="/login" as={Link} className="orange-btn">
                                     {t("Login")}
                                 </Nav.Link>
                             </>}

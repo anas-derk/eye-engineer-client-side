@@ -80,7 +80,7 @@ export default function Home() {
           <Slider />
           {/* Start Text Ads Section */}
           {5 > 0 && <motion.section
-            className="text-ads text-center p-3 fw-bold mb-4 text-dark border-bottom border-2 border-dark"
+            className="text-ads text-center p-3 fw-bold mb-4"
             initial={{
               width: 0,
             }}
@@ -95,7 +95,7 @@ export default function Home() {
               {[{ content: "If you are an engineering & specialist and interested, it's our pleasure to share and spread the benefit" }, { content: "We seek to provide useful engineering & Website for Information,Knowledge has no limits" }].map((ad, index) => (
                 <Carousel.Item key={index}>
                   <Carousel.Caption>
-                    <p className="ad-content text-dark m-0">{ad.content}</p>
+                    <p className="ad-content m-0">{ad.content}</p>
                   </Carousel.Caption>
                 </Carousel.Item>
               ))}

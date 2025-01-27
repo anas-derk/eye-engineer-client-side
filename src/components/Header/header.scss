@@ -1,12 +1,13 @@
 .global-header{
     min-height: 90px;
     .navbar{
+        border-bottom: 2px solid var(--main-text-color);
         background-color: var(--main-color-one);
         .navbar-nav{
             align-items: center;
             gap: 10px;
             .nav-link{
-                color: #000;
+                color: var(--main-text-color);
                 font-size: 15px;
                 transition: 0.5s;
                 border-radius: 10px;
@@ -37,6 +38,10 @@
             .global-header-icon{
                 font-size: 16px;
                 cursor: pointer;
+                background-color: var(--main-color-two);
+                width: 30px;
+                height: 30px;
+                border-radius: 10px;
             }
             .logout-btn{
                 font-size: 13px;

@@ -1,5 +1,5 @@
 footer {
-  background-color: #FFF;
+  background-color: var(--main-color-one);
 }
 
 footer .link-btn {
@@ -9,6 +9,8 @@ footer .link-btn {
 footer .title {
   width: fit-content;
   font-size: 14px;
+  border-bottom: 2px solid var(--main-text-color);
+  color: var(--main-text-color);
 }
 
 @media (max-width: 1199px) {
@@ -17,22 +19,15 @@ footer .title {
   }
 }
 
-footer .payment-methods-list .payment-method-item {
-  font-size: 14px;
-}
-
-footer .payment-methods-list .payment-method-item .icon-as-image {
-  width: 14px;
-}
-
-footer .subscription-form button, footer .subscription-form input {
-  font-size: 12px !important;
+footer .icon {
+  color: var(--main-text-color);
 }
 
 footer p {
   font-size: 14px;
+  color: var(--main-text-color);
 }
 
 footer .website-link {
-  color: var(--main-color-two);
+  color: var(--main-text-color);
 }

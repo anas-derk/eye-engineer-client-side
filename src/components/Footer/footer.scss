@@ -1,34 +1,27 @@
 footer{
-    background-color: #FFF;
+    background-color: var(--main-color-one);
     .link-btn{
         font-size: 11px;
     }
     .title{
         width: fit-content;
         font-size: 14px;
+        border-bottom: 2px solid var(--main-text-color);
+        color: var(--main-text-color);
     }
     .row{
         @media (max-width: 1199px) {
             gap: 30px;
         }
     }
-    .payment-methods-list{
-        .payment-method-item{
-            font-size: 14px;
-            .icon-as-image{
-                width: 14px;
-            }
-        }
-    }
-    .subscription-form{
-        button, input{
-            font-size: 12px !important;
-        }
+    .icon{
+        color: var(--main-text-color);
     }
     p{
         font-size: 14px;
+        color: var(--main-text-color);
     }
     .website-link{
-        color: var(--main-color-two);
+        color: var(--main-text-color);
     }
 }

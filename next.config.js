@@ -11,8 +11,9 @@ const nextConfig = {
     userTokenNameInLocalStorage: "e-e-u-t",
     websiteName: "Eye Engineer",
     userlanguageFieldNameInLocalStorage: "eye-engineer-store-language",
+    userThemeModeFieldNameInLocalStorage: "eye-engineer-light-mode",
     contactNumber: "4917682295720",
-    contactEmail: "info@asfourintlco.com"
+    contactEmail: "info@eyeengineer.com"
   },
   async headers() {
     return [

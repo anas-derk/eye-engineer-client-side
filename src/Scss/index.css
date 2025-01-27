@@ -2,6 +2,11 @@
   --main-color-one: #f0fdf4;
   --main-color-two: #ed7200;
   --main-color-three: #084b22;
+  --main-text-color: #000;
+}
+
+body {
+  background-color: var(--main-color-one);
 }
 
 body[lang="en"], body[lang="tr"], body[lang="de"] {
@@ -21,7 +26,7 @@ ul {
 }
 
 a {
-  color: #FFF;
+  color: var(--main-text-color);
   text-decoration: none;
 }
 
@@ -100,7 +105,7 @@ textarea {
 }
 
 .info-box {
-  background-color: var(--main-color-one);
+  background-color: #f0fdf4;
   border: 2px solid var(--main-color-two);
   border-radius: 5px;
   height: 170px;
