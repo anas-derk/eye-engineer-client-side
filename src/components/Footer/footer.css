@@ -32,3 +32,7 @@ footer .subscription-form button, footer .subscription-form input {
 footer p {
   font-size: 14px;
 }
+
+footer .website-link {
+  color: var(--main-color-two);
+}
