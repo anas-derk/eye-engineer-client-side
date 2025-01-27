@@ -7,7 +7,7 @@ import { IoLogoFacebook } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { getAnimationSettings, getInitialStateForElementBeforeAnimation, handleSelectUserLanguage } from "../../../public/global_functions/popular";
 import { motion } from "motion/react";
-import WebsiteLogo from "../../../public/images/LogoWithTransparentBackground.png"
+import WebsiteLogo from "../../../public/images/LogoWithTransparentBackground.webp"
 
 export default function Footer() {
 

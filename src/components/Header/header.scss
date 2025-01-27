@@ -3,6 +3,9 @@
     .navbar{
         border-bottom: 2px solid var(--main-text-color);
         background-color: var(--main-color-one);
+        .navbar-toggler{
+            border: 2px solid var(--main-color-two) !important;
+        }
         .navbar-nav{
             align-items: center;
             gap: 10px;

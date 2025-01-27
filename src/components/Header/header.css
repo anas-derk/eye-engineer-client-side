@@ -7,6 +7,10 @@
   background-color: var(--main-color-one);
 }
 
+.global-header .navbar .navbar-toggler {
+  border: 2px solid var(--main-color-two) !important;
+}
+
 .global-header .navbar .navbar-nav {
   align-items: center;
   gap: 10px;
