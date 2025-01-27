@@ -1,11 +1,11 @@
 import Carousel from "react-bootstrap/Carousel";
-import SliderImage1 from "../../../public/images/SlideImage1.jpg";
-import SliderImage2 from "../../../public/images/SlideImage2.jpg";
-import SliderImage3 from "../../../public/images/SlideImage3.jpg";
-import SliderImage4 from "../../../public/images/SlideImage4.jpg";
-import SliderImage5 from "../../../public/images/SlideImage5.jpg";
-import SliderImage6 from "../../../public/images/SlideImage6.jpg";
-import SliderImage7 from "../../../public/images/SlideImage7.jpg";
+import SliderImage1 from "../../../public/images/Slider/SlideImage1.jpg";
+import SliderImage2 from "../../../public/images/Slider/SlideImage2.jpg";
+import SliderImage3 from "../../../public/images/Slider/SlideImage3.jpg";
+import SliderImage4 from "../../../public/images/Slider/SlideImage4.jpg";
+import SliderImage5 from "../../../public/images/Slider/SlideImage5.jpg";
+import SliderImage6 from "../../../public/images/Slider/SlideImage6.jpg";
+import SliderImage7 from "../../../public/images/Slider/SlideImage7.jpg";
 
 export default function Slider() {
     return (

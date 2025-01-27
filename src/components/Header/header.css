@@ -39,15 +39,6 @@
   text-align: center;
 }
 
-.global-header .navbar .navbar-nav .orange-btn {
-  background-color: var(--main-color-two);
-  border-radius: 10px;
-}
-
-.global-header .navbar .navbar-nav .orange-btn:hover {
-  background-color: var(--main-color-three);
-}
-
 .global-header .navbar .navbar-nav .dropdown .dropdown-item {
   font-size: 13px;
 }
