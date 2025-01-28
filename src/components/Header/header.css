@@ -12,6 +12,10 @@
   border: 2px solid var(--main-color-two) !important;
 }
 
+.global-header .navbar .navbar-brand .brand-image-box {
+  border: 2px solid var(--main-color-two);
+}
+
 .global-header .navbar .navbar-nav {
   align-items: center;
   gap: 10px;

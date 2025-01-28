@@ -7,6 +7,11 @@
             background: var(--main-color-two);
             border: 2px solid var(--main-color-two) !important;
         }
+        .navbar-brand{
+            .brand-image-box{
+                border: 2px solid var(--main-color-two);
+            }
+        }
         .navbar-nav{
             align-items: center;
             gap: 10px;

@@ -66,7 +66,9 @@ export default function Header() {
             <Navbar expand="lg" className="bg-body-tertiary pb-1 pt-1" fixed="top">
                 <Container fluid>
                     <Navbar.Brand href="/" as={Link}>
-                        <img src={websiteLogo.src} alt="eye engineer logo for header" className="website-logo" width="150" height="70" />
+                        <div className="brand-image-box">
+                            <img src={websiteLogo.src} alt="eye engineer logo for header" className="website-logo" width="150" height="70" />
+                        </div>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
