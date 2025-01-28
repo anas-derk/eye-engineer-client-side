@@ -70,9 +70,7 @@ export default function Home() {
   ];
 
   useEffect(() => {
-
     setIsLoadingPage(false);
-
   }, []);
 
   return (

@@ -133,6 +133,11 @@ textarea{
     }
 }
 
+.loading-box{
+    height: 100vh;
+    background-color: var(--main-color-one);
+}
+
 .contact-icons-box{
     position: fixed;
     left: 30px;
