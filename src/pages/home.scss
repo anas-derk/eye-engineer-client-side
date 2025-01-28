@@ -1,6 +1,5 @@
 .home{
     .carousel{
-        position: static;
         .carousel-caption{
             position: static;
             padding: 0;
@@ -15,6 +14,13 @@
         border-bottom: 2px solid var(--main-text-color);
         .ad-content{
             color: var(--main-text-color);
+        }
+    }
+    .service-info-box{
+        @media (min-width: 991px) {
+            p{
+                height: 42px;
+            }
         }
     }
 }

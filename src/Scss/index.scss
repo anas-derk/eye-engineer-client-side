@@ -103,7 +103,9 @@ textarea{
     background-color: #f0fdf4;
     border: 2px solid var(--main-color-two);
     border-radius: 5px;
-    height: 170px;
+    @media (min-width: 991px) {
+        height: 170px;
+    }
     h6{
         font-size: 16px;
     }

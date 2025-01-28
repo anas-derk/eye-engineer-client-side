@@ -108,11 +108,11 @@ export default function Home() {
             <div className="container">
               <div className="row align-items-center">
                 {servicesData.map((service, index) => (
-                  <div className="col-md-4 mb-4" key={index}>
-                    <div className="service-info-box info-box p-3 d-flex">
+                  <div className="col-lg-4 mb-4" key={index}>
+                    <div className="service-info-box info-box p-3 text-center">
                       <div className="row align-items-center">
                         <div className="col-md-4">
-                          <img src={service.imageSrc} alt={`${service.title} Image !`} className="mw-100" />
+                          <img src={service.imageSrc} alt={`${service.title} Image !`} width="100" height="100" />
                         </div>
                         <div className="col-md-8 text-center">
                           <h6 className="mb-3 fw-bold">{t(service.title)}</h6>

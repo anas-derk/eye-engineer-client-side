@@ -8,6 +8,7 @@
 }
 
 .global-header .navbar .navbar-toggler {
+  background: var(--main-color-two);
   border: 2px solid var(--main-color-two) !important;
 }
 

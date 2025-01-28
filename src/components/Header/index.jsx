@@ -10,6 +10,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import websiteLogo from "../../../public/images/LogoWithTransparentBackground.webp";
 import { GrLanguage } from "react-icons/gr";
+import { FaBars } from "react-icons/fa";
 
 export default function Header() {
 
