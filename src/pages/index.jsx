@@ -19,6 +19,7 @@ import Footer from "@/components/Footer";
 import NavigateToUpOrDown from "@/components/NavigateToUpOrDown";
 import { MdOutlineContactPhone, MdOutlineMail } from "react-icons/md";
 import { FaTimes, FaWhatsapp } from "react-icons/fa";
+import { getAnimationSettings, getInitialStateForElementBeforeAnimation } from "../../public/global_functions/popular";
 
 export default function Home() {
 
@@ -127,7 +128,15 @@ export default function Home() {
             <div className="container">
               <div className="row align-items-center">
                 {servicesData.map((service, index) => (
-                  <div className="col-lg-4 mb-4" key={index}>
+                  <motion.div
+                    className="col-lg-4 mb-4"
+                    key={index}
+                    initial={getInitialStateForElementBeforeAnimation()}
+                    whileInView={getAnimationSettings}
+                    whileHover={{
+                      scale: 1.1
+                    }}
+                  >
                     <div className="service-info-box info-box p-3 text-center">
                       <div className="row align-items-center">
                         <div className="col-md-4">
@@ -140,7 +149,7 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
