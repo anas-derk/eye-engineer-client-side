@@ -16,6 +16,9 @@ import ServiceImage6 from "../../public/images/Services/Offices.png";
 import ServiceImage7 from "../../public/images/Services/PropertyValuation.png";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import NavigateToUpOrDown from "@/components/NavigateToUpOrDown";
+import { MdOutlineContactPhone, MdOutlineMail } from "react-icons/md";
+import { FaTimes, FaWhatsapp } from "react-icons/fa";
 
 export default function Home() {
 
@@ -23,7 +26,9 @@ export default function Home() {
 
   const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
-  const { i18n, t } = useTranslation();
+  const [isDisplayContactIcons, setIsDisplayContactIcons] = useState(false);
+
+  const { t } = useTranslation();
 
   const servicesData = [
     {
@@ -76,6 +81,20 @@ export default function Home() {
       </Head>
       {!isLoadingPage && !errorMsgOnLoadingThePage && <>
         <Header />
+        <NavigateToUpOrDown />
+        <div className="contact-icons-box" onClick={() => setIsDisplayContactIcons(value => !value)}>
+          <ul className="contact-icons-list">
+            {isDisplayContactIcons && <li className="contact-icon-item mb-3">
+              <a href={`mailto:${process.env.contactEmail}`} target="_blank"><MdOutlineMail className="mail-icon" /></a>
+            </li>}
+            {isDisplayContactIcons && <li className="contact-icon-item mb-3">
+              <a href={`https://wa.me/${process.env.contactNumber}?text=welcome`} target="_blank"><FaWhatsapp className="whatsapp-icon" /></a>
+            </li>}
+            {!isDisplayContactIcons && <li className="contact-icon-item"><MdOutlineContactPhone className="contact-icon" /></li>}
+            {isDisplayContactIcons && <li className="contact-icon-item"><FaTimes className="close-icon" /></li>}
+          </ul>
+        </div>
+        {/* End Contact Icons Box */}
         <div className="page-content">
           <Slider />
           {/* Start Text Ads Section */}
