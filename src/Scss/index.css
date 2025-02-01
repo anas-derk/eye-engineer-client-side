@@ -169,3 +169,23 @@ textarea {
   font-size: 30px;
   color: #000;
 }
+
+@media (max-width: 767px) {
+  .row {
+    gap: 30px;
+  }
+}
+
+.form-field-error-box {
+  border-radius: 3px;
+}
+
+.image-box img {
+  width: 75%;
+}
+
+@media (min-width: 1199px) {
+  .image-box img {
+    max-width: 100%;
+  }
+}

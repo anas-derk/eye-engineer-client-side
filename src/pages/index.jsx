@@ -94,6 +94,7 @@ export default function Home() {
           </ul>
         </div>
         {/* End Contact Icons Box */}
+        {/* Start Page Content */}
         <div className="page-content">
           <Slider />
           {/* Start Text Ads Section */}
@@ -155,6 +156,7 @@ export default function Home() {
           {/* End Services Section */}
           <Footer />
         </div>
+        {/* End Page Content */}
       </>}
       {isLoadingPage && !errorMsgOnLoadingThePage && <LoaderPage />}
       {errorMsgOnLoadingThePage && <ErrorOnLoadingThePage errorMsg={errorMsgOnLoadingThePage} />}

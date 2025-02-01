@@ -12,7 +12,7 @@ const nextConfig = {
     websiteName: "Eye Engineer",
     userlanguageFieldNameInLocalStorage: "eye-engineer-store-language",
     userThemeModeFieldNameInLocalStorage: "eye-engineer-light-mode",
-    contactNumber: "963984944832",
+    contactNumber: "+963984944832",
     contactEmail: "info@eyeengineer.com"
   },
   async headers() {

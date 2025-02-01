@@ -158,3 +158,22 @@ textarea{
         color: #000;
     }
 }
+
+.row{
+    @media (max-width: 767px) {
+        gap: 30px;
+    }
+}
+
+.form-field-error-box{
+    border-radius: 3px;
+}
+
+.image-box{
+    img{
+        width: 75%;
+        @media (min-width: 1199px) {
+            max-width: 100%;
+        }
+    }
+}
