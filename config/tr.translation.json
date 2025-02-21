@@ -64,5 +64,19 @@
     "Please Enter Your Confirm Password": "Lütfen onay şifrenizi girin",
     "Sorry, This Name Is Not Valid !!": "Üzgünüm, Bu İsim Geçerli Değil !!",
     "Sorry, There Is No Match Between New Password And Confirm It !!": "Üzgünüm, Yeni Şifre ile Onay Şifresi Eşleşmiyor !!",
-    "Creating New User Process Has Been Successfuly !!, Please Wait To Navigate To Verification Page !!": "Yeni kullanıcı oluşturma işlemi başarıyla tamamlandı! Lütfen doğrulama sayfasına yönlendirilmek için bekleyin."
+    "Creating New User Process Has Been Successfuly !!, Please Wait To Navigate To Verification Page !!": "Yeni kullanıcı oluşturma işlemi başarıyla tamamlandı! Lütfen doğrulama sayfasına yönlendirilmek için bekleyin.",
+    "Checking": "Kontrol Ediliyor",
+    "Sorry, Invalid Code !!": "Üzgünüz, geçersiz kod!!",
+    "You're almost done!": "Neredeyse tamam!",
+    "Enter code Here": "Kodu Buraya Girin",
+    "You can redial the message after": "Mesajı tekrar arayabilirsiniz",
+    "We sent a launch code to": "Başlatma kodunu şuraya gönderdik",
+    "Didn't get your email?": "E-postanızı almadınız mı?",
+    "Resend The Code": "Kodu Yeniden Gönder",
+    "Resending The Code": "Kodu Yeniden Gönderme",
+    "Sorry, Invalid Email Address !!": "Üzgünüm, Geçersiz E-posta Adresi !!",
+    "Sending Code To Your Email Process Has Been Succssfuly !!": "Kodu E-postanıza Gönderme İşlemi Başarıyla Tamamlandı !!",
+    "Sorry, The User Is Not Exist !!, Please Enter Another User Email ..": "Üzgünüm, Kullanıcı Mevcut Değil !!, Lütfen Başka Bir Kullanıcı E-postası Girin ..",
+    "Sorry, The Email For This User Has Been Verified !!": "Üzgünüm, Bu Kullanıcı İçin E-posta Doğrulandı !!",
+    "Logout": "Çıkış Yap"
 }

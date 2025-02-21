@@ -204,16 +204,16 @@ export default function AccountVerification({ email }) {
     }
 
     return (
-        <div className="account-verification page d-flex flex-column justify-content-center">
+        <div className="account-verification">
             <Head>
-                <title>{t(process.env.storeName)} - {t("Account Verification")}</title>
+                <title>{t(process.env.websiteName)} - {t("Account Verification")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
-                <div className="page-content">
+                <div className="page-content d-flex align-items-center">
                     <div className="container-fluid pb-5">
                         {!errorMsgOnLoading ? <>
-                            <motion.h1 className="welcome-msg border-bottom pb-3 mb-5 text-center text-white" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Welcome To You In Account Verification Page")}</motion.h1>
+                            <motion.h1 className="section-name text-center mb-4 text-white h5" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Welcome To You In Account Verification Page")}</motion.h1>
                             <section className="verification p-4">
                                 {errorMsg && <motion.p className="alert alert-danger" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t(errorMsg)}</motion.p>}
                                 {successMsg && <motion.p className="alert alert-success" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t(successMsg)}</motion.p>}
@@ -234,11 +234,11 @@ export default function AccountVerification({ email }) {
                                 </div>
                                 <motion.h6 className="mb-3 fw-bold" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>
                                     <span className="me-2">{t("We sent a launch code to")}</span>
-                                    <span className="text-danger email-box">{email}</span>
+                                    <span className="email-box">{email}</span>
                                 </motion.h6>
                                 <motion.h6 className="mb-3 fw-bold" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>
                                     <FaLongArrowAltRight className="me-2" />
-                                    <span className="text-danger fw-bold">{t("Enter code Here")} *</span>
+                                    <span className="fw-bold">{t("Enter code Here")} *</span>
                                 </motion.h6>
                                 <motion.form className="code-write-form d-flex mb-4" dir="ltr" onSubmit={checkAccountVerificationCode} initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>
                                     {
@@ -262,7 +262,7 @@ export default function AccountVerification({ email }) {
                                 <div className="email-sent-manager-box pb-3">
                                     <motion.span className="fw-bold" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Didn't get your email?")} </motion.span>
                                     {!isWaitSendTheCode && !errorMsg && <motion.button
-                                        className="btn btn-danger me-2"
+                                        className="btn orange-btn me-2"
                                         onClick={resendTheCodeToEmail}
                                         disabled={seconds === 0 && minutes === 0 ? false : true}
                                         initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}
@@ -270,7 +270,7 @@ export default function AccountVerification({ email }) {
                                         {t("Resend The Code")}
                                     </motion.button>}
                                     {isWaitSendTheCode && <motion.button
-                                        className="btn btn-danger me-2 global-button"
+                                        className="btn orange-btn me-2"
                                         disabled
                                         initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}
                                     >

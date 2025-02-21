@@ -1,19 +1,9 @@
-.account-verification .page-content .welcome-msg {
-  width: fit-content;
-  margin: 0 auto;
-}
-
-@media (max-width: 991px) {
-  .account-verification .page-content .welcome-msg {
-    font-size: 25px;
-  }
-}
-
 .account-verification .page-content .verification {
   width: 50%;
   margin: 0 auto;
   border-radius: 5px;
   background-color: #FFF;
+  border: 1px solid var(--main-color-two);
   position: relative;
 }
 
@@ -74,7 +64,7 @@
 
 .account-verification .page-content .verification .code-write-form input {
   font-size: 20px !important;
-  border-color: var(--main-color-one) !important;
+  border-color: var(--main-color-two) !important;
 }
 
 .account-verification .page-content .verification .email-sent-manager-box {
@@ -112,7 +102,7 @@
 
 .account-verification .page-content .error-msg-on-loading .error-box .error-icon {
   font-size: 75px;
-  color: #F00;
+  color: #FFF;
 }
 
 @media (max-width: 767px) {
@@ -124,6 +114,7 @@
 .account-verification .page-content .error-msg-on-loading .error-box .error-msg {
   font-size: 30px;
   font-weight: bold;
+  color: #FFF;
 }
 
 @media (max-width: 767px) {

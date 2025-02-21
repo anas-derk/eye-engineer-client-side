@@ -93,6 +93,8 @@ textarea{
     background-color: var(--main-color-two);
     border-radius: 10px;
     padding: 8px !important;
+    color: #FFF;
+    font-weight: bold;
     &:hover{
         background-color: var(--main-color-three) !important;
         color: #FFF !important;

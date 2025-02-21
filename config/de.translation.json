@@ -64,5 +64,20 @@
     "Please Enter Your Confirm Password": "Bitte geben Sie Ihr Bestätigungspasswort ein",
     "Sorry, This Name Is Not Valid !!": "Entschuldigung, dieser Name ist ungültig!!",
     "Sorry, There Is No Match Between New Password And Confirm It !!": "Entschuldigung, es besteht kein Übereinstimmung zwischen dem neuen Passwort und der Bestätigung !!",
-    "Creating New User Process Has Been Successfuly !!, Please Wait To Navigate To Verification Page !!": "Der Prozess zur Erstellung eines neuen Benutzers war erfolgreich! Bitte warten Sie, während Sie zur Verifizierungsseite weitergeleitet werden"
+    "Creating New User Process Has Been Successfuly !!, Please Wait To Navigate To Verification Page !!": "Der Prozess zur Erstellung eines neuen Benutzers war erfolgreich! Bitte warten Sie, während Sie zur Verifizierungsseite weitergeleitet werden",
+    "Welcome To You In Account Verification Page": "Willkommen auf der Seite zur Kontoverifizierung",
+    "Checking": "Überprüfung",
+    "Sorry, Invalid Code !!": "Entschuldigung, ungültiger Code!!",
+    "You're almost done!": "Sie sind fast fertig!",
+    "Enter code Here": "Code hier eingeben",
+    "You can redial the message after": "Sie können die Nachricht nachwählen",
+    "We sent a launch code to": "Wir haben einen Startcode an gesendet",
+    "Didn't get your email?": "E-Mail nicht erhalten?",
+    "Resend The Code": "Code erneut senden",
+    "Resending The Code": "Code erneut senden",
+    "Sorry, Invalid Email Address !!": "Entschuldigung, ungültige E-Mail-Adresse !!",
+    "Sending Code To Your Email Process Has Been Succssfuly !!": "Das Senden des Codes an Ihre E-Mail-Adresse war erfolgreich !!",
+    "Sorry, The User Is Not Exist !!, Please Enter Another User Email ..": "Entschuldigung, der Benutzer existiert nicht !! Bitte geben Sie eine andere Benutzer-E-Mail ein ..",
+    "Sorry, The Email For This User Has Been Verified !!": "Entschuldigung, die E-Mail für diesen Benutzer wurde verifiziert !!",
+    "Logout": "Abmelden"
 }

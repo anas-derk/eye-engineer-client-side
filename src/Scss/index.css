@@ -97,6 +97,8 @@ textarea {
   background-color: var(--main-color-two);
   border-radius: 10px;
   padding: 8px !important;
+  color: #FFF;
+  font-weight: bold;
 }
 
 .orange-btn:hover {
