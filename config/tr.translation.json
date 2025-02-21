@@ -58,5 +58,8 @@
     "Create New Account": "Yeni Hesap Oluştur",
     "Or Sign Up With": "Veya Şununla Kaydolun",
     "Forget Password": "Parolayı unut",
-    "Don't Have An Account ?": "Hesabınız yok mu ?"
+    "Don't Have An Account ?": "Hesabınız yok mu ?",
+    "Have An Account ?": "Hesabınız var mı ?",
+    "Please Enter Your Name": "Lütfen adınızı girin",
+    "Please Enter Your Confirm Password": "Lütfen onay şifrenizi girin"
 }

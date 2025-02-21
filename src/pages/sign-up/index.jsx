@@ -15,24 +15,30 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export default function Login() {
+export default function SignUp() {
 
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
     const [userData, setUserData] = useState({
+        name: "",
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
     });
 
     const [waitMsg, setWaitMsg] = useState("");
 
     const [errorMsg, setErrorMsg] = useState("");
 
+    const [successMsg, setSuccessMsg] = useState("");
+
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
     const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+
+    const [isVisibleConfirmPassword, setIsVisibleConfirmPassword] = useState(false);
 
     const { t, i18n } = useTranslation();
 
@@ -61,7 +67,7 @@ export default function Login() {
         } else setIsLoadingPage(false);
     }, []);
 
-    const login = async (e) => {
+    const signup = async (e) => {
         try {
             e.preventDefault();
             setFormValidationErrors({});
@@ -119,7 +125,7 @@ export default function Login() {
 
     const authWithGoogle = async (credentialResponse) => {
         try {
-            setWaitMsg("Wait Logining");
+            setWaitMsg("Wait Signup");
             let result = decode(credentialResponse.credential);
             result = (await axios.get(`${process.env.BASE_API_URL}/users/login-with-google?email=${result.email}&firstName=${result.given_name}&lastName=${result.family_name}&previewName=${result.name}&language=${i18n.language}`)).data;
             if (result.error) {
@@ -144,23 +150,35 @@ export default function Login() {
         }
     }
 
-    const loginingFailedWithGoogle = (err) => {
-        alert("Login Failed With Google, Please Repeate The Process !!");
+    const signupFailedWithGoogle = (err) => {
+        alert("Sign Up Failed With Google, Please Repeate The Process !!");
     }
 
     return (
         <div className="login auth-page">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Login")}</title>
+                <title>{t(process.env.websiteName)} {t("Sign Up")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
                 {/* Start Page Content */}
                 <div className="page-content">
-                    <h1 className="section-name text-center mb-4 text-white h5">{t("Login")}</h1>
+                    <h1 className="section-name text-center mb-4 text-white h5">{t("Sign Up")}</h1>
                     <div className="container pt-4 pb-4">
-                        <form className="login-form info-box text-center p-4" onSubmit={login}>
-                            <h2 className="mb-4">{t("Login")}</h2>
+                        <form className="login-form info-box text-center p-4" onSubmit={signup}>
+                            <h2 className="mb-4">{t("Sign Up")}</h2>
+                            <div className="name-field-box field-box">
+                                <input
+                                    type="text"
+                                    placeholder={t("Please Enter Your Name")}
+                                    className={`form-control p-3 border-2 ${formValidationErrors["name"] ? "border-danger mb-3" : "mb-4"}`}
+                                    onChange={(e) => setUserData({ ...userData, name: e.target.value.trim() })}
+                                />
+                                <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
+                                    <BiSolidUser className="icon" />
+                                </div>
+                            </div>
+                            {formValidationErrors["name"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["name"])} />}
                             <div className="email-field-box field-box">
                                 <input
                                     type="text"
@@ -186,35 +204,47 @@ export default function Login() {
                                 </div>
                             </div>
                             {formValidationErrors["password"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["password"])} />}
+                            <div className="confirm-password-field-box field-box">
+                                <input
+                                    type={isVisibleConfirmPassword ? "text" : "password"}
+                                    placeholder={t("Please Enter Your Confirm Password")}
+                                    className={`form-control p-3 border-2 ${formValidationErrors["confirmPassword"] ? "border-danger mb-3" : "mb-4"}`}
+                                    onChange={(e) => setUserData({ ...userData, confirmPassword: e.target.value.trim() })}
+                                />
+                                <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
+                                    {!isVisibleConfirmPassword && <AiOutlineEye className="eye-icon icon" onClick={() => setIsVisibleConfirmPassword(value => value = !value)} />}
+                                    {isVisibleConfirmPassword && <AiOutlineEyeInvisible className="invisible-eye-icon icon" onClick={() => setIsVisibleConfirmPassword(value => value = !value)} />}
+                                </div>
+                            </div>
+                            {formValidationErrors["confirmPassword"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["confirmPassword"])} />}
                             <Link href="/forget-password?userType=user" className="text-dark border-bottom border-2 border-dark pb-2 mb-3 d-block w-fit">{t("Forget Password")}</Link>
-                            {!waitMsg && !errorMsg && <button type="submit" className="orange-btn btn w-100 mb-4">
+                            {!waitMsg && !errorMsg && !successMsg && <button type="submit" className="orange-btn btn w-100 mb-4">
                                 {i18n.language === "ar" && <FiLogIn />}
-                                <span className="me-2">{t("Login")}</span>
+                                <span className="me-2">{t("Sign Up")}</span>
                                 {i18n.language !== "ar" && <FiLogIn />}
                             </button>}
                             {waitMsg && <button disabled className="btn btn-primary w-100 mb-4">
                                 <span className="me-2">{t(waitMsg)} ...</span>
                             </button>}
-                            {errorMsg && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""}`}>{t(errorMsg)}</button>}
-                            <h6 className="fw-bold mb-3">{t("Or Sign In With")}</h6>
+                            {(errorMsg || successMsg) && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "btn-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
+                            <h6 className="fw-bold mb-3">{t("Or Sign Up With")}</h6>
                             <ul className="external-auth-sites-list mb-3">
                                 <li className="external-auth-site-item">
                                     <GoogleLogin
                                         type="icon"
                                         onSuccess={(credentialResponse) => authWithGoogle(credentialResponse)}
-                                        onError={loginingFailedWithGoogle}
+                                        onError={signupFailedWithGoogle}
                                     />
                                 </li>
                             </ul>
                             <hr />
                             <div className="pb-3">
-                                <motion.span className="fw-bold" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Don't Have An Account ?")} </motion.span>
+                                <motion.span className="fw-bold" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Have An Account ?")} </motion.span>
                                 {!waitMsg && !errorMsg && <Link
                                     className="text-dark border-bottom border-2 border-dark pb-2 me-2"
-                                    href="/sign-up"
-                                // initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}
+                                    href="/login"
                                 >
-                                    {t("Sign Up")}
+                                    {t("Login")}
                                 </Link>}
                             </div>
                         </form>

@@ -58,5 +58,8 @@
     "Create New Account": "Neues Konto erstellen",
     "Or Sign Up With": "Oder melden Sie sich an mit",
     "Forget Password": "Passwort vergessen",
-    "Don't Have An Account ?": "Kein Konto ?"
+    "Don't Have An Account ?": "Kein Konto ?",
+    "Have An Account ?": "Haben Sie ein Konto ?",
+    "Please Enter Your Name": "Bitte geben Sie Ihren Namen ein",
+    "Please Enter Your Confirm Password": "Bitte geben Sie Ihr Bestätigungspasswort ein"
 }
