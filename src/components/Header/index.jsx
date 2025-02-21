@@ -78,8 +78,8 @@ export default function Header() {
                             <Nav.Link href="/about-us" as={Link}>
                                 {t("About Us")}
                             </Nav.Link>
-                            <Nav.Link href="/capabilities" as={Link}>
-                                {t("Capabilities")}
+                            <Nav.Link href="/our-capabilities" as={Link}>
+                                {t("Our Capabilities")}
                             </Nav.Link>
                             <Nav.Link href="/contact-us" as={Link}>
                                 {t("Contact Us")}
