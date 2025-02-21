@@ -22,7 +22,7 @@ export default function AboutUs() {
     return (
         <div className="about-us">
             <Head>
-                <title>{t([process.env.websiteName])} {t("About Us")}</title>
+                <title>{t(process.env.websiteName)} {t("About Us")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />

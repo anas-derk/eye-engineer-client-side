@@ -47,5 +47,13 @@
     "Send The Message": "Mesajı Gönder",
     "Sorry, This Field Can't Be Empty !!": "Üzgünüm, Bu Alan Boş Bırakılamaz!!",
     "Network Error": "Ağ Hatası",
-    "Sorry, Someting Went Wrong, Please Repeat The Process !!": "Üzgünüm, Bir Şeyler Ters Gitti, Lütfen İşlemi Tekrarlayın !!"
+    "Sorry, Someting Went Wrong, Please Repeat The Process !!": "Üzgünüm, Bir Şeyler Ters Gitti, Lütfen İşlemi Tekrarlayın !!",
+    "Or Sign In With": "Veya Şununla Giriş Yap",
+    "Wait Logining": "Giriş Yapılıyor, Lütfen Bekleyin",
+    "Please Enter Your Email": "Lütfen E-postanızı Girin",
+    "Please Enter Your Password": "Lütfen Şifrenizi Girin",
+    "Wait Signup": "Kaydolun, Lütfen Bekleyin",
+    "Create New Account": "Yeni Hesap Oluştur",
+    "Or Sign Up With": "Veya Şununla Kaydolun",
+    "Forget Password": "Parolayı unut"
 }

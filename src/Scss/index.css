@@ -189,3 +189,74 @@ textarea {
     max-width: 100%;
   }
 }
+
+.auth-page .info-box {
+  width: 50%;
+  height: auto;
+  margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .auth-page .info-box {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .auth-page .info-box {
+    width: 75%;
+  }
+}
+
+.auth-page .external-auth-sites-list {
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.auth-page .external-auth-sites-list li {
+  border: 1px solid #000;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.auth-page .external-auth-sites-list li:hover {
+  color: var(--main-color-two);
+}
+
+.auth-page .external-auth-sites-list li .external-auth-site-icon {
+  font-size: 20px;
+}
+
+.auth-page .forget-password-link-btn {
+  font-size: 14px;
+}
+
+.field-box {
+  position: relative;
+}
+
+.field-box .icon-box {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.field-box .icon-box.ar-language-mode {
+  left: 15px;
+}
+
+.field-box .icon-box.other-languages-mode {
+  right: 15px;
+}
+
+.field-box .icon-box .icon {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.field-box.error-in-field .icon-box {
+  transform: translateY(-80%);
+}

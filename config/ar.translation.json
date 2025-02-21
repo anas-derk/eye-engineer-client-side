@@ -47,5 +47,13 @@
     "Send The Message": "إرسال الرسالة",
     "Sorry, This Field Can't Be Empty !!": "عذراً ، هذا الحقل لا يمكن أن يكون فارغاً !!",
     "Network Error": "خطأ في الشبكة",
-    "Sorry, Someting Went Wrong, Please Repeat The Process !!": "عذراً ، حدث خطأ ما ، الرجاء إعادة المحاولة !!"
+    "Sorry, Someting Went Wrong, Please Repeat The Process !!": "عذراً ، حدث خطأ ما ، الرجاء إعادة المحاولة !!",
+    "Or Sign In With": "أو تسجيل الدخول باستخدام",
+    "Wait Logining": "انتظار تسجيل الدخول",
+    "Please Enter Your Email": "الرجاء إدخال الإيميل الخاص بك",
+    "Please Enter Your Password": "الرجاء إدخال كلمة السر الخاصة بك",
+    "Wait Signup": "انتظار إنشاء الحساب",
+    "Create New Account": "إنشاء حساب جديد",
+    "Or Sign Up With": "أو إنشاء حساب باستخدام",
+    "Forget Password": "نسيت كلمة المرور"
 }

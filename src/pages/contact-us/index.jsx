@@ -79,7 +79,7 @@ export default function AboutUs() {
     return (
         <div className="contact-us">
             <Head>
-                <title>{t([process.env.websiteName])} {t("Contact Us")}</title>
+                <title>{t(process.env.websiteName)} {t("Contact Us")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />

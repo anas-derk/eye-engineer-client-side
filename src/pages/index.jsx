@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <div className="home page">
       <Head>
-        <title>{t([process.env.websiteName])} {t("Home")}</title>
+        <title>{t(process.env.websiteName)} {t("Home")}</title>
       </Head>
       {!isLoadingPage && !errorMsgOnLoadingThePage && <>
         <Header />
