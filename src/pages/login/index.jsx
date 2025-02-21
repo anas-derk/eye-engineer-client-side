@@ -29,8 +29,6 @@ export default function Login() {
 
     const [errorMsg, setErrorMsg] = useState("");
 
-    const [successMsg, setSuccessMsg] = useState("");
-
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
     const [isVisiblePassword, setIsVisiblePassword] = useState(false);
@@ -93,7 +91,7 @@ export default function Login() {
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Wait Logining");
-                const result = (await axios.get(`${process.env.BASE_API_URL}/users/login?email=${userData.email}&password=${userData.password}`)).data;
+                const result = (await axios.get(`${process.env.BASE_API_URL}/users/login?email=${userData.email}&password=${userData.password}&language=${i18n.language}`)).data;
                 if (result.error) {
                     setWaitMsg("");
                     setErrorMsg(result.msg);
@@ -101,8 +99,10 @@ export default function Login() {
                         setErrorMsg("");
                     }, 4000);
                 } else {
-                    localStorage.setItem(process.env.userTokenNameInLocalStorage, result.data.token);
-                    await router.replace("/");
+                    if (result.data.isVerified) {
+                        localStorage.setItem(process.env.userTokenNameInLocalStorage, result.data.token);
+                        await router.replace("/");
+                    } else await router.replace(`/account-verification?email=${userData.email}`);
                 }
             }
         } catch (err) {
@@ -184,7 +184,7 @@ export default function Login() {
                             </div>
                             {formValidationErrors["password"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["password"])} />}
                             <Link href="/forget-password?userType=user" className="text-dark border-bottom border-2 border-dark pb-2 mb-3 d-block w-fit">{t("Forget Password")}</Link>
-                            {!waitMsg && !errorMsg && !successMsg && <button type="submit" className="orange-btn btn w-100 mb-4">
+                            {!waitMsg && !errorMsg && <button type="submit" className="orange-btn btn w-100 mb-4">
                                 {i18n.language === "ar" && <FiLogIn />}
                                 <span className="me-2">{t("Login")}</span>
                                 {i18n.language !== "ar" && <FiLogIn />}
@@ -192,7 +192,7 @@ export default function Login() {
                             {waitMsg && <button disabled className="btn btn-primary w-100 mb-4">
                                 <span className="me-2">{t(waitMsg)} ...</span>
                             </button>}
-                            {(errorMsg || successMsg) && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "btn-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
+                            {errorMsg && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""}`}>{t(errorMsg)}</button>}
                             <h6 className="fw-bold mb-3">{t("Or Sign In With")}</h6>
                             <ul className="external-auth-sites-list mb-3">
                                 <li className="external-auth-site-item">
