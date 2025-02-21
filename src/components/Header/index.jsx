@@ -51,7 +51,7 @@ export default function Header() {
 
     const userLogout = async () => {
         localStorage.removeItem(process.env.userTokenNameInLocalStorage);
-        await router.push("/auth");
+        await router.push("/login");
     }
 
     const handleChangeLanguage = (language) => {
