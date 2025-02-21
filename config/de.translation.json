@@ -61,5 +61,8 @@
     "Don't Have An Account ?": "Kein Konto ?",
     "Have An Account ?": "Haben Sie ein Konto ?",
     "Please Enter Your Name": "Bitte geben Sie Ihren Namen ein",
-    "Please Enter Your Confirm Password": "Bitte geben Sie Ihr Bestätigungspasswort ein"
+    "Please Enter Your Confirm Password": "Bitte geben Sie Ihr Bestätigungspasswort ein",
+    "Sorry, This Name Is Not Valid !!": "Entschuldigung, dieser Name ist ungültig!!",
+    "Sorry, There Is No Match Between New Password And Confirm It !!": "Entschuldigung, es besteht kein Übereinstimmung zwischen dem neuen Passwort und der Bestätigung !!",
+    "Creating New User Process Has Been Successfuly !!, Please Wait To Navigate To Verification Page !!": "Der Prozess zur Erstellung eines neuen Benutzers war erfolgreich! Bitte warten Sie, während Sie zur Verifizierungsseite weitergeleitet werden"
 }

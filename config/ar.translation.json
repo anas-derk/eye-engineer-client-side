@@ -61,5 +61,8 @@
     "Don't Have An Account ?": "ليس لديك حساب ؟",
     "Have An Account ?": "لديك حساب ؟",
     "Please Enter Your Name": "من فضلك أدخل الاسم الخاص بك",
-    "Please Enter Your Confirm Password": "الرجاء إدخال تأكيد كلمة السر الخاصة بك"
+    "Please Enter Your Confirm Password": "الرجاء إدخال تأكيد كلمة السر الخاصة بك",
+    "Sorry, This Name Is Not Valid !!": "عذراً ، هذا الاسم غير صحيح !!",
+    "Sorry, There Is No Match Between New Password And Confirm It !!": "عذراً ، لا يوجد تطابق بين كلمة السر وتأكيدها !!",
+    "Creating New User Process Has Been Successfuly !!, Please Wait To Navigate To Verification Page !!": "عملية إنشاء مستخدم جديد تمت بنجاح !! ، الرجاء الانتظار للانتقال لصفحة التحقق !!"
 }

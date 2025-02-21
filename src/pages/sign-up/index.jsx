@@ -73,6 +73,18 @@ export default function SignUp() {
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
                 {
+                    name: "name",
+                    value: userData.name,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                        isName: {
+                            msg: "Sorry, This Name Is Not Valid !!",
+                        }
+                    },
+                },
+                {
                     name: "email",
                     value: userData.email,
                     rules: {
@@ -96,22 +108,41 @@ export default function SignUp() {
                         },
                     },
                 },
+                {
+                    name: "confirmPassword",
+                    value: userData.confirmPassword,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                        isMatch: {
+                            value: userData.password,
+                            msg: "Sorry, There Is No Match Between New Password And Confirm It !!",
+                        },
+                    },
+                },
             ]);
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
-                setWaitMsg("Wait Logining");
-                const result = (await axios.get(`${process.env.BASE_API_URL}/users/login?email=${userData.email}&password=${userData.password}&language=${i18n.language}`)).data;
+                setWaitMsg("Wait Signup");
+                const result = (await axios.post(`${process.env.BASE_API_URL}/users/create-new-user`, {
+                    name: userData.name,
+                    email: userData.email,
+                    password: userData.password,
+                    language: i18n.language
+                })).data;
+                setWaitMsg("");
                 if (result.error) {
-                    setWaitMsg("");
                     setErrorMsg(result.msg);
                     setTimeout(() => {
                         setErrorMsg("");
                     }, 4000);
                 } else {
-                    if (result.data.isVerified) {
-                        localStorage.setItem(process.env.userTokenNameInLocalStorage, result.data.token);
-                        await router.replace("/");
-                    } else await router.replace(`/account-verification?email=${userData.email}`);
+                    setSuccessMsg(`${result.msg}, Please Wait To Navigate To Verification Page !!`);
+                    let successTimeout = setTimeout(async () => {
+                        await router.push(`/account-verification?email=${userData.email}`);
+                        clearTimeout(successTimeout);
+                    }, 6000);
                 }
             }
         } catch (err) {
@@ -127,7 +158,7 @@ export default function SignUp() {
         try {
             setWaitMsg("Wait Signup");
             let result = decode(credentialResponse.credential);
-            result = (await axios.get(`${process.env.BASE_API_URL}/users/login-with-google?email=${result.email}&firstName=${result.given_name}&lastName=${result.family_name}&previewName=${result.name}&language=${i18n.language}`)).data;
+            result = (await axios.get(`${process.env.BASE_API_URL}/users/login-with-google?email=${result.email}&name=${result.name}&language=${i18n.language}`)).data;
             if (result.error) {
                 setWaitMsg("");
                 setErrorMsg(result.msg);

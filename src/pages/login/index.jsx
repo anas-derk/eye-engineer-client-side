@@ -121,7 +121,7 @@ export default function Login() {
         try {
             setWaitMsg("Wait Logining");
             let result = decode(credentialResponse.credential);
-            result = (await axios.get(`${process.env.BASE_API_URL}/users/login-with-google?email=${result.email}&firstName=${result.given_name}&lastName=${result.family_name}&previewName=${result.name}&language=${i18n.language}`)).data;
+            result = (await axios.get(`${process.env.BASE_API_URL}/users/login-with-google?email=${result.email}&name=${result.name}&language=${i18n.language}`)).data;
             if (result.error) {
                 setWaitMsg("");
                 setErrorMsg(result.msg);

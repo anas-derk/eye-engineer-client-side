@@ -61,5 +61,8 @@
     "Don't Have An Account ?": "Hesabınız yok mu ?",
     "Have An Account ?": "Hesabınız var mı ?",
     "Please Enter Your Name": "Lütfen adınızı girin",
-    "Please Enter Your Confirm Password": "Lütfen onay şifrenizi girin"
+    "Please Enter Your Confirm Password": "Lütfen onay şifrenizi girin",
+    "Sorry, This Name Is Not Valid !!": "Üzgünüm, Bu İsim Geçerli Değil !!",
+    "Sorry, There Is No Match Between New Password And Confirm It !!": "Üzgünüm, Yeni Şifre ile Onay Şifresi Eşleşmiyor !!",
+    "Creating New User Process Has Been Successfuly !!, Please Wait To Navigate To Verification Page !!": "Yeni kullanıcı oluşturma işlemi başarıyla tamamlandı! Lütfen doğrulama sayfasına yönlendirilmek için bekleyin."
 }
