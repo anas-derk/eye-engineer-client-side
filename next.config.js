@@ -6,7 +6,7 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   env: {
-    BASE_API_URL: process.env.NODE_ENV === "development" ? "http://localhost:5500" : "https://api.eyeengineer.com",
+    BASE_API_URL: process.env.NODE_ENV === "development" ? "http://localhost:5500" : "https://api.asfourintlco.com",
     WEBSITE_URL: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://eyeengineer.com",
     userTokenNameInLocalStorage: "e-e-u-t",
     websiteName: "Eye Engineer",
@@ -18,12 +18,12 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: process.env.NODE_ENV === "development" ? "//localhost:5500/(.*)" : "//api.eyeengineer.com/(.*)",
+        source: process.env.NODE_ENV === "development" ? "//localhost:5500/(.*)" : "//api.asfourintlco.com/(.*)",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://eyeengineer.com",
+            value: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://asfourintlco.com",
           },
           {
             key: "Access-Control-Allow-Methods",
