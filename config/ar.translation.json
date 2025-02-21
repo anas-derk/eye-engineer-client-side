@@ -46,6 +46,8 @@
     "Content": "المحتوى",
     "Send The Message": "إرسال الرسالة",
     "Sorry, This Field Can't Be Empty !!": "عذراً ، هذا الحقل لا يمكن أن يكون فارغاً !!",
+    "Sorry, This Email Is Not Valid !!": "عذراً ، هذا الإيميل غير صالح !!",
+    "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter.": "عذراً كلمة السر يجب أن تكون على الأقل 8 محارف ، بحيث تحتوي على الأقل رقم واحد ، حرف واحد ، بالإضافة على الأقل حرف صغير وحرف كبير .",
     "Network Error": "خطأ في الشبكة",
     "Sorry, Someting Went Wrong, Please Repeat The Process !!": "عذراً ، حدث خطأ ما ، الرجاء إعادة المحاولة !!",
     "Or Sign In With": "أو تسجيل الدخول باستخدام",
@@ -55,5 +57,6 @@
     "Wait Signup": "انتظار إنشاء الحساب",
     "Create New Account": "إنشاء حساب جديد",
     "Or Sign Up With": "أو إنشاء حساب باستخدام",
-    "Forget Password": "نسيت كلمة المرور"
+    "Forget Password": "نسيت كلمة المرور",
+    "Don't Have An Account ?": "ليس لديك حساب ؟"
 }

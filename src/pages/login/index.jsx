@@ -2,7 +2,6 @@ import Head from "next/head";
 import Header from "@/components/Header";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import websiteLogo from "../../../public/images/LogoWithTransparentBackground.webp";
 import { getAnimationSettings, getInitialStateForElementBeforeAnimation, getUserInfo } from "../../../public/global_functions/popular";
 import { motion } from "motion/react";
 import Footer from "@/components/Footer";
@@ -13,6 +12,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FiLogIn } from "react-icons/fi";
 import { GoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
+import axios from "axios";
 
 export default function Login() {
 
@@ -92,7 +92,7 @@ export default function Login() {
             ]);
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
-                setWaitMsg("Please Wait To Logining ...");
+                setWaitMsg("Wait Logining");
                 const result = (await axios.get(`${process.env.BASE_API_URL}/users/login?email=${userData.email}&password=${userData.password}`)).data;
                 if (result.error) {
                     setWaitMsg("");
@@ -107,7 +107,7 @@ export default function Login() {
             }
         } catch (err) {
             setWaitMsg("");
-            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Try Again !");
+            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeat The Process !!");
             setTimeout(() => {
                 setErrorMsg("");
             }, 3000);
@@ -162,7 +162,7 @@ export default function Login() {
                                 <input
                                     type="text"
                                     placeholder={t("Please Enter Your Email")}
-                                    className={`form-control p-3 border-2 ${formValidationErrors["email"] ? "border-danger mb-2" : "mb-4"}`}
+                                    className={`form-control p-3 border-2 ${formValidationErrors["email"] ? "border-danger mb-3" : "mb-4"}`}
                                     onChange={(e) => setUserData({ ...userData, email: e.target.value.trim() })}
                                 />
                                 <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
@@ -174,7 +174,7 @@ export default function Login() {
                                 <input
                                     type={isVisiblePassword ? "text" : "password"}
                                     placeholder={t("Please Enter Your Password")}
-                                    className={`form-control p-3 border-2 ${formValidationErrors["password"] ? "border-danger mb-2" : "mb-4"}`}
+                                    className={`form-control p-3 border-2 ${formValidationErrors["password"] ? "border-danger mb-3" : "mb-4"}`}
                                     onChange={(e) => setUserData({ ...userData, password: e.target.value.trim() })}
                                 />
                                 <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
@@ -183,15 +183,16 @@ export default function Login() {
                                 </div>
                             </div>
                             {formValidationErrors["password"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["password"])} />}
-                            {!waitMsg && !errorMsg && !successMsg && <button type="submit" className="orange-btn btn w-100 mb-4 global-button">
+                            <Link href="/forget-password?userType=user" className="text-dark border-bottom border-2 border-dark pb-2 mb-3 d-block w-fit">{t("Forget Password")}</Link>
+                            {!waitMsg && !errorMsg && !successMsg && <button type="submit" className="orange-btn btn w-100 mb-4">
                                 {i18n.language === "ar" && <FiLogIn />}
                                 <span className="me-2">{t("Login")}</span>
                                 {i18n.language !== "ar" && <FiLogIn />}
                             </button>}
-                            {waitMsg && <button disabled className="btn btn-primary w-100 mb-4 global-button">
-                                <span className="me-2">{t("Wait Logining")} ...</span>
+                            {waitMsg && <button disabled className="btn btn-primary w-100 mb-4">
+                                <span className="me-2">{t(waitMsg)} ...</span>
                             </button>}
-                            {(waitMsg || successMsg) && <p className={`global-button text-center text-white text-start mb-5 alert ${errorMsg ? "alert-danger bg-danger" : ""} ${successMsg ? "alert-success bg-success" : ""}`}>{t(errorMsg || successMsg)}</p>}
+                            {(errorMsg || successMsg) && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "btn-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
                             <h6 className="fw-bold mb-3">{t("Or Sign In With")}</h6>
                             <ul className="external-auth-sites-list mb-3">
                                 <li className="external-auth-site-item">
@@ -202,7 +203,17 @@ export default function Login() {
                                     />
                                 </li>
                             </ul>
-                            <Link href="/forget-password?userType=user" className="text-dark border-bottom border-2 border-dark pb-2 forget-password-link-btn">{t("Forget Password")}</Link>
+                            <hr />
+                            <div className="pb-3">
+                                <motion.span className="fw-bold" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Don't Have An Account ?")} </motion.span>
+                                {!waitMsg && !errorMsg && <Link
+                                    className="text-dark border-bottom border-2 border-dark pb-2 me-2"
+                                    href="/sign-up"
+                                // initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}
+                                >
+                                    {t("Sign Up")}
+                                </Link>}
+                            </div>
                         </form>
                     </div>
                     <Footer />
