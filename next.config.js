@@ -42,6 +42,10 @@ const nextConfig = {
             key: "Cross-Origin-Embedder-Policy",
             value: "credentialless",
           },
+          {
+            key: "Referrer-Policy",
+            value: "no-referrer-when-downgrade",
+          },
         ]
       }
     ];
