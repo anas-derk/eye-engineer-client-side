@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "motion/react";
 import { Carousel } from "react-bootstrap";
-import Footer from "@/components/Footer";
 import NavigateToUpOrDown from "@/components/NavigateToUpOrDown";
 import { MdOutlineContactPhone, MdOutlineMail } from "react-icons/md";
 import { FaTimes, FaWhatsapp } from "react-icons/fa";
@@ -78,7 +77,6 @@ export default function Home() {
           {/* Start Our Capabilities Section */}
           <Capabilities />
           {/* End Our Capabilities Section */}
-          <Footer />
         </div>
         {/* End Page Content */}
       </>}

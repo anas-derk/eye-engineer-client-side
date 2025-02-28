@@ -14,7 +14,7 @@ import "../pages/account-verification/account_verification.css";
 
 export default function App({ Component, pageProps }) {
   return <Provider store={store}>
-    <GoogleOAuthProvider clientId={"665697657851-ajm9qfeko4lcero0hj8jh7eqvds9eg18.apps.googleusercontent.com"}>
+    <GoogleOAuthProvider clientId={"783579877564-sdehm5e6uiu9f94si0e4for5503h4hgr.apps.googleusercontent.com"}>
       <Component {...pageProps} />
     </GoogleOAuthProvider>
   </Provider>
