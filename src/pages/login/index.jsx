@@ -120,6 +120,7 @@ export default function Login() {
     const authWithGoogle = async (credentialResponse) => {
         try {
             setWaitMsg("Wait Logining");
+            console.log(credentialResponse)
             let result = decode(credentialResponse.credential);
             result = (await axios.get(`${process.env.BASE_API_URL}/users/login-with-google?email=${result.email}&name=${result.name}&language=${i18n.language}`)).data;
             if (result.error) {
@@ -135,6 +136,7 @@ export default function Login() {
             }
         }
         catch (err) {
+            console.log(err)
             setWaitMsg("");
             setErrorMsg("Sorry, Someting Went Wrong, Please Try Again The Process !!");
             let errorTimeout = setTimeout(() => {
