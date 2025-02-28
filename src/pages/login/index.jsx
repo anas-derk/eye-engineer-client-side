@@ -145,6 +145,7 @@ export default function Login() {
     }
 
     const loginingFailedWithGoogle = (err) => {
+        console.log(err)
         alert("Login Failed With Google, Please Repeate The Process !!");
     }
 
@@ -212,7 +213,6 @@ export default function Login() {
                                 {!waitMsg && !errorMsg && <Link
                                     className="text-dark border-bottom border-2 border-dark pb-2 me-2"
                                     href="/sign-up"
-                                // initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}
                                 >
                                     {t("Sign Up")}
                                 </Link>}
