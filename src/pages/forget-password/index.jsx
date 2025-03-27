@@ -15,7 +15,7 @@ import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 import Footer from "@/components/Footer";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 
-export default function Login() {
+export default function ForgetPassword({ userTypeAsProperty }) {
 
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 
@@ -58,29 +58,7 @@ export default function Login() {
     const router = useRouter();
 
     useEffect(() => {
-        const userToken = localStorage.getItem(process.env.userTokenNameInLocalStorage);
-        if (userToken) {
-            getUserInfo()
-                .then(async (result) => {
-                    if (result.error) {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
-                        setIsLoadingPage(false);
-                    } else await router.replace("/");
-                })
-                .catch(async (err) => {
-                    if (err?.response?.status === 401) {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
-                        setIsLoadingPage(false);
-                    }
-                    else {
-                        setIsLoadingPage(false);
-                        setErrorMsgOnLoadingThePage(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Try Again !");
-                    }
-                });
-        } else setIsLoadingPage(false);
-    }, []);
-
-    useEffect(() => {
+        setUserType(userTypeAsProperty);
         const userToken = localStorage.getItem(process.env.userTokenNameInLocalStorage);
         if (userToken) {
             getUserInfo()
@@ -104,7 +82,12 @@ export default function Login() {
         } else {
             setIsLoadingPage(false);
         }
-    }, []);
+    }, [userTypeAsProperty]);
+
+    const handleSelectUserType = (newUserType) => {
+        setUserType(newUserType);
+        router.replace(`/forget-password?userType=${newUserType}`);
+    }
 
     const handleTimeCounter = () => {
         let secondsTemp = 59, minutesTemp = 1;
@@ -256,7 +239,7 @@ export default function Login() {
                             msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter."
                         },
                         isMatch: {
-                            value: confirmNewPassword,
+                            value: newPassword,
                             msg: "Sorry, There Is No Match Between New Password And Confirm It !!",
                         },
                     },
@@ -270,7 +253,7 @@ export default function Login() {
                 if (!result.error) {
                     setSuccessMsg(`${result.msg}, Please Wait To Navigate To Login Page !!`);
                     let successTimeout = setTimeout(async () => {
-                        await router.push(userTypeAsProperty === "user" ? "/auth" : "https://dashboard.ubuyblues.com/login");
+                        await router.push(userTypeAsProperty === "user" ? "/login" : "https://dashboard.eyeengineer.com/login");
                         clearTimeout(successTimeout);
                     }, 6000);
                 } else {
@@ -311,7 +294,7 @@ export default function Login() {
                                 <select
                                     className={`select-user-type form-select ${i18n.language === "ar" ? "ar" : ""} ${formValidationErrors["userType"] ? "border-danger mb-3" : "mb-5"}`}
                                     onChange={(e) => handleSelectUserType(e.target.value)}
-                                    value={userType}
+                                    value={userTypeAsProperty}
                                 >
                                     <option value="" hidden>{t("Pleae Select User Type")}</option>
                                     <option value="user">{t("Normal User")}</option>
@@ -326,7 +309,7 @@ export default function Login() {
                                     type="text"
                                     placeholder={t("Please Enter Your Email")}
                                     className={`form-control p-3 border-2 ${formValidationErrors["email"] ? "border-danger mb-3" : "mb-4"}`}
-                                    onChange={(e) => setUserData({ ...userData, email: e.target.value.trim() })}
+                                    onChange={(e) => setEmail(e.target.value.trim())}
                                 />
                                 <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
                                     <BiSolidUser className="icon" />
@@ -341,7 +324,7 @@ export default function Login() {
                             {isCheckingStatus && <button disabled className="btn btn-primary w-100 mb-4">
                                 <span className="me-2">{t("Wait Checking")} ...</span>
                             </button>}
-                            {(errorMsg || successMsg) && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "alert-success bg-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
+                            {(errorMsg || successMsg) && <button disabled className={`p-2 btn w-100 mb-3 text-white ${errorMsg ? "btn-danger" : ""} ${successMsg ? "alert-success bg-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
                         </form>}
                         {isDisplayResetPasswordForm && <form className="user-reset-password-form info-box text-center p-4" onSubmit={resetPassword}>
                             <h2 className="mb-4">{t("Forget Password")}</h2>
@@ -397,7 +380,7 @@ export default function Login() {
                             {isResetingPasswordStatus && <button disabled className="btn btn-primary w-100 mb-5">
                                 <span className="me-2">{t("Wait Reseting")} ...</span>
                             </button>}
-                            {(errorMsg || successMsg) && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "alert-success bg-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
+                            {(errorMsg || successMsg) && <button disabled className={`p-2 btn w-100 mb-3 text-white ${errorMsg ? "btn-danger" : ""} ${successMsg ? "alert-success bg-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
                             <div className="email-sent-manager-box pb-3">
                                 <h6 className="fw-bold d-inline-block">{t("Didn't get your email?")} </h6>
                                 {!isWaitSendTheCode && !errorMsg && <button

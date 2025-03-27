@@ -14,6 +14,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 
 export default function Login() {
