@@ -79,5 +79,17 @@
     "Sending Code To Your Email Process Has Been Succssfuly !!": "Das Senden des Codes an Ihre E-Mail-Adresse war erfolgreich !!",
     "Sorry, The User Is Not Exist !!, Please Enter Another User Email ..": "Entschuldigung, der Benutzer existiert nicht !! Bitte geben Sie eine andere Benutzer-E-Mail ein ..",
     "Sorry, The Email For This User Has Been Verified !!": "Entschuldigung, die E-Mail für diesen Benutzer wurde verifiziert !!",
-    "Logout": "Abmelden"
+    "Logout": "Abmelden",
+    "Pleae Select User Type": "Bitte Benutzertyp auswählen",
+    "Normal User": "Normaler Benutzer",
+    "Admin": "Administrator",
+    "Wait Checking": "Warten auf Überprüfung",
+    "Please Enter The Code Here": "Bitte geben Sie den Code ein",
+    "Please Enter New Password Here": "Bitte geben Sie hier das neue Passwort ein",
+    "Please Enter Confirm New Password Here": "Bitte bestätigen Sie hier das neue Passwort",
+    "Reset Password": "Passwort zurücksetzen",
+    "Wait Reseting": "Warten auf das Zurücksetzen",
+    "Sorry, This Email Is Not Exist !!": "Entschuldigung, diese E-Mail existiert nicht!",
+    "Sorry, This Code Is Not Valid !!": "Entschuldigung, dieser Code ist ungültig!",
+    "Reseting Password Process Has Been Successfully !!, Please Wait To Navigate To Login Page !!": "Der Passwortrücksetzungsprozess wurde erfolgreich abgeschlossen! Bitte warten Sie, um zur Anmeldeseite zu gelangen!"
 }

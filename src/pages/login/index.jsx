@@ -14,6 +14,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 
 export default function Login() {
 
@@ -223,6 +224,8 @@ export default function Login() {
                 </div>
                 {/* End Page Content */}
             </>}
+            {isLoadingPage && !errorMsgOnLoadingThePage && <LoaderPage />}
+            {errorMsgOnLoadingThePage && <ErrorOnLoadingThePage errorMsg={errorMsgOnLoadingThePage} />}
         </div>
     );
 }

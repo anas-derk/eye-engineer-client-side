@@ -79,5 +79,17 @@
     "Sending Code To Your Email Process Has Been Succssfuly !!": "عملية إرسال رمز التأكيد نجحت !!",
     "Sorry, The User Is Not Exist !!, Please Enter Another User Email ..": "عذراً ، هذا المستخدم غير موجود ، الرجاء إدخال بريد إلكتروني آخر ..",
     "Sorry, The Email For This User Has Been Verified !!": "عذراً ، هذا البريد الالكتروني قد تمتّ عملية التاكيد له !!",
-    "Logout": "تسجيل الخروج"
+    "Logout": "تسجيل الخروج",
+    "Pleae Select User Type": "الرجاء اختيار نوع المستخدم",
+    "Normal User": "مستخدم عادي",
+    "Admin": "مسؤول",
+    "Wait Checking": "جارِ التحقق",
+    "Please Enter The Code Here": "الرجاء إدخال الرمز هنا",
+    "Please Enter New Password Here": "الرجاء إدخال كلمة السر الجديدة هنا",
+    "Please Enter Confirm New Password Here": "الرجاء إدخال تأكيد كلمة السر هنا",
+    "Reset Password": "إعادة تعيين كلمة السر",
+    "Wait Reseting": "انتظار إعادة التعيين",
+    "Sorry, This Email Is Not Exist !!": "عذراً ، هذا البريد الالكتروني غير موجود !!",
+    "Sorry, This Code Is Not Valid !!": "عذراً ، هذا الرمز غير صحيح !!",
+    "Reseting Password Process Has Been Successfully !!, Please Wait To Navigate To Login Page !!": "عملية إعادة تعيين كلمة السر قد تمتّ بنجاح !! ، الرجاء الانتظار ريثما يتم الانتقال إلى صفحة تسجيل الدخول !!"
 }

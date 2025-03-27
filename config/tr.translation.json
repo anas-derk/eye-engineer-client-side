@@ -78,5 +78,17 @@
     "Sending Code To Your Email Process Has Been Succssfuly !!": "Kodu E-postanıza Gönderme İşlemi Başarıyla Tamamlandı !!",
     "Sorry, The User Is Not Exist !!, Please Enter Another User Email ..": "Üzgünüm, Kullanıcı Mevcut Değil !!, Lütfen Başka Bir Kullanıcı E-postası Girin ..",
     "Sorry, The Email For This User Has Been Verified !!": "Üzgünüm, Bu Kullanıcı İçin E-posta Doğrulandı !!",
-    "Logout": "Çıkış Yap"
+    "Logout": "Çıkış Yap",
+    "Pleae Select User Type": "Lütfen Kullanıcı Türünü Seçin",
+    "Normal User": "Normal Kullanıcı",
+    "Admin": "Yönetici",
+    "Wait Checking": "Kontrol Ediliyor, Bekle",
+    "Please Enter The Code Here": "Lütfen kodu girin",
+    "Please Enter New Password Here": "Lütfen buraya yeni şifreyi girin",
+    "Please Enter Confirm New Password Here": "Lütfen buraya yeni şifreyi onaylayın",
+    "Reset Password": "Şifreyi Sıfırla",
+    "Wait Reseting": "Sıfırlanıyor, Bekleyin",
+    "Sorry, This Email Is Not Exist !!": "Üzgünüz, bu kod geçerli değil!",
+    "Sorry, This Code Is Not Valid !!": "Üzgünüz, bu kod geçerli değil!",
+    "Reseting Password Process Has Been Successfully !!, Please Wait To Navigate To Login Page !!":  "Şifre sıfırlama işlemi başarıyla tamamlandı! Lütfen giriş sayfasına yönlendirilmeyi bekleyin!"
 }
