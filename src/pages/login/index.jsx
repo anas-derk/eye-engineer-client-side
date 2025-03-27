@@ -198,7 +198,7 @@ export default function Login() {
                             {waitMsg && <button disabled className="btn btn-primary w-100 mb-4">
                                 <span className="me-2">{t(waitMsg)} ...</span>
                             </button>}
-                            {errorMsg && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""}`}>{t(errorMsg)}</button>}
+                            {errorMsg && <button disabled className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""}`}>{t(errorMsg)}</button>}
                             <h6 className="fw-bold mb-3">{t("Or Sign In With")}</h6>
                             <ul className="external-auth-sites-list mb-3">
                                 <li className="external-auth-site-item">

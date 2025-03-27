@@ -41,7 +41,7 @@ export default function ForgetPassword({ userTypeAsProperty }) {
 
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
-    const [isDisplayResetPasswordForm, setIsDisplayResetPasswordForm] = useState(true);
+    const [isDisplayResetPasswordForm, setIsDisplayResetPasswordForm] = useState(false);
 
     const [typedUserCode, setTypedUser] = useState(false);
 
