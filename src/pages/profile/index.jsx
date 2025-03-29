@@ -14,6 +14,9 @@ import { GoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Image from 'react-bootstrap/Image';
+import LoaderPage from "@/components/LoaderPage";
+import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 
 export default function Profile() {
 
@@ -217,6 +220,9 @@ export default function Profile() {
                     <div className="container pt-4 pb-4">
                         <form className="update-profile-form info-box text-center p-4" onSubmit={updateUserInfo}>
                             <h2 className="mb-4">{t("Profile")}</h2>
+                            <div className="image-field-box field-box mb-4">
+                                {userInfo.imagePath ? <Image src={`${process.env.BASE_API_URL}/${userInfo.imagePath}`} roundedCircle /> : ""}
+                            </div>
                             <div className="name-field-box field-box">
                                 <input
                                     type="text"
@@ -301,6 +307,8 @@ export default function Profile() {
                 </div>
                 {/* End Page Content */}
             </>}
+            {isLoadingPage && !errorMsgOnLoadingThePage && <LoaderPage />}
+            {errorMsgOnLoadingThePage && <ErrorOnLoadingThePage errorMsg={errorMsgOnLoadingThePage} />}
         </div>
     );
 }
