@@ -90,5 +90,14 @@
     "Wait Reseting": "Sıfırlanıyor, Bekleyin",
     "Sorry, This Email Is Not Exist !!": "Üzgünüz, bu kod geçerli değil!",
     "Sorry, This Code Is Not Valid !!": "Üzgünüz, bu kod geçerli değil!",
-    "Reseting Password Process Has Been Successfully !!, Please Wait To Navigate To Login Page !!":  "Şifre sıfırlama işlemi başarıyla tamamlandı! Lütfen giriş sayfasına yönlendirilmeyi bekleyin!"
+    "Reseting Password Process Has Been Successfully !!, Please Wait To Navigate To Login Page !!":  "Şifre sıfırlama işlemi başarıyla tamamlandı! Lütfen giriş sayfasına yönlendirilmeyi bekleyin!",
+    "Profile": "Profil",
+    "Dashboard": "Kontrol Paneli",
+    "Please Enter New Name Here": "Lütfen buraya yeni bir isim girin",
+    "Please Enter New Email Here": "Lütfen Yeni E-postayı Buraya Girin",
+    "Please Enter Current Password Here": "Lütfen buraya mevcut şifreyi girin",
+    "Save Changes": "Değişiklikleri Kaydet",
+    "Saving": "Kaydediliyor",
+    "Updating User Info Process Has Been Successfuly !!": "Kullanıcı Bilgileri Güncelleme İşlemi Başarıyla Tamamlandı",
+    "Sorry, This Password Is Uncorrect !!": "Üzgünüm, Bu Şifre Yanlış !!"
 }

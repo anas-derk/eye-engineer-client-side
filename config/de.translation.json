@@ -91,5 +91,14 @@
     "Wait Reseting": "Warten auf das Zurücksetzen",
     "Sorry, This Email Is Not Exist !!": "Entschuldigung, diese E-Mail existiert nicht!",
     "Sorry, This Code Is Not Valid !!": "Entschuldigung, dieser Code ist ungültig!",
-    "Reseting Password Process Has Been Successfully !!, Please Wait To Navigate To Login Page !!": "Der Passwortrücksetzungsprozess wurde erfolgreich abgeschlossen! Bitte warten Sie, um zur Anmeldeseite zu gelangen!"
+    "Reseting Password Process Has Been Successfully !!, Please Wait To Navigate To Login Page !!": "Der Passwortrücksetzungsprozess wurde erfolgreich abgeschlossen! Bitte warten Sie, um zur Anmeldeseite zu gelangen!",
+    "Profile": "Profil",
+    "Dashboard": "Dashboard",
+    "Please Enter New Name Here": "Bitte geben Sie hier einen neuen Namen ein",
+    "Please Enter New Email Here": "Bitte geben Sie hier die neue E-Mail ein",
+    "Please Enter Current Password Here": "Bitte geben Sie hier das aktuelle Passwort ein",
+    "Save Changes": "Änderungen speichern",
+    "Saving": "Speichern",
+    "Updating User Info Process Has Been Successfuly !!": "Die Aktualisierung der Benutzerinformationen war erfolgreich",
+    "Sorry, This Password Is Uncorrect !!": "Entschuldigung, dieses Passwort ist falsch !!"
 }

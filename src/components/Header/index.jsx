@@ -111,9 +111,12 @@ export default function Header() {
                                     onClick={handleChangeMode}
                                 />}
                             {token && <>
-                                {/* <Nav.Link href="/customer-dashboard" as={Link}>
+                                <Nav.Link href="/profile" as={Link}>
                                     {t("Profile")}
-                                </Nav.Link> */}
+                                </Nav.Link>
+                                <Nav.Link href="/customer-dashboard" as={Link}>
+                                    {t("Dashboard")}
+                                </Nav.Link>
                                 <button className="btn orange-btn" onClick={userLogout}>
                                     <MdOutlineLogout className={i18n.language !== "ar" ? "me-2" : "ms-2"} />
                                     <span>{t("Logout")}</span>
