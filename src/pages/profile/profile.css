@@ -5,6 +5,16 @@
   cursor: pointer;
 }
 
+.profile .image-field-box .profile-image-file-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 225px;
+  height: 225px;
+  z-index: 2;
+  cursor: pointer;
+}
+
 .profile .image-field-box .edit-profile-image-icon-box {
   position: absolute;
   right: 10px;

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Header from "@/components/Header";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getUserInfo, handleSelectUserLanguage } from "../../../public/global_functions/popular";
 import Footer from "@/components/Footer";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
@@ -23,6 +23,7 @@ export default function Profile() {
     const [userInfo, setUserInfo] = useState({
         name: "",
         email: "",
+        image: null
     });
 
     const [currentPassword, setCurrentPassword] = useState("");
@@ -44,6 +45,8 @@ export default function Profile() {
     const [successMsg, setSuccessMsg] = useState("");
 
     const [errorMsg, setErrorMsg] = useState("");
+
+    const profileImageFileElementRef = useRef();
 
     const router = useRouter();
 
@@ -222,6 +225,15 @@ export default function Profile() {
                                     alt="Profile Image"
                                     className="mw-100 profile-image"
                                 />
+                                <label htmlFor="profileFile" className="profile-image-file-label"></label>
+                                <input
+                                    type="file"
+                                    id="profileFile"
+                                    className={`invisible form-control profile-image-field ${formValidationErrors["image"] ? "border-danger mb-3" : "mb-4"}`}
+                                    onChange={(e) => setUserInfo({ ...userInfo, image: e.target.files[0] })}
+                                    ref={profileImageFileElementRef}
+                                    value={profileImageFileElementRef.current?.value}
+                                />
                                 <div className="edit-profile-image-icon-box">
                                     <FaEdit className="edit-profile-image-icon" />
                                 </div>
@@ -235,6 +247,7 @@ export default function Profile() {
                                 {waitMsg && <button disabled className="btn btn-primary w-100 mb-4">
                                     <span className="me-2">{t(waitMsg)} ...</span>
                                 </button>}
+                                {formValidationErrors["image"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["image"])} />}
                             </div>
                             {(errorMsg || successMsg) && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "btn-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
                             <div className="name-field-box field-box">
