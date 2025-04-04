@@ -85,6 +85,65 @@ export default function Profile() {
         }
     }, []);
 
+    const editProfileImage = async () => {
+        try {
+            setFormValidationErrors({});
+            const errorsObject = inputValuesValidation([
+                {
+                    name: "profileImage",
+                    value: userInfo.image,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, A New Image Must Be Selected By Clicking On The Image Icon",
+                        },
+                        isImage: {
+                            msg: "Sorry, Invalid Image Type, Please Upload JPG Or PNG Or Webp Image File !!",
+                        },
+                    },
+                },
+            ]);
+            setFormValidationErrors(errorsObject);
+            if (Object.keys(errorsObject).length == 0) {
+                setWaitMsg("Saving");
+                let formData = new FormData();
+                formData.append("userImage", userInfo.image);
+                const result = (await axios.put(`${process.env.BASE_API_URL}/users/change-user-image?language=${i18n.language}`, formData, {
+                    headers: {
+                        Authorization: localStorage.getItem(process.env.userTokenNameInLocalStorage),
+                    }
+                })).data;
+                setWaitMsg("");
+                if (!result.error) {
+                    setSuccessMsg("Change Image Successfull !!");
+                    let successTimeout = setTimeout(async () => {
+                        setSuccessMsg("");
+                        clearTimeout(successTimeout);
+                    }, 1500);
+                } else {
+                    setErrorMsg("Sorry, Someting Went Wrong When Updating, Please Repeate The Process !!");
+                    let errorTimeout = setTimeout(() => {
+                        setErrorMsg("");
+                        clearTimeout(errorTimeout);
+                    }, 1500);
+                }
+            }
+        }
+        catch (err) {
+            if (err?.response?.status === 401) {
+                localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                await router.replace("/login");
+            }
+            else {
+                setWaitMsg("");
+                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeat The Process !!");
+                let errorTimeout = setTimeout(() => {
+                    setErrorMsg("");
+                    clearTimeout(errorTimeout);
+                }, 1500);
+            }
+        }
+    }
+
     const updateUserInfo = async (e) => {
         try {
             e.preventDefault();
@@ -225,11 +284,11 @@ export default function Profile() {
                                     alt="Profile Image"
                                     className="mw-100 profile-image"
                                 />
-                                <label htmlFor="profileFile" className="profile-image-file-label"></label>
+                                {(!waitMsg || !errorMsg || !successMsg) && <label htmlFor="profileFile" className="profile-image-file-label"></label>}
                                 <input
                                     type="file"
                                     id="profileFile"
-                                    className={`invisible form-control profile-image-field ${formValidationErrors["image"] ? "border-danger mb-3" : "mb-4"}`}
+                                    className={`invisible form-control profile-image-field ${formValidationErrors["profileImage"] ? "border-danger mb-3" : "mb-4"}`}
                                     onChange={(e) => setUserInfo({ ...userInfo, image: e.target.files[0] })}
                                     ref={profileImageFileElementRef}
                                     value={profileImageFileElementRef.current?.value}
@@ -239,7 +298,7 @@ export default function Profile() {
                                 </div>
                             </div>
                             <div className="change-image-box mb-5 border-bottom border-3 border-dark">
-                                {!waitMsg && !errorMsg && !successMsg && <button type="button" className="orange-btn btn w-50 mb-4">
+                                {!waitMsg && !errorMsg && !successMsg && <button type="button" className="orange-btn btn w-50 mb-4" onClick={editProfileImage}>
                                     {i18n.language === "ar" && <FaEdit />}
                                     <span className="me-2">{t("Change Image")}</span>
                                     {i18n.language !== "ar" && <FaEdit />}
@@ -247,9 +306,9 @@ export default function Profile() {
                                 {waitMsg && <button disabled className="btn btn-primary w-100 mb-4">
                                     <span className="me-2">{t(waitMsg)} ...</span>
                                 </button>}
-                                {formValidationErrors["image"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["image"])} />}
+                                {(errorMsg || successMsg) && <button disabled className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "btn-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
+                                {formValidationErrors["profileImage"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["profileImage"])} />}
                             </div>
-                            {(errorMsg || successMsg) && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "btn-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
                             <div className="name-field-box field-box">
                                 <input
                                     type="text"
@@ -327,7 +386,7 @@ export default function Profile() {
                             {waitMsg && <button disabled className="btn btn-primary w-100 mb-4">
                                 <span className="me-2">{t(waitMsg)} ...</span>
                             </button>}
-                            {(errorMsg || successMsg) && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "btn-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
+                            {(errorMsg || successMsg) && <button disabled className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "btn-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
                         </form>
                     </div>
                     <Footer />
