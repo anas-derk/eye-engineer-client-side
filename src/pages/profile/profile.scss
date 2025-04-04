@@ -1,0 +1,17 @@
+.profile{
+    .image-field-box{
+        width: 225px;
+        height: 225px;
+        margin: auto;
+        cursor: pointer;
+        .edit-profile-image-icon-box{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            z-index: 2;
+            .edit-profile-image-icon{
+                font-size: 27px;
+            }
+        }
+    }
+}

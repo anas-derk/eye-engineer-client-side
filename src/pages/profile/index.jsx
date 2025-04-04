@@ -2,21 +2,17 @@ import Head from "next/head";
 import Header from "@/components/Header";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { getAnimationSettings, getInitialStateForElementBeforeAnimation, getUserInfo, handleSelectUserLanguage } from "../../../public/global_functions/popular";
-import { motion } from "motion/react";
+import { getUserInfo, handleSelectUserLanguage } from "../../../public/global_functions/popular";
 import Footer from "@/components/Footer";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import { inputValuesValidation } from "../../../public/global_functions/validations";
 import { BiSolidUser } from "react-icons/bi";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { FiLogIn } from "react-icons/fi";
-import { GoogleLogin } from "@react-oauth/google";
-import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Image from 'react-bootstrap/Image';
 import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
+import { FaEdit } from "react-icons/fa";
 
 export default function Profile() {
 
@@ -220,9 +216,27 @@ export default function Profile() {
                     <div className="container pt-4 pb-4">
                         <form className="update-profile-form info-box text-center p-4" onSubmit={updateUserInfo}>
                             <h2 className="mb-4">{t("Profile")}</h2>
-                            <div className="image-field-box field-box mb-4">
-                                {userInfo.imagePath ? <Image src={`${process.env.BASE_API_URL}/${userInfo.imagePath}`} roundedCircle /> : ""}
+                            <div className="image-field-box field-box mb-4 position-relative">
+                                <img
+                                    src={`${process.env.BASE_API_URL}/${userInfo.imagePath}`}
+                                    alt="Profile Image"
+                                    className="mw-100 profile-image"
+                                />
+                                <div className="edit-profile-image-icon-box">
+                                    <FaEdit className="edit-profile-image-icon" />
+                                </div>
                             </div>
+                            <div className="change-image-box mb-5 border-bottom border-3 border-dark">
+                                {!waitMsg && !errorMsg && !successMsg && <button type="button" className="orange-btn btn w-50 mb-4">
+                                    {i18n.language === "ar" && <FaEdit />}
+                                    <span className="me-2">{t("Change Image")}</span>
+                                    {i18n.language !== "ar" && <FaEdit />}
+                                </button>}
+                                {waitMsg && <button disabled className="btn btn-primary w-100 mb-4">
+                                    <span className="me-2">{t(waitMsg)} ...</span>
+                                </button>}
+                            </div>
+                            {(errorMsg || successMsg) && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "btn-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
                             <div className="name-field-box field-box">
                                 <input
                                     type="text"
@@ -293,9 +307,9 @@ export default function Profile() {
                                 </fieldset>
                             </section>
                             {!waitMsg && !errorMsg && !successMsg && <button type="submit" className="orange-btn btn w-100 mb-4">
-                                {i18n.language === "ar" && <FiLogIn />}
+                                {i18n.language === "ar" && <FaEdit />}
                                 <span className="me-2">{t("Save Changes")}</span>
-                                {i18n.language !== "ar" && <FiLogIn />}
+                                {i18n.language !== "ar" && <FaEdit />}
                             </button>}
                             {waitMsg && <button disabled className="btn btn-primary w-100 mb-4">
                                 <span className="me-2">{t(waitMsg)} ...</span>
