@@ -102,5 +102,6 @@
     "Updating User Info Process Has Been Successfuly !!": "عملية تحديث بيانات المستخدم قد أكتملت",
     "Sorry, This Password Is Uncorrect !!": "عذراً ، كلمة السر هذه غير صحيحة !!",
     "Change Image": "تغيير الصورة",
-    "Sorry, A New Image Must Be Selected By Clicking On The Image Icon": "عذراً ، يجب اختيار صورة جديدة من خلال الضغط على أيقونة الصورة"
+    "Sorry, A New Image Must Be Selected By Clicking On The Image Icon": "عذراً ، يجب اختيار صورة جديدة من خلال الضغط على أيقونة الصورة",
+    "Sorry, Invalid Image Type, Please Upload JPG Or PNG Or Webp Image File !!": "عذراً ، صيغة الصورة غير صالحة ، الرجاء رفع صورة بامتداد JPG أو PNG أو Webp !!"
 }

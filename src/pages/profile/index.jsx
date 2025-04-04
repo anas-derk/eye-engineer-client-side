@@ -114,9 +114,10 @@ export default function Profile() {
                 })).data;
                 setWaitMsg("");
                 if (!result.error) {
-                    setSuccessMsg("Change Image Successfull !!");
+                    setSuccessMsg(result.msg[i18n.language]);
                     let successTimeout = setTimeout(async () => {
                         setSuccessMsg("");
+                        setUserInfo({ ...userInfo, imagePath: result.data.newImagePath });
                         clearTimeout(successTimeout);
                     }, 1500);
                 } else {
@@ -278,11 +279,11 @@ export default function Profile() {
                     <div className="container pt-4 pb-4">
                         <form className="update-profile-form info-box text-center p-4" onSubmit={updateUserInfo}>
                             <h2 className="mb-4">{t("Profile")}</h2>
-                            <div className="image-field-box field-box mb-4 position-relative">
+                            <div className="image-field-box field-box mb-4 position-relative mw-100">
                                 <img
                                     src={`${process.env.BASE_API_URL}/${userInfo.imagePath}`}
                                     alt="Profile Image"
-                                    className="mw-100 profile-image"
+                                    className="mw-100 h-100 profile-image"
                                 />
                                 {(!waitMsg || !errorMsg || !successMsg) && <label htmlFor="profileFile" className="profile-image-file-label"></label>}
                                 <input
