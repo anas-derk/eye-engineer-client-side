@@ -1,5 +1,5 @@
 import { PiSmileySad } from "react-icons/pi";
-// import Header from "../Header";
+import Header from "../Header";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { handleSelectUserLanguage } from "../../../public/global_functions/popular";
@@ -16,7 +16,7 @@ export default function ErrorOnLoadingThePage({ errorMsg }) {
 
     return (
         <div className="error-on-loading-component">
-            {/* <Header /> */}
+            <Header />
             <div className="error-msg-on-loading-the-page text-center text-white d-flex flex-column justify-content-center align-items-center">
                 <motion.div
                     initial={{

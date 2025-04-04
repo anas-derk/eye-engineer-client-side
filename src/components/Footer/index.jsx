@@ -62,7 +62,7 @@ export default function Footer() {
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2 icon" /> : <FaLongArrowAltLeft className="ms-2 icon" />}
-                                <Link href="/capabilities" className="link-btn">{t("Capabilities").toUpperCase()}</Link>
+                                <Link href="/our-capabilities" className="link-btn">{t("Our Capabilities").toUpperCase()}</Link>
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2 icon" /> : <FaLongArrowAltLeft className="ms-2 icon" />}

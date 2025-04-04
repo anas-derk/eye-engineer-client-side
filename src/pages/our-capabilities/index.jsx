@@ -2,11 +2,10 @@ import Head from "next/head";
 import Header from "@/components/Header";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { getAnimationSettings, getInitialStateForElementBeforeAnimation } from "../../../public/global_functions/popular";
-import { motion } from "motion/react";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 import Capabilities from "@/components/Capabilities";
+import LoaderPage from "@/components/LoaderPage";
+import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 
 export default function OurCapabilites() {
 
@@ -30,9 +29,12 @@ export default function OurCapabilites() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <Capabilities />
+                    <Footer />
                 </div>
                 {/* End Page Content */}
             </>}
+            {isLoadingPage && !errorMsgOnLoadingThePage && <LoaderPage />}
+            {errorMsgOnLoadingThePage && <ErrorOnLoadingThePage errorMsg={errorMsgOnLoadingThePage} />}
         </div>
     );
 }
