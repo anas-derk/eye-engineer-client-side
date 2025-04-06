@@ -16,7 +16,7 @@ import "../components/DashboardSideBar/dashboard_side_bar.css";
 
 export default function App({ Component, pageProps }) {
   return <Provider store={store}>
-    <GoogleOAuthProvider clientId={"783579877564-sdehm5e6uiu9f94si0e4for5503h4hgr.apps.googleusercontent.com"}>
+    <GoogleOAuthProvider clientId={"195395119295-ihsvabva9kn54lolm8admajgpr44dm55.apps.googleusercontent.com"}>
       <Component {...pageProps} />
     </GoogleOAuthProvider>
   </Provider>
