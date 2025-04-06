@@ -11,6 +11,7 @@ import NavigateToUpOrDown from "@/components/NavigateToUpOrDown";
 import { MdOutlineContactPhone, MdOutlineMail } from "react-icons/md";
 import { FaTimes, FaWhatsapp } from "react-icons/fa";
 import Capabilities from "@/components/Capabilities";
+import Footer from "@/components/Footer";
 
 export default function Home() {
 
@@ -77,6 +78,7 @@ export default function Home() {
           {/* Start Our Capabilities Section */}
           <Capabilities />
           {/* End Our Capabilities Section */}
+          <Footer />
         </div>
         {/* End Page Content */}
       </>}

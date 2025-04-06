@@ -86,7 +86,6 @@ export default function Capabilities() {
                         ))}
                     </div>
                 </div>
-                <Footer />
             </div>
             {/* End Page Content */}
         </div>
