@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 import DashboardSideBar from "@/components/DashboardSideBar";
+import { useRouter } from "next/router";
+import { getUserInfo, handleSelectUserLanguage } from "../../../public/global_functions/popular";
 
 export default function OurCapabilites() {
 
@@ -13,11 +15,45 @@ export default function OurCapabilites() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
-    const { t } = useTranslation();
+    const [userInfo, setUserInfo] = useState(true);
+
+    const router = useRouter();
+
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
-        setIsLoadingPage(false);
+        const userLanguage = localStorage.getItem(process.env.userlanguageFieldNameInLocalStorage);
+        handleSelectUserLanguage(userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en", i18n.changeLanguage);
     }, []);
+
+    useEffect(() => {
+        const userToken = localStorage.getItem(process.env.userTokenNameInLocalStorage);
+        if (userToken) {
+            getUserInfo()
+                .then(async (result) => {
+                    if (!result.error) {
+                        setUserInfo(result.data);
+                        setIsLoadingPage(false);
+                    } else {
+                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        await router.replace("/login");
+                    }
+                })
+                .catch(async (err) => {
+                    if (err?.response?.status === 401) {
+                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        await router.replace("/login");
+                    }
+                    else {
+                        setIsLoadingPage(false);
+                        setErrorMsgOnLoadingThePage(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Try Again !");
+                    }
+                });
+        } else {
+            router.replace("/auth");
+        }
+    }, []);
+
 
     return (
         <div className="customer-dashboard">

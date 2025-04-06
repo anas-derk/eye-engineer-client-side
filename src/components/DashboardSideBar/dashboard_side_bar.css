@@ -1,9 +1,10 @@
 .dashboard-side-bar {
   width: 200px;
   height: 100vh;
-  background-color: var(--main-color-two);
+  background-color: var(--main-color-one);
   position: fixed;
   top: 90px;
   left: 0;
   z-index: 3;
+  border-right: 3px solid var(--main-color-two);
 }

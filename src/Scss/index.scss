@@ -235,3 +235,21 @@ textarea{
         }
     }
 }
+
+.managment-links-side-bar{
+    border-radius: 5px;
+    .managment-link-list{
+        .managment-link-item{
+            &:hover, .active{
+                background-color: var(--main-color-two);
+                border-radius: 5px;
+            }
+            .managment-link{
+                padding: 14px;
+                .managment-link-icon{
+                    font-size: 22px;
+                }
+            }
+        }
+    }
+}
