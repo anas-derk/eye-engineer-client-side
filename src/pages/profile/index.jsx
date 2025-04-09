@@ -114,10 +114,10 @@ export default function Profile() {
                 })).data;
                 setWaitMsg("");
                 if (!result.error) {
-                    setSuccessMsg(result.msg[i18n.language]);
+                    setSuccessMsg(result.msg);
                     let successTimeout = setTimeout(async () => {
-                        setSuccessMsg("");
                         setUserInfo({ ...userInfo, imagePath: result.data.newImagePath });
+                        setSuccessMsg("");
                         clearTimeout(successTimeout);
                     }, 1500);
                 } else {
