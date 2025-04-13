@@ -199,11 +199,11 @@ export default function Users() {
 
     const deleteUser = async (userIndex) => {
         try {
-            setWaitMsg("Please Wait To Deleting ...");
+            setWaitMsg("Please Wait To Deleting");
             setSelectedUserIndex(userIndex);
             const result = (await axios.delete(`${process.env.BASE_API_URL}/users/delete-user?userType=admin&userId=${allUsersInsideThePage[userIndex]._id}&language=${i18n.language}`, {
                 headers: {
-                    Authorization: localStorage.getItem(process.env.adminTokenNameInLocalStorage),
+                    Authorization: localStorage.getItem(process.env.userTokenNameInLocalStorage),
                 }
             })).data;
             setWaitMsg("");
@@ -349,7 +349,7 @@ export default function Users() {
                                             {selectedUserIndex !== userIndex && <>
                                                 <button
                                                     className="btn btn-danger global-button"
-                                                    onClick={() => handleDisplayConfirmDeleteBox(selectedUserIndex, setSelectedUserIndex, setIsDisplayConfirmDeleteBox)}
+                                                    onClick={() => handleDisplayConfirmDeleteBox(userIndex, setSelectedUserIndex, setIsDisplayConfirmDeleteBox)}
                                                 >{t("Delete")}</button>
                                                 {/* <hr /> */}
                                                 {/* <button
@@ -360,15 +360,15 @@ export default function Users() {
                                             {waitMsg && selectedUserIndex === userIndex && <button
                                                 className="btn btn-info d-block mb-3 mx-auto global-button"
                                                 disabled
-                                            >{waitMsg}</button>}
+                                            >{t(waitMsg)} ...</button>}
                                             {successMsg && selectedUserIndex === userIndex && <button
                                                 className="btn btn-success d-block mx-auto global-button"
                                                 disabled
-                                            >{successMsg}</button>}
+                                            >{t(successMsg)}</button>}
                                             {errorMsg && selectedUserIndex === userIndex && <button
                                                 className="btn btn-danger d-block mx-auto global-button"
                                                 disabled
-                                            >{errorMsg}</button>}
+                                            >{t(errorMsg)}</button>}
                                         </td>
                                     </tr>
                                 ))}
