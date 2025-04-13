@@ -315,6 +315,7 @@ export default function Users() {
                                     <th>{t("Name")}</th>
                                     <th>{t("Image")}</th>
                                     <th>{t("Date Of Creation")}</th>
+                                    <th>{t("Registration Method")}</th>
                                     <th>{t("Actions")}</th>
                                 </tr>
                             </thead>
@@ -340,6 +341,9 @@ export default function Users() {
                                         </td>
                                         <td className="user-date-of-creation-cell">
                                             {getDateFormated(user.dateOfCreation)}
+                                        </td>
+                                        <td className="registration-method-cell">
+                                            {user.provider}
                                         </td>
                                         <td className="update-cell">
                                             {selectedUserIndex !== userIndex && <>

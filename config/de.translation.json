@@ -120,6 +120,7 @@
     "Id": "ID",
     "Image": "Bild",
     "Date Of Creation": "Erstellungsdatum",
+    "Registration Method": "Registrierungsmethode",
     "Actions": "Aktionen",
     "Delete": "Löschen",
     "Update": "Bearbeiten",
