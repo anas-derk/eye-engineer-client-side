@@ -1,7 +1,7 @@
 .section-loader{
     height: 200px;
     .loader-component{
-        color: #FFF;
+        color: var(--main-color-one);
         font-size: 7px;
         position: relative;
         text-indent: -9999em;
