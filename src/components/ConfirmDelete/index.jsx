@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { GrFormClose } from "react-icons/gr";
 
 export default function ConfirmDelete({
-    name,
     setIsDisplayConfirmDeleteBox,
     handleDeleteFunc,
     setSelectedElementIndex,
@@ -45,7 +44,7 @@ export default function ConfirmDelete({
                         className="btn btn-info d-block mx-auto mb-3 global-button"
                         disabled
                     >
-                        {waitMsg}
+                        {t(waitMsg)}
                     </button>
                 }
                 {errorMsg &&
@@ -53,7 +52,7 @@ export default function ConfirmDelete({
                         className="btn btn-danger d-block mx-auto mb-3 global-button"
                         disabled
                     >
-                        {errorMsg}
+                        {t(errorMsg)}
                     </button>
                 }
                 {successMsg &&
@@ -61,7 +60,7 @@ export default function ConfirmDelete({
                         className="btn btn-success d-block mx-auto mb-3 global-button"
                         disabled
                     >
-                        {successMsg}
+                        {t(successMsg)}
                     </button>
                 }
                 <button

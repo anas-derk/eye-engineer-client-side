@@ -199,7 +199,7 @@ export default function Users() {
 
     const deleteUser = async (userIndex) => {
         try {
-            setWaitMsg("Please Wait To Deleting");
+            setWaitMsg("Please Wait");
             setSelectedUserIndex(userIndex);
             const result = (await axios.delete(`${process.env.BASE_API_URL}/users/delete-user?userType=admin&userId=${allUsersInsideThePage[userIndex]._id}&language=${i18n.language}`, {
                 headers: {
@@ -214,14 +214,14 @@ export default function Users() {
                     setSelectedUserIndex(-1);
                     setAllUsersInsideThePage(allUsersInsideThePage.filter((user, index) => index !== userIndex));
                     clearTimeout(successTimeout);
-                }, 1500);
+                }, 1000);
             } else {
                 setErrorMsg("Sorry, Someting Went Wrong, Please Repeate The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     setSelectedUserIndex(-1);
                     clearTimeout(errorTimeout);
-                }, 1500);
+                }, 1000);
             }
         }
         catch (err) {
