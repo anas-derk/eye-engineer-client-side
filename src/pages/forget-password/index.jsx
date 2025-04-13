@@ -296,7 +296,7 @@ export default function ForgetPassword({ userTypeAsProperty }) {
                                     onChange={(e) => handleSelectUserType(e.target.value)}
                                     value={userTypeAsProperty}
                                 >
-                                    <option value="" hidden>{t("Pleae Select User Type")}</option>
+                                    <option value="" hidden>{t("Please Select User Type")}</option>
                                     <option value="user">{t("Normal User")}</option>
                                     <option value="admin">{t("Admin")}</option>
                                 </select>

@@ -256,7 +256,7 @@ export default function Users() {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder={t("Pleae Enter User Id")}
+                                    placeholder={t("Please Enter User Id")}
                                     onChange={(e) => setFilters({ ...filters, _id: e.target.value.trim() })}
                                 />
                             </div>
@@ -265,7 +265,7 @@ export default function Users() {
                                 <input
                                     type="email"
                                     className="form-control"
-                                    placeholder={t("Pleae Enter Email")}
+                                    placeholder={t("Please Enter Email")}
                                     onChange={(e) => setFilters({ ...filters, email: e.target.value.trim() })}
                                 />
                             </div>
@@ -274,7 +274,7 @@ export default function Users() {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder={t("Pleae Enter Name")}
+                                    placeholder={t("Please Enter Name")}
                                     onChange={(e) => setFilters({ ...filters, name: e.target.value.trim() })}
                                 />
                             </div>
@@ -299,6 +299,7 @@ export default function Users() {
                                     <th>{t("Id")}</th>
                                     <th>{t("Email")}</th>
                                     <th>{t("Name")}</th>
+                                    <th>{t("Image")}</th>
                                     <th>{t("Date Of Creation")}</th>
                                     <th>{t("Actions")}</th>
                                 </tr>
@@ -312,10 +313,18 @@ export default function Users() {
                                         <td className="user-email-cell">
                                             {user.email}
                                         </td>
-                                        <td className="user-full-name-cell">
+                                        <td className="user-name-cell">
                                             {user.name}
                                         </td>
-                                        <td className="user-email-cell">
+                                        <td className="user-image-cell">
+                                            <img
+                                                src={`${process.env.BASE_API_URL}/${user.imagePath}`}
+                                                alt={`${user.name} User Image !!`}
+                                                width="100"
+                                                height="100"
+                                            />
+                                        </td>
+                                        <td className="user-date-of-creation-cell">
                                             {getDateFormated(user.dateOfCreation)}
                                         </td>
                                         <td className="update-cell">
