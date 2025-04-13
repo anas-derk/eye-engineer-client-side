@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
-import DashboardSideBar from "@/components/DashboardSideBar";
 import { useRouter } from "next/router";
 import { getUserInfo, handleSelectUserLanguage } from "../../../public/global_functions/popular";
+import DashboardSideBar from "@/components/DashboardSideBar";
 
-export default function OurCapabilites() {
+export default function Dashboard() {
 
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 
@@ -56,15 +56,15 @@ export default function OurCapabilites() {
 
 
     return (
-        <div className="customer-dashboard">
+        <div className="dashboard">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Customer Dashboard")}</title>
+                <title>{t(process.env.websiteName)} {t("Dashboard")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
                 {/* Start Page Content */}
                 <div className="page-content d-flex justify-content-center align-items-center flex-column">
-                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Customer Dashboard")}</h1>
+                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Dashboard")}</h1>
                     <DashboardSideBar />
                 </div>
                 {/* End Page Content */}

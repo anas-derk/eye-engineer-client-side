@@ -4,7 +4,47 @@
     background-color: var(--main-color-one);
     position: fixed;
     top: 90px;
-    left: 0;
+    left: -145px;
     z-index: 3;
     border-right: 3px solid var(--main-color-two);
+    border-radius: 5px;
+    .managment-link-list{
+        .managment-link-item{
+            position: relative;
+            &:hover, .active{
+                background-color: var(--main-color-two);
+                border-radius: 5px;
+                .link-name-box{
+                    display: block;
+                }
+            }
+            .link-name-box{
+                display: none;
+                position: absolute;
+                top: 50%;
+                left: 115%;
+                transform: translateY(-50%);
+                background-color: var(--main-color-two);
+                border-radius: 5px;
+                color: var(--main-text-color);
+                cursor: pointer;
+                &::before{
+                    content: "";
+                    height: 7px;
+                    left: -26px;
+                    position: absolute;
+                    top: calc(50% - 2px);
+                    width: 25px;
+                    background-color: var(--main-color-two);
+                }
+            }
+            .managment-link{
+                color: var(--main-text-color) !important;
+                padding: 14px;
+                .managment-link-icon{
+                    font-size: 22px;
+                }
+            }
+        }
+    }
 }

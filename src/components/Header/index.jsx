@@ -114,7 +114,7 @@ export default function Header() {
                                 <Nav.Link href="/profile" as={Link}>
                                     {t("Profile")}
                                 </Nav.Link>
-                                <Nav.Link href="/customer-dashboard" as={Link}>
+                                <Nav.Link href="/dashboard" as={Link}>
                                     {t("Dashboard")}
                                 </Nav.Link>
                                 <button className="btn orange-btn" onClick={userLogout}>
