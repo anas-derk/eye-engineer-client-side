@@ -108,5 +108,13 @@
     "Customer Dashboard": "Kunden-Dashboard",
     "Welcome To You In Page": "Willkommen Auf Der Seite",
     "Users": "Benutzer",
-    "News": "Nachricht"
+    "News": "Nachricht",
+    "Filters": "التصفيات",
+    "User Id": "معرّف المستخدم",
+    "Pleae Enter User Id": "الرجاء إدخال معرّف المستخدم",
+    "Pleae Enter Email": "الرجاء إدخال البريد الالكتروني",
+    "Name": "الاسم",
+    "Filter": "تصفية",
+    "Filtering": "جاري التصفية",
+    "Pleae Enter Name": "الرجاء إدخال الاسم"
 }

@@ -258,3 +258,44 @@ textarea {
 .field-box.error-in-field .icon-box {
   transform: translateY(-80%);
 }
+
+.dashboard .page-content {
+  padding-left: 50px;
+}
+
+.managment-table {
+  background-color: #FFF;
+}
+
+.managment-table td, .managment-table th {
+  border: 1px solid;
+  padding: 15px;
+  text-align: center;
+  font-size: 11px;
+}
+
+.managment-table textarea {
+  height: 150px;
+}
+
+.managment-table h6 {
+  font-size: 13px;
+}
+
+.admin-dashbboard-data-box {
+  overflow: auto;
+}
+
+.admin-dashbboard-data-box .admin-dashbboard-data-table {
+  width: 100%;
+}
+
+.admin-dashbboard-data-box .admin-dashbboard-data-table.products-table {
+  width: 150%;
+}
+
+@media (max-width: 991px) {
+  .admin-dashbboard-data-box .admin-dashbboard-data-table {
+    width: 300%;
+  }
+}

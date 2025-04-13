@@ -50,10 +50,9 @@ export default function Dashboard() {
                     }
                 });
         } else {
-            router.replace("/auth");
+            router.replace("/login");
         }
     }, []);
-
 
     return (
         <div className="dashboard">

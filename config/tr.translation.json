@@ -107,5 +107,13 @@
     "Customer Dashboard": "Müşteri Kontrol Paneli",
     "Welcome To You In Page": "Sayfaya Hoş Geldiniz",
     "Users": "Kullanıcılar",
-    "News": "Haberler"
+    "News": "Haberler",
+    "Filters": "التصفيات",
+    "User Id": "معرّف المستخدم",
+    "Pleae Enter User Id": "الرجاء إدخال معرّف المستخدم",
+    "Pleae Enter Email": "الرجاء إدخال البريد الالكتروني",
+    "Name": "الاسم",
+    "Filter": "تصفية",
+    "Filtering": "جاري التصفية",
+    "Pleae Enter Name": "الرجاء إدخال الاسم"
 }

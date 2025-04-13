@@ -21,11 +21,10 @@ export default function DashboardSideBar() {
             <ul className="managment-customer-account-link-list managment-link-list">
                 <li className="managment-customer-account-link-item managment-link-item">
                     <Link
-                        href="/users"
+                        href="/dashboard/users"
                         className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/users" && "active"}`}
                     >
-                        <FaUsers className={`customer-account-managment-link-icon managment-link-icon ${i18n.language !== "ar" ? "me-3" : "ms-3"}`} />
-                        <span className="customer-dashboard-link-name managment-link-name">{t("Users")}</span>
+                        <FaUsers className="customer-account-managment-link-icon managment-link-icon" />
                     </Link>
                     <div className="link-name-box p-2 fw-bold">
                         {t("Users")}
@@ -33,11 +32,10 @@ export default function DashboardSideBar() {
                 </li>
                 <li className="managment-customer-account-link-item managment-link-item">
                     <Link
-                        href="/news"
+                        href="/dashboard/news"
                         className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/users" && "active"}`}
                     >
-                        <BiNews className={`customer-account-managment-link-icon managment-link-icon ${i18n.language !== "ar" ? "me-3" : "ms-3"}`} />
-                        <span className="customer-dashboard-link-name managment-link-name">{t("News")}</span>
+                        <BiNews className="customer-account-managment-link-icon managment-link-icon" />
                     </Link>
                     <div className="link-name-box p-2 fw-bold">
                         {t("News")}
@@ -51,9 +49,11 @@ export default function DashboardSideBar() {
                         href="#"
                         className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/users" && "active"}`}
                     >
-                        <MdOutlineLogout className={`customer-account-managment-link-icon managment-link-icon ${i18n.language !== "ar" ? "me-3" : "ms-3"}`} />
-                        <span className="customer-dashboard-link-name managment-link-name">{t("Logout")}</span>
+                        <MdOutlineLogout className="customer-account-managment-link-icon managment-link-icon" />
                     </Link>
+                    <div className="link-name-box p-2 fw-bold">
+                        {t("Logout")}
+                    </div>
                 </li>
             </ul>
         </aside>

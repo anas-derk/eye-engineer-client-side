@@ -235,3 +235,38 @@ textarea{
         }
     }
 }
+
+.dashboard{
+    .page-content{
+        padding-left: 50px;
+    }
+}
+
+.managment-table{
+    background-color: #FFF;
+    td, th{
+        border: 1px solid;
+        padding: 15px;
+        text-align: center;
+        font-size: 11px;
+    }
+    textarea{
+        height: 150px;
+    }
+    h6{
+        font-size: 13px;
+    }
+}
+
+.admin-dashbboard-data-box{
+    overflow: auto;
+    .admin-dashbboard-data-table{
+        width: 100%;
+        &.products-table{
+            width: 150%;
+        }
+        @media (max-width: 991px) {
+            width: 300%;
+        }
+    }
+}
