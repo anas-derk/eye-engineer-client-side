@@ -122,5 +122,8 @@
     "Date Of Creation": "تاريخ الإنشاء",
     "Actions": "العمليات",
     "Delete": "حذف",
-    "Update": "تعديل"
+    "Update": "تعديل",
+    "Confirm Delete": "تأكيد الحذف",
+    "Are You Sure About Deleting ?": "هل أنت متأكد من الحذف ؟",
+    "Close": "إغلاق"
 }

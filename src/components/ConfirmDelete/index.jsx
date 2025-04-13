@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { GrFormClose } from "react-icons/gr";
 
 export default function ConfirmDelete({
@@ -9,6 +10,8 @@ export default function ConfirmDelete({
     errorMsg,
     successMsg
 }) {
+
+    const { t } = useTranslation();
 
     const handleClosePopupBox = () => {
         setIsDisplayConfirmDeleteBox(false);
@@ -24,8 +27,8 @@ export default function ConfirmDelete({
         <div className="confirm-delete-box popup-box">
             <div className="content-box d-flex align-items-center justify-content-center text-white flex-column p-4 text-center">
                 {!waitMsg && !errorMsg && !successMsg && <GrFormClose className="close-popup-box-icon" onClick={handleClosePopupBox} />}
-                <h2 className="mb-5 pb-3 border-bottom border-white">Confirm Delete</h2>
-                <h4 className="mb-4">Are You Sure From Delete ( {name} ) ?</h4>
+                <h2 className="mb-5 pb-3 border-bottom border-white">{t("Confirm Delete")}</h2>
+                <h4 className="mb-4">{t("Are You Sure About Deleting ?")}</h4>
                 {
                     !waitMsg &&
                     !errorMsg &&
@@ -34,7 +37,7 @@ export default function ConfirmDelete({
                         className="btn btn-success d-block mx-auto mb-4 global-button"
                         onClick={callDeleteFunc}
                     >
-                        Delete
+                        {t("Delete")}
                     </button>
                 }
                 {waitMsg &&
@@ -66,7 +69,7 @@ export default function ConfirmDelete({
                     disabled={waitMsg || errorMsg || successMsg}
                     onClick={handleClosePopupBox}
                 >
-                    Close
+                    {t("Close")}
                 </button>
             </div>
         </div>

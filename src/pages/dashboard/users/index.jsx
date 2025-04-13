@@ -6,12 +6,13 @@ import Footer from "@/components/Footer";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 import { useRouter } from "next/router";
-import { getDateFormated, getUserInfo, handleSelectUserLanguage } from "../../../../public/global_functions/popular";
+import { getDateFormated, getUserInfo, handleDisplayConfirmDeleteBox, handleSelectUserLanguage } from "../../../../public/global_functions/popular";
 import DashboardSideBar from "@/components/DashboardSideBar";
 import axios from "axios";
 import NotFoundError from "@/components/NotFoundError";
 import SectionLoader from "@/components/SectionLoader";
 import PaginationBar from "@/components/PaginationBar";
+import ConfirmDelete from "@/components/ConfirmDelete";
 
 export default function Users() {
 
@@ -43,6 +44,8 @@ export default function Users() {
         _id: "",
         name: "",
     });
+
+    const [isDisplayConfirmDeleteBox, setIsDisplayConfirmDeleteBox] = useState(false);
 
     const router = useRouter();
 
@@ -245,6 +248,15 @@ export default function Users() {
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
+                {isDisplayConfirmDeleteBox && <ConfirmDelete
+                    name={t("User")}
+                    setIsDisplayConfirmDeleteBox={setIsDisplayConfirmDeleteBox}
+                    handleDeleteFunc={() => deleteUser(selectedUserIndex)}
+                    setSelectedElementIndex={setSelectedUserIndex}
+                    waitMsg={waitMsg}
+                    errorMsg={errorMsg}
+                    successMsg={successMsg}
+                />}
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Users")}</h1>
@@ -333,7 +345,7 @@ export default function Users() {
                                             {selectedUserIndex !== userIndex && <>
                                                 <button
                                                     className="btn btn-danger global-button"
-                                                    onClick={() => deleteUser(userIndex)}
+                                                    onClick={() => handleDisplayConfirmDeleteBox(selectedUserIndex, setSelectedUserIndex, setIsDisplayConfirmDeleteBox)}
                                                 >{t("Delete")}</button>
                                                 {/* <hr /> */}
                                                 {/* <button

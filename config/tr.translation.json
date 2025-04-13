@@ -121,5 +121,8 @@
     "Date Of Creation": "Oluşturulma Tarihi",
     "Actions": "İşlemler",
     "Delete": "Sil",
-    "Update": "Güncelle"
+    "Update": "Güncelle",
+    "Confirm Delete": "تأكيد الحذف",
+    "Are You Sure About Deleting ?": "Silmek İstediğinizden Emin Misiniz ?",
+    "Close": "إغلاق"
 }

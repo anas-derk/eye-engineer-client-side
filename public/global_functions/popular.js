@@ -54,11 +54,17 @@ const getAnimationSettings = (delay = 0) => {
     }
 }
 
+const handleDisplayConfirmDeleteBox = (selectedElementIndex, setSelectedElementIndex, setIsDisplayConfirmDeleteBox) => {
+    setIsDisplayConfirmDeleteBox(true);
+    setSelectedElementIndex(selectedElementIndex);
+}
+
 export {
     getDateFormated,
     getUserInfo,
     sendTheCodeToUserEmail,
     handleSelectUserLanguage,
     getInitialStateForElementBeforeAnimation,
-    getAnimationSettings
+    getAnimationSettings,
+    handleDisplayConfirmDeleteBox
 }
