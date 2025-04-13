@@ -10,6 +10,8 @@ import { getDateFormated, getUserInfo, handleSelectUserLanguage } from "../../..
 import DashboardSideBar from "@/components/DashboardSideBar";
 import axios from "axios";
 import NotFoundError from "@/components/NotFoundError";
+import SectionLoader from "@/components/SectionLoader";
+import PaginationBar from "@/components/PaginationBar";
 
 export default function Users() {
 
@@ -247,7 +249,7 @@ export default function Users() {
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Users")}</h1>
                     <DashboardSideBar />
-                    <section className="filters mb-3 bg-white border-3 border-info p-3 text-start">
+                    <section className="filters mb-4 bg-white border-3 border-info p-3 text-start">
                         <h5 className="fw-bold text-center">{t("Filters")}: </h5>
                         <hr />
                         <div className="row mb-4">
@@ -292,7 +294,7 @@ export default function Users() {
                             {t("Filtering")} ...
                         </button>}
                     </section>
-                    {allUsersInsideThePage.length > 0 && !isGetUsers && <section className="users-box w-100 p-3 admin-dashbboard-data-box">
+                    {allUsersInsideThePage.length > 0 && !isGetUsers && <section className="users-box w-100 admin-dashbboard-data-box">
                         <table className="users-table mb-4 managment-table bg-white w-100 admin-dashbboard-data-table">
                             <thead>
                                 <tr>
@@ -333,11 +335,11 @@ export default function Users() {
                                                     className="btn btn-danger global-button"
                                                     onClick={() => deleteUser(userIndex)}
                                                 >{t("Delete")}</button>
-                                                <hr />
-                                                <button
+                                                {/* <hr /> */}
+                                                {/* <button
                                                     className="btn btn-success global-button"
                                                     onClick={() => deleteUser(userIndex)}
-                                                >{t("Update")}</button>
+                                                >{t("Update")}</button> */}
                                             </>}
                                             {waitMsg && selectedUserIndex === userIndex && <button
                                                 className="btn btn-info d-block mb-3 mx-auto global-button"
@@ -357,8 +359,8 @@ export default function Users() {
                             </tbody>
                         </table>
                     </section>}
-                    {allUsersInsideThePage.length === 0 && !isGetUsers && <NotFoundError errorMsg="Sorry, Can't Find Any Users !!" />}
-                    {isGetUsers && <TableLoader />}
+                    {allUsersInsideThePage.length === 0 && !isGetUsers && <NotFoundError errorMsg={t("Sorry, Can't Find Any Users !!")} />}
+                    {isGetUsers && <SectionLoader />}
                     {errorMsgOnGetUsersData && <NotFoundError errorMsg={errorMsgOnGetUsersData} />}
                     {totalPagesCount > 1 && !isGetUsers &&
                         <PaginationBar
@@ -367,6 +369,12 @@ export default function Users() {
                             getPreviousPage={getPreviousPage}
                             getNextPage={getNextPage}
                             getSpecificPage={getSpecificPage}
+                            paginationButtonTextColor={"#000"}
+                            paginationButtonBackgroundColor={"#FFF"}
+                            activePaginationButtonColor={"#000"}
+                            activePaginationButtonBackgroundColor={"var(--main-color-two)"}
+                            isDisplayCurrentPageNumberAndCountOfPages={false}
+                            isDisplayNavigateToSpecificPageForm={false}
                         />
                     }
                 </div>
