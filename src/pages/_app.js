@@ -14,6 +14,7 @@ import "../pages/account-verification/account_verification.css";
 import "../pages/profile/profile.css";
 import "../components/DashboardSideBar/dashboard_side_bar.css";
 import "../components/PaginationBar/pagination_bar.css";
+import "../components/NotFoundError/not_found_error.css";
 
 export default function App({ Component, pageProps }) {
   return <Provider store={store}>
