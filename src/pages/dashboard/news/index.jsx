@@ -14,7 +14,7 @@ import SectionLoader from "@/components/SectionLoader";
 import PaginationBar from "@/components/PaginationBar";
 import ConfirmDelete from "@/components/ConfirmDelete";
 
-export default function Users() {
+export default function News() {
 
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 
@@ -26,7 +26,7 @@ export default function Users() {
 
     const [waitMsg, setWaitMsg] = useState("");
 
-    const [selectedUserIndex, setSelectedUserIndex] = useState(-1);
+    const [selectedNewsIndex, setSelectedNewsIndex] = useState(-1);
 
     const [errorMsg, setErrorMsg] = useState("");
 
@@ -168,36 +168,10 @@ export default function Users() {
         }
     }
 
-    const filterUsers = async (filters) => {
-        try {
-            setIsGetUsers(true);
-            setCurrentPage(1);
-            const filteringString = getFiltersAsQuery(filters);
-            const result = (await getAllUsersInsideThePage(1, pageSize, filteringString)).data;
-            setAllUsersInsideThePage(result.users);
-            setTotalPagesCount(Math.ceil(result.usersCount / pageSize));
-            setIsGetUsers(false);
-        }
-        catch (err) {
-            if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.adminTokenNameInLocalStorage);
-                await router.replace("/login");
-            }
-            else {
-                setIsGetUsers(false);
-                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
-                let errorTimeout = setTimeout(() => {
-                    setErrorMsg("");
-                    clearTimeout(errorTimeout);
-                }, 1500);
-            }
-        }
-    }
-
-    const deleteUser = async (userIndex) => {
+    const deleteNews = async (userIndex) => {
         try {
             setWaitMsg("Please Wait");
-            setSelectedUserIndex(userIndex);
+            setSelectedNewsIndex(userIndex);
             const result = (await axios.delete(`${process.env.BASE_API_URL}/users/delete-user?userType=admin&userId=${allUsersInsideThePage[userIndex]._id}&language=${i18n.language}`, {
                 headers: {
                     Authorization: localStorage.getItem(process.env.userTokenNameInLocalStorage),
@@ -208,7 +182,7 @@ export default function Users() {
                 setSuccessMsg("Deleting Successfull !!");
                 let successTimeout = setTimeout(async () => {
                     setSuccessMsg("");
-                    setSelectedUserIndex(-1);
+                    setSelectedNewsIndex(-1);
                     setAllUsersInsideThePage(allUsersInsideThePage.filter((user, index) => index !== userIndex));
                     clearTimeout(successTimeout);
                 }, 1000);
@@ -216,7 +190,7 @@ export default function Users() {
                 setErrorMsg("Sorry, Someting Went Wrong, Please Repeate The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
-                    setSelectedUserIndex(-1);
+                    setSelectedNewsIndex(-1);
                     clearTimeout(errorTimeout);
                 }, 1000);
             }
@@ -231,7 +205,7 @@ export default function Users() {
                 setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
-                    setSelectedUserIndex(-1);
+                    setSelectedNewsIndex(-1);
                     clearTimeout(errorTimeout);
                 }, 1500);
             }
@@ -239,80 +213,32 @@ export default function Users() {
     }
 
     return (
-        <div className="users dashboard">
+        <div className="news dashboard">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Users")}</title>
+                <title>{t(process.env.websiteName)} {t("News")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
                 {isDisplayConfirmDeleteBox && <ConfirmDelete
-                    name={t("User")}
+                    name={t("News")}
                     setIsDisplayConfirmDeleteBox={setIsDisplayConfirmDeleteBox}
-                    handleDeleteFunc={() => deleteUser(selectedUserIndex)}
-                    setSelectedElementIndex={setSelectedUserIndex}
+                    handleDeleteFunc={() => deleteNews(selectedNewsIndex)}
+                    setSelectedElementIndex={setSelectedNewsIndex}
                     waitMsg={waitMsg}
                     errorMsg={errorMsg}
                     successMsg={successMsg}
                 />}
                 {/* Start Page Content */}
                 <div className="page-content">
-                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Users")}</h1>
+                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("News")}</h1>
                     <DashboardSideBar />
-                    <section className="filters mb-4 bg-white border-3 border-info p-3 text-start">
-                        <h5 className="fw-bold text-center">{t("Filters")}: </h5>
-                        <hr />
-                        <div className="row mb-4">
-                            <div className="col-md-6">
-                                <h6 className="me-2 fw-bold text-center">{t("User Id")}</h6>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder={t("Please Enter User Id")}
-                                    onChange={(e) => setFilters({ ...filters, _id: e.target.value.trim() })}
-                                />
-                            </div>
-                            <div className="col-md-6">
-                                <h6 className="me-2 fw-bold text-center">{t("Email")}</h6>
-                                <input
-                                    type="email"
-                                    className="form-control"
-                                    placeholder={t("Please Enter Email")}
-                                    onChange={(e) => setFilters({ ...filters, email: e.target.value.trim() })}
-                                />
-                            </div>
-                            <div className="col-md-6 mt-3">
-                                <h6 className="me-2 fw-bold text-center">{t("Name")}</h6>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder={t("Please Enter Name")}
-                                    onChange={(e) => setFilters({ ...filters, name: e.target.value.trim() })}
-                                />
-                            </div>
-                        </div>
-                        {!isGetUsers && <button
-                            className="btn d-block w-25 mx-auto mt-2 orange-btn"
-                            onClick={() => filterUsers(filters)}
-                        >
-                            {t("Filter")}
-                        </button>}
-                        {isGetUsers && <button
-                            className="btn d-block w-25 mx-auto mt-2 orange-btn"
-                            disabled
-                        >
-                            {t("Filtering")} ...
-                        </button>}
-                    </section>
                     {allUsersInsideThePage.length > 0 && !isGetUsers && <section className="users-box w-100 admin-dashbboard-data-box">
                         <table className="users-table mb-4 managment-table bg-white w-100 admin-dashbboard-data-table">
                             <thead>
                                 <tr>
                                     <th>{t("Id")}</th>
-                                    <th>{t("Email")}</th>
-                                    <th>{t("Name")}</th>
-                                    <th>{t("Image")}</th>
+                                    <th>{t("Content")}</th>
                                     <th>{t("Date Of Creation")}</th>
-                                    <th>{t("Registration Method")}</th>
                                     <th>{t("Actions")}</th>
                                 </tr>
                             </thead>
@@ -322,47 +248,47 @@ export default function Users() {
                                         <td className="user-id-cell">
                                             {user._id}
                                         </td>
-                                        <td className="user-email-cell">
-                                            {user.email}
-                                        </td>
                                         <td className="user-name-cell">
-                                            {user.name}
-                                        </td>
-                                        <td className="user-image-cell">
-                                            <img
-                                                src={`${process.env.BASE_API_URL}/${user.imagePath}`}
-                                                alt={`${user.name} User Image !!`}
-                                                width="100"
-                                                height="100"
-                                            />
+                                            <section className="ad-content mb-4">
+                                                {getLanguagesInfoList("content").map((el) => (
+                                                    <div key={el.fullLanguageName}>
+                                                        <h6 className="fw-bold">In {el.fullLanguageName} :</h6>
+                                                        <input
+                                                            type="text"
+                                                            placeholder={`Enter New News Content In ${el.fullLanguageName}`}
+                                                            className={`form-control d-block mx-auto p-2 border-2 news-content-field ${formValidationErrors[el.formField] && adIndex === selectedAdIndex ? "border-danger mb-3" : "mb-4"}`}
+                                                            defaultValue={ad.content[el.internationalLanguageCode]}
+                                                            onChange={(e) => changeAdContent(adIndex, e.target.value.trim(), el.internationalLanguageCode)}
+                                                        />
+                                                        {formValidationErrors[el.formField] && adIndex === selectedAdIndex && <FormFieldErrorBox errorMsg={formValidationErrors[el.formField]} />}
+                                                    </div>
+                                                ))}
+                                            </section>
                                         </td>
                                         <td className="user-date-of-creation-cell">
                                             {getDateFormated(user.dateOfCreation)}
                                         </td>
-                                        <td className="registration-method-cell">
-                                            {user.provider}
-                                        </td>
                                         <td className="update-cell">
-                                            {selectedUserIndex !== userIndex && <>
+                                            {selectedNewsIndex !== userIndex && <>
                                                 <button
                                                     className="btn btn-danger global-button"
-                                                    onClick={() => handleDisplayConfirmDeleteBox(userIndex, setSelectedUserIndex, setIsDisplayConfirmDeleteBox)}
+                                                    onClick={() => handleDisplayConfirmDeleteBox(userIndex, setSelectedNewsIndex, setIsDisplayConfirmDeleteBox)}
                                                 >{t("Delete")}</button>
-                                                {/* <hr /> */}
-                                                {/* <button
+                                                <hr />
+                                                <button
                                                     className="btn btn-success global-button"
-                                                    onClick={() => deleteUser(userIndex)}
-                                                >{t("Update")}</button> */}
+                                                    onClick={() => deleteNews(userIndex)}
+                                                >{t("Update")}</button>
                                             </>}
-                                            {waitMsg && selectedUserIndex === userIndex && <button
+                                            {waitMsg && selectedNewsIndex === userIndex && <button
                                                 className="btn btn-info d-block mb-3 mx-auto global-button"
                                                 disabled
                                             >{t(waitMsg)} ...</button>}
-                                            {successMsg && selectedUserIndex === userIndex && <button
+                                            {successMsg && selectedNewsIndex === userIndex && <button
                                                 className="btn btn-success d-block mx-auto global-button"
                                                 disabled
                                             >{t(successMsg)}</button>}
-                                            {errorMsg && selectedUserIndex === userIndex && <button
+                                            {errorMsg && selectedNewsIndex === userIndex && <button
                                                 className="btn btn-danger d-block mx-auto global-button"
                                                 disabled
                                             >{t(errorMsg)}</button>}
@@ -372,7 +298,7 @@ export default function Users() {
                             </tbody>
                         </table>
                     </section>}
-                    {allUsersInsideThePage.length === 0 && !isGetUsers && <NotFoundError errorMsg={t("Sorry, Can't Find Any Users !!")} />}
+                    {allUsersInsideThePage.length === 0 && !isGetUsers && <NotFoundError errorMsg={t("Sorry, Can't Find Any News !!")} />}
                     {isGetUsers && <SectionLoader />}
                     {errorMsgOnGetUsersData && <NotFoundError errorMsg={errorMsgOnGetUsersData} />}
                     {totalPagesCount > 1 && !isGetUsers &&
