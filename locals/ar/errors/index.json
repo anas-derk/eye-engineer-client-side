@@ -14,5 +14,6 @@
     "Sorry, Can't Find Any Users !!": "عذراً ، لا يوجد أي مستخدمين !!",
     "Sorry, This Name Is Not Valid !!": "عذراً ، هذا الاسم غير صحيح !!",
     "Sorry, There Is No Match Between New Password And Confirm It !!": "عذراً ، لا يوجد تطابق بين كلمة السر وتأكيدها !!",
-    "Sorry, This Password Is Uncorrect !!": "عذراً ، كلمة السر هذه غير صحيحة !!"
+    "Sorry, This Password Is Uncorrect !!": "عذراً ، كلمة السر هذه غير صحيحة !!",
+    "Sorry, Invalid Code !!": "عذراً ، رمز غير صالح !!"
 }

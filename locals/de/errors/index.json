@@ -14,5 +14,6 @@
     "Sorry, Can't Find Any Users !!": "Entschuldigung, Es Wurden Keine Benutzer Gefunden !!",
     "Sorry, This Name Is Not Valid !!": "Entschuldigung, dieser Name ist ungültig!!",
     "Sorry, There Is No Match Between New Password And Confirm It !!": "Entschuldigung, es besteht kein Übereinstimmung zwischen dem neuen Passwort und der Bestätigung !!",
-    "Sorry, This Password Is Uncorrect !!": "Entschuldigung, dieses Passwort ist falsch !!"
+    "Sorry, This Password Is Uncorrect !!": "Entschuldigung, dieses Passwort ist falsch !!",
+    "Sorry, Invalid Code !!": "Entschuldigung, ungültiger Code!!"
 }

@@ -1,9 +1,9 @@
 {
-    "Profile": "الملف الشخصي",
-    "Please Enter New Name Here": "الرجاء إدخال الاسم الجديد هنا",
-    "Please Enter New Email Here": "الرجاء إدخال البريد الإلكتروني الجديد هنا",
-    "Please Enter Current Password Here": "الرجاء إدخال كلمة السر الحالية هنا",
-    "Updating User Info Process Has Been Successfuly !!": "عملية تحديث بيانات المستخدم قد أكتملت",
-    "Change Image": "تغيير الصورة",
-    "Updating User Image Process Has Been Successfully !!": "عملية تحديث صورة  المستخدم تمت بنجاح !!"
+    "Profile": "Profil",
+    "Please Enter New Name Here": "Lütfen buraya yeni bir isim girin",
+    "Please Enter New Email Here": "Lütfen Yeni E-postayı Buraya Girin",
+    "Please Enter Current Password Here": "Lütfen buraya mevcut şifreyi girin",
+    "Updating User Info Process Has Been Successfuly !!": "Kullanıcı Bilgileri Güncelleme İşlemi Başarıyla Tamamlandı",
+    "Change Image": "resmi değiştir",
+    "Updating User Image Process Has Been Successfully !!": "Kullanıcı Görselini Güncelleme İşlemi Başarıyla Tamamlandı !!"
 }

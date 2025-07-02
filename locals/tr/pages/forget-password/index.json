@@ -1,13 +1,13 @@
 {
-    "Forget Password": "نسيت كلمة المرور",
-    "Please Select User Type": "الرجاء اختيار نوع المستخدم",
-    "Normal User": "مستخدم عادي",
-    "Admin": "مسؤول",
-    "Wait Checking": "جارِ التحقق",
-    "Please Enter The Code Here": "الرجاء إدخال الرمز هنا",
-    "Please Enter New Password Here": "الرجاء إدخال كلمة السر الجديدة هنا",
-    "Please Enter Confirm New Password Here": "الرجاء إدخال تأكيد كلمة السر هنا",
-    "Reset Password": "إعادة تعيين كلمة السر",
-    "Wait Reseting": "انتظار إعادة التعيين",
-    "Reseting Password Process Has Been Successfully !!, Please Wait To Navigate To Login Page !!": "عملية إعادة تعيين كلمة السر قد تمتّ بنجاح !! ، الرجاء الانتظار ريثما يتم الانتقال إلى صفحة تسجيل الدخول !!"
+    "Forget Password": "Parolayı unut",
+    "Please Select User Type": "Lütfen Kullanıcı Türünü Seçin",
+    "Normal User": "Normal Kullanıcı",
+    "Admin": "Yönetici",
+    "Wait Checking": "Kontrol Ediliyor, Bekle",
+    "Please Enter The Code Here": "Lütfen kodu girin",
+    "Please Enter New Password Here": "Lütfen buraya yeni şifreyi girin",
+    "Please Enter Confirm New Password Here": "Lütfen buraya yeni şifreyi onaylayın",
+    "Reset Password": "Şifreyi Sıfırla",
+    "Wait Reseting": "Sıfırlanıyor, Bekleyin",
+    "Reseting Password Process Has Been Successfully !!, Please Wait To Navigate To Login Page !!": "Şifre sıfırlama işlemi başarıyla tamamlandı! Lütfen giriş sayfasına yönlendirilmeyi bekleyin!"
 }

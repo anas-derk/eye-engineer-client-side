@@ -1,13 +1,12 @@
 {
-    "Welcome To You In Account Verification Page": "مرحباً بك في صفحة تأكيد الحساب",
-    "Checking": "جارِ التحقق",
-    "Sorry, Invalid Code !!": "عذراً ، رمز غير صالح !!",
-    "You're almost done!": "كل شيء جاهز تقريباً",
-    "Enter code Here": "أدخل رمز التأكيد هنا",
-    "You can redial the message after": "يمكنك إعادة طلب الرسالة بعد",
-    "We sent a launch code to": "نحن أرسلنا الرمز إلى",
-    "Didn't get your email?": "لم تستلم الرسالة ؟",
-    "Resend The Code": "إعادة إرسال رمز التأكيد",
-    "Resending The Code": "جارِ إعادة إرسال رمز التأكيد",
-    "Sending Code To Your Email Process Has Been Succssfuly !!": "عملية إرسال رمز التأكيد نجحت !!"
+    "Welcome To You In Account Verification Page": "Hesap Doğrulama Sayfamıza Hoş Geldiniz",
+    "Checking": "Kontrol Ediliyor",
+    "You're almost done!": "Neredeyse tamam!",
+    "Enter code Here": "Kodu Buraya Girin",
+    "You can redial the message after": "Mesajı tekrar arayabilirsiniz",
+    "We sent a launch code to": "Başlatma kodunu şuraya gönderdik",
+    "Didn't get your email?": "E-postanızı almadınız mı?",
+    "Resend The Code": "Kodu Yeniden Gönder",
+    "Resending The Code": "Kodu Yeniden Gönderme",
+    "Sending Code To Your Email Process Has Been Succssfuly !!": "Kodu E-postanıza Gönderme İşlemi Başarıyla Tamamlandı !!"
 }
