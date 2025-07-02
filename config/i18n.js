@@ -1,6 +1,6 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-import arTranslation from "../locals/ar/index.json";
+import arTranslation from "../locals/ar";
 import trTranslation from "../locals/tr/index.json";
 import deTranslation from "../locals/de/index.json";
 
