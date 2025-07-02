@@ -22,7 +22,7 @@ export default function AboutUs() {
     return (
         <div className="about-us">
             <Head>
-                <title>{t(process.env.websiteName)} {t("About Us")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("About Us")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
@@ -40,7 +40,7 @@ export default function AboutUs() {
                                     }}
                                     className="image-box text-center"
                                 >
-                                    <img src={websiteLogo.src} alt={`${process.env.websiteName} Image`} />
+                                    <img src={websiteLogo.src} alt={`${process.env.WEBSITE_NAME} Image`} />
                                 </motion.div>
                             </div>
                             <div className="col-md-6">
@@ -50,7 +50,7 @@ export default function AboutUs() {
                                     whileHover={{
                                         scale: 1.1
                                     }}
-                                >{process.env.websiteName} {t("is a specialized platform dedicated to providing remote engineering consulting services and delivering reliable engineering information to those in need.")}</motion.p>
+                                >{process.env.WEBSITE_NAME} {t("is a specialized platform dedicated to providing remote engineering consulting services and delivering reliable engineering information to those in need.")}</motion.p>
                                 <motion.p
                                     initial={getInitialStateForElementBeforeAnimation()}
                                     whileInView={getAnimationSettings}

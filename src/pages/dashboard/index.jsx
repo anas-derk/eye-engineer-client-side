@@ -22,12 +22,12 @@ export default function Dashboard() {
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
-        const userLanguage = localStorage.getItem(process.env.userlanguageFieldNameInLocalStorage);
+        const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
         handleSelectUserLanguage(userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en", i18n.changeLanguage);
     }, []);
 
     useEffect(() => {
-        const userToken = localStorage.getItem(process.env.userTokenNameInLocalStorage);
+        const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
         if (userToken) {
             getUserInfo()
                 .then(async (result) => {
@@ -35,13 +35,13 @@ export default function Dashboard() {
                         setUserInfo(result.data);
                         setIsLoadingPage(false);
                     } else {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");
                     }
                 })
                 .catch(async (err) => {
                     if (err?.response?.status === 401) {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");
                     }
                     else {

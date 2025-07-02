@@ -59,19 +59,19 @@ export default function ForgetPassword({ userTypeAsProperty }) {
 
     useEffect(() => {
         setUserType(userTypeAsProperty);
-        const userToken = localStorage.getItem(process.env.userTokenNameInLocalStorage);
+        const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
         if (userToken) {
             getUserInfo()
                 .then(async (res) => {
                     if (!res.data.error) {
                         await router.replace("/");
                     } else {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         setIsLoadingPage(false);
                     }
                 }).catch((err) => {
                     if (err?.response?.status === 401) {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         setIsLoadingPage(false);
                     }
                     else {
@@ -278,7 +278,7 @@ export default function ForgetPassword({ userTypeAsProperty }) {
     return (
         <div className="forget-password auth-page">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Forget Password")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Forget Password")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />

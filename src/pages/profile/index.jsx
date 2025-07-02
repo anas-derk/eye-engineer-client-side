@@ -53,12 +53,12 @@ export default function Profile() {
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
-        const userLanguage = localStorage.getItem(process.env.userlanguageFieldNameInLocalStorage);
+        const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
         handleSelectUserLanguage(userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en", i18n.changeLanguage);
     }, []);
 
     useEffect(() => {
-        const userToken = localStorage.getItem(process.env.userTokenNameInLocalStorage);
+        const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
         if (userToken) {
             getUserInfo()
                 .then(async (result) => {
@@ -66,13 +66,13 @@ export default function Profile() {
                         setUserInfo(result.data);
                         setIsLoadingPage(false);
                     } else {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");
                     }
                 })
                 .catch(async (err) => {
                     if (err?.response?.status === 401) {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");
                     }
                     else {
@@ -109,7 +109,7 @@ export default function Profile() {
                 formData.append("userImage", userInfo.image);
                 const result = (await axios.put(`${process.env.BASE_API_URL}/users/change-user-image?language=${i18n.language}`, formData, {
                     headers: {
-                        Authorization: localStorage.getItem(process.env.userTokenNameInLocalStorage),
+                        Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                     }
                 })).data;
                 setWaitMsg("");
@@ -131,7 +131,7 @@ export default function Profile() {
         }
         catch (err) {
             if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
             }
             else {
@@ -231,7 +231,7 @@ export default function Profile() {
                 }
                 const result = (await axios.put(`${process.env.BASE_API_URL}/users/update-user-info?language=${i18n.language}`, newUserInfo, {
                     headers: {
-                        Authorization: localStorage.getItem(process.env.userTokenNameInLocalStorage),
+                        Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                     }
                 })).data;
                 setWaitMsg("");
@@ -252,7 +252,7 @@ export default function Profile() {
         }
         catch (err) {
             if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
             }
             else {
@@ -269,7 +269,7 @@ export default function Profile() {
     return (
         <div className="profile auth-page">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Profile")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Profile")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />

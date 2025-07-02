@@ -24,7 +24,7 @@ export default function Header() {
     const { i18n, t } = useTranslation();
 
     useEffect(() => {
-        const tempLightMode = localStorage.getItem(process.env.userThemeModeFieldNameInLocalStorage);
+        const tempLightMode = localStorage.getItem(process.env.USER_THEME_MODE_FIELD_NAME_IN_LOCAL_STORAGE);
         if (tempLightMode && (tempLightMode === "dark" || tempLightMode === "sunny")) {
             setLightMode(tempLightMode);
             let rootElement = document.documentElement;
@@ -34,7 +34,7 @@ export default function Header() {
     }, []);
 
     useEffect(() => {
-        const userToken = localStorage.getItem(process.env.userTokenNameInLocalStorage);
+        const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
         if (userToken) {
             setToken(userToken);
         }
@@ -46,11 +46,11 @@ export default function Header() {
         let rootElement = document.documentElement;
         rootElement.style.setProperty("--main-color-one", newLightMode === "sunny" ? "#f0fdf4" : "#15202b");
         rootElement.style.setProperty("--main-text-color", newLightMode === "sunny" ? "#000" : "#FFF");
-        localStorage.setItem(process.env.userThemeModeFieldNameInLocalStorage, newLightMode);
+        localStorage.setItem(process.env.USER_THEME_MODE_FIELD_NAME_IN_LOCAL_STORAGE, newLightMode);
     }
 
     const userLogout = async () => {
-        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
         await router.push("/login");
     }
 

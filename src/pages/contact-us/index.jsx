@@ -79,7 +79,7 @@ export default function AboutUs() {
     return (
         <div className="contact-us">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Contact Us")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Contact Us")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
@@ -154,7 +154,7 @@ export default function AboutUs() {
                                     }}
                                     className="image-box text-center"
                                 >
-                                    <img src={websiteLogo.src} alt={`${process.env.websiteName} Image`} />
+                                    <img src={websiteLogo.src} alt={`${process.env.WEBSITE_NAME} Image`} />
                                 </motion.div>
                             </div>
                             <motion.div

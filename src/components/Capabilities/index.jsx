@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { getAnimationSettings, getInitialStateForElementBeforeAnimation } from "../../../public/global_functions/popular";
 import { motion } from "motion/react";
-import Footer from "@/components/Footer";
 import Link from "next/link";
 import ServiceImage1 from "../../../public/images/Services/Geometries.png";
 import ServiceImage2 from "../../../public/images/Services/EducationalVideos.png";

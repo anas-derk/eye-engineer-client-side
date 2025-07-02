@@ -52,12 +52,12 @@ export default function Users() {
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
-        const userLanguage = localStorage.getItem(process.env.userlanguageFieldNameInLocalStorage);
+        const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
         handleSelectUserLanguage(userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en", i18n.changeLanguage);
     }, []);
 
     useEffect(() => {
-        const userToken = localStorage.getItem(process.env.userTokenNameInLocalStorage);
+        const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
         if (userToken) {
             getUserInfo()
                 .then(async (result) => {
@@ -68,13 +68,13 @@ export default function Users() {
                         setTotalPagesCount(Math.ceil(result.usersCount / pageSize));
                         setIsLoadingPage(false);
                     } else {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");
                     }
                 })
                 .catch(async (err) => {
                     if (err?.response?.status === 401) {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");
                     }
                     else {
@@ -100,7 +100,7 @@ export default function Users() {
         try {
             return (await axios.get(`${process.env.BASE_API_URL}/users/all-users-inside-the-page?pageNumber=${pageNumber}&pageSize=${pageSize}&language=${i18n.language}&${filters ? filters : ""}`, {
                 headers: {
-                    Authorization: localStorage.getItem(process.env.userTokenNameInLocalStorage),
+                    Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                 }
             })).data;
         }
@@ -120,7 +120,7 @@ export default function Users() {
         }
         catch (err) {
             if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
             }
             else {
@@ -140,7 +140,7 @@ export default function Users() {
         }
         catch (err) {
             if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
             }
             else {
@@ -159,7 +159,7 @@ export default function Users() {
         }
         catch (err) {
             if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
             }
             else {
@@ -200,7 +200,7 @@ export default function Users() {
             setSelectedUserIndex(userIndex);
             const result = (await axios.delete(`${process.env.BASE_API_URL}/users/delete-user?userType=admin&userId=${allUsersInsideThePage[userIndex]._id}&language=${i18n.language}`, {
                 headers: {
-                    Authorization: localStorage.getItem(process.env.userTokenNameInLocalStorage),
+                    Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                 }
             })).data;
             setWaitMsg("");

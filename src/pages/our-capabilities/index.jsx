@@ -22,7 +22,7 @@ export default function OurCapabilites() {
     return (
         <div className="our-capabilites">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Our Capabilites")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Our Capabilites")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />

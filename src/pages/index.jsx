@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <div className="home page">
       <Head>
-        <title>{t(process.env.websiteName)} {t("Home")}</title>
+        <title>{t(process.env.WEBSITE_NAME)} {t("Home")}</title>
       </Head>
       {!isLoadingPage && !errorMsgOnLoadingThePage && <>
         <Header />
@@ -38,10 +38,10 @@ export default function Home() {
         <div className="contact-icons-box" onClick={() => setIsDisplayContactIcons(value => !value)}>
           <ul className="contact-icons-list">
             {isDisplayContactIcons && <li className="contact-icon-item mb-3">
-              <a href={`mailto:${process.env.contactEmail}`} target="_blank"><MdOutlineMail className="mail-icon" /></a>
+              <a href={`mailto:${process.env.CONTACT_EMAIL}`} target="_blank"><MdOutlineMail className="mail-icon" /></a>
             </li>}
             {isDisplayContactIcons && <li className="contact-icon-item mb-3">
-              <a href={`https://wa.me/${process.env.contactNumber}?text=welcome`} target="_blank"><FaWhatsapp className="whatsapp-icon" /></a>
+              <a href={`https://wa.me/${process.env.CONTACT_NUMBER}?text=welcome`} target="_blank"><FaWhatsapp className="whatsapp-icon" /></a>
             </li>}
             {!isDisplayContactIcons && <li className="contact-icon-item"><MdOutlineContactPhone className="contact-icon" /></li>}
             {isDisplayContactIcons && <li className="contact-icon-item"><FaTimes className="close-icon" /></li>}

@@ -45,18 +45,18 @@ export default function SignUp() {
     const router = useRouter();
 
     useEffect(() => {
-        const userToken = localStorage.getItem(process.env.userTokenNameInLocalStorage);
+        const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
         if (userToken) {
             getUserInfo()
                 .then(async (result) => {
                     if (result.error) {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         setIsLoadingPage(false);
                     } else await router.replace("/");
                 })
                 .catch(async (err) => {
                     if (err?.response?.status === 401) {
-                        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         setIsLoadingPage(false);
                     }
                     else {
@@ -167,7 +167,7 @@ export default function SignUp() {
                     clearTimeout(errorTimeout);
                 }, 5000);
             } else {
-                localStorage.setItem(process.env.userTokenNameInLocalStorage, result.data.token);
+                localStorage.setItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE, result.data.token);
                 await router.replace("/");
             }
         }
@@ -188,7 +188,7 @@ export default function SignUp() {
     return (
         <div className="login auth-page">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Sign Up")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Sign Up")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />

@@ -6,19 +6,23 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   env: {
-    BASE_API_URL: process.env.NODE_ENV === "development" ? "http://localhost:5500" : "https://api.asfourintlco.com",
+    BASE_API_URL: process.env.NODE_ENV === "development" ? "http://localhost:3030" : "https://api.asfourintlco.com",
     WEBSITE_URL: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://eyeengineer.com",
-    userTokenNameInLocalStorage: "e-e-u-t",
-    websiteName: "Eye Engineer",
-    userlanguageFieldNameInLocalStorage: "eye-engineer-store-language",
-    userThemeModeFieldNameInLocalStorage: "eye-engineer-light-mode",
-    contactNumber: "+963984944832",
-    contactEmail: "info@eyeengineer.com"
+    USER_TOKEN_NAME_IN_LOCAL_STORAGE: "e-e-u-t",
+    WEBSITE_NAME: "Eye Engineer",
+    USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE: "eye-engineer-store-language",
+    USER_THEME_MODE_FIELD_NAME_IN_LOCAL_STORAGE: "eye-engineer-light-mode",
+    CONTACT_NUMBER: "+963984944832",
+    CONTACT_EMAIL: "info@eyeengineer.com",
+    FACEBOOK_LINK: "https://www.facebook.com/eyeengineer?mibextid=ZbWKwL",
+    INSTAGRAM_LINK: "https://www.instagram.com/ubuyblues",
+    TIKTOK_LINK: "https://www.tiktok.com/@cirat.co?_t=8oZFsy0KQ2z&_r=1",
+    TEAMS_LINK: "https://teams.live.com/l/community/FEAG3TGynF-xu-I6AI",
   },
   async headers() {
     return [
       {
-        source: process.env.NODE_ENV === "development" ? "//localhost:5500/(.*)" : "//api.asfourintlco.com/(.*)",
+        source: process.env.NODE_ENV === "development" ? "//localhost:3030/(.*)" : "//api.asfourintlco.com/(.*)",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {

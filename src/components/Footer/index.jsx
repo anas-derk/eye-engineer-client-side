@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FaLongArrowAltRight, FaLongArrowAltLeft, FaInstagram, FaTiktok } from "react-icons/fa";
 import { BiLogoMicrosoftTeams } from "react-icons/bi";
 import { IoLogoFacebook } from "react-icons/io";
@@ -14,7 +14,7 @@ export default function Footer() {
     const { i18n, t } = useTranslation();
 
     useEffect(() => {
-        const userLanguage = localStorage.getItem(process.env.userlanguageFieldNameInLocalStorage);
+        const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
         handleSelectUserLanguage(userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en", i18n.changeLanguage);
     }, []);
 
@@ -34,7 +34,7 @@ export default function Footer() {
                             }
                         }}
                     >
-                        <img src={WebsiteLogo.src} alt={`${process.env.websiteName} Image`} className="mw-100 mb-4" />
+                        <img src={WebsiteLogo.src} alt={`${process.env.WEBSITE_NAME} Image`} className="mw-100 mb-4" />
                     </motion.div>
                     <motion.div
                         className="col-xl-3"
@@ -86,7 +86,7 @@ export default function Footer() {
                             </li>
                             <li className="link-item fw-bold">
                                 {i18n.language !== "ar" ? <FaLongArrowAltRight className="me-2 icon" /> : <FaLongArrowAltLeft className="ms-2 icon" />}
-                                <Link href="/questions-policy" className="link-btn">{t("Questions Policy").toUpperCase()}</Link>
+                                <Link href="/questions-and-answer-policy" className="link-btn">{t("Questions Policy").toUpperCase()}</Link>
                             </li>
                         </ul>
                     </motion.div>
@@ -147,29 +147,29 @@ export default function Footer() {
                         >
                             <li className="link-item fw-bold mb-3">
                                 <IoLogoFacebook className={`icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <Link href="https://www.facebook.com/eyeengineer?mibextid=ZbWKwL" target="_blank" className="link-btn">{t("Facebook").toUpperCase()}</Link>
+                                <Link href={process.env.FACEBOOK_LINK} target="_blank" className="link-btn">{t("Facebook").toUpperCase()}</Link>
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 <FaInstagram className={`icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <Link href="https://www.instagram.com/eyeengineer?igsh=MzRlODBiNWFlZA==" target="_blank" className="link-btn">{t("Instagram").toUpperCase()}</Link>
+                                <Link href={process.env.INSTAGRAM_LINK} target="_blank" className="link-btn">{t("Instagram").toUpperCase()}</Link>
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 <FaTiktok className={`icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <Link href="https://www.tiktok.com/@cirat.co?_t=8oZFsy0KQ2z&_r=1" target="_blank" className="link-btn">{t("Tiktok").toUpperCase()}</Link>
+                                <Link href={process.env.TIKTOK_LINK} target="_blank" className="link-btn">{t("Tiktok").toUpperCase()}</Link>
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 <BiLogoMicrosoftTeams className={`icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <Link href="https://teams.live.com/l/community/FEAG3TGynF-xu-I6AI" target="_blank" className="link-btn">{t("Tiktok").toUpperCase()}</Link>
+                                <Link href={process.env.TEAMS_LINK} target="_blank" className="link-btn">{t("Tiktok").toUpperCase()}</Link>
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 <MdEmail className={`icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <Link href="mailto:info@eyeengineer.com" className="link-btn">{t("Email").toUpperCase()}</Link>
+                                <Link href={`mailto:${process.env.CONTACT_EMAIL}`} className="link-btn">{t("Email").toUpperCase()}</Link>
                             </li>
                         </ul>
                     </motion.div>
                 </div>
                 <p className="mb-0 text-center fw-bold">
-                    {t("All Rights Reserved For")} <Link href="/" className="website-link">{process.env.websiteName}</Link>
+                    {t("All Rights Reserved For")} <Link href="/" className="website-link">{process.env.WEBSITE_NAME}</Link>
                 </p>
             </div>
         </footer>
