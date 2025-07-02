@@ -16,7 +16,7 @@ const nextConfig = {
     CONTACT_EMAIL: "info@eyeengineer.com",
     FACEBOOK_LINK: "https://www.facebook.com/eyeengineer?mibextid=ZbWKwL",
     INSTAGRAM_LINK: "https://www.instagram.com/ubuyblues",
-    TIKTOK_LINK: "https://www.tiktok.com/@cirat.co?_t=8oZFsy0KQ2z&_r=1",
+    TIKTOK_LINK: "https://www.tiktok.com/@eye_engineer?_t=ZS-8u7kr3I8J3x&_r=1",
     TEAMS_LINK: "https://teams.live.com/l/community/FEAG3TGynF-xu-I6AI",
   },
   async headers() {
