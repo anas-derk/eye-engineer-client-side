@@ -99,7 +99,7 @@ export default function PrivacyPolicy() {
                                 <ul>
                                     <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("For certain activities, such as when you register, subscribe to our notifications, or directly communicate with us; we may collect some or all of the following types of information")} .</motion.li>
                                     <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Registration: Contact information, such as your name, email address, date of birth, and mobile phone number")} .</motion.li>
-                                    <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Payment Information: When using paid services on {{WEBSITE_NAME}}, we require payment information. If you make a payment using a credit card or local debit card, we will collect specific information such as your credit card or debit card number, expiration date, and security code. Additionally, the service provider (a third party assisting or representing us in facilitating our services) managing our payment operations will obtain information from your credit card or debit card. Their use of this information will be governed by their own privacy policy")} .</motion.li>
+                                    <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Payment Information: When using paid services on {{WEBSITE_NAME}}, we require payment information. If you make a payment using a credit card or local debit card, we will collect specific information such as your credit card or debit card number, expiration date, and security code. Additionally, the service provider (a third party assisting or representing us in facilitating our services) managing our payment operations will obtain information from your credit card or debit card. Their use of this information will be governed by their own privacy policy", { WEBSITE_NAME: process.env.WEBSITE_NAME })} .</motion.li>
                                 </ul>
                                 <motion.h3
                                     className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
@@ -326,6 +326,139 @@ export default function PrivacyPolicy() {
                                 <ul>
                                     <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("If you choose to participate in public activities on the site or external websites linked to it, you should be aware that any information you share on those sites might be read, collected, or used by other users in those spaces. Exercise caution when disclosing personal information while participating in those public spaces. We are not responsible for the information you choose to submit in these public spaces")} .</motion.li>
                                 </ul>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h4 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("User Image Information")}</motion.h2>
+                            <ul>
+                                <motion.h3
+                                    className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                    initial={getInitialStateForElementBeforeAnimation()}
+                                    whileInView={getAnimationSettings}
+                                >{t("Collection")}</motion.h3>
+                                <ul>
+                                    <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The website and application collect information about user images in the form of profile pictures. This information is collected when users register on the website and application")} .</motion.li>
+                                </ul>
+                                <motion.h3
+                                    className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                    initial={getInitialStateForElementBeforeAnimation()}
+                                    whileInView={getAnimationSettings}
+                                >{t("Usage")}</motion.h3>
+                                <ul>
+                                    <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("We use user image information to personalize their experience with the website and application. This includes displaying profile pictures and allowing users to easily identify each other")} .</motion.li>
+                                </ul>
+                                <motion.h3
+                                    className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                    initial={getInitialStateForElementBeforeAnimation()}
+                                    whileInView={getAnimationSettings}
+                                >{t("Sharing")}</motion.h3>
+                                <ul>
+                                    <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("We do not share user image information with external services and partners for the purpose of providing our website and application functions")} .</motion.li>
+                                </ul>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Disclosure in Accordance with Legal Provisions")}</motion.h2>
+                            <ul>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Under certain circumstances, we may be required to disclose your personal information if the law requires it or in response to a valid government request (such as a court or government agency)")} .</motion.li>
+                                <motion.h3
+                                    className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                    initial={getInitialStateForElementBeforeAnimation()}
+                                    whileInView={getAnimationSettings}
+                                >{t("We may disclose your personal information in good faith if such action is necessary to")} :</motion.h3>
+                                <ul>
+                                    <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Comply with legal obligations")} .</motion.li>
+                                    <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Protect the rights of ({{WEBSITE_NAME}}) and its affiliates and defend them", { WEBSITE_NAME: process.env.WEBSITE_NAME })} .</motion.li>
+                                    <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Prevent any wrongdoing related to the website")} .</motion.li>
+                                    <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Protect the personal security of website users")} .</motion.li>
+                                    <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Protect against legal liability")} .</motion.li>
+                                </ul>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Protection")}</motion.h2>
+                            <ul>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("We implement reasonable measures to help protect information from loss, theft, misuse, unauthorized access, disclosure, alteration, and destruction. It's important to be aware that it's not possible to guarantee complete security for any data storage system, data transmission over the Internet, or any other public network. Please note that information collected by third parties may not have the same level of security protection as information provided to us, and we are not responsible for the security of such information")} .</motion.li>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Your Choices")}</motion.h2>
+                            <ul>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("You can request that we delete your personal information by sending an email to {{CONTACT_EMAIL}}. You can also refuse or disable cookies by adjusting your web browser settings")} .</motion.li>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Terms of Membership for Adding Your Electronic Office and Opening an Account")}</motion.h2>
+                            <ul>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("You must be 25 years old or older according to laws and regulations")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The office's activities must be within the engineering fields allowed to be practiced exclusively. Otherwise, the application will be rejected")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("You must register with {{WEBSITE_NAME}} to use and benefit from the service by contacting the {{WEBSITE_NAME}} team via email at {{CONTACT_EMAIL}}. {{WEBSITE_NAME}} has the right to reject any request to create an account or add your electronic office. {{WEBSITE_NAME}} also has the right to terminate the Add Your Electronic Office service or any account for any violation within the site's policy, without prior notice and at any time", { WEBSITE_NAME: process.env.WEBSITE_NAME, CONTACT_EMAIL: process.env.CONTACT_EMAIL })} .</motion.li>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Advertising and Content from External Parties")}</motion.h2>
+                            <ul>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Some services may contain links to content stored by external parties not under our control. We allow third parties, including business partners, advertising networks, and other advertising and promotion service providers, to collect information about your online activities through cookies, pixel tags, local storage, and other technologies. These third parties may use this information to display ads on our services and elsewhere online tailored to your interests, preferences, and characteristics. We are not responsible for the privacy practices of these external parties, and the information practices of such parties are not covered by this Privacy Policy")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Some external parties collect information about users of our services to provide interest-based advertising displayed on our services and other places, including across browsers and devices. These external parties may use the information collected on our services to make predictions about your interests for the purpose of providing you with (from us or other companies) online ads. Some external parties participate in an industry system that allows users to opt-out of receiving ads designed based on their online activities. Due to differences in the use of applications and websites on mobile devices, you may need to take additional steps to disable targeted advertising techniques in mobile applications. Many mobile devices allow you to opt-out of targeted advertising from mobile applications using the settings included in the mobile application or your mobile device. For more information, please check your mobile device settings. You can also uninstall our applications using the standard uninstall process available on your mobile device or in the app store")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("We do not allow, knowingly, non-specialists and academics to create accounts that provide access to our services")} .</motion.li>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Management Rights")}</motion.h2>
+                            <motion.p className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The site's management reserves the right to")} :</motion.p>
+                            <ul>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Modify, suspend, or terminate the operation or access to the site or any part thereof for any reason")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Modify or change the site, or any part thereof, and any current policies or terms")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Suspend the operation of the site, or any part thereof, as necessary for routine or non-routine maintenance")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Disclose any information believed to be necessary to comply with any applicable law, regulation, legal process, or government request")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The site reserves the right to terminate your access to the site and/or block your future access to the site if it determines that you have violated these terms of use, agreements, or other guidelines")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("If the site takes any legal action against you as a result of your violation of these terms of use, it shall be entitled to recover from you, and you agree to pay, all reasonable attorneys' fees and costs of such action")} .</motion.li>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Links to Other Websites")}</motion.h2>
+                            <ul>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The site may contain links to other websites not operated by us. We advise you to review the privacy policy for each website you visit. We do not control and are not responsible for the content, privacy policies, or practices of third-party websites and their services")} .</motion.li>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Modifications to the Privacy Policy")}</motion.h2>
+                            <ul>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("We may update this privacy policy from time to time. When we update the privacy policy, we will modify the 'date of access' mentioned above and publish the new privacy policy. The updated policy will be effective from the date of publication on the site. We recommend reviewing the privacy policy each time you visit the services to stay informed about our privacy practices")} .</motion.li>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Intellectual Property Rights")}</motion.h2>
+                            <ul>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("This website and all of its contents, including but not limited to all texts, graphics, HTML codes, all product names, trade names, service names, domain names, brand lines, or logos specified in shape or text or any surrounding texts, are copyrighted materials. They may not be printed, copied, published, reproduced, or used (including face images) or distributed in whole or in part without prior written consent from {{WEBSITE_NAME}}", { WEBSITE_NAME: process.env.WEBSITE_NAME })} .</motion.li>
+                            </ul>
+                            <motion.h2
+                                className="fw-bold mb-4 h5 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Questions")}</motion.h2>
+                            <ul>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("If you have any questions about this privacy policy or our practices, please send an email to {{CONTACT_EMAIL}}", { CONTACT_EMAIL: process.env.CONTACT_EMAIL })} .</motion.li>
                             </ul>
                         </div>
                     </div>
