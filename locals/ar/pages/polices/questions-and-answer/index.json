@@ -1,0 +1,21 @@
+{
+    "Questions And Answer Policy": "سياسة الأسئلة والأجوبة",
+    "Question Conditions": "شروط السؤال",
+    "The question must be scientific and engineering only (no response will be provided if the question is outside the scope of engineering)": "أن يكون السؤال علمي هندسي فقط ( لن يتم الرد في حال كان السؤال خارج نطاق الهندسة )",
+    "The question should be concise and not a text": "أن يكون سؤال وليس نص",
+    "Only one question at a time": "سؤال واحد في وقت واحد",
+    "Avoid personal details and refrain from using personal terms": "عدم سرد التفاصيل الشخصية والابتعاد عن المصطلحات الشخصية ",
+    "Inappropriate words or any content unrelated to engineering are not allowed": "لا نسمح بالمشاركات التي تحتوي على كلمات غير ملائمة أو على كلمات تدل على توجهات أخرى مهما كانت ولا علاقة لها بالهندسة",
+    "To avoid redundant questions, it is required to search for the topic on the website before asking the question": "لتفادي الأسئلة المكررة، يجب البحث عن الموضوع أولا على الموقع قبل طرح السؤال",
+    "Answer Policy": "سياسة الإجابة",
+    "Answers should be written in proper Arabic, clear and understandable to Arab readers; English can be used in the answer": "أن تكون مكتوبة بلغة عربية فصحى تكون سهلة وواضحة للقارئ العربي ويمكنك استخدام اللغة الإنجليزية في الإجابة",
+    "The answer should be comprehensive and explanatory for each point in the question": "أن تكون الإجابة شاملة ومفسرة لكل نقطة بالسؤال",
+    "The answer must be based on scientific engineering principles only and should not reflect personal opinions or be quoted from forums": "أن تكون الإجابة مبنية على على أسس علمية هندسية فقط، ولا تعبر عن الرأي الشخصي أو مقتبسة من أحد المنتديات",
+    "Avoid any form of advertising or promotion for a specific company": "الابتعاد عن جميع أشكال الدعاية أو الترويج لشركة معينة",
+    "Stay away from texts unrelated to the engineering field": "الابتعاد عن جميع النصوص التي ليس لها علاقة في المجال الهندسي",
+    "Avoid any form of personal promotion during the answer. Engineer's response is considered indirect promotion, and contact information can be placed in their profile, not in the answer. This should not encourage the questioner to contact or visit": "الابتعاد عن أي شكل من أشكال الدعاية الشخصية خلال الإجابة,حيث تعتبر إجابة المهندس هي جزء من الدعاية الغير مباشرة له , و يمكنه و ضع معلومات الاتصال به في ملفه الشخصي , و أن لا يكون ذلك خلال الجواب أو أن يدعو السائل  للاتصال به أو زيارته أو غير ذلك",
+    "Avoid mentioning the name of the questioner or any personal information; the '{{WEBSITE_NAME}}' website respects the privacy of individuals": "الابتعاد عن ذكر اسم الشخص السائل أو أي معلومات خاصة به، موقع {{WEBSITE_NAME}} يحترم خصوصية الأشخاص",
+    "Respect for Other Engineers' Opinions": "احترام رأي المهندس الأخر من خلال",
+    "Respond to the posed question and attempt to express one's point of view based on scientific engineering principles, avoiding personal biases or unrelated matters": "الإجابة على السؤال المطروح ومحاولة ابداء وجهة نظره بناء على اسس علمية هندسية والابتعاد عن أي توجهات أخرى شخصية أو لا تمت للموضوع بأي صلة",
+    "Note: Any violation of these points will result in the immediate deletion of the answer without prior notification to the engineer": "ملاحظة: في حال تم مخالفة أي من هذه النقاط سيتم حذف الإجابة فورا دون إبلاغ المهندس مسبقا"
+}

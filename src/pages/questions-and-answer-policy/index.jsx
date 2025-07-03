@@ -47,7 +47,7 @@ export default function PolicesTermsAndConditions() {
     }, []);
 
     return (
-        <div className="return-and-refund-policy">
+        <div className="questions-and-answer-policy">
             <Head>
                 <title>{t(process.env.WEBSITE_NAME)} - {t("Questions And Answer Policy")}</title>
             </Head>
@@ -55,34 +55,44 @@ export default function PolicesTermsAndConditions() {
                 <Header />
                 <div className="page-content">
                     <div className="container-fluid">
-                        <motion.h1 className="section-name text-center mb-4 text-white h5" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Questions And Answer Policy")}</motion.h1>
+                        <motion.h1 className="section-name text-center mb-4 text-white h5" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}> {t("Questions And Answer Policy")}</motion.h1>
                         <div className="content">
-                            <motion.p className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("If you have received damaged or incorrect products, please contact customer service for assistance as soon as possible")} .</motion.p>
+                            <motion.h2
+                                className="fw-bold mb-4 h4 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Question Conditions")}</motion.h2>
                             <ol>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Exchange one item for another is allowed")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Returned products must be unused, and the original packaging must be retained, We do not accept returns of used or damaged items")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Products with non-returnable tags and free gifts are not eligible for return or exchange")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The question must be scientific and engineering only (no response will be provided if the question is outside the scope of engineering)")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The question should be concise and not a text")}</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Only one question at a time")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Avoid personal details and refrain from using personal terms")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Inappropriate words or any content unrelated to engineering are not allowed")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("To avoid redundant questions, it is required to search for the topic on the website before asking the question")} .</motion.li>
                             </ol>
-                            <motion.p className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("You have only one day from the delivery date to request a return and refund with the invoice for the following products and valuable goods")} :</motion.p>
+                            <motion.h2
+                                className="fw-bold mb-4 h4 border-bottom border-2 w-fit pb-2"
+                                initial={getInitialStateForElementBeforeAnimation()}
+                                whileInView={getAnimationSettings}
+                            >{t("Answer Policy")}</motion.h2>
                             <ol>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Jewelry and / pierced earrings")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Watches")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Evening wear, wedding attire, socks, and swimwear")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Glasses")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Leather")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Perfumes (including home fragrances), skincare products, hair care products, aerosol sprays, and cosmetics")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("In some cases, we cannot accept returns")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Answers should be written in proper Arabic, clear and understandable to Arab readers; English can be used in the answer")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The answer should be comprehensive and explanatory for each point in the question")}</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The answer must be based on scientific engineering principles only and should not reflect personal opinions or be quoted from forums")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Avoid any form of advertising or promotion for a specific company")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Stay away from texts unrelated to the engineering field")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Avoid any form of personal promotion during the answer. Engineer's response is considered indirect promotion, and contact information can be placed in their profile, not in the answer. This should not encourage the questioner to contact or visit")} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t(`Avoid mentioning the name of the questioner or any personal information; the '{{WEBSITE_NAME}}' website respects the privacy of individuals`, { WEBSITE_NAME: process.env.WEBSITE_NAME })} .</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>
+                                    <motion.h3
+                                        className="fw-bold h6 border-bottom border-2 border-dark  w-fit pb-2"
+                                        initial={getInitialStateForElementBeforeAnimation()}
+                                        whileInView={getAnimationSettings}
+                                    >{t("Respect for Other Engineers' Opinions")} :</motion.h3>
+                                    <motion.p className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Respond to the posed question and attempt to express one's point of view based on scientific engineering principles, avoiding personal biases or unrelated matters")} .</motion.p>
+                                </motion.li>
                             </ol>
-                            <motion.p className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The following categories are non-refundable and non-exchangeable")} :</motion.p>
-                            <ol>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Underwear and lingerie")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The perfumes that have been opened, tested, and used")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Any product that has been exchanged or modified")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Any product that was used")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Any product that was not received in its original packaging")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Any product without the original tags or labels of the product")} .</motion.li>
-                                <motion.li className="mb-3" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Any products that have been resized, altered, or damaged after delivery")} .</motion.li>
-                            </ol>
+                            <motion.p className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Note: Any violation of these points will result in the immediate deletion of the answer without prior notification to the engineer")} .</motion.p>
                         </div>
                     </div>
                 </div>
