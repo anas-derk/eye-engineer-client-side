@@ -64,7 +64,7 @@ export default function PolicesTermsAndConditions() {
                             >{t("Question Conditions")}</motion.h2>
                             <ol>
                                 <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The question must be scientific and engineering only (no response will be provided if the question is outside the scope of engineering)")} .</motion.li>
-                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The question should be concise and not a text")}</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The question should be concise and not a text")} .</motion.li>
                                 <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Only one question at a time")} .</motion.li>
                                 <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Avoid personal details and refrain from using personal terms")} .</motion.li>
                                 <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Inappropriate words or any content unrelated to engineering are not allowed")} .</motion.li>
@@ -77,7 +77,7 @@ export default function PolicesTermsAndConditions() {
                             >{t("Answer Policy")}</motion.h2>
                             <ol>
                                 <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Answers should be written in proper Arabic, clear and understandable to Arab readers; English can be used in the answer")} .</motion.li>
-                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The answer should be comprehensive and explanatory for each point in the question")}</motion.li>
+                                <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The answer should be comprehensive and explanatory for each point in the question")} .</motion.li>
                                 <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("The answer must be based on scientific engineering principles only and should not reflect personal opinions or be quoted from forums")} .</motion.li>
                                 <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Avoid any form of advertising or promotion for a specific company")} .</motion.li>
                                 <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t("Stay away from texts unrelated to the engineering field")} .</motion.li>
@@ -85,7 +85,7 @@ export default function PolicesTermsAndConditions() {
                                 <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>{t(`Avoid mentioning the name of the questioner or any personal information; the '{{WEBSITE_NAME}}' website respects the privacy of individuals`, { WEBSITE_NAME: process.env.WEBSITE_NAME })} .</motion.li>
                                 <motion.li className="mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>
                                     <motion.h3
-                                        className="fw-bold h6 border-bottom border-2 border-dark  w-fit pb-2"
+                                        className="fw-bold h6 border-bottom border-2 w-fit pb-2"
                                         initial={getInitialStateForElementBeforeAnimation()}
                                         whileInView={getAnimationSettings}
                                     >{t("Respect for Other Engineers' Opinions")} :</motion.h3>
