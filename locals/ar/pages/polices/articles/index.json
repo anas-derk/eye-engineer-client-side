@@ -1,3 +1,17 @@
 {
-    "Questions And Answer": "الأسئلة والأجوبة"
+    "Articles Policy": "سياسة المقالات",
+    "Overview": "نظرة عامة",
+    "An article at {{WEBSITE_NAME}} is a piece of writing on a specific engineering topic. It is required to adhere to the following points": "مقالة {{WEBSITE_NAME}} عبارة عن مقالة حول موضوع هندسي معين. والمطلوب فيه التقيد بالنقاط التالية",
+    "The article must be exclusively focused on engineering topics (no unrelated articles are allowed)": "أن تكون المقالة عن المواضيع الهندسية فقط وحصرياً (وبالتالي لا يُسمح بأي مقالات أخرى لا علاقة لها بالمواضيع الهندسية المفيدة)",
+    "Maintain a formal writing style and avoid informal conversational language": "التقيد بأسلوب المقالة بشكل رسمي والابتعاد عن أسلوب المحادثات غير الرسمي",
+    "Keep the article simple and understandable, with an emphasis on explaining engineering terms": "أن تكون بسيطة ومفهومة مع الحرص على شرح المصطلحات الهندسية",
+    "The article should be aimed at scientific benefit based on reliable engineering facts": "أن تكون المقالة موجهة للفائدة العلمية القائمة على حقائق هندسة علمية موثوقة",
+    "Provide names of used references, their publication date, the publishing house's name, and page numbers. Also, mention the names of the websites quoted, along with the date of quoting. The author of the article is responsible for the accuracy of this information both scientifically and legally": "توفير أسماء المراجع المستخدمة، وتاريخ نشرها واسم دار النشر والصفحة، وكذلك ذكر أسماء المواقع الالكترونية المقتبس منها وتاريخ الاقتباس (وهي على مسؤولية كاتب المقال)، وفي حال عدم ذكر ما سبق فان كاتب المقال هو المسؤول عن صحة تلك المعلومات علمياً وقانونياً",
+    "The article should have a well-structured format in terms of font, sentence structure, and overall readability": "أن تكون المقالة ذات تنسيق جيد من حيث الخط وسلامة الجمل نحوياً",
+    "Choose an appropriate title that reflects the content of the article": "اختيار عنوان مناسب لمحتوى المقالة",
+    "Avoid including any article containing unwanted emails or harmful programs": "عدم اشتمال أي مقالة على رسائل بريد غير مرغوب فيها أو برامج ضارة",
+    "Ensure compliance with all copyright and other relevant laws": "التأكد من اتباع جميع قوانين حقوق النشر والقوانين الأخرى المعمول بها",
+    "Respect copyright laws, as our policy involves responding to explicit notifications claiming copyright violations, leading to the immediate removal of the article": "مراعاة حقوق النشر، حيث تقوم سياستنا على الاستجابة للإخطارات الصريحة التي تدعي وجود حالات انتهاك لحقوق النشرمما يؤدي الى حذف المقال مباشرةً",
+    "Avoid publishing personal information that should not be generally accessible": "تجنب نشر المعلومات الشخصية التي لا يجوز الاطلاع عليها بشكل عام (كل ماتحمله المعلومات الشخصية من  معنى)",
+    "Engineers who wish to contribute to {{WEBSITE_NAME}} are requested to send their requests to the {{WEBSITE_NAME}} team at {{CONTACT_EMAIL}}": "يرجى من مقدمي المعلومات الهندسية الذين يودون الكتابة على موقع EyeEngineer ، إرسال الطلب لفريق {{WEBSITE_NAME}} {{CONTACT_EMAIL}}"
 }

@@ -8,7 +8,7 @@ import { getAnimationSettings, getInitialStateForElementBeforeAnimation, getUser
 import Footer from "@/components/Footer";
 import { motion } from "motion/react";
 
-export default function PolicesTermsAndConditions() {
+export default function QuestionsAndAswerPolicy() {
 
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 
