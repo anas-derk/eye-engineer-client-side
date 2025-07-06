@@ -1,0 +1,17 @@
+{
+    "Articles Policy": "Makaleler Politikası",
+    "Overview": "Genel Bakış",
+    "An article at {{WEBSITE_NAME}} is a piece of writing on a specific engineering topic. It is required to adhere to the following points": "{{WEBSITE_NAME}} sitesindeki bir makale, belirli bir mühendislik konusu üzerine yazılmış bir metindir. Aşağıdaki noktalara uyulması gerekmektedir.",
+    "The article must be exclusively focused on engineering topics (no unrelated articles are allowed)": "Makale sadece mühendislik konularına odaklanmalıdır (ilişkisiz makalelere izin verilmez).",
+    "Maintain a formal writing style and avoid informal conversational language": "Resmi bir yazım stili benimsenmeli, gayri resmi konuşma dili kullanılmamalıdır.",
+    "Keep the article simple and understandable, with an emphasis on explaining engineering terms": "Makale basit ve anlaşılır olmalı, mühendislik terimlerinin açıklanmasına önem verilmelidir.",
+    "The article should be aimed at scientific benefit based on reliable engineering facts": "Makale, güvenilir mühendislik gerçeklerine dayanan bilimsel fayda amacı taşımalıdır.",
+    "Provide names of used references, their publication date, the publishing house's name, and page numbers. Also, mention the names of the websites quoted, along with the date of quoting. The author of the article is responsible for the accuracy of this information both scientifically and legally": "Kullanılan kaynakların isimleri, yayın tarihi, yayınevi adı ve sayfa numaraları belirtilmelidir. Ayrıca alıntı yapılan web sitelerinin isimleri ve alıntı tarihi de belirtilmelidir. Makale yazarı, bu bilgilerin bilimsel ve hukuki doğruluğundan sorumludur.",
+    "The article should have a well-structured format in terms of font, sentence structure, and overall readability": "Makalenin yazı tipi, cümle yapısı ve genel okunabilirlik açısından iyi yapılandırılmış olması gerekir.",
+    "Choose an appropriate title that reflects the content of the article": "Makalenin içeriğini yansıtan uygun bir başlık seçilmelidir.",
+    "Avoid including any article containing unwanted emails or harmful programs": "İstenmeyen e-postalar veya zararlı programlar içeren makalelerden kaçınılmalıdır.",
+    "Ensure compliance with all copyright and other relevant laws": "Tüm telif hakkı ve ilgili diğer yasalara uyulduğundan emin olunmalıdır.",
+    "Respect copyright laws, as our policy involves responding to explicit notifications claiming copyright violations, leading to the immediate removal of the article": "Telif hakkı yasalarına saygı gösterilmelidir; politikamız, telif hakkı ihlali bildirimlerine yanıt vererek makalenin derhal kaldırılmasını içerir.",
+    "Avoid publishing personal information that should not be generally accessible": "Genel erişime açık olmaması gereken kişisel bilgilerin yayımlanmasından kaçınılmalıdır.",
+    "Engineers who wish to contribute to {{WEBSITE_NAME}} are requested to send their requests to the {{WEBSITE_NAME}} team at {{CONTACT_EMAIL}}": "{{WEBSITE_NAME}} sitesine katkıda bulunmak isteyen mühendislerin taleplerini {{CONTACT_EMAIL}} adresindeki {{WEBSITE_NAME}} ekibine iletmeleri rica olunur."
+}

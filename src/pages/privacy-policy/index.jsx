@@ -55,7 +55,7 @@ export default function PrivacyPolicy() {
                 <Header />
                 <div className="page-content">
                     <div className="container-fluid">
-                        <motion.h1 className="section-name text-center mb-4 text-white h5" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}> {t("Articles Policy")}</motion.h1>
+                        <motion.h1 className="section-name text-center mb-4 text-white h5" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}> {t("Privacy Policy")}</motion.h1>
                         <div className="content">
                             <motion.h2
                                 className="fw-bold mb-4 h4 border-bottom border-2 w-fit pb-2"

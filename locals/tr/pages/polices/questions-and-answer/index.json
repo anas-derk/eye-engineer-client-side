@@ -1,0 +1,21 @@
+{
+    "Questions And Answer Policy": "Soru ve Cevap Politikası",
+    "Question Conditions": "Soru Koşulları",
+    "The question must be scientific and engineering only (no response will be provided if the question is outside the scope of engineering)": "Soru sadece bilimsel ve mühendislik alanında olmalıdır (soru mühendislik kapsamı dışında ise yanıt verilmez).",
+    "The question should be concise and not a text": "Soru kısa ve öz olmalı, metin şeklinde olmamalıdır.",
+    "Only one question at a time": "Bir seferde yalnızca bir soru sorulabilir.",
+    "Avoid personal details and refrain from using personal terms": "Kişisel detaylardan kaçınılmalı ve kişisel terimler kullanılmamalıdır.",
+    "Inappropriate words or any content unrelated to engineering are not allowed": "Mühendislikle ilgisiz uygunsuz kelimeler veya içeriklere izin verilmez.",
+    "To avoid redundant questions, it is required to search for the topic on the website before asking the question": "Tekrarlayan soruları önlemek için soru sormadan önce konu site üzerinde araştırılmalıdır.",
+    "Answer Policy": "Cevap Politikası",
+    "Answers should be written in proper Arabic, clear and understandable to Arab readers; English can be used in the answer": "Cevaplar düzgün Arapça ile yazılmalı, Arap okuyucular için açık ve anlaşılır olmalı; İngilizce kullanılabilir.",
+    "The answer should be comprehensive and explanatory for each point in the question": "Cevap, sorudaki her maddeyi kapsamlı ve açıklayıcı şekilde ele almalıdır.",
+    "The answer must be based on scientific engineering principles only and should not reflect personal opinions or be quoted from forums": "Cevap sadece bilimsel mühendislik prensiplerine dayanmalı, kişisel görüş içermemeli veya forumlardan alıntı yapılmamalıdır.",
+    "Avoid any form of advertising or promotion for a specific company": "Her türlü reklam veya belirli bir şirketin tanıtımından kaçınılmalıdır.",
+    "Stay away from texts unrelated to the engineering field": "Mühendislik alanıyla ilgisiz metinlerden uzak durulmalıdır.",
+    "Avoid any form of personal promotion during the answer. Engineer's response is considered indirect promotion, and contact information can be placed in their profile, not in the answer. This should not encourage the questioner to contact or visit": "Cevap sırasında kişisel tanıtımdan kaçınılmalıdır. Mühendisin cevabı dolaylı tanıtım sayılır; iletişim bilgileri profilinde olabilir, cevapta değil. Bu durum soru soranın iletişime geçmesini veya ziyaretini teşvik etmemelidir.",
+    "Avoid mentioning the name of the questioner or any personal information; the '{{WEBSITE_NAME}}' website respects the privacy of individuals": "Soru soranın adı veya kişisel bilgileri belirtilmemelidir; '{{WEBSITE_NAME}}' sitesi bireylerin gizliliğine saygı duyar.",
+    "Respect for Other Engineers' Opinions": "Diğer Mühendislerin Görüşlerine Saygı",
+    "Respond to the posed question and attempt to express one's point of view based on scientific engineering principles, avoiding personal biases or unrelated matters": "Sorulan soruya yanıt verilmeli ve kişisel önyargılardan veya konu dışı hususlardan kaçınarak bilimsel mühendislik prensiplerine dayalı görüş belirtilmelidir.",
+    "Note: Any violation of these points will result in the immediate deletion of the answer without prior notification to the engineer": "Not: Bu kuralların ihlali halinde, mühendise önceden bildirimde bulunmaksızın cevap derhal silinecektir."
+}

@@ -1,0 +1,21 @@
+{
+    "Questions And Answer Policy": "Fragen- und Antwort-Richtlinie",
+    "Question Conditions": "Bedingungen für Fragen",
+    "The question must be scientific and engineering only (no response will be provided if the question is outside the scope of engineering)": "Die Frage muss ausschließlich wissenschaftlich und ingenieurtechnisch sein (es wird keine Antwort gegeben, wenn die Frage außerhalb des Ingenieurwesens liegt).",
+    "The question should be concise and not a text": "Die Frage sollte prägnant sein und kein langer Text.",
+    "Only one question at a time": "Nur eine Frage auf einmal.",
+    "Avoid personal details and refrain from using personal terms": "Vermeiden Sie persönliche Details und persönliche Begriffe.",
+    "Inappropriate words or any content unrelated to engineering are not allowed": "Unangemessene Wörter oder jegliche Inhalte, die nicht mit dem Ingenieurwesen zusammenhängen, sind nicht erlaubt.",
+    "To avoid redundant questions, it is required to search for the topic on the website before asking the question": "Um doppelte Fragen zu vermeiden, müssen Sie das Thema zuerst auf der Website suchen, bevor Sie eine Frage stellen.",
+    "Answer Policy": "Antwort-Richtlinie",
+    "Answers should be written in proper Arabic, clear and understandable to Arab readers; English can be used in the answer": "Antworten sollten in korrektem Arabisch verfasst sein, klar und verständlich für arabische Leser; Englisch kann in der Antwort verwendet werden.",
+    "The answer should be comprehensive and explanatory for each point in the question": "Die Antwort sollte umfassend und erklärend für jeden Punkt der Frage sein.",
+    "The answer must be based on scientific engineering principles only and should not reflect personal opinions or be quoted from forums": "Die Antwort muss ausschließlich auf wissenschaftlichen Ingenieurgrundsätzen basieren und darf keine persönliche Meinung enthalten oder aus Foren zitiert sein.",
+    "Avoid any form of advertising or promotion for a specific company": "Vermeiden Sie jegliche Form von Werbung oder Förderung für ein bestimmtes Unternehmen.",
+    "Stay away from texts unrelated to the engineering field": "Vermeiden Sie Texte, die nicht mit dem Ingenieurwesen zusammenhängen.",
+    "Avoid any form of personal promotion during the answer. Engineer's response is considered indirect promotion, and contact information can be placed in their profile, not in the answer. This should not encourage the questioner to contact or visit": "Vermeiden Sie jegliche Form von persönlicher Werbung in der Antwort. Die Antwort des Ingenieurs gilt als indirekte Werbung; Kontaktinformationen können im Profil, aber nicht in der Antwort platziert werden. Dies darf den Fragesteller nicht zur Kontaktaufnahme oder einem Besuch ermuntern.",
+    "Avoid mentioning the name of the questioner or any personal information; the '{{WEBSITE_NAME}}' website respects the privacy of individuals": "Vermeiden Sie die Nennung des Namens des Fragestellers oder persönlicher Informationen; die Website '{{WEBSITE_NAME}}' respektiert die Privatsphäre der Personen.",
+    "Respect for Other Engineers' Opinions": "Respekt für die Meinungen anderer Ingenieure",
+    "Respond to the posed question and attempt to express one's point of view based on scientific engineering principles, avoiding personal biases or unrelated matters": "Beantworten Sie die gestellte Frage und versuchen Sie, Ihre Sichtweise auf Grundlage wissenschaftlicher Ingenieurprinzipien auszudrücken, wobei persönliche Vorurteile oder nicht verwandte Themen zu vermeiden sind.",
+    "Note: Any violation of these points will result in the immediate deletion of the answer without prior notification to the engineer": "Hinweis: Jede Verletzung dieser Punkte führt zur sofortigen Löschung der Antwort ohne vorherige Benachrichtigung des Ingenieurs."
+}

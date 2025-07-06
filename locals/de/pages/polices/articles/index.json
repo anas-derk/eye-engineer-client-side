@@ -1,0 +1,17 @@
+{
+    "Articles Policy": "Artikelrichtlinie",
+    "Overview": "Überblick",
+    "An article at {{WEBSITE_NAME}} is a piece of writing on a specific engineering topic. It is required to adhere to the following points": "Ein Artikel bei {{WEBSITE_NAME}} ist ein Beitrag zu einem bestimmten Ingenieurthema. Es ist erforderlich, die folgenden Punkte einzuhalten",
+    "The article must be exclusively focused on engineering topics (no unrelated articles are allowed)": "Der Artikel muss sich ausschließlich auf Ingenieurthemen konzentrieren (keine themenfremden Artikel erlaubt)",
+    "Maintain a formal writing style and avoid informal conversational language": "Behalten Sie einen formellen Schreibstil bei und vermeiden Sie informelle Umgangssprache",
+    "Keep the article simple and understandable, with an emphasis on explaining engineering terms": "Halten Sie den Artikel einfach und verständlich, mit Schwerpunkt auf der Erklärung technischer Begriffe",
+    "The article should be aimed at scientific benefit based on reliable engineering facts": "Der Artikel sollte auf wissenschaftlichen Nutzen basieren und auf zuverlässigen technischen Fakten beruhen",
+    "Provide names of used references, their publication date, the publishing house's name, and page numbers. Also, mention the names of the websites quoted, along with the date of quoting. The author of the article is responsible for the accuracy of this information both scientifically and legally": "Geben Sie die Namen der verwendeten Quellen, deren Veröffentlichungsdatum, den Namen des Verlags und die Seitenzahlen an. Nennen Sie auch die Namen der zitierten Websites sowie das Zitatdatum. Der Autor des Artikels ist sowohl wissenschaftlich als auch rechtlich für die Richtigkeit dieser Angaben verantwortlich",
+    "The article should have a well-structured format in terms of font, sentence structure, and overall readability": "Der Artikel sollte ein gut strukturiertes Format in Bezug auf Schriftart, Satzbau und Lesbarkeit aufweisen",
+    "Choose an appropriate title that reflects the content of the article": "Wählen Sie einen passenden Titel, der den Inhalt des Artikels widerspiegelt",
+    "Avoid including any article containing unwanted emails or harmful programs": "Vermeiden Sie Artikel, die unerwünschte E-Mails oder schädliche Programme enthalten",
+    "Ensure compliance with all copyright and other relevant laws": "Stellen Sie die Einhaltung aller Urheberrechts- und sonstigen relevanten Gesetze sicher",
+    "Respect copyright laws, as our policy involves responding to explicit notifications claiming copyright violations, leading to the immediate removal of the article": "Respektieren Sie das Urheberrecht, da unsere Richtlinie darin besteht, auf ausdrückliche Benachrichtigungen über Urheberrechtsverletzungen zu reagieren, was zur sofortigen Entfernung des Artikels führt",
+    "Avoid publishing personal information that should not be generally accessible": "Vermeiden Sie die Veröffentlichung personenbezogener Daten, die nicht allgemein zugänglich sein sollten",
+    "Engineers who wish to contribute to {{WEBSITE_NAME}} are requested to send their requests to the {{WEBSITE_NAME}} team at {{CONTACT_EMAIL}}": "Ingenieure, die zu {{WEBSITE_NAME}} beitragen möchten, werden gebeten, ihre Anfragen an das {{WEBSITE_NAME}}-Team unter {{CONTACT_EMAIL}} zu senden"
+}
