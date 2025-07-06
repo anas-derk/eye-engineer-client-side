@@ -159,7 +159,7 @@ export default function Footer() {
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 <BiLogoMicrosoftTeams className={`icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />
-                                <Link href={process.env.TEAMS_LINK} target="_blank" className="link-btn">{t("Tiktok").toUpperCase()}</Link>
+                                <Link href={process.env.TEAMS_LINK} target="_blank" className="link-btn">{t("Teams").toUpperCase()}</Link>
                             </li>
                             <li className="link-item fw-bold mb-3">
                                 <MdEmail className={`icon ${i18n.language !== "ar" ? "me-2" : "ms-2"}`} />

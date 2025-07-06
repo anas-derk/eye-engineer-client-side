@@ -15,7 +15,7 @@ const nextConfig = {
     CONTACT_NUMBER: "+963984944832",
     CONTACT_EMAIL: "info@eyeengineer.com",
     FACEBOOK_LINK: "https://www.facebook.com/eyeengineer?mibextid=ZbWKwL",
-    INSTAGRAM_LINK: "https://www.instagram.com/ubuyblues",
+    INSTAGRAM_LINK: "https://www.instagram.com/eyeengineer?igsh=MzRlODBiNWFlZA==",
     TIKTOK_LINK: "https://www.tiktok.com/@eye_engineer?_t=ZS-8u7kr3I8J3x&_r=1",
     TEAMS_LINK: "https://teams.live.com/l/community/FEAG3TGynF-xu-I6AI",
   },
