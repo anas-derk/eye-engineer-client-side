@@ -139,7 +139,10 @@ export default function AccountVerification({ email }) {
         try {
             e.preventDefault();
             setIsWaitCheckingStatus(true);
-            const result = (await axios.put(`${process.env.BASE_API_URL}/users/update-verification-status?email=${email}&code=${accountVerificationCodeCharactersList.join("")}&language=${i18n.language}`)).data;
+            const result = (await axios.put(`${process.env.BASE_API_URL}/users/update-verification-status?language=${i18n.language}`, {
+                email,
+                code: accountVerificationCodeCharactersList.join(""),
+            })).data;
             if (!result.error) {
                 localStorage.setItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE, result.data.token);
                 await router.replace("/");

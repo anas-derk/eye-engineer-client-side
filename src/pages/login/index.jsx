@@ -97,7 +97,10 @@ export default function Login() {
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Wait Logining");
-                const result = (await axios.get(`${process.env.BASE_API_URL}/users/login?email=${userData.email}&password=${encodeURIComponent(userData.password)}&language=${i18n.language}`)).data;
+                const result = (await axios.post(`${process.env.BASE_API_URL}/users/login?language=${i18n.language}`, {
+                    email: userData.email,
+                    password: userData.password
+                })).data;
                 if (result.error) {
                     setWaitMsg("");
                     setErrorMsg(result.msg);
@@ -124,7 +127,10 @@ export default function Login() {
         try {
             setWaitMsg("Wait Logining");
             let result = decode(credentialResponse.credential);
-            result = (await axios.get(`${process.env.BASE_API_URL}/users/login-with-google?email=${result.email}&name=${result.name}&language=${i18n.language}`)).data;
+            result = (await axios.get(`${process.env.BASE_API_URL}/users/login-with-google?language=${i18n.language}`, {
+                email: result.email,
+                name: result.name
+            })).data;
             if (result.error) {
                 setWaitMsg("");
                 setErrorMsg(result.msg);
