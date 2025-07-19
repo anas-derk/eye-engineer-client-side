@@ -139,7 +139,7 @@ export default function AccountVerification({ email }) {
         try {
             e.preventDefault();
             setIsWaitCheckingStatus(true);
-            const result = (await axios.put(`${process.env.BASE_API_URL}/users/update-verification-status?language=${i18n.language}`, {
+            const result = (await axios.put(`${process.env.BASE_API_URL}/auth/update-verification-status?language=${i18n.language}`, {
                 email,
                 code: accountVerificationCodeCharactersList.join(""),
             })).data;
