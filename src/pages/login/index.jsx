@@ -97,7 +97,7 @@ export default function Login() {
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Wait Logining");
-                const result = (await axios.post(`${process.env.BASE_API_URL}/users/login?language=${i18n.language}`, {
+                const result = (await axios.post(`${process.env.BASE_API_URL}/auth/login?language=${i18n.language}`, {
                     email: userData.email,
                     password: userData.password
                 })).data;
@@ -127,7 +127,7 @@ export default function Login() {
         try {
             setWaitMsg("Wait Logining");
             let result = decode(credentialResponse.credential);
-            result = (await axios.get(`${process.env.BASE_API_URL}/users/login-with-google?language=${i18n.language}`, {
+            result = (await axios.get(`${process.env.BASE_API_URL}/auth/login-with-google?language=${i18n.language}`, {
                 email: result.email,
                 name: result.name
             })).data;

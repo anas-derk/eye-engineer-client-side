@@ -125,7 +125,7 @@ export default function SignUp() {
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Wait Signup");
-                const result = (await axios.post(`${process.env.BASE_API_URL}/users/create-new-user`, {
+                const result = (await axios.post(`${process.env.BASE_API_URL}/auth/create-new-user?language=${i18n.language}`, {
                     name: userData.name,
                     email: userData.email,
                     password: userData.password,
@@ -158,7 +158,10 @@ export default function SignUp() {
         try {
             setWaitMsg("Wait Signup");
             let result = decode(credentialResponse.credential);
-            result = (await axios.get(`${process.env.BASE_API_URL}/users/login-with-google?email=${result.email}&name=${result.name}&language=${i18n.language}`)).data;
+            result = (await axios.get(`${process.env.BASE_API_URL}/auth/login-with-google?language=${i18n.language}`, {
+                email: result.email,
+                name: result.name
+            })).data;
             if (result.error) {
                 setWaitMsg("");
                 setErrorMsg(result.msg);
@@ -186,7 +189,7 @@ export default function SignUp() {
     }
 
     return (
-        <div className="login auth-page">
+        <div className="sign-up auth-page">
             <Head>
                 <title>{t(process.env.WEBSITE_NAME)} {t("Sign Up")}</title>
             </Head>
