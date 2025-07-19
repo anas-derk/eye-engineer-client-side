@@ -4,8 +4,8 @@ import loginTranslations from "./login";
 import signUpTranslations from "./sign-up";
 
 export default {
-    accountVerificationTranslations,
-    forgetPasswordTranslations,
-    loginTranslations,
-    signUpTranslations
+    ...accountVerificationTranslations,
+    ...forgetPasswordTranslations,
+    ...loginTranslations,
+    ...signUpTranslations
 }
