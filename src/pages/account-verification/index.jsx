@@ -52,12 +52,12 @@ export default function AccountVerification({ email }) {
                         await router.push("/");
                     } else {
                         localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
-                        await router.push("/auth");
+                        await router.push("/login");
                     }
                 }).catch(async (err) => {
                     if (err?.response?.status === 401) {
                         localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
-                        await router.replace("/auth");
+                        await router.replace("/login");
                     }
                     else {
                         setIsLoadingPage(false);

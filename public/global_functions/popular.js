@@ -25,8 +25,8 @@ async function getUserInfo() {
 
 const sendTheCodeToUserEmail = async (email, typeOfUse, userType) => {
     try {
-        const userLanguage = localStorage.getItem(process.env.userlanguageFieldNameInLocalStorage);
-        return (await axios.post(`${process.env.BASE_API_URL}/users/send-account-verification-code?language=${userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en"}`, {
+        const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
+        return (await axios.post(`${process.env.BASE_API_URL}/auth/send-code?language=${userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en"}`, {
             email,
             typeOfUse,
             userType,
