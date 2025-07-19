@@ -168,7 +168,7 @@ export default function ForgetPassword({ userTypeAsProperty }) {
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setIsCheckingStatus(true);
-                const result = (await axios.post(`${process.env.BASE_API_URL}/users/forget-password?language=${i18n.language}`, {
+                const result = (await axios.post(`${process.env.BASE_API_URL}/auth/forget-password?language=${i18n.language}`, {
                     email,
                     userType,
                 })).data;
@@ -251,7 +251,7 @@ export default function ForgetPassword({ userTypeAsProperty }) {
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setIsResetingPasswordStatus(true);
-                const result = (await axios.put(`${process.env.BASE_API_URL}/users/reset-password?language=${i18n.language}`, {
+                const result = (await axios.put(`${process.env.BASE_API_URL}/auth/reset-password?language=${i18n.language}`, {
                     email,
                     code: typedUserCode,
                     newPassword,
@@ -261,7 +261,7 @@ export default function ForgetPassword({ userTypeAsProperty }) {
                 if (!result.error) {
                     setSuccessMsg(`${result.msg}, Please Wait To Navigate To Login Page !!`);
                     let successTimeout = setTimeout(async () => {
-                        await router.push(userTypeAsProperty === "user" ? "/login" : "https://dashboard.eyeengineer.com/login");
+                        await router.push(userTypeAsProperty === "user" ? "/login" : `${process.env.WEBSITE_DASHBOARD_URL}/login`);
                         clearTimeout(successTimeout);
                     }, 6000);
                 } else {

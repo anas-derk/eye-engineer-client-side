@@ -18,6 +18,7 @@ const nextConfig = {
     INSTAGRAM_LINK: "https://www.instagram.com/eyeengineer?igsh=MW0wc245cDRpOTgxaA==",
     TIKTOK_LINK: "https://www.tiktok.com/@eye_engineer?_t=ZS-8u7kr3I8J3x&_r=1",
     TEAMS_LINK: "https://teams.live.com/l/community/FEAG3TGynF-xu-I6AI",
+    WEBSITE_DASHBOARD_URL: process.env.NODE_ENV === "development" ? "http://localhost:3001" : "https://dashboard.asfourintlco.com",
   },
   async headers() {
     return [
