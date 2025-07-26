@@ -6,7 +6,7 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === "production",
   },
   env: {
-    BASE_API_URL: process.env.NODE_ENV === "development" ? "http://localhost:3030" : "https://api.asfourintlco.com",
+    BASE_API_URL: process.env.NODE_ENV === "development" ? "http://localhost:3030" : "https://api.eyeengineer.com",
     WEBSITE_URL: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://eyeengineer.com",
     USER_TOKEN_NAME_IN_LOCAL_STORAGE: "e-e-u-t",
     WEBSITE_NAME: "Eye Engineer",
@@ -18,17 +18,17 @@ const nextConfig = {
     INSTAGRAM_LINK: "https://www.instagram.com/eyeengineer?igsh=MW0wc245cDRpOTgxaA==",
     TIKTOK_LINK: "https://www.tiktok.com/@eye_engineer?_t=ZS-8u7kr3I8J3x&_r=1",
     TEAMS_LINK: "https://teams.live.com/l/community/FEAG3TGynF-xu-I6AI",
-    WEBSITE_DASHBOARD_URL: process.env.NODE_ENV === "development" ? "http://localhost:3001" : "https://dashboard.asfourintlco.com",
+    WEBSITE_DASHBOARD_URL: process.env.NODE_ENV === "development" ? "http://localhost:3001" : "https://dashboard.eyeengineer.com",
   },
   async headers() {
     return [
       {
-        source: process.env.NODE_ENV === "development" ? "//localhost:3030/(.*)" : "//api.asfourintlco.com/(.*)",
+        source: process.env.NODE_ENV === "development" ? "//localhost:3030/(.*)" : "//api.eyeengineer.com/(.*)",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://asfourintlco.com",
+            value: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://eyeengineer.com",
           },
           {
             key: "Access-Control-Allow-Methods",
