@@ -57,7 +57,7 @@ export default function Header() {
     const handleChangeLanguage = (language) => {
         i18n.changeLanguage(language);
         document.body.lang = language;
-        localStorage.setItem(process.env.userlanguageFieldNameInLocalStorage, language);
+        localStorage.setItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE, language);
     }
 
     return (
