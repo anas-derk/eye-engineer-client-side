@@ -14,6 +14,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { decode } from "jsonwebtoken";
 
 export default function SignUp() {
 
@@ -158,7 +159,7 @@ export default function SignUp() {
         try {
             setWaitMsg("Wait Signup");
             let result = decode(credentialResponse.credential);
-            result = (await axios.get(`${process.env.BASE_API_URL}/auth/login-with-google?language=${i18n.language}`, {
+            result = (await axios.post(`${process.env.BASE_API_URL}/auth/login-with-google?language=${i18n.language}`, {
                 email: result.email,
                 name: result.name
             })).data;
