@@ -63,6 +63,31 @@ const handleDisplayConfirmDeleteBox = (selectedElementIndex, setSelectedElementI
     setSelectedElementIndex(selectedElementIndex);
 }
 
+const getLanguagesInfoList = (fieldName) => {
+    return [
+        {
+            fullLanguageName: "Arabic",
+            internationalLanguageCode: "ar",
+            formField: `${fieldName}InAR`
+        },
+        {
+            fullLanguageName: "English",
+            internationalLanguageCode: "en",
+            formField: `${fieldName}InEN`
+        },
+        {
+            fullLanguageName: "Deutche",
+            internationalLanguageCode: "de",
+            formField: `${fieldName}InDE`
+        },
+        {
+            fullLanguageName: "Turkish",
+            internationalLanguageCode: "tr",
+            formField: `${fieldName}InTR`
+        }
+    ];
+}
+
 export {
     getDateFormated,
     getUserInfo,
@@ -70,5 +95,6 @@ export {
     handleSelectUserLanguage,
     getInitialStateForElementBeforeAnimation,
     getAnimationSettings,
-    handleDisplayConfirmDeleteBox
+    handleDisplayConfirmDeleteBox,
+    getLanguagesInfoList
 }
