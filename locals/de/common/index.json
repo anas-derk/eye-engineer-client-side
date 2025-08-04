@@ -29,5 +29,15 @@
     "Welcome To You In Page": "Willkommen Auf Der Seite",
     "Dashboard": "Dashboard",
     "Customer Dashboard": "Kunden-Dashboard",
-    "Forget Password": "Passwort vergessen"
+    "Forget Password": "Passwort vergessen",
+    "Add": "Hinzufügen",
+    "Please Enter Content Here": "Bitte hier den Inhalt eingeben",
+    "Updating Successfull !!": "Aktualisierung erfolgreich !!",
+    "Deleting Successfull !!": "Löschen erfolgreich !!",
+    "Adding Successfull !!": "Hinzufügen erfolgreich !!",
+    "In Arabic": "Auf Arabisch",
+    "In English": "Auf Englisch",
+    "In German": "Auf Deutsch",
+    "In Turkish": "Auf Türkisch",
+    "Please Enter New Content": "Bitte neuen Inhalt eingeben"
 }

@@ -10,7 +10,7 @@ export default function ErrorOnLoadingThePage({ errorMsg }) {
     const { t, i18n } = useTranslation();
 
     useEffect(() => {
-        const userLanguage = localStorage.getItem(process.env.userlanguageFieldNameInLocalStorage);
+        const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
         handleSelectUserLanguage(userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en", i18n.changeLanguage);
     }, []);
 
@@ -30,7 +30,7 @@ export default function ErrorOnLoadingThePage({ errorMsg }) {
                         }
                     }}
                 >
-                    <PiSmileySad className="sorry-icon mb-5" />
+                    <PiSmileySad className="error-icon mb-5" />
                 </motion.div>
                 <motion.p
                     className="error-msg-on-loading-box"

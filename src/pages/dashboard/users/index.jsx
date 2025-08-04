@@ -180,12 +180,12 @@ export default function Users() {
         }
         catch (err) {
             if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.adminTokenNameInLocalStorage);
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
             }
             else {
                 setIsGetUsers(false);
-                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     clearTimeout(errorTimeout);
@@ -209,11 +209,11 @@ export default function Users() {
                 let successTimeout = setTimeout(async () => {
                     setSuccessMsg("");
                     setSelectedUserIndex(-1);
-                    setAllUsersInsideThePage(allUsersInsideThePage.filter((user, index) => index !== userIndex));
+                    setAllUsersInsideThePage(allUsersInsideThePage.filter((_, index) => index !== userIndex));
                     clearTimeout(successTimeout);
                 }, 1000);
             } else {
-                setErrorMsg("Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                setErrorMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     setSelectedUserIndex(-1);
@@ -223,12 +223,12 @@ export default function Users() {
         }
         catch (err) {
             if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.adminTokenNameInLocalStorage);
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
             }
             else {
                 setWaitMsg("");
-                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     setSelectedUserIndex(-1);
@@ -348,11 +348,6 @@ export default function Users() {
                                                     className="btn btn-danger global-button"
                                                     onClick={() => handleDisplayConfirmDeleteBox(userIndex, setSelectedUserIndex, setIsDisplayConfirmDeleteBox)}
                                                 >{t("Delete")}</button>
-                                                {/* <hr /> */}
-                                                {/* <button
-                                                    className="btn btn-success global-button"
-                                                    onClick={() => deleteUser(userIndex)}
-                                                >{t("Update")}</button> */}
                                             </>}
                                             {waitMsg && selectedUserIndex === userIndex && <button
                                                 className="btn btn-info d-block mb-3 mx-auto global-button"

@@ -3,7 +3,7 @@
     "Sorry, This Email Is Not Valid !!": "Üzgünüm, Bu E-posta Geçerli Değil!!",
     "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter.": "Üzgünüm, Şifre en az 8 karakter uzunluğunda olmalıdır, en az bir rakam, en az bir küçük harf ve en az bir büyük harf içermelidir.",
     "Network Error": "Ağ Hatası",
-    "Sorry, Someting Went Wrong, Please Repeat The Process !!": "Üzgünüm, Bir Şeyler Ters Gitti, Lütfen İşlemi Tekrarlayın !!",
+    "Sorry, Something Went Wrong, Please Repeat The Process !!": "Üzgünüm, Bir Şeyler Ters Gitti, Lütfen İşlemi Tekrarlayın !!",
     "Sorry, Invalid Email Address !!": "Üzgünüm, Geçersiz E-posta Adresi !!",
     "Sorry, The User Is Not Exist !!, Please Enter Another User Email ..": "Üzgünüm, Kullanıcı Mevcut Değil !!, Lütfen Başka Bir Kullanıcı E-postası Girin ..",
     "Sorry, The Email For This User Has Been Verified !!": "Üzgünüm, Bu Kullanıcı İçin E-posta Doğrulandı !!",
@@ -15,5 +15,6 @@
     "Sorry, This Name Is Not Valid !!": "Üzgünüm, Bu İsim Geçerli Değil !!",
     "Sorry, There Is No Match Between New Password And Confirm It !!": "Üzgünüm, Yeni Şifre ile Onay Şifresi Eşleşmiyor !!",
     "Sorry, This Password Is Uncorrect !!": "Üzgünüm, Bu Şifre Yanlış !!",
-    "Sorry, Invalid Code !!": "Üzgünüz, geçersiz kod!!"
+    "Sorry, Invalid Code !!": "Üzgünüz, geçersiz kod !!",
+    "Sorry, Can't Find Any News !!": "Üzgünüz, herhangi bir haber bulunamadı !!"
 }

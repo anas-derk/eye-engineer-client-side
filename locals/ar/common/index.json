@@ -30,5 +30,15 @@
     "Dashboard": "لوحة التحكم",
     "Customer Dashboard": "لوحة التحكم",
     "Policy": "سياسة",
-    "Forget Password": "نسيت كلمة المرور"
+    "Forget Password": "نسيت كلمة المرور",
+    "Add": "إضافة",
+    "Please Enter Content Here": "الرجاء إدخال المحتوى هنا",
+    "Updating Successfull !!": "نجاح التعديل !!",
+    "Deleting Successfull !!": "نجاح الحذف !!",
+    "Adding Successfull !!": "نجاح الإضافة !!",
+    "In Arabic": "بالعربية",
+    "In English": "بالإنجليزية",
+    "In German": "بالألمانية",
+    "In Turkish": "بالتركية",
+    "Please Enter New Content": "الرجاء إدخال المحتوى الجديد"
 }

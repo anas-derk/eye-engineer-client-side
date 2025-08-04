@@ -29,5 +29,15 @@
     "Welcome To You In Page": "Sayfaya Hoş Geldiniz",
     "Dashboard": "Kontrol Paneli",
     "Customer Dashboard": "Müşteri Kontrol Paneli",
-    "Forget Password": "Parolayı unut"
+    "Forget Password": "Parolayı unut",
+    "Add": "Ekle",
+    "Please Enter Content Here": "Lütfen içeriği buraya girin",
+    "Updating Successfull !!": "Güncelleme başarılı !!",
+    "Deleting Successfull !!": "Silme işlemi başarılı !!",
+    "Adding Successfull !!": "Ekleme işlemi başarılı !!",
+    "In Arabic": "Arapça olarak",
+    "In English": "İngilizce olarak",
+    "In German": "Almanca olarak",
+    "In Turkish": "Türkçe olarak",
+    "Please Enter New Content": "Lütfen yeni içerik girin"
 }

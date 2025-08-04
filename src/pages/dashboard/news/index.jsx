@@ -11,6 +11,8 @@ import DashboardSideBar from "@/components/DashboardSideBar";
 import axios from "axios";
 import NotFoundError from "@/components/NotFoundError";
 import ConfirmDelete from "@/components/ConfirmDelete";
+import AddNews from "@/components/AddNews";
+import { inputValuesValidation } from "../../../../public/global_functions/validations";
 
 export default function News() {
 
@@ -30,6 +32,8 @@ export default function News() {
 
     const [isDisplayConfirmDeleteBox, setIsDisplayConfirmDeleteBox] = useState(false);
 
+    const [isDisplayAddNewsBox, setIsDisplayAddNewsBox] = useState(false);
+
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
     const router = useRouter();
@@ -47,7 +51,7 @@ export default function News() {
             getUserInfo()
                 .then(async (result) => {
                     if (!result.error) {
-                        setAllNews((await getAllNews(filtersAsQuery)).data);
+                        setAllNews((await getAllNews()).data);
                         setIsLoadingPage(false);
                     } else {
                         localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
@@ -84,7 +88,7 @@ export default function News() {
 
     const changeNewsContent = (newsIndex, newValue, language) => {
         setSelectedNewsIndex(-1);
-        let newsTemp = allTextAds.map((ad) => ad);
+        let newsTemp = allNews.map((news) => news);
         newsTemp[newsIndex].content[language] = newValue;
         setAllNews(newsTemp);
     }
@@ -106,12 +110,12 @@ export default function News() {
             setFormValidationErrors(errorsObject);
             setSelectedNewsIndex(newsIndex);
             if (Object.keys(errorsObject).length == 0) {
-                setWaitMsg("Please Wait To Updating ...");
-                const result = (await axios.put(`${process.env.BASE_API_URL}/ads/update-news-content/${allNews[newsIndex]._id}?language=${i18n.language}`, {
+                setWaitMsg("Please Wait");
+                const result = (await axios.put(`${process.env.BASE_API_URL}/news/update-content/${allNews[newsIndex]._id}?language=${i18n.language}`, {
                     content: allNews[newsIndex].content,
                 }, {
                     headers: {
-                        Authorization: localStorage.getItem(process.env.ADMIN_TOKEN_NAME_IN_LOCAL_STORAGE),
+                        Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                     }
                 })).data;
                 setWaitMsg("");
@@ -123,7 +127,7 @@ export default function News() {
                         clearTimeout(successTimeout);
                     }, 1500);
                 } else {
-                    setErrorMsg("Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                    setErrorMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
                     let errorTimeout = setTimeout(() => {
                         setErrorMsg("");
                         setSelectedNewsIndex(-1);
@@ -133,14 +137,13 @@ export default function News() {
             }
         }
         catch (err) {
-            console.log(err);
             if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.adminTokenNameInLocalStorage);
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
             }
             else {
                 setWaitMsg("");
-                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     setSelectedNewsIndex(-1);
@@ -154,9 +157,9 @@ export default function News() {
         try {
             setWaitMsg("Please Wait");
             setSelectedNewsIndex(newsIndex);
-            const result = (await axios.delete(`${process.env.BASE_API_URL}/news/delete-news?newsId=${allNews[newsIndex]._id}&language=${i18n.language}`, {
+            const result = (await axios.delete(`${process.env.BASE_API_URL}/news/delete-news/${allNews[newsIndex]._id}?language=${i18n.language}`, {
                 headers: {
-                    Authorization: localStorage.getItem(process.env.ADMIN_TOKEN_NAME_IN_LOCAL_STORAGE),
+                    Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                 }
             })).data;
             setWaitMsg("");
@@ -169,7 +172,7 @@ export default function News() {
                     clearTimeout(successTimeout);
                 }, 1000);
             } else {
-                setErrorMsg("Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                setErrorMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     setSelectedNewsIndex(-1);
@@ -179,12 +182,12 @@ export default function News() {
         }
         catch (err) {
             if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.adminTokenNameInLocalStorage);
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
             }
             else {
                 setWaitMsg("");
-                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     setSelectedNewsIndex(-1);
@@ -210,10 +213,21 @@ export default function News() {
                     errorMsg={errorMsg}
                     successMsg={successMsg}
                 />}
+                {isDisplayAddNewsBox && allNews.length < 10 && <AddNews
+                    setIsDisplayAddNewsBox={setIsDisplayAddNewsBox}
+                    allNews={allNews}
+                    setAllNews={setAllNews}
+                />}
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("News")}</h1>
                     <DashboardSideBar />
+                    {!isDisplayAddNewsBox && <button
+                        className="btn d-block w-25 mx-auto mt-2 mb-4 orange-btn"
+                        onClick={() => setIsDisplayAddNewsBox(true)}
+                    >
+                        {t("Add New News")}
+                    </button>}
                     {allNews.length > 0 && <section className="news-box w-100 admin-dashbboard-data-box">
                         <table className="news-table mb-4 managment-table bg-white w-100 admin-dashbboard-data-table">
                             <thead>
@@ -230,14 +244,14 @@ export default function News() {
                                         <td className="news-id-cell">
                                             {news._id}
                                         </td>
-                                        <td className="news-name-cell">
+                                        <td className="news-content-cell">
                                             <section className="news-content mb-4">
                                                 {getLanguagesInfoList("content").map((el) => (
                                                     <div key={el.fullLanguageName}>
-                                                        <h6 className="fw-bold">In {el.fullLanguageName} :</h6>
+                                                        <h6 className="fw-bold">{t(`In ${el.fullLanguageName}`)} :</h6>
                                                         <input
                                                             type="text"
-                                                            placeholder={`Enter New News Content In ${el.fullLanguageName}`}
+                                                            placeholder={`${t("Please Enter New Content")} ${t(el.fullLanguageName)}`}
                                                             className={`form-control d-block mx-auto p-2 border-2 news-content-field ${formValidationErrors[el.formField] && newsIndex === selectedNewsIndex ? "border-danger mb-3" : "mb-4"}`}
                                                             defaultValue={news.content[el.internationalLanguageCode]}
                                                             onChange={(e) => changeNewsContent(newsIndex, e.target.value.trim(), el.internationalLanguageCode)}

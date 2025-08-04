@@ -3,7 +3,7 @@
     "Sorry, This Email Is Not Valid !!": "عذراً ، هذا الإيميل غير صالح !!",
     "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter.": "عذراً كلمة السر يجب أن تكون على الأقل 8 محارف ، بحيث تحتوي على الأقل رقم واحد ، حرف واحد ، بالإضافة على الأقل حرف صغير وحرف كبير .",
     "Network Error": "خطأ في الشبكة",
-    "Sorry, Someting Went Wrong, Please Repeat The Process !!": "عذراً ، حدث خطأ ما ، الرجاء إعادة المحاولة !!",
+    "Sorry, Something Went Wrong, Please Repeat The Process !!": "عذراً ، حدث خطأ ما ، الرجاء إعادة المحاولة !!",
     "Sorry, Invalid Email Address !!": "عذراً ، البريد الالكتروني غير صالح !!",
     "Sorry, The User Is Not Exist !!, Please Enter Another User Email ..": "عذراً ، هذا المستخدم غير موجود ، الرجاء إدخال بريد إلكتروني آخر ..",
     "Sorry, The Email For This User Has Been Verified !!": "عذراً ، هذا البريد الالكتروني قد تمتّ عملية التاكيد له !!",
@@ -15,5 +15,6 @@
     "Sorry, This Name Is Not Valid !!": "عذراً ، هذا الاسم غير صحيح !!",
     "Sorry, There Is No Match Between New Password And Confirm It !!": "عذراً ، لا يوجد تطابق بين كلمة السر وتأكيدها !!",
     "Sorry, This Password Is Uncorrect !!": "عذراً ، كلمة السر هذه غير صحيحة !!",
-    "Sorry, Invalid Code !!": "عذراً ، رمز غير صالح !!"
+    "Sorry, Invalid Code !!": "عذراً ، رمز غير صالح !!",
+    "Sorry, Can't Find Any News !!": "عذراً، لا يوجد أي أخبار !!"
 }

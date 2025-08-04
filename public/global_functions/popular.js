@@ -76,7 +76,7 @@ const getLanguagesInfoList = (fieldName) => {
             formField: `${fieldName}InEN`
         },
         {
-            fullLanguageName: "Deutche",
+            fullLanguageName: "German",
             internationalLanguageCode: "de",
             formField: `${fieldName}InDE`
         },
