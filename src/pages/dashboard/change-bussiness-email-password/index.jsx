@@ -89,7 +89,7 @@ export default function ChangeBussinessEmailPassword() {
                             msg: "Sorry, This Field Can't Be Empty !!",
                         },
                         isEmail: {
-                            msg: "Sorry, Invalid Email !!",
+                            msg: "Sorry, This Email Is Not Valid !!",
                         },
                     },
                 },
@@ -99,6 +99,9 @@ export default function ChangeBussinessEmailPassword() {
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                        isValidPassword: {
+                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter !!"
                         },
                     }
                 },
@@ -113,6 +116,9 @@ export default function ChangeBussinessEmailPassword() {
                             value: confirmNewPassword,
                             msg: "Sorry, There Is No Match Between New Password And Confirm It !!",
                         },
+                        isValidPassword: {
+                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter !!"
+                        },
                     }
                 },
                 {
@@ -126,6 +132,9 @@ export default function ChangeBussinessEmailPassword() {
                             value: newPassword,
                             msg: "Sorry, There Is No Match Between New Password And Confirm It !!",
                         },
+                        isValidPassword: {
+                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter !!"
+                        },
                     }
                 },
             ]);
@@ -133,7 +142,9 @@ export default function ChangeBussinessEmailPassword() {
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Please Wait");
                 const result = (await axios.put(`${process.env.BASE_API_URL}/global-passwords/change-bussiness-email-password?language=${i18n.language}`, {
-                    password: ""
+                    email,
+                    password: currentPassword,
+                    newPassword,
                 }, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
@@ -151,7 +162,7 @@ export default function ChangeBussinessEmailPassword() {
                         clearTimeout(successTimeout);
                     }, 1000);
                 } else {
-                    setErrorMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
+                    setErrorMsg(result.msg);
                     let errorTimeout = setTimeout(() => {
                         setErrorMsg("");
                         clearTimeout(errorTimeout);
@@ -193,6 +204,7 @@ export default function ChangeBussinessEmailPassword() {
                                 placeholder={t("Please Enter Your Email")}
                                 className={`form-control p-3 border-2 ${formValidationErrors["email"] ? "border-danger mb-3" : "mb-4"}`}
                                 onChange={(e) => setEmail(e.target.value.trim())}
+                                value={email}
                             />
                         </div>
                         {formValidationErrors["email"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["email"])} />}
@@ -202,6 +214,7 @@ export default function ChangeBussinessEmailPassword() {
                                 placeholder={t("Please Enter Current Password Here")}
                                 className={`form-control p-3 border-2 ${formValidationErrors["currentPassword"] ? "border-danger mb-3" : "mb-4"}`}
                                 onChange={(e) => setCurrentPassword(e.target.value.trim())}
+                                value={currentPassword}
                             />
                             <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
                                 {!isVisibleCurrentPassword && <AiOutlineEye className="eye-icon icon" onClick={() => setIsVisibleCurrentPassword(value => value = !value)} />}
@@ -215,6 +228,7 @@ export default function ChangeBussinessEmailPassword() {
                                 placeholder={t("Please Enter New Password Here")}
                                 className={`form-control p-3 border-2 ${formValidationErrors["newPassword"] ? "border-danger mb-3" : "mb-4"}`}
                                 onChange={(e) => setNewPassword(e.target.value.trim())}
+                                value={newPassword}
                             />
                             <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
                                 {!isVisibleNewPassword && <AiOutlineEye className="eye-icon icon" onClick={() => setIsVisibleNewPassword(value => value = !value)} />}
@@ -228,6 +242,7 @@ export default function ChangeBussinessEmailPassword() {
                                 placeholder={t("Please Enter Confirm New Password Here")}
                                 className={`form-control p-3 border-2 ${formValidationErrors["confirmPassword"] ? "border-danger mb-3" : "mb-4"}`}
                                 onChange={(e) => setConfirmNewPassword(e.target.value.trim())}
+                                value={confirmNewPassword}
                             />
                             <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
                                 {!isVisibleConfirmNewPassword && <AiOutlineEye className="eye-icon icon" onClick={() => setIsVisibleConfirmNewPassword(value => value = !value)} />}

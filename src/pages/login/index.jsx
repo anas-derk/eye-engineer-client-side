@@ -89,7 +89,7 @@ export default function Login() {
                             msg: "Sorry, This Field Can't Be Empty !!",
                         },
                         isValidPassword: {
-                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter."
+                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter !!"
                         },
                     },
                 },
