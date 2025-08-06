@@ -41,6 +41,17 @@ export default function DashboardSideBar() {
                         {t("News")}
                     </div>
                 </li>
+                <li className="managment-customer-account-link-item managment-link-item">
+                    <Link
+                        href="/dashboard/change-bussiness-email-password"
+                        className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/users" && "active"}`}
+                    >
+                        <BiNews className="customer-account-managment-link-icon managment-link-icon" />
+                    </Link>
+                    <div className="link-name-box p-2 fw-bold">
+                        {t("Change Bussiness Email Password")}
+                    </div>
+                </li>
                 <li
                     className="managment-customer-account-link-item managment-link-item"
                     onClick={userLogout}

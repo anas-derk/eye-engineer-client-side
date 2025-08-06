@@ -200,7 +200,7 @@ export default function SignUp() {
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Sign Up")}</h1>
                     <div className="container pt-4 pb-4">
-                        <form className="login-form info-box text-center p-4" onSubmit={signup}>
+                        <form className="sign-up-form info-box text-center p-4" onSubmit={signup}>
                             <h2 className="mb-4">{t("Sign Up")}</h2>
                             <div className="name-field-box field-box">
                                 <input
