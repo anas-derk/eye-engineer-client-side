@@ -142,7 +142,7 @@ export default function ShowAndHideServices() {
                                 {allServices.map((service, index) => (
                                     <tr key={service._id}>
                                         <td className="service-name-cell">
-                                            {service.sectionName}
+                                            {service.sectionName[i18n.language]}
                                         </td>
                                         <td className="select-service-status-cell">
                                             <div className="form-check m-0 d-flex align-items-center">
