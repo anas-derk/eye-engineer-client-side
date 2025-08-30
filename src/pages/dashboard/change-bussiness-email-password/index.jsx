@@ -189,7 +189,7 @@ export default function ChangeBussinessEmailPassword() {
     return (
         <div className="change-bussiness-email-password dashboard">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Change Bussiness Email Password")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Change Bussiness Email Password")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
