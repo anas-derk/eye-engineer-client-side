@@ -44,6 +44,7 @@ export default function Login({ userTypeAsProperty }) {
     const router = useRouter();
 
     useEffect(() => {
+        setUserType(userTypeAsProperty);
         const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
         if (userToken) {
             getUserInfo()

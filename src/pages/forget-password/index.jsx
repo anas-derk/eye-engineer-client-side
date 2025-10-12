@@ -169,8 +169,8 @@ export default function ForgetPassword({ userTypeAsProperty }) {
             if (Object.keys(errorsObject).length == 0) {
                 setIsCheckingStatus(true);
                 const result = (await axios.post(`${process.env.BASE_API_URL}/auth/forget-password?language=${i18n.language}`, {
-                    email,
                     userType,
+                    email,
                 })).data;
                 if (result.error) {
                     setIsCheckingStatus(false);
@@ -252,16 +252,16 @@ export default function ForgetPassword({ userTypeAsProperty }) {
             if (Object.keys(errorsObject).length == 0) {
                 setIsResetingPasswordStatus(true);
                 const result = (await axios.put(`${process.env.BASE_API_URL}/auth/reset-password?language=${i18n.language}`, {
+                    userType,
                     email,
                     code: typedUserCode,
                     newPassword,
-                    userType
                 })).data;
                 setIsResetingPasswordStatus(false);
                 if (!result.error) {
                     setSuccessMsg(`${result.msg}, Please Wait To Navigate To Login Page !!`);
                     let successTimeout = setTimeout(async () => {
-                        await router.push(userTypeAsProperty === "user" ? "/login" : `${process.env.WEBSITE_DASHBOARD_URL}/login`);
+                        await router.push("/login");
                         clearTimeout(successTimeout);
                     }, 6000);
                 } else {
