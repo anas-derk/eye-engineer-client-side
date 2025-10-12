@@ -18,11 +18,13 @@ import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 import { decode } from "jsonwebtoken";
 
-export default function Login() {
+export default function Login({ userTypeAsProperty }) {
 
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
+
+    const [userType, setUserType] = useState();
 
     const [userData, setUserData] = useState({
         email: "",
@@ -62,13 +64,27 @@ export default function Login() {
                     }
                 });
         } else setIsLoadingPage(false);
-    }, []);
+    }, [userTypeAsProperty]);
+
+    const handleSelectUserType = (newUserType) => {
+        setUserType(newUserType);
+        router.replace(`/login?userType=${newUserType}`);
+    }
 
     const login = async (e) => {
         try {
             e.preventDefault();
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
+                {
+                    name: "userType",
+                    value: userType,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                    },
+                },
                 {
                     name: "email",
                     value: userData.email,
@@ -99,7 +115,8 @@ export default function Login() {
                 setWaitMsg("Wait Logining");
                 const result = (await axios.post(`${process.env.BASE_API_URL}/auth/login?language=${i18n.language}`, {
                     email: userData.email,
-                    password: userData.password
+                    password: userData.password,
+                    userType,
                 })).data;
                 if (result.error) {
                     setWaitMsg("");
@@ -128,6 +145,7 @@ export default function Login() {
             setWaitMsg("Wait Logining");
             let result = decode(credentialResponse.credential);
             result = (await axios.post(`${process.env.BASE_API_URL}/auth/login-with-google?language=${i18n.language}`, {
+                userType,
                 email: result.email,
                 name: result.name
             })).data;
@@ -171,6 +189,20 @@ export default function Login() {
                     <div className="container pt-4 pb-4">
                         <form className="login-form info-box text-center p-4" onSubmit={login}>
                             <h2 className="mb-4">{t("Login")}</h2>
+                            <div
+                                className="select-user-type-field-box"
+                            >
+                                <select
+                                    className={`select-user-type form-select ${i18n.language === "ar" ? "ar" : ""} ${formValidationErrors["userType"] ? "border-danger mb-3" : "mb-5"}`}
+                                    onChange={(e) => handleSelectUserType(e.target.value)}
+                                    value={userTypeAsProperty}
+                                >
+                                    <option value="" hidden>{t("Please Select User Type")}</option>
+                                    <option value="user">{t("Normal User")}</option>
+                                    <option value="admin">{t("Admin")}</option>
+                                </select>
+                            </div>
+                            {formValidationErrors["userType"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["userType"])} />}
                             <div className="email-field-box field-box">
                                 <input
                                     type="text"
@@ -236,4 +268,46 @@ export default function Login() {
             {errorMsgOnLoadingThePage && <ErrorOnLoadingThePage errorMsg={errorMsgOnLoadingThePage} />}
         </div>
     );
+}
+
+export async function getServerSideProps({ query }) {
+    const allowedUserTypes = ["user", "admin"];
+    if (query.userType) {
+        if (!allowedUserTypes.includes(query.userType)) {
+            return {
+                redirect: {
+                    permanent: false,
+                    destination: `/login?userType=user`,
+                },
+                props: {
+                    userTypeAsProperty: query.userType,
+                },
+            }
+        }
+        if (Object.keys(query).filter((key) => key !== "userType").length > 1) {
+            return {
+                redirect: {
+                    permanent: false,
+                    destination: `/?userType=${query.userType}`,
+                },
+                props: {
+                    userTypeAsProperty: query.userType,
+                },
+            }
+        }
+        return {
+            props: {
+                userTypeAsProperty: query.userType,
+            },
+        }
+    }
+    return {
+        redirect: {
+            permanent: false,
+            destination: `/login?userType=user`,
+        },
+        props: {
+            userTypeAsProperty: query.userType,
+        },
+    }
 }
