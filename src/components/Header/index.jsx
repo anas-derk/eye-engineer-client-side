@@ -10,6 +10,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import websiteLogo from "../../../public/images/LogoWithTransparentBackground.webp";
 import { GrLanguage } from "react-icons/gr";
+import { decode } from "jsonwebtoken";
 
 export default function Header() {
 
@@ -18,6 +19,8 @@ export default function Header() {
     const [lightMode, setLightMode] = useState("sunny");
 
     const [token, setToken] = useState("");
+
+    const [userInfo, setUserInfo] = useState("");
 
     const router = useRouter();
 
@@ -36,6 +39,8 @@ export default function Header() {
     useEffect(() => {
         const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
         if (userToken) {
+            const tokenDecode = decode(userToken);
+            setUserInfo(tokenDecode);
             setToken(userToken);
         }
     }, []);
@@ -111,9 +116,9 @@ export default function Header() {
                                     onClick={handleChangeMode}
                                 />}
                             {token && <>
-                                <Nav.Link href="/profile" as={Link}>
+                                {userInfo?.userType === "user" && <Nav.Link href="/profile" as={Link}>
                                     {t("Profile")}
-                                </Nav.Link>
+                                </Nav.Link>}
                                 <Nav.Link href="/dashboard" as={Link}>
                                     {t("Dashboard")}
                                 </Nav.Link>

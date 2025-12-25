@@ -63,7 +63,12 @@ export default function Profile() {
             getUserInfo()
                 .then(async (result) => {
                     if (!result.error) {
-                        setUserInfo(result.data);
+                        const userData = result.data;
+                        if (userData?.officeId) {
+                            await router.replace("/");
+                            return;
+                        }
+                        setUserInfo(userData);
                         setIsLoadingPage(false);
                     } else {
                         localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
