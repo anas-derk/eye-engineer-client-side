@@ -51,8 +51,14 @@ export default function News() {
             getUserInfo()
                 .then(async (result) => {
                     if (!result.error) {
-                        setAllNews((await getAllNews()).data);
-                        setIsLoadingPage(false);
+                        const adminDetails = result.data;
+                        if (adminDetails.isWebsiteOwner) {
+                            setAllNews((await getAllNews()).data);
+                            setIsLoadingPage(false);
+                        }
+                        else {
+                            await router.replace("/dashboard");
+                        }
                     } else {
                         localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");
@@ -221,7 +227,7 @@ export default function News() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("News")}</h1>
-                    <DashboardSideBar />
+                    <DashboardSideBar isWebsiteOwner={true} isExistOffice={true} />
                     {!isDisplayAddNewsBox && <button
                         className="btn d-block w-25 mx-auto mt-2 mb-4 orange-btn"
                         onClick={() => setIsDisplayAddNewsBox(true)}

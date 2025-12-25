@@ -62,11 +62,17 @@ export default function Users() {
             getUserInfo()
                 .then(async (result) => {
                     if (!result.error) {
-                        const filtersAsQuery = getFiltersAsQuery(filters);
-                        result = (await getAllUsersInsideThePage(1, pageSize, filtersAsQuery)).data;
-                        setAllUsersInsideThePage(result.users);
-                        setTotalPagesCount(Math.ceil(result.usersCount / pageSize));
-                        setIsLoadingPage(false);
+                        const adminDetails = result.data;
+                        if (adminDetails.isWebsiteOwner) {
+                            const filtersAsQuery = getFiltersAsQuery(filters);
+                            result = (await getAllUsersInsideThePage(1, pageSize, filtersAsQuery)).data;
+                            setAllUsersInsideThePage(result.users);
+                            setTotalPagesCount(Math.ceil(result.usersCount / pageSize));
+                            setIsLoadingPage(false);
+                        }
+                        else {
+                            await router.replace("/dashboard");
+                        }
                     } else {
                         localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");

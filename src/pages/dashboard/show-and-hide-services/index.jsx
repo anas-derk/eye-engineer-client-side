@@ -40,8 +40,14 @@ export default function ShowAndHideServices() {
             getUserInfo()
                 .then(async (result) => {
                     if (!result.error) {
-                        setAllServices((await getAllServices()).data);
-                        setIsLoadingPage(false);
+                        const adminDetails = result.data;
+                        if (adminDetails.isWebsiteOwner) {
+                            setAllServices((await getAllServices()).data);
+                            setIsLoadingPage(false);
+                        }
+                        else {
+                            await router.replace("/dashboard");
+                        }
                     } else {
                         localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");
@@ -129,7 +135,7 @@ export default function ShowAndHideServices() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Show / Hide Services")}</h1>
-                    <DashboardSideBar />
+                    <DashboardSideBar isWebsiteOwner={true} isExistOffice={true} />
                     {allServices.length > 0 && <section className="show-and-hide-services-box w-100 admin-dashbboard-data-box">
                         <table className="show-and-hide-services-table mb-4 managment-table bg-white w-100 admin-dashbboard-data-table">
                             <thead>

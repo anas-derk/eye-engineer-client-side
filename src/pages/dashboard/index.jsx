@@ -57,7 +57,7 @@ export default function Dashboard() {
     return (
         <div className="dashboard">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Dashboard")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Dashboard")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
