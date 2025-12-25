@@ -64,7 +64,7 @@ export default function Dashboard() {
                 {/* Start Page Content */}
                 <div className="page-content d-flex justify-content-center align-items-center flex-column">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Dashboard")}</h1>
-                    <DashboardSideBar />
+                    <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isExistOffice={userInfo.isExistOffice} />
                 </div>
                 {/* End Page Content */}
                 <Footer />
