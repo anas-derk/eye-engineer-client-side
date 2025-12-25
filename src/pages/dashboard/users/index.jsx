@@ -263,7 +263,7 @@ export default function Users() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Users")}</h1>
-                    <DashboardSideBar />
+                    <DashboardSideBar isWebsiteOwner={true} isExistOffice={true} />
                     <section className="filters mb-4 bg-white border-3 border-info p-3 text-start">
                         <h5 className="fw-bold text-center">{t("Filters")}: </h5>
                         <hr />
