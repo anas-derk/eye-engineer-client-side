@@ -187,18 +187,22 @@ export default function AddNewOffice() {
             ]);
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
+                setWaitMsg("Please Wait");
                 let formData = new FormData();
                 formData.append("name", officeData.name);
                 formData.append("ownerFullName", officeData.ownerFullName);
                 formData.append("email", officeData.email);
                 formData.append("phoneNumber", officeData.phoneNumber);
                 formData.append("description", officeData.description);
-                formData.append("services", officeData.services);
-                formData.append("experiences", officeData.experiences);
+                for (let service of officeData.services) {
+                    formData.append("services[]", service);
+                }
+                for (let experience of officeData.experiences) {
+                    formData.append("experiences[]", experience);
+                }
                 formData.append("officeImg", officeData.image);
                 formData.append("language", i18n.language);
-                setWaitMsg("Please Wait");
-                const result = (await axios.put(`${process.env.BASE_API_URL}/offices/add-new-office?language=${i18n.language}`, formData, {
+                const result = (await axios.post(`${process.env.BASE_API_URL}/offices/add-office?language=${i18n.language}`, formData, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                     }
