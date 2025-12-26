@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import Footer from "@/components/Footer";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
-import { useRouter } from "next/router";
 import { getUserInfo, handleSelectUserLanguage, getInitialStateForElementBeforeAnimation, getAnimationSettings } from "../../../public/global_functions/popular";
 import axios from "axios";
 import { motion } from "motion/react";
@@ -19,14 +18,6 @@ export default function AddNewOffice() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
-    const [email, setEmail] = useState("");
-
-    const [currentPassword, setCurrentPassword] = useState("");
-
-    const [newPassword, setNewPassword] = useState("");
-
-    const [confirmNewPassword, setConfirmNewPassword] = useState("");
-
     const [officeData, setOfficeData] = useState({
         name: "",
         ownerFullName: "",
@@ -34,7 +25,7 @@ export default function AddNewOffice() {
         phoneNumber: "",
         description: "",
         services: [""],
-        experiences: [],
+        experiences: [""],
         image: null,
     });
 
@@ -47,8 +38,6 @@ export default function AddNewOffice() {
     const [successMsg, setSuccessMsg] = useState("");
 
     const [formValidationErrors, setFormValidationErrors] = useState({});
-
-    const router = useRouter();
 
     const { t, i18n } = useTranslation();
 
@@ -89,6 +78,12 @@ export default function AddNewOffice() {
         setOfficeData({ ...officeData, services: officeData.services.filter((_, index) => index !== selectedServiceIndex) });
     }
 
+    const handleEnterService = (service, selectedServiceIndex) => {
+        let enteredServices = officeData.services.map((serv) => serv);
+        enteredServices[selectedServiceIndex] = service;
+        setOfficeData({ ...officeData, services: enteredServices });
+    }
+
     const addNewSelectExperience = () => {
         setOfficeData({ ...officeData, services: [...officeData.services, ""] });
     }
@@ -97,13 +92,37 @@ export default function AddNewOffice() {
         setOfficeData({ ...officeData, experiences: officeData.experiences.filter((_, index) => index !== selectedExperienceIndex) });
     }
 
+    const handleEnterExperience = (experience, selectedExperienceIndex) => {
+        let enteredExperiences = officeData.experiences.map((exper) => exper);
+        enteredExperiences[selectedExperienceIndex] = experience;
+        setOfficeData({ ...officeData, experiences: enteredExperiences });
+    }
+
     const addNewOffice = async (e) => {
         try {
             e.preventDefault();
             const errorsObject = inputValuesValidation([
                 {
+                    name: "name",
+                    value: officeData.name,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                    },
+                },
+                {
+                    name: "ownerFullName",
+                    value: officeData.ownerFullName,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                    },
+                },
+                {
                     name: "email",
-                    value: email,
+                    value: officeData.email,
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
@@ -114,73 +133,94 @@ export default function AddNewOffice() {
                     },
                 },
                 {
-                    name: "currentPassword",
-                    value: currentPassword,
+                    name: "phoneNumber",
+                    value: officeData.phoneNumber,
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
                         },
-                        isValidPassword: {
-                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter !!"
+                    },
+                },
+                {
+                    name: "description",
+                    value: officeData.description,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
                         },
                     }
                 },
+                ...officeData.services.map((service, serviceIndex) => (
+                    {
+                        name: `service${serviceIndex}`,
+                        value: service,
+                        rules: {
+                            isRequired: {
+                                msg: "Sorry, This Field Can't Be Empty !!",
+                            },
+                        },
+                    }
+                )),
+                ...officeData.experiences.map((experience, experienceIndex) => (
+                    {
+                        name: `experience${experienceIndex}`,
+                        value: experience,
+                        rules: {
+                            isRequired: {
+                                msg: "Sorry, This Field Can't Be Empty !!",
+                            },
+                        },
+                    }
+                )),
                 {
-                    name: "newPassword",
-                    value: newPassword,
+                    name: "image",
+                    value: officeData.image,
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
                         },
-                        isMatch: {
-                            value: confirmNewPassword,
-                            msg: "Sorry, There Is No Match Between New Password And Confirm It !!",
+                        isImage: {
+                            msg: "Sorry, Invalid Image Type, Please Upload JPG Or PNG Or WEBP Image File !!",
                         },
-                        isValidPassword: {
-                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter !!"
-                        },
-                    }
-                },
-                {
-                    name: "confirmNewPassword",
-                    value: confirmNewPassword,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                        isMatch: {
-                            value: newPassword,
-                            msg: "Sorry, There Is No Match Between New Password And Confirm It !!",
-                        },
-                        isValidPassword: {
-                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter !!"
-                        },
-                    }
+                    },
                 },
             ]);
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
+                let formData = new FormData();
+                formData.append("name", officeData.name);
+                formData.append("ownerFullName", officeData.ownerFullName);
+                formData.append("email", officeData.email);
+                formData.append("phoneNumber", officeData.phoneNumber);
+                formData.append("description", officeData.description);
+                formData.append("services", officeData.services);
+                formData.append("experiences", officeData.experiences);
+                formData.append("officeImg", officeData.image);
+                formData.append("language", i18n.language);
                 setWaitMsg("Please Wait");
-                const result = (await axios.put(`${process.env.BASE_API_URL}/global-passwords/change-bussiness-email-password?language=${i18n.language}`, {
-                    email,
-                    password: currentPassword,
-                    newPassword,
-                }, {
+                const result = (await axios.put(`${process.env.BASE_API_URL}/offices/add-new-office?language=${i18n.language}`, formData, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                     }
                 })).data;
                 setWaitMsg("");
                 if (!result.error) {
-                    setSuccessMsg("Updating Successfull !!");
-                    let successTimeout = setTimeout(async () => {
+                    setSuccessMsg(result.msg);
+                    let successTimeout = setTimeout(() => {
                         setSuccessMsg("");
-                        setEmail("");
-                        setCurrentPassword("");
-                        setNewPassword("");
-                        setConfirmNewPassword("");
+                        setOfficeData({
+                            name: "",
+                            ownerFullName: "",
+                            email: "",
+                            phoneNumber: "",
+                            description: "",
+                            services: [""],
+                            experiences: [""],
+                            image: null,
+                        });
+                        officeImageFileElementRef.current.value = "";
                         clearTimeout(successTimeout);
-                    }, 1000);
+                    }, 1500);
                 } else {
                     setErrorMsg(result.msg);
                     let errorTimeout = setTimeout(() => {
@@ -191,18 +231,12 @@ export default function AddNewOffice() {
             }
         }
         catch (err) {
-            if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
-                await router.replace("/login");
-            }
-            else {
-                setWaitMsg("");
-                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
-                let errorTimeout = setTimeout(() => {
-                    setErrorMsg("");
-                    clearTimeout(errorTimeout);
-                }, 1500);
-            }
+            setWaitMsg("");
+            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
+            let errorTimeout = setTimeout(() => {
+                setErrorMsg("");
+                clearTimeout(errorTimeout);
+            }, 1500);
         }
     }
 
@@ -274,12 +308,11 @@ export default function AddNewOffice() {
                                     <div className="col-md-11">
                                         <input
                                             type="text"
-                                            className={`form-control office-service-field ${formValidationErrors["service"] ? "border-danger mb-3" : ""}`}
+                                            className={`form-control office-service-field ${formValidationErrors[`service${serviceIndex}`] ? "border-danger mb-3" : ""}`}
                                             placeholder={t("Please Enter Service")}
-                                            onChange={(e) => setOfficeData({ ...officeData, services: e.target.value })}
-                                            value={officeData?.services[serviceIndex]}
+                                            onChange={(e) => handleEnterService(e.target.value, serviceIndex)}
                                         />
-                                        {formValidationErrors["services"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["services"])} />}
+                                        {formValidationErrors[`service${serviceIndex}`] && <FormFieldErrorBox errorMsg={t(formValidationErrors[`service${serviceIndex}`])} />}
                                     </div>
                                     <div className="col-md-1">
                                         <FaRegPlusSquare className="plus-icon icon ms-4" onClick={addNewSelectService} />
@@ -295,12 +328,11 @@ export default function AddNewOffice() {
                                     <div className="col-md-11">
                                         <input
                                             type="text"
-                                            className={`form-control office-experience-field ${formValidationErrors["service"] ? "border-danger mb-3" : ""}`}
+                                            className={`form-control office-experience-field ${formValidationErrors[`experience${experienceIndex}`] ? "border-danger mb-3" : ""}`}
                                             placeholder={t("Please Enter Experience")}
-                                            onChange={(e) => setOfficeData({ ...officeData, experiences: e.target.value })}
-                                            value={officeData?.experiences[experienceIndex]}
+                                            onChange={(e) => handleEnterExperience(e.target.value, experienceIndex)}
                                         />
-                                        {formValidationErrors["experiences"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["experiences"])} />}
+                                        {formValidationErrors[`experience${experienceIndex}`] && <FormFieldErrorBox errorMsg={t(formValidationErrors[`experience${experienceIndex}`])} />}
                                     </div>
                                     <div className="col-md-1">
                                         <FaRegPlusSquare className="plus-icon icon ms-4" onClick={addNewSelectExperience} />
