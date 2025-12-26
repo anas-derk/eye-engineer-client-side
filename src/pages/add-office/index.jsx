@@ -302,7 +302,7 @@ export default function AddNewOffice() {
                             {formValidationErrors["description"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["description"])} />}
                         </motion.section>
                         <motion.section className="office-services mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>
-                            <h6 className="fw-bold text-end mb-3">{t("Please Enter Your Office Services")}</h6>
+                            <h6 className={`fw-bold mb-3 ${i18n.language !== "ar" ? "text-start" : "text-end"}`}>{t("Please Enter Your Office Services")}</h6>
                             {officeData.services.map((_, serviceIndex) => (
                                 <div className="row align-items-center justify-content-center mb-4">
                                     <div className="col-md-11">
@@ -316,14 +316,14 @@ export default function AddNewOffice() {
                                         {formValidationErrors[`service${serviceIndex}`] && <FormFieldErrorBox errorMsg={t(formValidationErrors[`service${serviceIndex}`])} />}
                                     </div>
                                     <div className="col-md-1">
-                                        <FaRegPlusSquare className="plus-icon icon ms-4" onClick={addNewSelectService} />
+                                        <FaRegPlusSquare className={`plus-icon icon ${i18n.language !== "ar" ? "me-4" : "ms-4"}`} onClick={addNewSelectService} />
                                         {officeData.services.length > 1 && <FaRegMinusSquare className="minus-icon icon" onClick={() => deleteSelectedService(serviceIndex)} />}
                                     </div>
                                 </div>
                             ))}
                         </motion.section>
                         <motion.section className="office-experiences mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>
-                            <h6 className="fw-bold text-end mb-3">{t("Please Enter Your Experiences")}</h6>
+                            <h6 className={`fw-bold mb-3 ${i18n.language !== "ar" ? "text-start" : "text-end"}`}>{t("Please Enter Your Experiences")}</h6>
                             {officeData.experiences.map((_, experienceIndex) => (
                                 <div className="row align-items-center justify-content-center mb-4">
                                     <div className="col-md-11">
@@ -337,14 +337,14 @@ export default function AddNewOffice() {
                                         {formValidationErrors[`experience${experienceIndex}`] && <FormFieldErrorBox errorMsg={t(formValidationErrors[`experience${experienceIndex}`])} />}
                                     </div>
                                     <div className="col-md-1">
-                                        <FaRegPlusSquare className="plus-icon icon ms-4" onClick={addNewSelectExperience} />
+                                        <FaRegPlusSquare className={`plus-icon icon ${i18n.language !== "ar" ? "me-4" : "ms-4"}`} onClick={addNewSelectExperience} />
                                         {officeData.services.length > 1 && <FaRegMinusSquare className="minus-icon icon" onClick={() => deleteSelectedExperience(experienceIndex)} />}
                                     </div>
                                 </div>
                             ))}
                         </motion.section>
                         <motion.section className="image mb-4" initial={getInitialStateForElementBeforeAnimation()} whileInView={getAnimationSettings}>
-                            <h6 className="fw-bold text-end mb-3">{t("Please Select Your Office Image")}</h6>
+                            <h6 className={`fw-bold mb-3 ${i18n.language !== "ar" ? "text-start" : "text-end"}`}>{t("Please Select Your Office Image")}</h6>
                             <input
                                 type="file"
                                 className={`form-control office-image-field ${formValidationErrors["image"] ? "border-danger mb-3" : "mb-4"}`}
