@@ -9,9 +9,7 @@ body {
   background-color: var(--main-color-one);
 }
 
-body[lang="en"],
-body[lang="tr"],
-body[lang="de"] {
+body[lang="en"], body[lang="tr"], body[lang="de"] {
   font-family: 'Montserrat', sans-serif;
   direction: ltr;
 }
@@ -367,4 +365,10 @@ textarea {
   cursor: pointer;
   border-radius: 50%;
   padding: 5px;
+}
+
+.plus-icon,
+.minus-icon {
+  font-size: 25px;
+  cursor: pointer;
 }

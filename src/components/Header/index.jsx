@@ -89,6 +89,9 @@ export default function Header() {
                             <Nav.Link href="/contact-us" as={Link}>
                                 {t("Contact Us")}
                             </Nav.Link>
+                            <Nav.Link href="/add-office" as={Link}>
+                                {t("Add Office")}
+                            </Nav.Link>
                             <NavDropdown title={<GrLanguage />} id="languages-nav-dropdown" className="orange-btn">
                                 <NavDropdown.Item onClick={() => handleChangeLanguage("ar")}>{t("Arabic")}</NavDropdown.Item>
                                 <NavDropdown.Divider />
