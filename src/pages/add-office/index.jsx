@@ -85,7 +85,7 @@ export default function AddNewOffice() {
     }
 
     const addNewSelectExperience = () => {
-        setOfficeData({ ...officeData, services: [...officeData.services, ""] });
+        setOfficeData({ ...officeData, experiences: [...officeData.experiences, ""] });
     }
 
     const deleteSelectedExperience = (selectedExperienceIndex) => {
@@ -202,11 +202,7 @@ export default function AddNewOffice() {
                 }
                 formData.append("officeImg", officeData.image);
                 formData.append("language", i18n.language);
-                const result = (await axios.post(`${process.env.BASE_API_URL}/offices/add-office?language=${i18n.language}`, formData, {
-                    headers: {
-                        Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
-                    }
-                })).data;
+                const result = (await axios.post(`${process.env.BASE_API_URL}/offices/add-office?language=${i18n.language}`, formData)).data;
                 setWaitMsg("");
                 if (!result.error) {
                     setSuccessMsg(result.msg);
@@ -315,6 +311,7 @@ export default function AddNewOffice() {
                                             className={`form-control office-service-field ${formValidationErrors[`service${serviceIndex}`] ? "border-danger mb-3" : ""}`}
                                             placeholder={t("Please Enter Service")}
                                             onChange={(e) => handleEnterService(e.target.value, serviceIndex)}
+                                            value={officeData.services[serviceIndex]}
                                         />
                                         {formValidationErrors[`service${serviceIndex}`] && <FormFieldErrorBox errorMsg={t(formValidationErrors[`service${serviceIndex}`])} />}
                                     </div>
@@ -335,6 +332,7 @@ export default function AddNewOffice() {
                                             className={`form-control office-experience-field ${formValidationErrors[`experience${experienceIndex}`] ? "border-danger mb-3" : ""}`}
                                             placeholder={t("Please Enter Experience")}
                                             onChange={(e) => handleEnterExperience(e.target.value, experienceIndex)}
+                                            value={officeData.experiences[experienceIndex]}
                                         />
                                         {formValidationErrors[`experience${experienceIndex}`] && <FormFieldErrorBox errorMsg={t(formValidationErrors[`experience${experienceIndex}`])} />}
                                     </div>
