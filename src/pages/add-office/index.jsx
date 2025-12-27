@@ -338,7 +338,7 @@ export default function AddNewOffice() {
                                     </div>
                                     <div className="col-md-1">
                                         <FaRegPlusSquare className={`plus-icon icon ${i18n.language !== "ar" ? "me-4" : "ms-4"}`} onClick={addNewSelectExperience} />
-                                        {officeData.services.length > 1 && <FaRegMinusSquare className="minus-icon icon" onClick={() => deleteSelectedExperience(experienceIndex)} />}
+                                        {officeData.experiences.length > 1 && <FaRegMinusSquare className="minus-icon icon" onClick={() => deleteSelectedExperience(experienceIndex)} />}
                                     </div>
                                 </div>
                             ))}
