@@ -7,7 +7,7 @@ import { FaUsers } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
-export default function DashboardSideBar({ isWebsiteOwner = false, isExistOffice = false }) {
+export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = false }) {
 
     const router = useRouter();
 

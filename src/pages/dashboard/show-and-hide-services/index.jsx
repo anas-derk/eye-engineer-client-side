@@ -135,7 +135,7 @@ export default function ShowAndHideServices() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Show / Hide Services")}</h1>
-                    <DashboardSideBar isWebsiteOwner={true} isExistOffice={true} />
+                    <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
                     {allServices.length > 0 && <section className="show-and-hide-services-box w-100 admin-dashbboard-data-box">
                         <table className="show-and-hide-services-table mb-4 managment-table bg-white w-100 admin-dashbboard-data-table">
                             <thead>

@@ -148,7 +148,7 @@ export default function Terminologies() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Terminologies")}</h1>
-                    <DashboardSideBar isWebsiteOwner={userInfo?.isWebsiteOwner} isExistOffice={userInfo?.isExistOffice} />
+                    <DashboardSideBar isWebsiteOwner={userInfo?.isWebsiteOwner} isEngineer={userInfo?.isEngineer} />
                     <form className="terminologies-translation-form text-center p-4" onSubmit={translate}>
                         <div className="text-field-box field-box">
                             <textarea

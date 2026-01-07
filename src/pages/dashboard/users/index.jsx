@@ -247,7 +247,7 @@ export default function Users() {
     return (
         <div className="users dashboard">
             <Head>
-                <title>{t(process.env.websiteName)} {t("Users")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Users")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
@@ -263,7 +263,7 @@ export default function Users() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Users")}</h1>
-                    <DashboardSideBar isWebsiteOwner={true} isExistOffice={true} />
+                    <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
                     <section className="filters mb-4 bg-white border-3 border-info p-3 text-start">
                         <h5 className="fw-bold text-center">{t("Filters")}: </h5>
                         <hr />

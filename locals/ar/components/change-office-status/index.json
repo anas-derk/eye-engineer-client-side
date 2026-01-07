@@ -1,0 +1,19 @@
+{
+    "Change Office Status": "تغيير حالة المكتب",
+    "Are You Sure From": "هل أنت متأكد من",
+    "Office approving": "الموافقة على المكتب",
+    "Office rejecting": "رفض المكتب",
+    "Office blocking": "حظر المكتب",
+    "Office cancel-blocking": "إلغاء حظر المكتب",
+    "Office Verification": "توثيق المكتب",
+    "Reject Verification Office": "رفض توثيق المكتب",
+    "Cancel Verification Office": "إلغاء توثيق المكتب",
+    "Office reject-verification": "رفض توثيق المكتب",
+    "Office cancel-verification": "إلغاء توثيق المكتب",
+    "Approve": "موافقة",
+    "Reject": "رفض",
+    "Block": "حظر",
+    "Cancel Blocking": "إلغاء الحظر",
+    "Please Enter blocking Reason": "الرجاء إدخال سبب الحظر",
+    "Please Enter Engineer Account Password": "الرجاء إدخال كلمة سر حساب المهندس"
+}

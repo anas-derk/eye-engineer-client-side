@@ -257,8 +257,8 @@ export default function ChangeOfficeStatusBox({
         <div className="change-office-status-box popup-box">
             <div className="content-box d-flex align-items-center justify-content-center text-white flex-column p-4 text-center">
                 {!waitMsg && !errorMsg && !successMsg && <GrFormClose className="close-popup-box-icon" onClick={handleClosePopupBox} />}
-                <h2 className="mb-5 pb-3 border-bottom border-white">{t("Change Store Status")}</h2>
-                <h4 className="mb-4">{t("Are You Sure From")}: {t(`Store ${officeAction}`)}: ( {selectedOffice.name[i18n.language]} ) {t("?")}</h4>
+                <h2 className="mb-5 pb-3 border-bottom border-white">{t("Change Office Status")}</h2>
+                <h4 className="mb-4">{t("Are You Sure From")}: {t(`Office ${officeAction}`)}: ( {selectedOffice.name[i18n.language]} ) {t("?")}</h4>
                 <form className="change-office-status-form w-50" onSubmit={(e) => e.preventDefault()}>
                     {officeAction === "blocking" && <section className="change-office-status mb-4">
                         <input
@@ -275,16 +275,16 @@ export default function ChangeOfficeStatusBox({
                         !errorMsg &&
                         !successMsg &&
                         officeAction === "approving" && <section className="change-office-status mb-4">
-                            <div className="password-field-box">
+                            <div className="password-field-box field-box">
                                 <input
                                     type={isVisiblePassword ? "text" : "password"}
-                                    placeholder={t("Please Enter Merchant Account Password")}
+                                    placeholder={t("Please Enter Engineer Account Password")}
                                     className={`form-control p-3 border-2 ${formValidationErrors["isVisiblePassword"] ? "border-danger mb-3" : "mb-5"}`}
                                     onChange={(e) => setAdminPassword(e.target.value.trim())}
                                 />
-                                <div className="icon-box text-dark other-languages-mode">
-                                    {!isVisiblePassword && <AiOutlineEye className='eye-icon icon' onClick={() => setIsVisiblePassword(value => value = !value)} />}
-                                    {isVisiblePassword && <AiOutlineEyeInvisible className='invisible-eye-icon icon' onClick={() => setIsVisiblePassword(value => value = !value)} />}
+                                <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
+                                    {!isVisiblePassword && <AiOutlineEye className="eye-icon icon" onClick={() => setIsVisiblePassword(value => value = !value)} />}
+                                    {isVisiblePassword && <AiOutlineEyeInvisible className="invisible-eye-icon icon" onClick={() => setIsVisiblePassword(value => value = !value)} />}
                                 </div>
                             </div>
                             {formValidationErrors["adminPassword"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["adminPassword"])} />}

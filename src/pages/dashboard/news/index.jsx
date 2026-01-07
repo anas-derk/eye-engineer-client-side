@@ -228,7 +228,7 @@ export default function News() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("News")}</h1>
-                    <DashboardSideBar isWebsiteOwner={true} isExistOffice={true} />
+                    <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
                     {!isDisplayAddNewsBox && <button
                         className="btn d-block w-25 mx-auto mt-2 mb-4 orange-btn"
                         onClick={() => setIsDisplayAddNewsBox(true)}
