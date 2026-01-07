@@ -167,7 +167,9 @@ export default function ChangeOfficeStatusBox({
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Please Wait");
-                const result = (await axios.put(`${process.env.BASE_API_URL}/offices/blocking-office/${officeId}?blockingReason=${changeStatusReason}&language=${i18n.language}`, undefined,
+                const result = (await axios.put(`${process.env.BASE_API_URL}/offices/blocking-office/${officeId}?language=${i18n.language}`, {
+                    blockingReason: changeStatusReason
+                },
                     {
                         headers: {
                             Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),

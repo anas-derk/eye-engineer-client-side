@@ -308,9 +308,9 @@ export default function Offices() {
             })).data;
             setWaitMsg("");
             if (!result.error) {
-                setSuccessMsg(true);
+                setSuccessMsg("Deleting Successfull !!");
                 let successTimeout = setTimeout(async () => {
-                    setSuccessMsg("Deleting Successfull !!");
+                    setSuccessMsg("");
                     setSelectedOfficeIndex(-1);
                     setAllOfficesInsideThePage((await getAllOfficesInsideThePage(currentPage, pageSize, getFilteringString(filters), i18n.language)).data.offices);
                     setCurrentPage(currentPage);
@@ -354,7 +354,7 @@ export default function Offices() {
                 case "rejecting": {
                     setIsGetOffices(true);
                     setAllOfficesInsideThePage(allOfficesInsideThePage.filter((_, index) => index !== officeIndex));
-                    setCurrentPage(1);
+                    setCurrentPage(currentPage);
                     setIsGetOffices(false);
                     return;
                 }
@@ -387,7 +387,7 @@ export default function Offices() {
                 {isDisplayConfirmDeleteBox && <ConfirmDelete
                     name={t("Offices")}
                     setIsDisplayConfirmDeleteBox={setIsDisplayConfirmDeleteBox}
-                    handleDeleteFunc={() => deleteOffice(selectedNewsIndex)}
+                    handleDeleteFunc={() => deleteOffice(selectedOfficeIndex)}
                     setSelectedElementIndex={setSelectedOfficeIndex}
                     waitMsg={waitMsg}
                     errorMsg={errorMsg}
