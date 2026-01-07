@@ -5,6 +5,7 @@ import { AiOutlineEye, AiOutlineTranslation } from "react-icons/ai";
 import { BiNews } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
 
 export default function DashboardSideBar({ isWebsiteOwner = false, isExistOffice = false }) {
 
@@ -63,6 +64,17 @@ export default function DashboardSideBar({ isWebsiteOwner = false, isExistOffice
                         </Link>
                         <div className="link-name-box p-2 fw-bold">
                             {t("Show / Hide Services")}
+                        </div>
+                    </li>
+                    <li className="managment-customer-account-link-item managment-link-item">
+                        <Link
+                            href="/dashboard/offices"
+                            className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/offices" && "active"}`}
+                        >
+                            <HiOutlineOfficeBuilding className="customer-account-managment-link-icon managment-link-icon" />
+                        </Link>
+                        <div className="link-name-box p-2 fw-bold">
+                            {t("Offices")}
                         </div>
                     </li>
                 </>}

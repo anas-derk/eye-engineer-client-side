@@ -18,6 +18,8 @@ export default function Terminologies() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
+    const [userInfo, setUserInfo] = useState({});
+
     const [text, setText] = useState("");
 
     const [targetLanguage, setTargetLanguage] = useState("");
@@ -47,6 +49,7 @@ export default function Terminologies() {
             getUserInfo()
                 .then(async (result) => {
                     if (!result.error) {
+                        setUserInfo(result.data);
                         setIsLoadingPage(false);
                     } else {
                         localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
@@ -145,7 +148,7 @@ export default function Terminologies() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Terminologies")}</h1>
-                    <DashboardSideBar />
+                    <DashboardSideBar isWebsiteOwner={userInfo?.isWebsiteOwner} isExistOffice={userInfo?.isExistOffice} />
                     <form className="terminologies-translation-form text-center p-4" onSubmit={translate}>
                         <div className="text-field-box field-box">
                             <textarea

@@ -88,6 +88,19 @@ const getLanguagesInfoList = (fieldName) => {
     ];
 }
 
+const getAllOfficesInsideThePage = async (pageNumber, pageSize, filters, language) => {
+    try {
+        return (await axios.get(`${process.env.BASE_API_URL}/offices/all-offices-inside-the-page?pageNumber=${pageNumber}&pageSize=${pageSize}&language=${language}&${filters ? filters : ""}`, {
+            headers: {
+                Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE)
+            }
+        })).data;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
 export {
     getDateFormated,
     getUserInfo,
@@ -96,5 +109,6 @@ export {
     getInitialStateForElementBeforeAnimation,
     getAnimationSettings,
     handleDisplayConfirmDeleteBox,
-    getLanguagesInfoList
+    getLanguagesInfoList,
+    getAllOfficesInsideThePage
 }

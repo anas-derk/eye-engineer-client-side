@@ -6,42 +6,87 @@ import Footer from "@/components/Footer";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 import { useRouter } from "next/router";
-import { getUserInfo, handleSelectUserLanguage } from "../../../../public/global_functions/popular";
+import { getDateFormated, getLanguagesInfoList, getUserInfo, handleDisplayConfirmDeleteBox, handleSelectUserLanguage, getAllOfficesInsideThePage } from "../../../../public/global_functions/popular";
 import DashboardSideBar from "@/components/DashboardSideBar";
 import axios from "axios";
-import FormFieldErrorBox from "@/components/FormFieldErrorBox";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import NotFoundError from "@/components/NotFoundError";
+import ConfirmDelete from "@/components/ConfirmDelete";
 import { inputValuesValidation } from "../../../../public/global_functions/validations";
+import PaginationBar from "@/components/PaginationBar";
+import Link from "next/link";
 
-export default function ChangeBussinessEmailPassword() {
+export default function Offices() {
 
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
-    const [email, setEmail] = useState("");
+    const [userInfo, setUserInfo] = useState({});
 
-    const [currentPassword, setCurrentPassword] = useState("");
+    const [allOfficesInsideThePage, setAllOfficesInsideThePage] = useState([]);
 
-    const [newPassword, setNewPassword] = useState("");
+    const [isGetOffices, setIsGetOffices] = useState(false);
 
-    const [confirmNewPassword, setConfirmNewPassword] = useState("");
-
-    const [isVisibleCurrentPassword, setIsVisibleCurrentPassword] = useState(false);
-
-    const [isVisibleNewPassword, setIsVisibleNewPassword] = useState(false);
-
-    const [isVisibleConfirmNewPassword, setIsVisibleConfirmNewPassword] = useState(false);
+    const [selectedOfficeIndex, setSelectedOfficeIndex] = useState(-1);
 
     const [waitMsg, setWaitMsg] = useState("");
 
+    const [successMsg, setSuccessMsg] = useState("");
+
     const [errorMsg, setErrorMsg] = useState("");
 
-    const [successMsg, setSuccessMsg] = useState("");
+    const [errorMsgOnGetOfficesData, setErrorMsgOnGetOfficesData] = useState("");
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const [totalPagesCount, setTotalPagesCount] = useState(0);
+
+    const [filters, setFilters] = useState({
+        officeId: "",
+        name: "",
+        status: "",
+        ownerFullName: "",
+        email: "",
+    });
 
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
+    const [isDisplayChangeOfficeStatusBox, setIsDisplayChangeOfficeStatusBox] = useState(false);
+
+    const [officeAction, setOfficeAction] = useState("");
+
+    const [selectedOffice, setSelectedOffice] = useState("");
+
+    const [isDisplayConfirmDeleteBox, setIsDisplayConfirmDeleteBox] = useState(false);
+
     const router = useRouter();
+
+    const pageSize = 3;
+
+    const officeStatusList = ["pending", "approving", "blocking"];
+
+    const languagesInfoList = [
+        {
+            fullLanguageName: "Arabic",
+            internationalLanguageCode: "ar",
+            formField: "contentInAR"
+        },
+        {
+            fullLanguageName: "English",
+            internationalLanguageCode: "en",
+            formField: "contentInEN"
+        },
+        {
+            fullLanguageName: "Deutche",
+            internationalLanguageCode: "de",
+            formField: "contentInDE"
+        },
+        {
+            fullLanguageName: "Turkish",
+            internationalLanguageCode: "tr",
+            formField: "contentInTR"
+        }
+    ];
 
     const { t, i18n } = useTranslation();
 
@@ -51,130 +96,48 @@ export default function ChangeBussinessEmailPassword() {
     }, []);
 
     useEffect(() => {
-        const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
-        if (userToken) {
+        const adminToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+        if (adminToken) {
             getUserInfo()
                 .then(async (result) => {
-                    if (!result.error) {
-                        const adminDetails = result.data;
-                        if (adminDetails.isWebsiteOwner) {
-                            setIsLoadingPage(false);
-                        }
-                        else {
-                            await router.replace("/dashboard");
-                        }
-                    } else {
+                    if (result.error) {
                         localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");
+                    } else {
+                        const adminDetails = result.data;
+                        if (adminDetails.isWebsiteOwner) {
+                            setUserInfo(adminDetails);
+                            result = (await getAllOfficesInsideThePage(1, pageSize, undefined, i18n.language)).data;
+                            setAllOfficesInsideThePage(result.offices);
+                            setTotalPagesCount(Math.ceil(result.officesCount / pageSize));
+                            setIsLoadingPage(false);
+                        } else {
+                            await router.replace("/dashboard");
+                        }
                     }
                 })
                 .catch(async (err) => {
+                    console.log(err);
                     if (err?.response?.status === 401) {
-                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
-                        await router.replace("/login");
+                        // localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                        // await router.replace("/login");
                     }
                     else {
                         setIsLoadingPage(false);
                         setErrorMsgOnLoadingThePage(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Try Again !");
                     }
                 });
-        } else {
-            router.replace("/login");
-        }
+        } else router.replace("/login");
     }, []);
 
-    const changeBussinessEmailPassword = async (e) => {
+    const getPreviousPage = async () => {
         try {
-            e.preventDefault();
-            const errorsObject = inputValuesValidation([
-                {
-                    name: "email",
-                    value: email,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                        isEmail: {
-                            msg: "Sorry, This Email Is Not Valid !!",
-                        },
-                    },
-                },
-                {
-                    name: "currentPassword",
-                    value: currentPassword,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                        isValidPassword: {
-                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter !!"
-                        },
-                    }
-                },
-                {
-                    name: "newPassword",
-                    value: newPassword,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                        isMatch: {
-                            value: confirmNewPassword,
-                            msg: "Sorry, There Is No Match Between New Password And Confirm It !!",
-                        },
-                        isValidPassword: {
-                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter !!"
-                        },
-                    }
-                },
-                {
-                    name: "confirmNewPassword",
-                    value: confirmNewPassword,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                        isMatch: {
-                            value: newPassword,
-                            msg: "Sorry, There Is No Match Between New Password And Confirm It !!",
-                        },
-                        isValidPassword: {
-                            msg: "Sorry, The Password Must Be At Least 8 Characters Long, With At Least One Number, At Least One Lowercase Letter, And At Least One Uppercase Letter !!"
-                        },
-                    }
-                },
-            ]);
-            setFormValidationErrors(errorsObject);
-            if (Object.keys(errorsObject).length == 0) {
-                setWaitMsg("Please Wait");
-                const result = (await axios.put(`${process.env.BASE_API_URL}/global-passwords/change-bussiness-email-password?language=${i18n.language}`, {
-                    email,
-                    password: currentPassword,
-                    newPassword,
-                }, {
-                    headers: {
-                        Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
-                    }
-                })).data;
-                setWaitMsg("");
-                if (!result.error) {
-                    setSuccessMsg("Updating Successfull !!");
-                    let successTimeout = setTimeout(async () => {
-                        setSuccessMsg("");
-                        setEmail("");
-                        setCurrentPassword("");
-                        setNewPassword("");
-                        setConfirmNewPassword("");
-                        clearTimeout(successTimeout);
-                    }, 1000);
-                } else {
-                    setErrorMsg(result.msg);
-                    let errorTimeout = setTimeout(() => {
-                        setErrorMsg("");
-                        clearTimeout(errorTimeout);
-                    }, 1000);
-                }
-            }
+            setIsGetOffices(true);
+            setErrorMsgOnGetOfficesData("");
+            const newCurrentPage = currentPage - 1;
+            setAllOfficesInsideThePage((await getAllOfficesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.offices);
+            setCurrentPage(newCurrentPage);
+            setIsGetOffices(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -182,8 +145,83 @@ export default function ChangeBussinessEmailPassword() {
                 await router.replace("/login");
             }
             else {
-                setWaitMsg("");
-                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
+                setIsGetOffices(false);
+                setErrorMsgOnGetOfficesData(err?.message === "Network Error" ? "Network Error When Get Offices Data" : "Sorry, Someting Went Wrong When Get Offices Data, Please Repeate The Process !!");
+            }
+        }
+    }
+
+    const getNextPage = async () => {
+        try {
+            setIsGetOffices(true);
+            setErrorMsgOnGetOfficesData("");
+            const newCurrentPage = currentPage + 1;
+            setAllOfficesInsideThePage((await getAllOfficesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.offices);
+            setCurrentPage(newCurrentPage);
+            setIsGetOffices(false);
+        }
+        catch (err) {
+            if (err?.response?.status === 401) {
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                await router.replace("/login");
+            }
+            else {
+                setIsGetOffices(false);
+                setErrorMsgOnGetOfficesData(err?.message === "Network Error" ? "Network Error When Get Offices Data" : "Sorry, Someting Went Wrong When Get Offices Data, Please Repeate The Process !!");
+            }
+        }
+    }
+
+    const getSpecificPage = async (pageNumber) => {
+        try {
+            setIsGetOffices(true);
+            setErrorMsgOnGetOfficesData("");
+            setAllOfficesInsideThePage((await getAllOfficesInsideThePage(pageNumber, pageSize, getFilteringString(filters), i18n.language)).data.offices);
+            setCurrentPage(pageNumber);
+            setIsGetOffices(false);
+        }
+        catch (err) {
+            if (err?.response?.status === 401) {
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                await router.replace("/login");
+            }
+            else {
+                setIsGetOffices(false);
+                setErrorMsgOnGetOfficesData(err?.message === "Network Error" ? "Network Error When Get Offices Data" : "Sorry, Someting Went Wrong When Get Offices Data, Please Repeate The Process !!");
+            }
+        }
+    }
+
+    const getFilteringString = (filters) => {
+        let filteringString = "";
+        if (filters.officeId) filteringString += `_id=${filters.officeId}&`;
+        if (filters.name) filteringString += `name=${filters.name}&`;
+        if (filters.status) filteringString += `status=${filters.status}&`;
+        if (filters.ownerFullName) filteringString += `ownerFullName=${filters.ownerFullName}&`;
+        if (filters.email) filteringString += `email=${filters.email}&`;
+        if (filteringString) filteringString = filteringString.substring(0, filteringString.length - 1);
+        return filteringString;
+    }
+
+    const filterOffices = async (filters) => {
+        try {
+            setIsGetOffices(true);
+            setCurrentPage(1);
+            const filteringString = getFilteringString(filters);
+            const result = (await getAllOfficesInsideThePage(1, pageSize, filteringString, i18n.language)).data;
+            setAllOfficesInsideThePage(result.stores);
+            setTotalPagesCount(Math.ceil(result.storesCount / pageSize));
+            setIsGetOffices(false);
+        }
+        catch (err) {
+            if (err?.response?.status === 401) {
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                await router.replace("/login");
+            }
+            else {
+                setIsGetOffices(false);
+                setCurrentPage(-1);
+                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     clearTimeout(errorTimeout);
@@ -192,78 +230,420 @@ export default function ChangeBussinessEmailPassword() {
         }
     }
 
+    const handleDisplayChangeOfficeStatusBox = (officeDetails, officeAction) => {
+        setOfficeAction(officeAction);
+        setSelectedOffice(officeDetails);
+        setIsDisplayChangeOfficeStatusBox(true);
+    }
+
+    const changeOfficeData = (officeIndex, fieldName, newValue, language) => {
+        if (language) {
+            allOfficesInsideThePage[officeIndex][fieldName][language] = newValue;
+        } else {
+            allOfficesInsideThePage[officeIndex][fieldName] = newValue;
+        }
+    }
+
+    const updateOfficeData = async (officeIndex) => {
+        try {
+            setFormValidationErrors({});
+            const errorsObject = inputValuesValidation([
+                {
+                    name: "name",
+                    value: allOfficesInsideThePage[officeIndex].name,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                    },
+                },
+                {
+                    name: "email",
+                    value: allOfficesInsideThePage[officeIndex].email,
+                    rules: {
+                        isEmail: {
+                            msg: "Sorry, Invalid Email !!",
+                        },
+                    },
+                },
+            ]);
+            setFormValidationErrors(errorsObject);
+            setSelectedOfficeIndex(officeIndex);
+            if (Object.keys(errorsObject).length == 0) {
+                setWaitMsg("Please Wait To Updating ...");
+                const result = (await axios.put(`${process.env.BASE_API_URL}/offices/update-office-info/${allOfficesInsideThePage[officeIndex]._id}?language=${i18n.language}`, {
+                    name: allOfficesInsideThePage[officeIndex].name,
+                    email: allOfficesInsideThePage[officeIndex].email,
+                }, {
+                    headers: {
+                        Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
+                    }
+                })).data;
+                setWaitMsg("");
+                if (!result.error) {
+                    setSuccessMsg("Updating Successfull !!");
+                    let successTimeout = setTimeout(() => {
+                        setSuccessMsg(false);
+                        setSelectedOfficeIndex(-1);
+                        clearTimeout(successTimeout);
+                    }, 3000);
+                } else {
+                    setErrorMsg("Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                    let errorTimeout = setTimeout(() => {
+                        setErrorMsg("");
+                        setSelectedOfficeIndex(-1);
+                        clearTimeout(errorTimeout);
+                    }, 3000);
+                }
+            }
+        }
+        catch (err) {
+            if (err?.response?.status === 401) {
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                await router.replace("/login");
+                return;
+            }
+            setWaitMsg("");
+            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
+            let errorTimeout = setTimeout(() => {
+                setErrorMsg("");
+                setSelectedOfficeIndex(-1);
+                clearTimeout(errorTimeout);
+            }, 3000);
+        }
+    }
+
+    const deleteOffice = async (officeIndex) => {
+        try {
+            setWaitMsg("Please Wait To Deleting ...");
+            setSelectedOfficeIndex(officeIndex);
+            let result = (await axios.delete(`${process.env.BASE_API_URL}/offices/delete-office/${allOfficesInsideThePage[officeIndex]._id}?language=${i18n.language}`, {
+                headers: {
+                    Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
+                }
+            })).data;
+            setWaitMsg("");
+            if (!result.error) {
+                setSuccessMsg(true);
+                let successTimeout = setTimeout(async () => {
+                    setSuccessMsg("Deleting Successfull !!");
+                    setSelectedOfficeIndex(-1);
+                    setAllOfficesInsideThePage((await getAllOfficesInsideThePage(currentPage, pageSize, getFilteringString(filters), i18n.language)).data.offices);
+                    setCurrentPage(currentPage);
+                    clearTimeout(successTimeout);
+                }, 3000);
+            } else {
+                setErrorMsg("Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                let errorTimeout = setTimeout(() => {
+                    setErrorMsg("");
+                    setSelectedOfficeIndex(-1);
+                    clearTimeout(errorTimeout);
+                }, 3000);
+            }
+        }
+        catch (err) {
+            if (err?.response?.status === 401) {
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                await router.replace("/login");
+                return;
+            }
+            setWaitMsg("");
+            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
+            let errorTimeout = setTimeout(() => {
+                setErrorMsg("");
+                setSelectedOfficeIndex(-1);
+                clearTimeout(errorTimeout);
+            }, 3000);
+        }
+    }
+
+    const handleChangeOfficeStatus = async (newStatus) => {
+        try {
+            switch (newStatus) {
+                case "approving": {
+                    setIsGetOffices(true);
+                    setAllOfficesInsideThePage((await getAllOfficesInsideThePage(1, pageSize, getFilteringString(filters), i18n.language)).data.offices);
+                    setCurrentPage(currentPage);
+                    setIsGetOffices(false);
+                    return;
+                }
+                case "rejecting": {
+                    setIsGetOffices(true);
+                    setAllOfficesInsideThePage(allOfficesInsideThePage.filter((_, index) => index !== officeIndex));
+                    setCurrentPage(1);
+                    setIsGetOffices(false);
+                    return;
+                }
+                case "blocking": {
+                    setIsGetOffices(true);
+                    setAllOfficesInsideThePage((await getAllOfficesInsideThePage(1, pageSize, getFilteringString(filters), i18n.language)).data.offices);
+                    setCurrentPage(currentPage);
+                    setIsGetOffices(false);
+                    return;
+                }
+            }
+        }
+        catch (err) {
+            setIsGetOffices(false);
+            setErrorMsg(true);
+            let errorTimeout = setTimeout(() => {
+                setErrorMsg(false);
+                clearTimeout(errorTimeout);
+            }, 3000);
+        }
+    }
+
     return (
-        <div className="change-bussiness-email-password dashboard">
+        <div className="offices dashboard">
             <Head>
-                <title>{t(process.env.WEBSITE_NAME)} {t("Change Bussiness Email Password")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Offices")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
+                {isDisplayConfirmDeleteBox && <ConfirmDelete
+                    name={t("Offices")}
+                    setIsDisplayConfirmDeleteBox={setIsDisplayConfirmDeleteBox}
+                    handleDeleteFunc={() => deleteOffice(selectedNewsIndex)}
+                    setSelectedElementIndex={setSelectedOfficeIndex}
+                    waitMsg={waitMsg}
+                    errorMsg={errorMsg}
+                    successMsg={successMsg}
+                />}
+                {isDisplayChangeOfficeStatusBox && <ChangeOfficeStatusBox
+                    setIsDisplayChangeOfficeStatusBox={setIsDisplayChangeOfficeStatusBox}
+                    setOfficeAction={setOfficeAction}
+                    selectedOffice={selectedOffice}
+                    officeAction={officeAction}
+                    handleChangeOfficeStatus={handleChangeOfficeStatus}
+                />}
                 {/* Start Page Content */}
                 <div className="page-content">
-                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Change Bussiness Email Password")}</h1>
+                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Offices")}</h1>
                     <DashboardSideBar isWebsiteOwner={true} isExistOffice={true} />
-                    <form className="change-bussiness-email-password-form text-center p-4" onSubmit={changeBussinessEmailPassword}>
-                        <div className="email-field-box field-box">
-                            <input
-                                type="text"
-                                placeholder={t("Please Enter Your Email")}
-                                className={`form-control p-3 border-2 ${formValidationErrors["email"] ? "border-danger mb-3" : "mb-4"}`}
-                                onChange={(e) => setEmail(e.target.value.trim())}
-                                value={email}
-                            />
-                        </div>
-                        {formValidationErrors["email"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["email"])} />}
-                        <div className="current-password-field-box field-box">
-                            <input
-                                type={isVisibleCurrentPassword ? "text" : "password"}
-                                placeholder={t("Please Enter Current Password Here")}
-                                className={`form-control p-3 border-2 ${formValidationErrors["currentPassword"] ? "border-danger mb-3" : "mb-4"}`}
-                                onChange={(e) => setCurrentPassword(e.target.value.trim())}
-                                value={currentPassword}
-                            />
-                            <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
-                                {!isVisibleCurrentPassword && <AiOutlineEye className="eye-icon icon" onClick={() => setIsVisibleCurrentPassword(value => value = !value)} />}
-                                {isVisibleCurrentPassword && <AiOutlineEyeInvisible className="invisible-eye-icon icon" onClick={() => setIsVisibleCurrentPassword(value => value = !value)} />}
+                    <section className="filters mb-3 bg-white border-3 border-info p-3 text-start">
+                        <h5 className="section-name fw-bold text-center">{t("Filters")}: </h5>
+                        <hr />
+                        <div className="row mb-4">
+                            <div className="col-md-4">
+                                <h6 className="me-2 fw-bold text-center">{t("Office Id")}</h6>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder={t("Please Enter Store Id")}
+                                    onChange={(e) => setFilters({ ...filters, officeId: e.target.value.trim() })}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <h6 className="me-2 fw-bold text-center">{t("Office Name")}</h6>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder={t("Please Enter Office Name")}
+                                    onChange={(e) => setFilters({ ...filters, name: e.target.value.trim() })}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <h6 className="me-2 fw-bold text-center">{t("Status")}</h6>
+                                <select
+                                    className="select-office-status form-select"
+                                    onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+                                >
+                                    <option value="" hidden>{t("Please Enter Status")}</option>
+                                    <option value="">{t("All")}</option>
+                                    {officeStatusList.map((status, index) => (
+                                        <option value={status} key={index}>{t(status)}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="col-md-4 mt-5">
+                                <h6 className="me-2 fw-bold text-center">{t("Owner Full Name")}</h6>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder={t("Please Enter Owner Full Name")}
+                                    onChange={(e) => setFilters({ ...filters, ownerFullName: e.target.value.trim() })}
+                                />
+                            </div>
+                            <div className="col-md-4 mt-5">
+                                <h6 className="me-2 fw-bold text-center">{t("Owner Email")}</h6>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    placeholder={t("Please Enter Owner Email")}
+                                    onChange={(e) => setFilters({ ...filters, email: e.target.value.trim() })}
+                                />
                             </div>
                         </div>
-                        {formValidationErrors["currentPassword"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["currentPassword"])} />}
-                        <div className="new-password-field-box field-box">
-                            <input
-                                type={isVisibleNewPassword ? "text" : "password"}
-                                placeholder={t("Please Enter New Password Here")}
-                                className={`form-control p-3 border-2 ${formValidationErrors["newPassword"] ? "border-danger mb-3" : "mb-4"}`}
-                                onChange={(e) => setNewPassword(e.target.value.trim())}
-                                value={newPassword}
-                            />
-                            <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
-                                {!isVisibleNewPassword && <AiOutlineEye className="eye-icon icon" onClick={() => setIsVisibleNewPassword(value => value = !value)} />}
-                                {isVisibleNewPassword && <AiOutlineEyeInvisible className="invisible-eye-icon icon" onClick={() => setIsVisibleNewPassword(value => value = !value)} />}
-                            </div>
-                        </div>
-                        {formValidationErrors["newPassword"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["newPassword"])} />}
-                        <div className="confirm-new-password-field-box field-box">
-                            <input
-                                type={isVisibleConfirmNewPassword ? "text" : "password"}
-                                placeholder={t("Please Enter Confirm New Password Here")}
-                                className={`form-control p-3 border-2 ${formValidationErrors["confirmPassword"] ? "border-danger mb-3" : "mb-4"}`}
-                                onChange={(e) => setConfirmNewPassword(e.target.value.trim())}
-                                value={confirmNewPassword}
-                            />
-                            <div className={`icon-box ${i18n.language !== "ar" ? "other-languages-mode" : "ar-language-mode"}`}>
-                                {!isVisibleConfirmNewPassword && <AiOutlineEye className="eye-icon icon" onClick={() => setIsVisibleConfirmNewPassword(value => value = !value)} />}
-                                {isVisibleConfirmNewPassword && <AiOutlineEyeInvisible className="invisible-eye-icon icon" onClick={() => setIsVisibleConfirmNewPassword(value => value = !value)} />}
-                            </div>
-                        </div>
-                        {formValidationErrors["confirmNewPassword"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["confirmNewPassword"])} />}
-                        {!waitMsg && !errorMsg && !successMsg && <button type="submit" className="orange-btn btn w-100 mb-4">
-                            {t("Update")}
+                        {!isGetOffices && <button
+                            className="btn btn-success d-block w-25 mx-auto mt-2 global-button"
+                            onClick={() => filterOffices(filters)}
+                        >
+                            {t("Filter")}
                         </button>}
-                        {waitMsg && <button disabled className="btn btn-primary w-100 mb-4">
-                            {t(waitMsg)} ...
+                        {isGetOffices && <button
+                            className="btn btn-success d-block w-25 mx-auto mt-2 global-button"
+                            disabled
+                        >
+                            {t("Filtering")} ...
                         </button>}
-                        {(errorMsg || successMsg) && <button className={`p-2 btn w-100 mb-3 ${errorMsg ? "btn-danger" : ""} ${successMsg ? "btn-success" : ""}`}>{t(errorMsg || successMsg)}</button>}
-                    </form>
+                    </section>
+                    {allOfficesInsideThePage.length > 0 && !isGetOffices && <section className="offices-data-box p-3 data-box admin-dashbboard-data-box">
+                        <table className="offices-data-table mb-4 managment-table bg-white admin-dashbboard-data-table">
+                            <thead>
+                                <tr>
+                                    <th width="50">{t("Office Id")}</th>
+                                    <th width="250">{t("Name")}</th>
+                                    <th>{t("Owner Full Name")}</th>
+                                    <th width="300">{t("Owner Email")}</th>
+                                    <th width="250">{t("Status")}</th>
+                                    <th>{t("Action")}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {allOfficesInsideThePage.map((office, officeIndex) => (
+                                    <tr key={office._id}>
+                                        <td>{office._id}</td>
+                                        <td>
+                                            <section className="office-name mb-4">
+                                                {languagesInfoList.map((el) => (
+                                                    <div key={el.fullLanguageName}>
+                                                        <h6 className="fw-bold">In {el.fullLanguageName} :</h6>
+                                                        <input
+                                                            type="text"
+                                                            placeholder={t(`Enter New Office Name In ${el.fullLanguageName}`)}
+                                                            className={`form-control d-block mx-auto p-2 border-2 office-name-field ${formValidationErrors[el.formField] && officeIndex === selectedOfficeIndex ? "border-danger mb-3" : "mb-4"}`}
+                                                            defaultValue={office.name[el.internationalLanguageCode]}
+                                                            onChange={(e) => changeOfficeData(officeIndex, "name", e.target.value.trim(), el.internationalLanguageCode)}
+                                                        />
+                                                        {formValidationErrors[el.formField] && officeIndex === selectedOfficeIndex && <FormFieldErrorBox errorMsg={formValidationErrors[el.formField]} />}
+                                                    </div>
+                                                ))}
+                                            </section>
+                                        </td>
+                                        <td>{office.ownerFullName}</td>
+                                        <td>
+                                            <section className="office-owner-email mb-4">
+                                                <input
+                                                    type="text"
+                                                    defaultValue={office.email}
+                                                    className={`form-control d-block mx-auto p-2 border-2 office-owner-email-field ${formValidationErrors["email"] && officeIndex === selectedOfficeIndex ? "border-danger mb-3" : "mb-4"}`}
+                                                    placeholder={t("Please Enter Owner Email")}
+                                                    onChange={(e) => changeOfficeData(officeIndex, "email", e.target.value)}
+                                                />
+                                                {formValidationErrors["email"] && <FormFieldErrorBox errorMsg={formValidationErrors["email"]} />}
+                                            </section>
+                                        </td>
+                                        <td>
+                                            {t(office.status)}
+                                        </td>
+                                        <td>
+                                            {officeIndex !== selectedOfficeIndex && <button
+                                                className="btn btn-info d-block mx-auto mb-3 global-button"
+                                                onClick={() => updateOfficeData(officeIndex)}
+                                            >
+                                                {t("Update")}
+                                            </button>}
+                                            {!office.isMainOffice && <>
+                                                {
+                                                    officeIndex !== selectedOfficeIndex && office.status !== "pending" &&
+                                                    <button
+                                                        className="btn btn-danger d-block mx-auto mb-3 global-button"
+                                                        onClick={() => handleDisplayConfirmDeleteBox(officeIndex, setSelectedOfficeIndex, setIsDisplayConfirmDeleteBox)}
+                                                    >
+                                                        {t("Delete")}
+                                                    </button>
+                                                }
+                                                {waitMsg && officeIndex === selectedOfficeIndex && <button
+                                                    className="btn btn-danger d-block mx-auto mb-3 global-button"
+                                                    disabled
+                                                >
+                                                    {t(waitMsg)}
+                                                </button>}
+                                                {successMsg && officeIndex === selectedOfficeIndex && <button
+                                                    className="btn btn-success d-block mx-auto mb-3 global-button"
+                                                    disabled
+                                                >
+                                                    {t(successMsg)}
+                                                </button>}
+                                                {
+                                                    !waitMsg &&
+                                                    !successMsg &&
+                                                    !errorMsg &&
+                                                    office.status === "pending" &&
+                                                    <button
+                                                        className="btn btn-success d-block mx-auto mb-3 global-button"
+                                                        onClick={() => handleDisplayChangeOfficeStatusBox(office, "approving")}
+                                                    >
+                                                        {t("Approve")}
+                                                    </button>
+                                                }
+                                                {
+                                                    !waitMsg &&
+                                                    !successMsg &&
+                                                    !errorMsg &&
+                                                    office.status === "pending" &&
+                                                    <button
+                                                        className="btn btn-danger d-block mx-auto mb-3 global-button"
+                                                        onClick={() => handleDisplayChangeOfficeStatusBox(office, "rejecting")}
+                                                    >
+                                                        {t("Reject")}
+                                                    </button>
+                                                }
+                                                {
+                                                    !waitMsg &&
+                                                    !successMsg &&
+                                                    !errorMsg &&
+                                                    office.status === "pending" || office.status === "approving" &&
+                                                    <button
+                                                        className="btn btn-danger d-block mx-auto mb-3 global-button"
+                                                        onClick={() => handleDisplayChangeOfficeStatusBox(office, "blocking")}
+                                                    >
+                                                        {t("Blocking")}
+                                                    </button>
+                                                }
+                                                {
+                                                    !waitMsg &&
+                                                    !successMsg &&
+                                                    !errorMsg &&
+                                                    office.status === "blocking" &&
+                                                    <button
+                                                        className="btn btn-danger d-block mx-auto mb-3 global-button"
+                                                        onClick={() => handleDisplayChangeOfficeStatusBox(office, "cancel-blocking")}
+                                                    >
+                                                        {t("Cancel Blocking")}
+                                                    </button>
+                                                }
+                                                {errorMsg && officeIndex === selectedOfficeIndex && <button
+                                                    className="btn btn-danger d-block mx-auto mb-3 global-button"
+                                                    disabled
+                                                >
+                                                    {t(errorMsg)}
+                                                </button>}
+                                            </>}
+                                            {!waitMsg && !errorMsg && !successMsg && <>
+                                                <Link
+                                                    href={`/dashboard/offices/${office._id}`}
+                                                    className="btn btn-success d-block mx-auto mb-4 global-button"
+                                                >{t("Show Full Details")}</Link>
+                                            </>}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </section>}
+                    {allOfficesInsideThePage.length === 0 && !isGetOffices && <NotFoundError errorMsg={t("Sorry, Can't Find Any Offices !!")} />}
+                    {isGetOffices && <TableLoader />}
+                    {errorMsgOnGetOfficesData && <NotFoundError errorMsg={errorMsgOnGetOfficesData} />}
+                    {totalPagesCount > 1 && !isGetOffices &&
+                        <PaginationBar
+                            totalPagesCount={totalPagesCount}
+                            currentPage={currentPage}
+                            getPreviousPage={getPreviousPage}
+                            getNextPage={getNextPage}
+                            getSpecificPage={getSpecificPage}
+                        />
+                    }
                 </div>
                 {/* End Page Content */}
                 <Footer />
