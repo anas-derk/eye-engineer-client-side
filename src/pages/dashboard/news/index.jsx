@@ -13,6 +13,7 @@ import NotFoundError from "@/components/NotFoundError";
 import ConfirmDelete from "@/components/ConfirmDelete";
 import AddNews from "@/components/AddNews";
 import { inputValuesValidation } from "../../../../public/global_functions/validations";
+import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 
 export default function News() {
 
@@ -104,7 +105,7 @@ export default function News() {
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
                 ...["ar", "en", "de", "tr"].map((language) => ({
-                    name: `newsContentIn${language.toUpperCase()}`,
+                    name: `contentIn${language.toUpperCase()}`,
                     value: allNews[newsIndex].content[language],
                     rules: {
                         isRequired: {
@@ -257,12 +258,12 @@ export default function News() {
                                                         <h6 className="fw-bold">{t(`In ${el.fullLanguageName}`)} :</h6>
                                                         <input
                                                             type="text"
-                                                            placeholder={`${t("Please Enter New Content")} ${t(el.fullLanguageName)}`}
+                                                            placeholder={`${t("Please Enter New Content")} ${t(`In ${el.fullLanguageName}`)}`}
                                                             className={`form-control d-block mx-auto p-2 border-2 news-content-field ${formValidationErrors[el.formField] && newsIndex === selectedNewsIndex ? "border-danger mb-3" : "mb-4"}`}
                                                             defaultValue={news.content[el.internationalLanguageCode]}
                                                             onChange={(e) => changeNewsContent(newsIndex, e.target.value.trim(), el.internationalLanguageCode)}
                                                         />
-                                                        {formValidationErrors[el.formField] && newsIndex === selectedNewsIndex && <FormFieldErrorBox errorMsg={formValidationErrors[el.formField]} />}
+                                                        {formValidationErrors[el.formField] && newsIndex === selectedNewsIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors[el.formField])} />}
                                                     </div>
                                                 ))}
                                             </section>

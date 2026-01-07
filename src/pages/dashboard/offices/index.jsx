@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 import { useRouter } from "next/router";
-import { getDateFormated, getLanguagesInfoList, getUserInfo, handleDisplayConfirmDeleteBox, handleSelectUserLanguage, getAllOfficesInsideThePage } from "../../../../public/global_functions/popular";
+import { getLanguagesInfoList, getUserInfo, handleDisplayConfirmDeleteBox, handleSelectUserLanguage, getAllOfficesInsideThePage } from "../../../../public/global_functions/popular";
 import DashboardSideBar from "@/components/DashboardSideBar";
 import axios from "axios";
 import NotFoundError from "@/components/NotFoundError";
@@ -216,6 +216,7 @@ export default function Offices() {
     }
 
     const changeOfficeData = (officeIndex, fieldName, newValue, language) => {
+        setSelectedOfficeIndex(-1);
         if (language) {
             allOfficesInsideThePage[officeIndex][fieldName][language] = newValue;
         } else {
@@ -227,29 +228,32 @@ export default function Offices() {
         try {
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
-                {
-                    name: "name",
-                    value: allOfficesInsideThePage[officeIndex].name,
+                ...["ar", "en", "de", "tr"].map((language) => ({
+                    name: `nameIn${language.toUpperCase()}`,
+                    value: allOfficesInsideThePage[officeIndex].name[language],
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
                         },
                     },
-                },
+                })),
                 {
                     name: "email",
                     value: allOfficesInsideThePage[officeIndex].email,
                     rules: {
-                        isEmail: {
-                            msg: "Sorry, Invalid Email !!",
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
                         },
+                        isEmail: {
+                            msg: "Sorry, This Email Is Not Valid !!",
+                        }
                     },
                 },
             ]);
             setFormValidationErrors(errorsObject);
             setSelectedOfficeIndex(officeIndex);
             if (Object.keys(errorsObject).length == 0) {
-                setWaitMsg("Please Wait To Updating ...");
+                setWaitMsg("Please Wait");
                 const result = (await axios.put(`${process.env.BASE_API_URL}/offices/update-office-info/${allOfficesInsideThePage[officeIndex]._id}?language=${i18n.language}`, {
                     name: allOfficesInsideThePage[officeIndex].name,
                     email: allOfficesInsideThePage[officeIndex].email,
@@ -262,7 +266,7 @@ export default function Offices() {
                 if (!result.error) {
                     setSuccessMsg("Updating Successfull !!");
                     let successTimeout = setTimeout(() => {
-                        setSuccessMsg(false);
+                        setSuccessMsg("");
                         setSelectedOfficeIndex(-1);
                         clearTimeout(successTimeout);
                     }, 3000);
@@ -294,7 +298,7 @@ export default function Offices() {
 
     const deleteOffice = async (officeIndex) => {
         try {
-            setWaitMsg("Please Wait To Deleting ...");
+            setWaitMsg("Please Wait");
             setSelectedOfficeIndex(officeIndex);
             let result = (await axios.delete(`${process.env.BASE_API_URL}/offices/delete-office/${allOfficesInsideThePage[officeIndex]._id}?language=${i18n.language}`, {
                 headers: {
@@ -489,12 +493,12 @@ export default function Offices() {
                                                         <h6 className="fw-bold">{t(`In ${el.fullLanguageName}`)} :</h6>
                                                         <input
                                                             type="text"
-                                                            placeholder={`${t("Please Enter New Office Name")} ${t(el.fullLanguageName)}`}
+                                                            placeholder={`${t("Please Enter New Office Name")} ${t(`In ${el.fullLanguageName}`)}`}
                                                             className={`form-control d-block mx-auto p-2 border-2 office-name-field ${formValidationErrors[el.formField] && officeIndex === selectedOfficeIndex ? "border-danger mb-3" : "mb-4"}`}
                                                             defaultValue={office.name[el.internationalLanguageCode]}
                                                             onChange={(e) => changeOfficeData(officeIndex, "name", e.target.value.trim(), el.internationalLanguageCode)}
                                                         />
-                                                        {formValidationErrors[el.formField] && officeIndex === selectedOfficeIndex && <FormFieldErrorBox errorMsg={formValidationErrors[el.formField]} />}
+                                                        {formValidationErrors[el.formField] && officeIndex === selectedOfficeIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors[el.formField])} />}
                                                     </div>
                                                 ))}
                                             </section>
@@ -509,7 +513,7 @@ export default function Offices() {
                                                     placeholder={t("Please Enter Owner Email")}
                                                     onChange={(e) => changeOfficeData(officeIndex, "email", e.target.value)}
                                                 />
-                                                {formValidationErrors["email"] && <FormFieldErrorBox errorMsg={formValidationErrors["email"]} />}
+                                                {formValidationErrors["email"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["email"])} />}
                                             </section>
                                         </td>
                                         <td>
