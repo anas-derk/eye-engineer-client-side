@@ -14,6 +14,8 @@ import ConfirmDelete from "@/components/ConfirmDelete";
 import { inputValuesValidation } from "../../../../public/global_functions/validations";
 import PaginationBar from "@/components/PaginationBar";
 import Link from "next/link";
+import FormFieldErrorBox from "@/components/FormFieldErrorBox";
+import SectionLoader from "@/components/SectionLoader";
 
 export default function Offices() {
 
@@ -64,29 +66,6 @@ export default function Offices() {
     const pageSize = 3;
 
     const officeStatusList = ["pending", "approving", "blocking"];
-
-    const languagesInfoList = [
-        {
-            fullLanguageName: "Arabic",
-            internationalLanguageCode: "ar",
-            formField: "contentInAR"
-        },
-        {
-            fullLanguageName: "English",
-            internationalLanguageCode: "en",
-            formField: "contentInEN"
-        },
-        {
-            fullLanguageName: "Deutche",
-            internationalLanguageCode: "de",
-            formField: "contentInDE"
-        },
-        {
-            fullLanguageName: "Turkish",
-            internationalLanguageCode: "tr",
-            formField: "contentInTR"
-        }
-    ];
 
     const { t, i18n } = useTranslation();
 
@@ -209,8 +188,8 @@ export default function Offices() {
             setCurrentPage(1);
             const filteringString = getFilteringString(filters);
             const result = (await getAllOfficesInsideThePage(1, pageSize, filteringString, i18n.language)).data;
-            setAllOfficesInsideThePage(result.stores);
-            setTotalPagesCount(Math.ceil(result.storesCount / pageSize));
+            setAllOfficesInsideThePage(result.offices);
+            setTotalPagesCount(Math.ceil(result.officesCount / pageSize));
             setIsGetOffices(false);
         }
         catch (err) {
@@ -221,7 +200,7 @@ export default function Offices() {
             else {
                 setIsGetOffices(false);
                 setCurrentPage(-1);
-                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     clearTimeout(errorTimeout);
@@ -288,7 +267,7 @@ export default function Offices() {
                         clearTimeout(successTimeout);
                     }, 3000);
                 } else {
-                    setErrorMsg("Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                    setErrorMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
                     let errorTimeout = setTimeout(() => {
                         setErrorMsg("");
                         setSelectedOfficeIndex(-1);
@@ -304,7 +283,7 @@ export default function Offices() {
                 return;
             }
             setWaitMsg("");
-            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
+            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
             let errorTimeout = setTimeout(() => {
                 setErrorMsg("");
                 setSelectedOfficeIndex(-1);
@@ -333,7 +312,7 @@ export default function Offices() {
                     clearTimeout(successTimeout);
                 }, 3000);
             } else {
-                setErrorMsg("Sorry, Someting Went Wrong, Please Repeate The Process !!");
+                setErrorMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     setSelectedOfficeIndex(-1);
@@ -348,7 +327,7 @@ export default function Offices() {
                 return;
             }
             setWaitMsg("");
-            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeate The Process !!");
+            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
             let errorTimeout = setTimeout(() => {
                 setErrorMsg("");
                 setSelectedOfficeIndex(-1);
@@ -429,7 +408,7 @@ export default function Offices() {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder={t("Please Enter Store Id")}
+                                    placeholder={t("Please Enter Office Id")}
                                     onChange={(e) => setFilters({ ...filters, officeId: e.target.value.trim() })}
                                 />
                             </div>
@@ -505,12 +484,12 @@ export default function Offices() {
                                         <td>{office._id}</td>
                                         <td>
                                             <section className="office-name mb-4">
-                                                {languagesInfoList.map((el) => (
+                                                {getLanguagesInfoList("name").map((el) => (
                                                     <div key={el.fullLanguageName}>
-                                                        <h6 className="fw-bold">In {el.fullLanguageName} :</h6>
+                                                        <h6 className="fw-bold">{t(`In ${el.fullLanguageName}`)} :</h6>
                                                         <input
                                                             type="text"
-                                                            placeholder={t(`Enter New Office Name In ${el.fullLanguageName}`)}
+                                                            placeholder={`${t("Please Enter New Office Name")} ${t(el.fullLanguageName)}`}
                                                             className={`form-control d-block mx-auto p-2 border-2 office-name-field ${formValidationErrors[el.formField] && officeIndex === selectedOfficeIndex ? "border-danger mb-3" : "mb-4"}`}
                                                             defaultValue={office.name[el.internationalLanguageCode]}
                                                             onChange={(e) => changeOfficeData(officeIndex, "name", e.target.value.trim(), el.internationalLanguageCode)}
@@ -633,7 +612,7 @@ export default function Offices() {
                         </table>
                     </section>}
                     {allOfficesInsideThePage.length === 0 && !isGetOffices && <NotFoundError errorMsg={t("Sorry, Can't Find Any Offices !!")} />}
-                    {isGetOffices && <TableLoader />}
+                    {isGetOffices && <SectionLoader />}
                     {errorMsgOnGetOfficesData && <NotFoundError errorMsg={errorMsgOnGetOfficesData} />}
                     {totalPagesCount > 1 && !isGetOffices &&
                         <PaginationBar
@@ -642,6 +621,12 @@ export default function Offices() {
                             getPreviousPage={getPreviousPage}
                             getNextPage={getNextPage}
                             getSpecificPage={getSpecificPage}
+                            paginationButtonTextColor={"#000"}
+                            paginationButtonBackgroundColor={"#FFF"}
+                            activePaginationButtonColor={"#000"}
+                            activePaginationButtonBackgroundColor={"var(--main-color-two)"}
+                            isDisplayCurrentPageNumberAndCountOfPages={false}
+                            isDisplayNavigateToSpecificPageForm={false}
                         />
                     }
                 </div>

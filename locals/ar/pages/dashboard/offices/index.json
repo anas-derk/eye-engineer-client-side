@@ -1,0 +1,21 @@
+{
+    "Office Id": "معرّف المكتب",
+    "Please Enter Office Id": "الرجاء إدخال معرّف المكتب",
+    "Office Name": "اسم المكتب",
+    "Please Enter Office Name": "الرجاء إدخال اسم المكتب",
+    "Status": "الحالة",
+    "Please Enter Status": "الرجاء إدخال الحالة",
+    "All": "الكل",
+    "pending": "الانتظار",
+    "approving": "الموافقة",
+    "blocking": "الحظر",
+    "Owner Full Name": "اسم المالك الكامل",
+    "Please Enter Owner Full Name": "الرجاء إدخال اسم المالك الكامل",
+    "Owner Email": "البريد الالكتروني للمالك",
+    "Please Enter Owner Email": "الرجاء إدخال البريد الالكتروني للمالك",
+    "Approve": "موافقة",
+    "Reject": "رفض",
+    "Blocking": "حظر",
+    "Cancel Blocking": "إلغاء الحظر",
+    "Show Full Details": "إظهار كل التفاصيل"
+}
