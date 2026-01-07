@@ -16,6 +16,7 @@ import PaginationBar from "@/components/PaginationBar";
 import Link from "next/link";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import SectionLoader from "@/components/SectionLoader";
+import ChangeOfficeStatusBox from "@/components/ChangeOfficeStatusBox";
 
 export default function Offices() {
 
