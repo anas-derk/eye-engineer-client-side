@@ -18,5 +18,15 @@
     "Blocking": "حظر",
     "Cancel Blocking": "إلغاء الحظر",
     "Show Full Details": "إظهار كل التفاصيل",
-    "Please Enter New Office Name": "الرجاء إدخال اسم المكتب الجديد"
+    "Please Enter New Office Name": "الرجاء إدخال اسم المكتب الجديد",
+    "Office Details": "تفاصيل المكتب",
+    "Please Enter New Owner Full Name": "الرجاء إدخال اسم المالك الجديد الكامل",
+    "Please Enter New Owner Email": "الرجاء إدخال البريد الالكتروني الجديد للمالك",
+    "Description": "الوصف",
+    "Please Enter New Description": "الرجاء إدخال الوصف الجديد",
+    "Creating Order Date": "تاريخ إنشاء الطلب",
+    "Approve Order Date": "تاريخ الموافقة على الطلب",
+    "Blocking Date": "تاريخ الحظر",
+    "Blocking Reason": "سبب الحظر",
+    "Cancel Blocking Date": "تاريخ إلغاء الحظر"
 }

@@ -101,6 +101,27 @@ const getAllOfficesInsideThePage = async (pageNumber, pageSize, filters, languag
     }
 }
 
+const getOfficeDetails = async (officeId, userType, language) => {
+    try {
+        if (!officeId) {
+            return (await axios.get(`${process.env.BASE_API_URL}/offices/main-office-details?userType=${userType}&language=${language}`, {
+                headers: {
+                    Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
+                },
+            })).data;
+        } else {
+            return (await axios.get(`${process.env.BASE_API_URL}/offices/office-details/${officeId}?userType=${userType}&language=${language}`, {
+                headers: {
+                    Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
+                },
+            })).data;
+        }
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
 export {
     getDateFormated,
     getUserInfo,
@@ -110,5 +131,6 @@ export {
     getAnimationSettings,
     handleDisplayConfirmDeleteBox,
     getLanguagesInfoList,
-    getAllOfficesInsideThePage
+    getAllOfficesInsideThePage,
+    getOfficeDetails
 }
