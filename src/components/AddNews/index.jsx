@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { GrFormClose } from "react-icons/gr";
 import { inputValuesValidation } from "../../../public/global_functions/validations";
 import axios from "axios";
+import FormFieldErrorBox from "../FormFieldErrorBox";
 
 export default function AddNews({
     setIsDisplayAddNewsBox,
@@ -90,13 +90,13 @@ export default function AddNews({
     return (
         <div className="add-news popup-box">
             <div className="content-box d-flex align-items-center justify-content-center text-white flex-column p-4 text-center">
-                {!waitMsg && !errorMsg && !successMsg && <GrFormClose className="close-popup-box-icon" onClick={handleClosePopupBox} />}
                 <h2 className="mb-5 pb-3 border-bottom border-white">{t("Add New News")}</h2>
                 <textarea
                     placeholder={t("Please Enter Content Here")}
                     className={`form-control p-3 border-2 ${formValidationErrors["content"] ? "border-danger mb-3" : "mb-4"}`}
                     onChange={(e) => setContent(e.target.value.trim())}
                 />
+                {formValidationErrors["content"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["content"])} />}
                 {
                     !waitMsg &&
                     !errorMsg &&
@@ -132,13 +132,13 @@ export default function AddNews({
                         {t(successMsg)}
                     </button>
                 }
-                <button
+                {!waitMsg && !successMsg && !errorMsg && <button
                     className="btn btn-danger d-block mx-auto global-button"
                     disabled={waitMsg || errorMsg || successMsg}
                     onClick={handleClosePopupBox}
                 >
                     {t("Close")}
-                </button>
+                </button>}
             </div>
         </div>
     );

@@ -16,6 +16,7 @@ import PaginationBar from "@/components/PaginationBar";
 import Link from "next/link";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import SectionLoader from "@/components/SectionLoader";
+import AddGeometry from "@/components/AddGeometry";
 
 export default function Geometries() {
 
@@ -48,6 +49,8 @@ export default function Geometries() {
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
     const [isDisplayConfirmDeleteBox, setIsDisplayConfirmDeleteBox] = useState(false);
+
+    const [isDisplayAddGeometryBox, setIsDisplayAddGeometryBox] = useState(false);
 
     const router = useRouter();
 
@@ -333,10 +336,19 @@ export default function Geometries() {
                     errorMsg={errorMsg}
                     successMsg={successMsg}
                 />}
+                {isDisplayAddGeometryBox && <AddGeometry
+                    setIsDisplayAddGeometryBox={setIsDisplayAddGeometryBox}
+                />}
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Geometries")}</h1>
                     <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
+                    {!isDisplayAddGeometryBox && <button
+                        className="btn d-block w-25 mx-auto mt-2 mb-4 orange-btn"
+                        onClick={() => setIsDisplayAddGeometryBox(true)}
+                    >
+                        {t("Add New Geometry")}
+                    </button>}
                     <section className="filters mb-3 bg-white border-3 border-info p-3 text-start">
                         <h5 className="section-name fw-bold text-center">{t("Filters")}: </h5>
                         <hr />
