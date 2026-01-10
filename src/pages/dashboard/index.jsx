@@ -15,7 +15,7 @@ export default function Dashboard() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
-    const [userInfo, setUserInfo] = useState(true);
+    const [userInfo, setUserInfo] = useState({});
 
     const router = useRouter();
 
@@ -64,7 +64,7 @@ export default function Dashboard() {
                 {/* Start Page Content */}
                 <div className="page-content d-flex justify-content-center align-items-center flex-column">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Dashboard")}</h1>
-                    <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isExistOffice={userInfo.isExistOffice} />
+                    <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
                 </div>
                 {/* End Page Content */}
                 <Footer />

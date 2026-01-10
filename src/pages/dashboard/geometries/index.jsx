@@ -70,8 +70,10 @@ export default function Geometries() {
                         await router.replace("/login");
                     } else {
                         const adminDetails = result.data;
-                        if (adminDetails.isWebsiteOwner) {
-                            result = (await getAllGeometriesInsideThePage(1, pageSize, undefined, i18n.language)).data;
+                        if (adminDetails.isEngineer) {
+                            const tempFilters = { officeId: adminDetails.officeId };
+                            setFilters(tempFilters);
+                            result = (await getAllGeometriesInsideThePage(1, pageSize, getFilteringString(tempFilters), "admin", i18n.language)).data;
                             setAllGeometriesInsideThePage(result.geometries);
                             setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
                             setIsLoadingPage(false);
@@ -157,36 +159,10 @@ export default function Geometries() {
 
     const getFilteringString = (filters) => {
         let filteringString = "";
-        if (filters.officeId) filteringString += `_id=${filters.officeId}&`;
+        if (filters.officeId) filteringString += `officeId=${filters.officeId}&`;
         if (filters.name) filteringString += `name=${filters.name}&`;
         if (filteringString) filteringString = filteringString.substring(0, filteringString.length - 1);
         return filteringString;
-    }
-
-    const handleSearchOfGeometryParent = async (e) => {
-        try {
-            setWaitMsg("Please Waiting To Get Categories ...");
-            const searchedCategoryName = e.target.value;
-            setSearchedCategoryParent(searchedCategoryName);
-            if (searchedCategoryName) {
-                setSearchedCategories((await getAllCategoriesInsideThePage(1, 1000, getFilteringString(filters))).data.categories);
-            } else {
-                setSearchedCategories([]);
-            }
-            setWaitMsg("");
-        }
-        catch (err) {
-            setWaitMsg("");
-            setErrorMsg(err?.message === "Network Error" ? "Network Error On Search !!" : "Sorry, Someting Went Wrong, Please Repeate The Search !!");
-            let errorTimeout = setTimeout(() => {
-                setErrorMsg("");
-                clearTimeout(errorTimeout);
-            }, 1500);
-        }
-    }
-
-    const handleSelectGeometryParent = (categoryParent) => {
-        setSelectedCategoryParent(categoryParent ? categoryParent : { name: "No Parent", _id: "" });
     }
 
     const filterGeometries = async (filters) => {
@@ -359,7 +335,7 @@ export default function Geometries() {
                 />}
                 {/* Start Page Content */}
                 <div className="page-content">
-                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Offices")}</h1>
+                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Geometries")}</h1>
                     <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
                     <section className="filters mb-3 bg-white border-3 border-info p-3 text-start">
                         <h5 className="section-name fw-bold text-center">{t("Filters")}: </h5>

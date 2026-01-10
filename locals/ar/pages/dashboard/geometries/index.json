@@ -1,7 +1,7 @@
 {
-    "Geometry Id": "معرّف المكتب",
-    "Please Enter Geometry Id": "الرجاء إدخال معرّف المكتب",
-    "Geometry Name": "اسم المكتب",
-    "Please Enter Geometry Name": "الرجاء إدخال اسم المكتب",
+    "Geometry Id": "معرّف الهندسة",
+    "Please Enter Geometry Id": "الرجاء إدخال معرّف الهندسة",
+    "Geometry Name": "اسم الهندسة",
+    "Please Enter Geometry Name": "الرجاء إدخال اسم الهندسة",
     "Parent": "الأب"
 }

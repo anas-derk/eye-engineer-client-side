@@ -122,9 +122,9 @@ const getOfficeDetails = async (officeId, userType, language) => {
     }
 }
 
-const getAllGeometriesInsideThePage = async (pageNumber, pageSize, filters, language) => {
+const getAllGeometriesInsideThePage = async (pageNumber, pageSize, filters, userType, language) => {
     try {
-        return (await axios.get(`${process.env.BASE_API_URL}/geometries/all-geometries-inside-the-page?pageNumber=${pageNumber}&pageSize=${pageSize}&language=${language}&${filters ? filters : ""}`, {
+        return (await axios.get(`${process.env.BASE_API_URL}/geometries/all-inside-the-page?pageNumber=${pageNumber}&pageSize=${pageSize}&userType=${userType}&language=${language}&${filters ? filters : ""}`, {
             headers: {
                 Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE)
             }

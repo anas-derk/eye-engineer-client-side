@@ -6,6 +6,7 @@ import { BiNews } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import { TbGeometry } from "react-icons/tb";
 
 export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = false }) {
 
@@ -14,7 +15,7 @@ export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = 
     const { t } = useTranslation();
 
     const userLogout = () => {
-        localStorage.removeItem(process.env.userTokenNameInLocalStorage);
+        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
         router.push("/login");
     }
 
@@ -75,6 +76,19 @@ export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = 
                         </Link>
                         <div className="link-name-box p-2 fw-bold">
                             {t("Offices")}
+                        </div>
+                    </li>
+                </>}
+                {isEngineer && <>
+                    <li className="managment-customer-account-link-item managment-link-item">
+                        <Link
+                            href="/dashboard/geometries"
+                            className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/geometries" && "active"}`}
+                        >
+                            <TbGeometry className="customer-account-managment-link-icon managment-link-icon" />
+                        </Link>
+                        <div className="link-name-box p-2 fw-bold">
+                            {t("Geometries")}
                         </div>
                     </li>
                 </>}
