@@ -122,6 +122,19 @@ const getOfficeDetails = async (officeId, userType, language) => {
     }
 }
 
+const getAllGeometriesInsideThePage = async (pageNumber, pageSize, filters, language) => {
+    try {
+        return (await axios.get(`${process.env.BASE_API_URL}/geometries/all-geometries-inside-the-page?pageNumber=${pageNumber}&pageSize=${pageSize}&language=${language}&${filters ? filters : ""}`, {
+            headers: {
+                Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE)
+            }
+        })).data;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
 export {
     getDateFormated,
     getUserInfo,
@@ -132,5 +145,6 @@ export {
     handleDisplayConfirmDeleteBox,
     getLanguagesInfoList,
     getAllOfficesInsideThePage,
-    getOfficeDetails
+    getOfficeDetails,
+    getAllGeometriesInsideThePage
 }

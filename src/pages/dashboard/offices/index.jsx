@@ -24,8 +24,6 @@ export default function Offices() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
-    const [userInfo, setUserInfo] = useState({});
-
     const [allOfficesInsideThePage, setAllOfficesInsideThePage] = useState([]);
 
     const [isGetOffices, setIsGetOffices] = useState(false);
@@ -86,7 +84,6 @@ export default function Offices() {
                     } else {
                         const adminDetails = result.data;
                         if (adminDetails.isWebsiteOwner) {
-                            setUserInfo(adminDetails);
                             result = (await getAllOfficesInsideThePage(1, pageSize, undefined, i18n.language)).data;
                             setAllOfficesInsideThePage(result.offices);
                             setTotalPagesCount(Math.ceil(result.officesCount / pageSize));
@@ -99,8 +96,8 @@ export default function Offices() {
                 .catch(async (err) => {
                     console.log(err);
                     if (err?.response?.status === 401) {
-                        // localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
-                        // await router.replace("/login");
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                        await router.replace("/login");
                     }
                     else {
                         setIsLoadingPage(false);
