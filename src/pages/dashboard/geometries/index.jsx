@@ -368,7 +368,7 @@ export default function Geometries() {
         try {
             setWaitMsg("Please Wait");
             setSelectedGeometryIndex(geometryIndex);
-            let result = (await axios.delete(`${process.env.BASE_API_URL}/geometries/delete-geometry/${allGeometriesInsideThePage[geometryIndex]._id}?language=${i18n.language}`, {
+            let result = (await axios.delete(`${process.env.BASE_API_URL}/geometries/${allGeometriesInsideThePage[geometryIndex]._id}?language=${i18n.language}`, {
                 headers: {
                     Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                 }
@@ -379,7 +379,7 @@ export default function Geometries() {
                 let successTimeout = setTimeout(async () => {
                     setSuccessMsg("");
                     setSelectedGeometryIndex(-1);
-                    setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
+                    setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
                     setCurrentPage(currentPage);
                     clearTimeout(successTimeout);
                 }, 3000);
