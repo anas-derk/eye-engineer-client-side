@@ -13,10 +13,10 @@ import NotFoundError from "@/components/NotFoundError";
 import ConfirmDelete from "@/components/ConfirmDelete";
 import { inputValuesValidation } from "../../../../public/global_functions/validations";
 import PaginationBar from "@/components/PaginationBar";
-import Link from "next/link";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import SectionLoader from "@/components/SectionLoader";
 import AddGeometry from "@/components/AddGeometry";
+import UpdateGeometryParent from "@/components/UpdateGeometryParent";
 
 export default function Geometries() {
 
@@ -59,6 +59,8 @@ export default function Geometries() {
     const [isDisplayConfirmDeleteBox, setIsDisplayConfirmDeleteBox] = useState(false);
 
     const [isDisplayAddGeometryBox, setIsDisplayAddGeometryBox] = useState(false);
+
+    const [isDisplayUpdateGeometryParentBox, setIsDisplayUpdateGeometryParentBox] = useState(false);
 
     const router = useRouter();
 
@@ -364,6 +366,38 @@ export default function Geometries() {
         }
     }
 
+    const handleDisplayUpdateGeometryParentBox = (geometryIndex) => {
+        setSelectedGeometryIndex(geometryIndex);
+        setIsDisplayUpdateGeometryParentBox(true);
+    }
+
+    const handleUpdateGeometryParent = async () => {
+        try {
+            setIsGetGeometries(true);
+            setCurrentPage(currentPage);
+            const filteringString = getFilteringString(filters);
+            const result = (await getAllGeometriesInsideThePage(currentPage, pageSize, filteringString, "admin", i18n.language)).data;
+            setAllGeometriesInsideThePage(result.geometries);
+            setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
+            setIsGetGeometries(false);
+        }
+        catch (err) {
+            if (err?.response?.status === 401) {
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                await router.replace("/login");
+            }
+            else {
+                setIsGetGeometries(false);
+                setCurrentPage(-1);
+                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
+                let errorTimeout = setTimeout(() => {
+                    setErrorMsg("");
+                    clearTimeout(errorTimeout);
+                }, 1500);
+            }
+        }
+    }
+
     const deleteGeometry = async (geometryIndex) => {
         try {
             setWaitMsg("Please Wait");
@@ -428,6 +462,13 @@ export default function Geometries() {
                     setIsDisplayAddGeometryBox={setIsDisplayAddGeometryBox}
                     handleAddNewGeometry={handleAddNewGeometry}
                 />}
+                {isDisplayUpdateGeometryParentBox && <UpdateGeometryParent
+                    setIsDisplayUpdateGeometryParentBox={setIsDisplayUpdateGeometryParentBox}
+                    handleUpdateGeometryParent={handleUpdateGeometryParent}
+                    currentParent={allGeometriesInsideThePage[selectedGeometryIndex].parent}
+                    geometryId={allGeometriesInsideThePage[selectedGeometryIndex]._id}
+                    setSelectedGeometryIndex={setSelectedGeometryIndex}
+                />}
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Geometries")}</h1>
@@ -474,7 +515,7 @@ export default function Geometries() {
                                     <th width="250">{t("Parent")}</th>
                                     <th>{t("Date Of Creation")}</th>
                                     <th>{t("Image")}</th>
-                                    <th>{t("Action")}</th>
+                                    <th>{t("Actions")}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -499,7 +540,7 @@ export default function Geometries() {
                                             </section>
                                         </td>
                                         <td className="geometry-parent-cell">
-                                            {geometry.parent?._id ? getLanguagesInfoList("parent").map((language) => <h6 className="bg-info p-2 fw-bold mb-4">In {language.fullLanguageName} : {geometry.parent.name[language.internationalLanguageCode]}</h6>) : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Parent")}</h6>}
+                                            {geometry.parent?._id ? getLanguagesInfoList("parent").map((language) => <h6 className="bg-info p-2 fw-bold mb-4">{t(`In ${language.fullLanguageName}`)} : {geometry.parent.name[language.internationalLanguageCode]}</h6>) : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Parent")}</h6>}
                                         </td>
                                         <td className="geometry-date-of-creation-cell">
                                             {getDateFormated(geometry.createdAt)}
@@ -548,10 +589,10 @@ export default function Geometries() {
                                                 >{t("Update")}
                                                 </button>
                                                 <hr />
-                                                <Link
-                                                    href={`/geometries/update-parent/${geometry._id}`}
+                                                {!isDisplayUpdateGeometryParentBox && <button
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"
-                                                >{t("Change Parent")}</Link>
+                                                    onClick={() => handleDisplayUpdateGeometryParentBox(geometryIndex)}
+                                                >{t("Change Parent")}</button>}
                                                 <hr />
                                                 <button
                                                     className="btn btn-danger global-button"

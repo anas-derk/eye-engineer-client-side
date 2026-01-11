@@ -1,21 +1,18 @@
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { inputValuesValidation } from "../../../public/global_functions/validations";
 import axios from "axios";
 import FormFieldErrorBox from "../FormFieldErrorBox";
 import { getAllGeometriesInsideThePage } from "../../../public/global_functions/popular";
 
-export default function AddGeometry({
-    setIsDisplayAddGeometryBox,
-    handleAddNewGeometry
-
+export default function UpdateGeometryParent({
+    setIsDisplayUpdateGeometryParentBox,
+    currentParent,
+    handleUpdateGeometryParent,
+    geometryId,
+    setSelectedGeometryIndex
 }) {
-
-    const [geometryData, setGeometryData] = useState({
-        name: "",
-        image: null
-    });
 
     const [searchedGeometries, setSearchedGeometries] = useState([]);
 
@@ -33,14 +30,13 @@ export default function AddGeometry({
 
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
-    const geometryImageFileElementRef = useRef();
-
     const router = useRouter();
 
     const { t, i18n } = useTranslation();
 
     const handleClosePopupBox = () => {
-        setIsDisplayAddGeometryBox(false);
+        setSelectedGeometryIndex(-1);
+        setIsDisplayUpdateGeometryParentBox(false);
     }
 
     const getFilteringString = (filters) => {
@@ -84,19 +80,10 @@ export default function AddGeometry({
         });
     }
 
-    const addGeometry = async () => {
+    const updateGeometryParent = async () => {
         try {
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
-                {
-                    name: "name",
-                    value: geometryData.name,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                    },
-                },
                 {
                     name: "geometryParent",
                     value: selectedGeometryParent,
@@ -106,37 +93,24 @@ export default function AddGeometry({
                         },
                     },
                 },
-                {
-                    name: "image",
-                    value: geometryData.image,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                        isImage: {
-                            msg: "Sorry, Invalid Image Type, Please Upload JPG Or PNG Or WEBP Image File !!",
-                        },
-                    },
-                },
             ]);
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Saving");
-                let formData = new FormData();
-                formData.append("name", geometryData.name);
-                formData.append("geometryImage", geometryData.image);
-                const result = (await axios.post(`${process.env.BASE_API_URL}/geometries/add?language=${i18n.language}`, formData, {
+                const result = (await axios.put(`${process.env.BASE_API_URL}/geometries/${geometryId}/?language=${i18n.language}`, {
+                    parent: selectedGeometryParent?._id ? selectedGeometryParent?._id : null,
+                }, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                     }
                 })).data;
                 setWaitMsg("");
                 if (!result.error) {
-                    setSuccessMsg("Adding Successfull !!");
+                    setSuccessMsg("Updating Successfull !!");
                     let successTimeout = setTimeout(async () => {
                         setSuccessMsg("");
                         handleClosePopupBox();
-                        await handleAddNewGeometry();
+                        await handleUpdateGeometryParent();
                         clearTimeout(successTimeout);
                     }, 1500);
                 } else {
@@ -165,21 +139,15 @@ export default function AddGeometry({
     }
 
     return (
-        <div className="add-geometry popup-box">
+        <div className="update-geometry-parent popup-box">
             <div className="content-box d-flex align-items-center text-white flex-column p-4 text-center">
-                <h2 className="mb-5 pb-3 border-bottom border-white">{t("Add New Geometry")}</h2>
-                <section className="name mb-4 w-100">
-                    <input
-                        type="text"
-                        placeholder={t("Please Enter Name")}
-                        className={`form-control p-3 border-2 ${formValidationErrors["name"] ? "border-danger mb-3" : ""}`}
-                        onChange={(e) => setGeometryData({ ...geometryData, name: e.target.value.trim() })}
-                    />
-                    {formValidationErrors["name"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["name"])} />}
+                <h2 className="mb-5 pb-3 border-bottom border-white">{t("Change Parent")}</h2>
+                <section className="current-parent mb-5 border w-100 p-4">
+                    <h6 className="bg-secondary p-3 m-0 text-white border border-2 border-dark">{t("Current Parent")}: {currentParent?.name ? currentParent.name[i18n.language] : t("No Parent")}</h6>
                 </section>
-                <section className="geometry-parent mb-4 w-100">
-                    <h6 className="fw-bold mb-3 text-dark">{t("Please Select Parent")}</h6>
-                    {selectedGeometryParent.name && <h6 className="bg-secondary p-3 mb-4 text-white border border-2 border-dark">{t("Parent")}: {selectedGeometryParent.name[i18n.language]}</h6>}
+                <section className="new-geometry-parent mb-4 w-100">
+                    <h6 className="fw-bold mb-3 text-dark">{t("Please Select New Parent")}</h6>
+                    {selectedGeometryParent?.name && <h6 className="bg-secondary p-3 mb-4 text-white border border-2 border-dark">{t("New Parent")}: {selectedGeometryParent.name[i18n.language]}</h6>}
                     <div className="select-geometry-box select-box mb-4">
                         <input
                             type="text"
@@ -198,26 +166,15 @@ export default function AddGeometry({
                         {formValidationErrors["geometryParent"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["geometryParent"])} />}
                     </div>
                 </section>
-                <section className="image mb-4 w-100">
-                    <input
-                        type="file"
-                        className={`form-control geometry-image-field ${formValidationErrors["image"] ? "border-danger mb-3" : "mb-4"}`}
-                        placeholder={t("Please Enter Image")}
-                        onChange={(e) => setGeometryData({ ...geometryData, image: e.target.files[0] })}
-                        ref={geometryImageFileElementRef}
-                        value={geometryImageFileElementRef.current?.value}
-                    />
-                    {formValidationErrors["image"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["image"])} />}
-                </section>
                 {
                     !waitMsg &&
                     !errorMsg &&
                     !successMsg &&
                     <button
                         className="btn btn-success d-block mx-auto mb-4 global-button"
-                        onClick={addGeometry}
+                        onClick={updateGeometryParent}
                     >
-                        {t("Add")}
+                        {t("Update")}
                     </button>
                 }
                 {waitMsg &&

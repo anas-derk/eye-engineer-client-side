@@ -341,7 +341,8 @@ textarea {
     background-color: rgba($color: #000, $alpha: 0.5);
     z-index: 10000;
 
-    &.add-geometry {
+    &.add-geometry,
+    &.update-geometry-parent {
 
         .content-box {
             overflow: auto;

@@ -341,7 +341,7 @@ textarea {
   z-index: 10000;
 }
 
-.popup-box.add-geometry .content-box {
+.popup-box.add-geometry .content-box, .popup-box.update-geometry-parent .content-box {
   overflow: auto;
   height: 70%;
 }
