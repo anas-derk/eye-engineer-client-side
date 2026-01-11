@@ -124,6 +124,7 @@ export default function AddGeometry({
                 setWaitMsg("Saving");
                 let formData = new FormData();
                 formData.append("name", geometryData.name);
+                formData.append("parent", selectedGeometryParent._id);
                 formData.append("geometryImage", geometryData.image);
                 const result = (await axios.post(`${process.env.BASE_API_URL}/geometries/add?language=${i18n.language}`, formData, {
                     headers: {
