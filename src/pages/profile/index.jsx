@@ -102,7 +102,7 @@ export default function Profile() {
                             msg: "Sorry, A New Image Must Be Selected By Clicking On The Image Icon",
                         },
                         isImage: {
-                            msg: "Sorry, Invalid Image Type, Please Upload JPG Or PNG Or Webp Image File !!",
+                            msg: "Sorry, Invalid Image Type, Please Upload JPG Or PNG Or WEBP Image File !!",
                         },
                     },
                 },
@@ -119,7 +119,7 @@ export default function Profile() {
                 })).data;
                 setWaitMsg("");
                 if (!result.error) {
-                    setSuccessMsg(result.msg);
+                    setSuccessMsg("Updating Successfull !!");
                     let successTimeout = setTimeout(async () => {
                         setUserInfo({ ...userInfo, imagePath: result.data.newImagePath });
                         setSuccessMsg("");

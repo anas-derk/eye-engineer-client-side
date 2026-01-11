@@ -382,3 +382,20 @@ textarea {
     font-size: 25px;
     cursor: pointer;
 }
+
+.select-box {
+    .options-list {
+        height: 200px;
+        overflow: auto;
+
+        li {
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #CCC;
+            }
+        }
+    }
+}

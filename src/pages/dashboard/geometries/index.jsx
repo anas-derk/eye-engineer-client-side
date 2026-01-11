@@ -30,11 +30,19 @@ export default function Geometries() {
 
     const [selectedGeometryIndex, setSelectedGeometryIndex] = useState(-1);
 
+    const [selectedGeometryImageIndex, setSelectedGeometryImageIndex] = useState(-1);
+
     const [waitMsg, setWaitMsg] = useState("");
 
     const [successMsg, setSuccessMsg] = useState("");
 
     const [errorMsg, setErrorMsg] = useState("");
+
+    const [waitChangeGeometryImageMsg, setWaitChangeGeometryImageMsg] = useState("");
+
+    const [errorChangeGeometryImageMsg, setErrorChangeGeometryImageMsg] = useState("");
+
+    const [successChangeGeometryImageMsg, setSuccessChangeGeometryImageMsg] = useState("");
 
     const [errorMsgOnGetGeometriesData, setErrorMsgOnGetGeometriesData] = useState("");
 
@@ -103,7 +111,7 @@ export default function Geometries() {
             setIsGetGeometries(true);
             setErrorMsgOnGetGeometriesData("");
             const newCurrentPage = currentPage - 1;
-            setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.offices);
+            setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
             setCurrentPage(newCurrentPage);
             setIsGetGeometries(false);
         }
@@ -124,7 +132,7 @@ export default function Geometries() {
             setIsGetGeometries(true);
             setErrorMsgOnGetGeometriesData("");
             const newCurrentPage = currentPage + 1;
-            setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.offices);
+            setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
             setCurrentPage(newCurrentPage);
             setIsGetGeometries(false);
         }
@@ -144,7 +152,7 @@ export default function Geometries() {
         try {
             setIsGetGeometries(true);
             setErrorMsgOnGetGeometriesData("");
-            setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(pageNumber, pageSize, getFilteringString(filters), i18n.language)).data.offices);
+            setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(pageNumber, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
             setCurrentPage(pageNumber);
             setIsGetGeometries(false);
         }
@@ -173,9 +181,36 @@ export default function Geometries() {
             setIsGetGeometries(true);
             setCurrentPage(1);
             const filteringString = getFilteringString(filters);
-            const result = (await getAllGeometriesInsideThePage(1, pageSize, filteringString, i18n.language)).data;
-            setAllGeometriesInsideThePage(result.offices);
-            setTotalPagesCount(Math.ceil(result.officesCount / pageSize));
+            const result = (await getAllGeometriesInsideThePage(1, pageSize, filteringString, "admin", i18n.language)).data;
+            setAllGeometriesInsideThePage(result.geometries);
+            setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
+            setIsGetGeometries(false);
+        }
+        catch (err) {
+            if (err?.response?.status === 401) {
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                await router.replace("/login");
+            }
+            else {
+                setIsGetGeometries(false);
+                setCurrentPage(-1);
+                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
+                let errorTimeout = setTimeout(() => {
+                    setErrorMsg("");
+                    clearTimeout(errorTimeout);
+                }, 1500);
+            }
+        }
+    }
+
+    const handleAddNewGeometry = async () => {
+        try {
+            setIsGetGeometries(true);
+            setCurrentPage(1);
+            const filteringString = getFilteringString(filters);
+            const result = (await getAllGeometriesInsideThePage(1, pageSize, filteringString, "admin", i18n.language)).data;
+            setAllGeometriesInsideThePage(result.geometries);
+            setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
             setIsGetGeometries(false);
         }
         catch (err) {
@@ -196,11 +231,77 @@ export default function Geometries() {
     }
 
     const changeGeometryData = (geometryIndex, fieldName, newValue, language) => {
+        setSelectedGeometryImageIndex(-1);
         setSelectedGeometryIndex(-1);
         if (language) {
             allGeometriesInsideThePage[geometryIndex][fieldName][language] = newValue;
         } else {
             allGeometriesInsideThePage[geometryIndex][fieldName] = newValue;
+        }
+    }
+
+    const changeGeometryImage = async (geometryIndex) => {
+        try {
+            setFormValidationErrors({});
+            const errorsObject = inputValuesValidation([
+                {
+                    name: "image",
+                    value: allGeometriesInsideThePage[geometryIndex].image,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                        isImage: {
+                            msg: "Sorry, Invalid Image Type, Please Upload JPG Or PNG Or WEBP Image File !!",
+                        },
+                    },
+                }
+            ]);
+            setSelectedGeometryImageIndex(geometryIndex);
+            setFormValidationErrors(errorsObject);
+            if (Object.keys(errorsObject).length == 0) {
+                setWaitChangeGeometryImageMsg("Please Wait");
+                let formData = new FormData();
+                formData.append("geometryImage", allGeometriesInsideThePage[geometryIndex].image);
+                const result = (await axios.put(`${process.env.BASE_API_URL}/geometries/change-image/${allGeometriesInsideThePage[geometryIndex]._id}?language=${i18n.language}`, formData, {
+                    headers: {
+                        Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
+                    }
+                })).data;
+                if (!result.error) {
+                    setWaitChangeGeometryImageMsg("");
+                    setSuccessChangeGeometryImageMsg("Updating Successfull !!");
+                    let successTimeout = setTimeout(async () => {
+                        setSuccessChangeGeometryImageMsg("");
+                        setSelectedGeometryImageIndex(-1);
+                        setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
+                        clearTimeout(successTimeout);
+                    }, 1500);
+                } else {
+                    setWaitChangeGeometryImageMsg("");
+                    setErrorChangeGeometryImageMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
+                    let errorTimeout = setTimeout(() => {
+                        setErrorChangeGeometryImageMsg("");
+                        setSelectedGeometryImageIndex(-1);
+                        clearTimeout(errorTimeout);
+                    }, 1500);
+                }
+            }
+        }
+        catch (err) {
+            if (err?.response?.status === 401) {
+                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                await router.replace("/login");
+            }
+            else {
+                setWaitChangeGeometryImageMsg("");
+                setErrorChangeGeometryImageMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
+                let errorTimeout = setTimeout(() => {
+                    setErrorChangeGeometryImageMsg("");
+                    setSelectedGeometryImageIndex(-1);
+                    clearTimeout(errorTimeout);
+                }, 3000);
+            }
         }
     }
 
@@ -217,26 +318,13 @@ export default function Geometries() {
                         },
                     },
                 })),
-                {
-                    name: "email",
-                    value: allGeometriesInsideThePage[geometryIndex].email,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                        isEmail: {
-                            msg: "Sorry, This Email Is Not Valid !!",
-                        }
-                    },
-                },
             ]);
             setFormValidationErrors(errorsObject);
             setSelectedGeometryIndex(geometryIndex);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Please Wait");
-                const result = (await axios.put(`${process.env.BASE_API_URL}/offices/update-geometry-info/${allGeometriesInsideThePage[geometryIndex]._id}?language=${i18n.language}`, {
+                const result = (await axios.put(`${process.env.BASE_API_URL}/geometries/${allGeometriesInsideThePage[geometryIndex]._id}?language=${i18n.language}`, {
                     name: allGeometriesInsideThePage[geometryIndex].name,
-                    email: allGeometriesInsideThePage[geometryIndex].email,
                 }, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
@@ -280,7 +368,7 @@ export default function Geometries() {
         try {
             setWaitMsg("Please Wait");
             setSelectedGeometryIndex(geometryIndex);
-            let result = (await axios.delete(`${process.env.BASE_API_URL}/offices/delete-geometry/${allGeometriesInsideThePage[geometryIndex]._id}?language=${i18n.language}`, {
+            let result = (await axios.delete(`${process.env.BASE_API_URL}/geometries/delete-geometry/${allGeometriesInsideThePage[geometryIndex]._id}?language=${i18n.language}`, {
                 headers: {
                     Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                 }
@@ -291,7 +379,7 @@ export default function Geometries() {
                 let successTimeout = setTimeout(async () => {
                     setSuccessMsg("");
                     setSelectedGeometryIndex(-1);
-                    setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), i18n.language)).data.offices);
+                    setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
                     setCurrentPage(currentPage);
                     clearTimeout(successTimeout);
                 }, 3000);
@@ -338,6 +426,7 @@ export default function Geometries() {
                 />}
                 {isDisplayAddGeometryBox && <AddGeometry
                     setIsDisplayAddGeometryBox={setIsDisplayAddGeometryBox}
+                    handleAddNewGeometry={handleAddNewGeometry}
                 />}
                 {/* Start Page Content */}
                 <div className="page-content">
@@ -384,6 +473,7 @@ export default function Geometries() {
                                     <th width="250">{t("Name")}</th>
                                     <th width="250">{t("Parent")}</th>
                                     <th>{t("Date Of Creation")}</th>
+                                    <th>{t("Image")}</th>
                                     <th>{t("Action")}</th>
                                 </tr>
                             </thead>
@@ -409,10 +499,46 @@ export default function Geometries() {
                                             </section>
                                         </td>
                                         <td className="geometry-parent-cell">
-                                            {category.parent?._id ? getLanguagesInfoList("parent").map((language) => <h6 className="bg-info p-2 fw-bold mb-4">In {language.fullLanguageName} : {geometry.parent.name[language.internationalLanguageCode]}</h6>) : <h6 className="bg-danger p-2 mb-4 text-white">No Parent</h6>}
+                                            {geometry.parent?._id ? getLanguagesInfoList("parent").map((language) => <h6 className="bg-info p-2 fw-bold mb-4">In {language.fullLanguageName} : {geometry.parent.name[language.internationalLanguageCode]}</h6>) : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Parent")}</h6>}
                                         </td>
                                         <td className="geometry-date-of-creation-cell">
-                                            {getDateFormated(geometry.dateOfCreation)}
+                                            {getDateFormated(geometry.createdAt)}
+                                        </td>
+                                        <td className="geometry-image-cell">
+                                            <img
+                                                src={`${process.env.BASE_API_URL}/${geometry.imagePath}`}
+                                                alt={`${geometry.name[i18n.language]} Geometry Image !!`}
+                                                width="100"
+                                                height="100"
+                                                className="d-block mx-auto mb-4"
+                                            />
+                                            <section className="geometry-image mb-4">
+                                                <input
+                                                    type="file"
+                                                    className={`form-control d-block mx-auto p-2 border-2 brand-image-field ${formValidationErrors["image"] && geometryIndex === selectedGeometryImageIndex ? "border-danger mb-3" : "mb-4"}`}
+                                                    onChange={(e) => changeGeometryData(geometryIndex, "image", e.target.files[0])}
+                                                    accept=".png, .jpg, .webp"
+                                                />
+                                                {formValidationErrors["image"] && selectedGeometryImageIndex === geometryIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors["image"])} />}
+                                            </section>
+                                            {(selectedGeometryImageIndex !== geometryIndex && selectedGeometryIndex !== geometryIndex) &&
+                                                <button
+                                                    className="btn btn-success d-block mb-3 w-50 mx-auto global-button"
+                                                    onClick={() => changeGeometryImage(geometryIndex)}
+                                                >{t("Change Image")}</button>
+                                            }
+                                            {waitChangeGeometryImageMsg && selectedGeometryImageIndex === geometryIndex && <button
+                                                className="btn btn-info d-block mb-3 mx-auto global-button"
+                                                disabled
+                                            >{t(waitChangeGeometryImageMsg)}</button>}
+                                            {successChangeGeometryImageMsg && selectedGeometryImageIndex === geometryIndex && <button
+                                                className="btn btn-success d-block mx-auto global-button"
+                                                disabled
+                                            >{t(successChangeGeometryImageMsg)}</button>}
+                                            {errorChangeGeometryImageMsg && selectedGeometryImageIndex === geometryIndex && <button
+                                                className="btn btn-danger d-block mx-auto global-button"
+                                                disabled
+                                            >{t(errorChangeGeometryImageMsg)}</button>}
                                         </td>
                                         <td>
                                             {selectedGeometryIndex !== geometryIndex && <>
@@ -432,6 +558,18 @@ export default function Geometries() {
                                                     onClick={() => handleDisplayConfirmDeleteBox(geometryIndex, setSelectedGeometryIndex, setIsDisplayConfirmDeleteBox)}
                                                 >{t("Delete")}</button>
                                             </>}
+                                            {waitMsg && selectedGeometryIndex === geometryIndex && <button
+                                                className="btn btn-info d-block mb-3 mx-auto global-button"
+                                                disabled
+                                            >{t(waitMsg)} ...</button>}
+                                            {successMsg && selectedGeometryIndex === geometryIndex && <button
+                                                className="btn btn-success d-block mx-auto global-button"
+                                                disabled
+                                            >{t(successMsg)}</button>}
+                                            {errorMsg && selectedGeometryIndex === geometryIndex && <button
+                                                className="btn btn-danger d-block mx-auto global-button"
+                                                disabled
+                                            >{t(errorMsg)}</button>}
                                         </td>
                                     </tr>
                                 ))}

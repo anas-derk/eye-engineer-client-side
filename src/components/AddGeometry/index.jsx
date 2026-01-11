@@ -9,6 +9,8 @@ import { getAllGeometriesInsideThePage } from "../../../public/global_functions/
 
 export default function AddGeometry({
     setIsDisplayAddGeometryBox,
+    handleAddNewGeometry
+
 }) {
 
     const [geometryData, setGeometryData] = useState({
@@ -73,7 +75,14 @@ export default function AddGeometry({
     }
 
     const handleSelectGeometryParent = (geometryParent) => {
-        setSelectedGeometryParent(geometryParent ? geometryParent : { name: "No Parent", _id: "" });
+        setSelectedGeometryParent(geometryParent ? geometryParent : {
+            name: {
+                ar: "لا أب",
+                en: "No Parent",
+                de: "Kein Elternteil",
+                tr: "Ebeveyn Yok"
+            }, _id: ""
+        });
     }
 
     const addGeometry = async () => {
@@ -125,9 +134,10 @@ export default function AddGeometry({
                 setWaitMsg("");
                 if (!result.error) {
                     setSuccessMsg("Adding Successfull !!");
-                    let successTimeout = setTimeout(() => {
+                    let successTimeout = setTimeout(async () => {
                         setSuccessMsg("");
                         handleClosePopupBox();
+                        await handleAddNewGeometry();
                         clearTimeout(successTimeout);
                     }, 1500);
                 } else {
@@ -150,7 +160,7 @@ export default function AddGeometry({
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     clearTimeout(errorTimeout);
-                }, 1500);
+                }, 3000);
             }
         }
     }
