@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import Capabilities from "@/components/Capabilities";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
+import { getAppearedSections, getUserInfo, handleSelectUserLanguage } from "../../../public/global_functions/popular";
 
 export default function OurCapabilites() {
 
@@ -13,11 +14,62 @@ export default function OurCapabilites() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
-    const { t } = useTranslation();
+    const [isGetUserInfo, setIsGetUserInfo] = useState(false);
+
+    const [isGetAppearedSections, setIsGetAppearedSections] = useState(false);
+
+    const [appearedSections, setAppearedSections] = useState([]);
+
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
-        setIsLoadingPage(false);
+        const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
+        handleSelectUserLanguage(userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en", i18n.changeLanguage);
     }, []);
+
+    useEffect(() => {
+        const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+        if (userToken) {
+            getUserInfo()
+                .then((result) => {
+                    if (result.error) {
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                    }
+                    setIsGetUserInfo(false);
+                })
+                .catch((err) => {
+                    if (err?.response?.status === 401) {
+                        localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+                        setIsGetUserInfo(false);
+                    }
+                    else {
+                        setIsLoadingPage(false);
+                        setErrorMsgOnLoadingThePage(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Try Again !");
+                    }
+                });
+        } else {
+            setIsGetUserInfo(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        getAppearedSections()
+            .then(async (result) => {
+                const appearedSectionsLength = result.data.length;
+                setAppearedSections(appearedSectionsLength > 0 ? result.data.map((appearedSection) => appearedSection.isAppeared ? appearedSection.sectionName["en"] : "") : []);
+                setIsGetAppearedSections(false);
+            })
+            .catch((err) => {
+                setIsLoadingPage(false);
+                setErrorMsgOnLoadingThePage(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Try Again !");
+            });
+    }, []);
+
+    useEffect(() => {
+        if (!isGetUserInfo && !isGetAppearedSections) {
+            setIsLoadingPage(false);
+        }
+    }, [isGetUserInfo, isGetAppearedSections]);
 
     return (
         <div className="our-capabilites">
@@ -28,7 +80,7 @@ export default function OurCapabilites() {
                 <Header />
                 {/* Start Page Content */}
                 <div className="page-content">
-                    <Capabilities />
+                    <Capabilities appearedSections={appearedSections} />
                     <Footer />
                 </div>
                 {/* End Page Content */}

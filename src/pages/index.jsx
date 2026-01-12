@@ -22,6 +22,10 @@ export default function Home() {
 
   const [isDisplayContactIcons, setIsDisplayContactIcons] = useState(false);
 
+  const [isGetUserInfo, setIsGetUserInfo] = useState(false);
+
+  const [isGetAppearedSections, setIsGetAppearedSections] = useState(false);
+
   const [appearedSections, setAppearedSections] = useState([]);
 
   const { t, i18n } = useTranslation();
@@ -35,28 +39,45 @@ export default function Home() {
     const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
     if (userToken) {
       getUserInfo()
-        .then(async (result) => {
+        .then((result) => {
           if (result.error) {
             localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
           }
-          const appearedSectionsResult = await getAppearedSections();
-          const appearedSectionsLength = appearedSectionsResult.data.length;
-          setAppearedSections(appearedSectionsLength > 0 ? appearedSectionsResult.data.map((appearedSection) => appearedSection.isAppeared ? appearedSection.sectionName["en"] : "") : []);
-          setIsLoadingPage(false);
+          setIsGetUserInfo(false);
         })
-        .catch(async (err) => {
+        .catch((err) => {
           if (err?.response?.status === 401) {
             localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+            setIsGetUserInfo(false);
           }
           else {
+            setIsLoadingPage(false);
             setErrorMsgOnLoadingThePage(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Try Again !");
           }
-          setIsLoadingPage(false);
         });
     } else {
-      setIsLoadingPage(false);
+      setIsGetUserInfo(false);
     }
   }, []);
+
+  useEffect(() => {
+    getAppearedSections()
+      .then(async (result) => {
+        const appearedSectionsLength = result.data.length;
+        setAppearedSections(appearedSectionsLength > 0 ? result.data.map((appearedSection) => appearedSection.isAppeared ? appearedSection.sectionName["en"] : "") : []);
+        setIsGetAppearedSections(false);
+      })
+      .catch((err) => {
+        setIsLoadingPage(false);
+        setErrorMsgOnLoadingThePage(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Try Again !");
+      });
+  }, []);
+
+  useEffect(() => {
+    if (!isGetUserInfo && !isGetAppearedSections) {
+      setIsLoadingPage(false);
+    }
+  }, [isGetUserInfo, isGetAppearedSections]);
 
   return (
     <div className="home page">
