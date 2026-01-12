@@ -135,6 +135,16 @@ const getAllGeometriesInsideThePage = async (pageNumber, pageSize, filters, user
     }
 }
 
+const getAppearedSections = async () => {
+    try {
+        const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
+        return (await axios.get(`${process.env.BASE_API_URL}/appeared-sections/all-sections?language=${userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en"}`)).data;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
 export {
     getDateFormated,
     getUserInfo,
@@ -146,5 +156,6 @@ export {
     getLanguagesInfoList,
     getAllOfficesInsideThePage,
     getOfficeDetails,
-    getAllGeometriesInsideThePage
+    getAllGeometriesInsideThePage,
+    getAppearedSections
 }

@@ -12,6 +12,7 @@ import { MdOutlineContactPhone, MdOutlineMail } from "react-icons/md";
 import { FaTimes, FaWhatsapp } from "react-icons/fa";
 import Capabilities from "@/components/Capabilities";
 import Footer from "@/components/Footer";
+import { getAppearedSections, getUserInfo, handleSelectUserLanguage } from "../../public/global_functions/popular";
 
 export default function Home() {
 
@@ -21,10 +22,40 @@ export default function Home() {
 
   const [isDisplayContactIcons, setIsDisplayContactIcons] = useState(false);
 
-  const { t } = useTranslation();
+  const [appearedSections, setAppearedSections] = useState([]);
+
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    setIsLoadingPage(false);
+    const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
+    handleSelectUserLanguage(userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en", i18n.changeLanguage);
+  }, []);
+
+  useEffect(() => {
+    const userToken = localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+    if (userToken) {
+      getUserInfo()
+        .then(async (result) => {
+          if (result.error) {
+            localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+          }
+          const appearedSectionsResult = await getAppearedSections();
+          const appearedSectionsLength = appearedSectionsResult.data.length;
+          setAppearedSections(appearedSectionsLength > 0 ? appearedSectionsResult.data.map((appearedSection) => appearedSection.isAppeared ? appearedSection.sectionName["en"] : "") : []);
+          setIsLoadingPage(false);
+        })
+        .catch(async (err) => {
+          if (err?.response?.status === 401) {
+            localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+          }
+          else {
+            setErrorMsgOnLoadingThePage(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Try Again !");
+          }
+          setIsLoadingPage(false);
+        });
+    } else {
+      setIsLoadingPage(false);
+    }
   }, []);
 
   return (
@@ -40,7 +71,7 @@ export default function Home() {
             {isDisplayContactIcons && <li className="contact-icon-item mb-3">
               <a href={`mailto:${process.env.CONTACT_EMAIL}`} target="_blank"><MdOutlineMail className="mail-icon" /></a>
             </li>}
-            {isDisplayContactIcons && <li className="contact-icon-item mb-3">
+            {isDisplayContactIcons && appearedSections.includes("whatsapp button") && <li className="contact-icon-item mb-3">
               <a href={`https://wa.me/${process.env.CONTACT_NUMBER}?text=welcome`} target="_blank"><FaWhatsapp className="whatsapp-icon" /></a>
             </li>}
             {!isDisplayContactIcons && <li className="contact-icon-item"><MdOutlineContactPhone className="contact-icon" /></li>}
@@ -76,7 +107,7 @@ export default function Home() {
           </motion.section>}
           {/* End Text Ads Section */}
           {/* Start Our Capabilities Section */}
-          <Capabilities />
+          <Capabilities appearedSections={appearedSections} />
           {/* End Our Capabilities Section */}
           <Footer />
         </div>

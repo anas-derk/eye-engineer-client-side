@@ -10,7 +10,7 @@ import ServiceImage5 from "../../../public/images/Services/Terminologies.png";
 import ServiceImage6 from "../../../public/images/Services/Offices.png";
 import ServiceImage7 from "../../../public/images/Services/PropertyValuation.png";
 
-export default function Capabilities() {
+export default function Capabilities({ appearedSections = [] }) {
 
     const { t } = useTranslation();
 
@@ -60,6 +60,7 @@ export default function Capabilities() {
                 <div className="container pt-4 pb-4">
                     <div className="row align-items-center">
                         {servicesData.map((service, index) => (
+                            appearedSections.includes(service.title.toLowerCase()) &&
                             <motion.div
                                 className="col-lg-4 mb-4"
                                 key={index}

@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 import { useRouter } from "next/router";
-import { getUserInfo, handleSelectUserLanguage } from "../../../../public/global_functions/popular";
+import { getAppearedSections, getUserInfo, handleSelectUserLanguage } from "../../../../public/global_functions/popular";
 import DashboardSideBar from "@/components/DashboardSideBar";
 import axios from "axios";
 import NotFoundError from "@/components/NotFoundError";
@@ -42,7 +42,7 @@ export default function ShowAndHideServices() {
                     if (!result.error) {
                         const adminDetails = result.data;
                         if (adminDetails.isWebsiteOwner) {
-                            setAllServices((await getAllServices()).data);
+                            setAllServices((await getAppearedSections()).data);
                             setIsLoadingPage(false);
                         }
                         else {
@@ -54,7 +54,6 @@ export default function ShowAndHideServices() {
                     }
                 })
                 .catch(async (err) => {
-                    console.log(err);
                     if (err?.response?.status === 401) {
                         localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                         await router.replace("/login");
@@ -68,15 +67,6 @@ export default function ShowAndHideServices() {
             router.replace("/login");
         }
     }, []);
-
-    const getAllServices = async () => {
-        try {
-            return (await axios.get(`${process.env.BASE_API_URL}/appeared-sections/all-sections`)).data;
-        }
-        catch (err) {
-            throw err;
-        }
-    }
 
     const handleSelectAppearedServiceStatus = (serviceIndex, serviceStatus) => {
         allServices[serviceIndex].isAppeared = serviceStatus;
@@ -109,7 +99,7 @@ export default function ShowAndHideServices() {
             }
         }
         catch (err) {
-            console.log(err);
+            setWaitMsg("");
             if (err?.response?.status === 401) {
                 localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
