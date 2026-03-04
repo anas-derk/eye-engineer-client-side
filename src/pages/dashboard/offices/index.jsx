@@ -24,6 +24,8 @@ export default function Offices() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
+    const [userInfo, setUserInfo] = useState({});
+
     const [allOfficesInsideThePage, setAllOfficesInsideThePage] = useState([]);
 
     const [isGetOffices, setIsGetOffices] = useState(false);
@@ -84,6 +86,7 @@ export default function Offices() {
                     } else {
                         const adminDetails = result.data;
                         if (adminDetails.isWebsiteOwner) {
+                            setUserInfo(adminDetails);
                             result = (await getAllOfficesInsideThePage(1, pageSize, undefined, i18n.language)).data;
                             setAllOfficesInsideThePage(result.offices);
                             setTotalPagesCount(Math.ceil(result.officesCount / pageSize));
@@ -400,7 +403,7 @@ export default function Offices() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Offices")}</h1>
-                    <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
+                    <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
                     <section className="filters mb-3 bg-white border-3 border-info p-3 text-start">
                         <h5 className="section-name fw-bold text-center">{t("Filters")}: </h5>
                         <hr />

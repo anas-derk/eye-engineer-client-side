@@ -21,6 +21,8 @@ export default function News() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
+    const [userInfo, setUserInfo] = useState({});
+
     const [allNews, setAllNews] = useState([]);
 
     const [waitMsg, setWaitMsg] = useState("");
@@ -54,6 +56,7 @@ export default function News() {
                     if (!result.error) {
                         const adminDetails = result.data;
                         if (adminDetails.isWebsiteOwner) {
+                            setUserInfo(result.data);
                             setAllNews((await getAllNews()).data);
                             setIsLoadingPage(false);
                         }
@@ -228,7 +231,7 @@ export default function News() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("News")}</h1>
-                    <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
+                    <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
                     {!isDisplayAddNewsBox && <button
                         className="btn d-block w-25 mx-auto mt-2 mb-4 orange-btn"
                         onClick={() => setIsDisplayAddNewsBox(true)}

@@ -17,6 +17,8 @@ export default function ShowAndHideServices() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
+    const [userInfo, setUserInfo] = useState({});
+
     const [allServices, setAllServices] = useState([]);
 
     const [waitMsg, setWaitMsg] = useState("");
@@ -42,6 +44,7 @@ export default function ShowAndHideServices() {
                     if (!result.error) {
                         const adminDetails = result.data;
                         if (adminDetails.isWebsiteOwner) {
+                            setUserInfo(adminDetails);
                             setAllServices((await getAppearedSections()).data);
                             setIsLoadingPage(false);
                         }
@@ -125,7 +128,7 @@ export default function ShowAndHideServices() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Show / Hide Services")}</h1>
-                    <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
+                    <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
                     {allServices.length > 0 && <section className="show-and-hide-services-box w-100 admin-dashbboard-data-box">
                         <table className="show-and-hide-services-table mb-4 managment-table bg-white w-100 admin-dashbboard-data-table">
                             <thead>

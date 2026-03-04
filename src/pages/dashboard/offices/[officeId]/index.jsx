@@ -18,6 +18,8 @@ export default function OfficeDetails({ officeId }) {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
+    const [userInfo, setUserInfo] = useState({});
+
     const [officeDetails, setOfficeDetails] = useState({});
 
     const [waitMsg, setWaitMsg] = useState("");
@@ -56,6 +58,7 @@ export default function OfficeDetails({ officeId }) {
                     } else {
                         const adminDetails = result.data;
                         if (adminDetails.isWebsiteOwner) {
+                            setUserInfo(adminDetails);
                             result = await getOfficeDetails(officeId, "admin", i18n.language);
                             if (!result.error) {
                                 setOfficeDetails(result.data);
@@ -248,7 +251,7 @@ export default function OfficeDetails({ officeId }) {
                 {/* Start Content Section */}
                 <section className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Office Details")}</h1>
-                    <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
+                    <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
                     {officeDetails ? <section className="office-details-box p-3 data-box admin-dashbboard-data-box">
                         <table className="office-details-table managment-table bg-white admin-dashbboard-data-table w-100">
                             <tbody>

@@ -19,6 +19,8 @@ export default function ChangeBussinessEmailPassword() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
+    const [userInfo, setUserInfo] = useState({});
+
     const [email, setEmail] = useState("");
 
     const [currentPassword, setCurrentPassword] = useState("");
@@ -58,6 +60,7 @@ export default function ChangeBussinessEmailPassword() {
                     if (!result.error) {
                         const adminDetails = result.data;
                         if (adminDetails.isWebsiteOwner) {
+                            setUserInfo(adminDetails);
                             setIsLoadingPage(false);
                         }
                         else {
@@ -202,7 +205,7 @@ export default function ChangeBussinessEmailPassword() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Change Bussiness Email Password")}</h1>
-                    <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
+                    <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
                     <form className="change-bussiness-email-password-form text-center p-4" onSubmit={changeBussinessEmailPassword}>
                         <div className="email-field-box field-box">
                             <input

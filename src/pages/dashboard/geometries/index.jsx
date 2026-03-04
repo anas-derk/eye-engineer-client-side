@@ -24,6 +24,8 @@ export default function Geometries() {
 
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
+    const [userInfo, setUserInfo] = useState({});
+
     const [allGeometriesInsideThePage, setAllGeometriesInsideThePage] = useState([]);
 
     const [isGetGeometries, setIsGetGeometries] = useState(false);
@@ -84,6 +86,7 @@ export default function Geometries() {
                     } else {
                         const adminDetails = result.data;
                         if (adminDetails.isEngineer) {
+                            setUserInfo(adminDetails);
                             const tempFilters = { officeId: adminDetails.officeId };
                             setFilters(tempFilters);
                             result = (await getAllGeometriesInsideThePage(1, pageSize, getFilteringString(tempFilters), "admin", i18n.language)).data;
@@ -472,7 +475,7 @@ export default function Geometries() {
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Geometries")}</h1>
-                    <DashboardSideBar isWebsiteOwner={true} isEngineer={true} />
+                    <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
                     {!isDisplayAddGeometryBox && <button
                         className="btn d-block w-25 mx-auto mt-2 mb-4 orange-btn"
                         onClick={() => setIsDisplayAddGeometryBox(true)}
