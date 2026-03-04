@@ -1,0 +1,19 @@
+{
+    "Change Office Status": "Ofis Durumunu Değiştir",
+    "Are You Sure From": "Emin misiniz",
+    "Office approving": "Ofis onaylama",
+    "Office rejecting": "Ofis reddetme",
+    "Office blocking": "Ofis engelleme",
+    "Office cancel-blocking": "Ofis engelini kaldırma",
+    "Office Verification": "Ofis Doğrulama",
+    "Reject Verification Office": "Ofis doğrulamasını reddet",
+    "Cancel Verification Office": "Ofis doğrulamasını iptal et",
+    "Office reject-verification": "Ofis doğrulamasını reddetme",
+    "Office cancel-verification": "Ofis doğrulamasını iptal etme",
+    "Approve": "Onayla",
+    "Reject": "Reddet",
+    "Block": "Engelle",
+    "Cancel Blocking": "Engeli Kaldır",
+    "Please Enter blocking Reason": "Lütfen engelleme nedenini girin",
+    "Please Enter Engineer Account Password": "Lütfen mühendis hesap şifresini girin"
+}

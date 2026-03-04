@@ -1,0 +1,15 @@
+{
+    "Geometry Id": "Geometrie-ID",
+    "Please Enter Geometry Id": "Bitte geben Sie die Geometrie-ID ein",
+    "Geometry Name": "Geometriename",
+    "Please Enter Geometry Name": "Bitte geben Sie den Geometrienamen ein",
+    "Parent": "Übergeordnetes Element",
+    "Add New Geometry": "Neue Geometrie hinzufügen",
+    "Please Select Parent": "Bitte wählen Sie ein übergeordnetes Element aus",
+    "Please Enter Parent Name Or Part Of This": "Bitte geben Sie den Namen des übergeordneten Elements oder einen Teil davon ein",
+    "No Parent": "Kein übergeordnetes Element",
+    "Change Parent": "Übergeordnetes Element ändern",
+    "Current Parent": "Aktuelles übergeordnetes Element",
+    "Please Select New Parent": "Bitte wählen Sie ein neues übergeordnetes Element aus",
+    "New Parent": "Neues übergeordnetes Element"
+}

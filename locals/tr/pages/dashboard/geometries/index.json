@@ -1,0 +1,15 @@
+{
+    "Geometry Id": "Geometri ID",
+    "Please Enter Geometry Id": "Lütfen geometri ID girin",
+    "Geometry Name": "Geometri Adı",
+    "Please Enter Geometry Name": "Lütfen geometri adını girin",
+    "Parent": "Üst Öğe",
+    "Add New Geometry": "Yeni Geometri Ekle",
+    "Please Select Parent": "Lütfen üst öğe seçin",
+    "Please Enter Parent Name Or Part Of This": "Lütfen üst öğenin adını veya bir kısmını girin",
+    "No Parent": "Üst Öğe Yok",
+    "Change Parent": "Üst Öğeyi Değiştir",
+    "Current Parent": "Mevcut Üst Öğe",
+    "Please Select New Parent": "Lütfen yeni üst öğe seçin",
+    "New Parent": "Yeni Üst Öğe"
+}

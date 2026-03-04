@@ -1,0 +1,19 @@
+{
+    "Change Office Status": "Bürostatus ändern",
+    "Are You Sure From": "Sind Sie sicher bezüglich",
+    "Office approving": "Büro genehmigen",
+    "Office rejecting": "Büro ablehnen",
+    "Office blocking": "Büro sperren",
+    "Office cancel-blocking": "Bürosperrung aufheben",
+    "Office Verification": "Büroverifizierung",
+    "Reject Verification Office": "Büroverifizierung ablehnen",
+    "Cancel Verification Office": "Büroverifizierung abbrechen",
+    "Office reject-verification": "Büroverifizierung ablehnen",
+    "Office cancel-verification": "Büroverifizierung abbrechen",
+    "Approve": "Genehmigen",
+    "Reject": "Ablehnen",
+    "Block": "Sperren",
+    "Cancel Blocking": "Sperrung aufheben",
+    "Please Enter blocking Reason": "Bitte geben Sie den Sperrgrund ein",
+    "Please Enter Engineer Account Password": "Bitte geben Sie das Passwort des Ingenieurkontos ein"
+}
