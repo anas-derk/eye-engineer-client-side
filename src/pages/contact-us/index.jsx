@@ -11,6 +11,7 @@ import { MdOutlineWhatsapp, MdOutlineMail } from "react-icons/md";
 import { FaRegAddressCard } from "react-icons/fa";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import { inputValuesValidation } from "../../../public/global_functions/validations";
+import axios from "axios";
 
 export default function AboutUs() {
 
@@ -19,11 +20,13 @@ export default function AboutUs() {
     const [errorMsgOnLoadingThePage, setErrorMsgOnLoadingThePage] = useState("");
 
     const [messageData, setMessageData] = useState({
+        name: "",
+        email: "",
         subject: "",
         content: ""
     });
 
-    const [isWaitStatus, setIsWaitStatus] = useState(false);
+    const [waitMsg, setWaitMsg] = useState(false);
 
     const [errorMsg, setErrorMsg] = useState("");
 
@@ -31,17 +34,41 @@ export default function AboutUs() {
 
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
         setIsLoadingPage(false);
     }, []);
 
-    const sendMessage = (e) => {
+    const sendMessage = async (e) => {
         try {
             e.preventDefault();
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
+                {
+                    name: "name",
+                    value: messageData.name,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                        isName: {
+                            msg: "Sorry, This Name Is Not Valid !!",
+                        },
+                    },
+                },
+                {
+                    name: "email",
+                    value: messageData.email,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                        isEmail: {
+                            msg: "Sorry, This Email Is Not Valid !!",
+                        },
+                    },
+                },
                 {
                     name: "subject",
                     value: messageData.subject,
@@ -63,12 +90,29 @@ export default function AboutUs() {
             ]);
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
-
+                setWaitMsg("Please Wait");
+                const result = (await axios.post(`${process.env.BASE_API_URL}/messages/send-message?language=${i18n.language}`, messageData)).data;
+                setWaitMsg("");
+                if (!result.error) {
+                    setSuccessMsg(result.msg);
+                    let successTimeout = setTimeout(async () => {
+                        setMessageData({ name: "", email: "", subject: "", content: "" });
+                        setSuccessMsg("");
+                        clearTimeout(successTimeout);
+                    }, 1500);
+                } else {
+                    setErrorMsg("Sorry, Someting Went Wrong When Updating, Please Repeate The Process !!");
+                    let errorTimeout = setTimeout(() => {
+                        setErrorMsg("");
+                        clearTimeout(errorTimeout);
+                    }, 1500);
+                }
             }
         }
         catch (err) {
-            setIsWaitStatus(false);
-            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Someting Went Wrong, Please Repeat The Process !!");
+            console.log(err);
+            setWaitMsg("");
+            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
             let errorTimeout = setTimeout(() => {
                 setErrorMsg("");
                 clearTimeout(errorTimeout);
@@ -168,25 +212,42 @@ export default function AboutUs() {
                                 <form className="contact-us-form info-box p-4" onSubmit={sendMessage}>
                                     <input
                                         type="text"
+                                        className={`form-control p-2 border-2 email-field ${formValidationErrors["name"] ? "border-danger mb-3" : "mb-4"}`}
+                                        placeholder={t("Name")}
+                                        onChange={(e) => setMessageData({ ...messageData, name: e.target.value })}
+                                        value={messageData.name}
+                                    />
+                                    {formValidationErrors["name"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["name"])} />}
+                                    <input
+                                        type="text"
+                                        className={`form-control p-2 border-2 email-field ${formValidationErrors["email"] ? "border-danger mb-3" : "mb-4"}`}
+                                        placeholder={t("Email")}
+                                        onChange={(e) => setMessageData({ ...messageData, email: e.target.value })}
+                                        value={messageData.email}
+                                    />
+                                    {formValidationErrors["email"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["email"])} />}
+                                    <input
+                                        type="text"
                                         className={`form-control p-2 border-2 email-field ${formValidationErrors["subject"] ? "border-danger mb-3" : "mb-4"}`}
                                         placeholder={t("Subject")}
                                         onChange={(e) => setMessageData({ ...messageData, subject: e.target.value })}
+                                        value={messageData.subject}
                                     />
                                     {formValidationErrors["subject"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["subject"])} />}
-                                    <input
-                                        type="text"
+                                    <textarea
                                         className={`form-control p-2 border-2 content-field ${formValidationErrors["content"] ? "border-danger mb-3" : "mb-4"}`}
                                         placeholder={t("Content")}
                                         onChange={(e) => setMessageData({ ...messageData, content: e.target.value })}
+                                        value={messageData.content}
                                     />
                                     {formValidationErrors["content"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["content"])} />}
-                                    {!isWaitStatus && !errorMsg && !successMsg && <button type="submit" className="orange-btn btn w-100">
-                                        {t("Send The Message")}``
+                                    {!waitMsg && !errorMsg && !successMsg && <button type="submit" className="orange-btn btn w-100">
+                                        {t("Send Message")}
                                     </button>}
                                     {errorMsg && <button disabled className="btn btn-danger w-100">
                                         {t(errorMsg)}
                                     </button>}
-                                    {successMsg && <button disabled className="btn btn-sucess w-100">
+                                    {successMsg && <button disabled className="btn btn-success w-100">
                                         {t(successMsg)}
                                     </button>}
                                 </form>

@@ -109,6 +109,9 @@ export default function AddNewOffice() {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
                         },
+                        isName: {
+                            msg: "Sorry, This Field Is Not Valid Name !!",
+                        },
                     },
                 },
                 {
