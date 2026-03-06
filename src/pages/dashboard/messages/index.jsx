@@ -14,7 +14,7 @@ import SectionLoader from "@/components/SectionLoader";
 import PaginationBar from "@/components/PaginationBar";
 import ConfirmDelete from "@/components/ConfirmDelete";
 
-export default function Users() {
+export default function Messages() {
 
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 
@@ -22,13 +22,13 @@ export default function Users() {
 
     const [userInfo, setUserInfo] = useState({});
 
-    const [isGetUsers, setIsGetUsers] = useState(false);
+    const [isGetMessages, setIsGetMessages] = useState(false);
 
-    const [allUsersInsideThePage, setAllUsersInsideThePage] = useState([]);
+    const [allMessagesInsideThePage, setAllMessagesInsideThePage] = useState([]);
 
     const [waitMsg, setWaitMsg] = useState("");
 
-    const [selectedUserIndex, setSelectedUserIndex] = useState(-1);
+    const [selectedMessageIndex, setSelectedMessageIndex] = useState(-1);
 
     const [errorMsg, setErrorMsg] = useState("");
 
@@ -43,7 +43,7 @@ export default function Users() {
     const [filters, setFilters] = useState({
         _id: "",
         name: "",
-        email: "",
+        email: ""
     });
 
     const [isDisplayConfirmDeleteBox, setIsDisplayConfirmDeleteBox] = useState(false);
@@ -69,9 +69,9 @@ export default function Users() {
                         if (adminDetails.isWebsiteOwner) {
                             setUserInfo(adminDetails);
                             const filtersAsQuery = getFiltersAsQuery(filters);
-                            result = (await getAllUsersInsideThePage(1, pageSize, filtersAsQuery)).data;
-                            setAllUsersInsideThePage(result.users);
-                            setTotalPagesCount(Math.ceil(result.usersCount / pageSize));
+                            result = (await getAllMessagesInsideThePage(1, pageSize, filtersAsQuery)).data;
+                            setAllMessagesInsideThePage(result.messages);
+                            setTotalPagesCount(Math.ceil(result.messagesCount / pageSize));
                             setIsLoadingPage(false);
                         }
                         else {
@@ -100,15 +100,15 @@ export default function Users() {
     const getFiltersAsQuery = (filters) => {
         let filteringString = "";
         if (filters._id) filteringString += `_id=${filters._id}&`;
-        if (filters.email) filteringString += `email=${filters.email}&`;
         if (filters.name) filteringString += `name=${filters.name}&`;
+        if (filters.email) filteringString += `email=${filters.email}&`;
         if (filteringString) filteringString = filteringString.substring(0, filteringString.length - 1);
         return filteringString;
     }
 
-    const getAllUsersInsideThePage = async (pageNumber, pageSize, filters) => {
+    const getAllMessagesInsideThePage = async (pageNumber, pageSize, filters) => {
         try {
-            return (await axios.get(`${process.env.BASE_API_URL}/users/all-users-inside-the-page?pageNumber=${pageNumber}&pageSize=${pageSize}&language=${i18n.language}&${filters ? filters : ""}`, {
+            return (await axios.get(`${process.env.BASE_API_URL}/messages/all-messages-inside-the-page?pageNumber=${pageNumber}&pageSize=${pageSize}&language=${i18n.language}&${filters ? filters : ""}`, {
                 headers: {
                     Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                 }
@@ -121,12 +121,12 @@ export default function Users() {
 
     const getPreviousPage = async () => {
         try {
-            setIsGetUsers(true);
+            setIsGetMessages(true);
             setErrorMsgOnGetUsersData("");
             const newCurrentPage = currentPage - 1;
-            setAllUsersInsideThePage((await getAllUsersInsideThePage(newCurrentPage, pageSize)).data.users);
+            setAllMessagesInsideThePage((await getAllMessagesInsideThePage(newCurrentPage, pageSize)).data.messages);
             setCurrentPage(newCurrentPage);
-            setIsGetUsers(false);
+            setIsGetMessages(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -141,12 +141,12 @@ export default function Users() {
 
     const getNextPage = async () => {
         try {
-            setIsGetUsers(true);
+            setIsGetMessages(true);
             setErrorMsgOnGetUsersData("");
             const newCurrentPage = currentPage + 1;
-            setAllUsersInsideThePage((await getAllUsersInsideThePage(newCurrentPage, pageSize)).data.users);
+            setAllMessagesInsideThePage((await getAllMessagesInsideThePage(newCurrentPage, pageSize)).data.messages);
             setCurrentPage(newCurrentPage);
-            setIsGetUsers(false);
+            setIsGetMessages(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -161,11 +161,11 @@ export default function Users() {
 
     const getSpecificPage = async (pageNumber) => {
         try {
-            setIsGetUsers(true);
+            setIsGetMessages(true);
             setErrorMsgOnGetUsersData("");
-            setAllUsersInsideThePage((await getAllUsersInsideThePage(pageNumber, pageSize)).data.users);
+            setAllMessagesInsideThePage((await getAllMessagesInsideThePage(pageNumber, pageSize)).data.messages);
             setCurrentPage(pageNumber);
-            setIsGetUsers(false);
+            setIsGetMessages(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -178,15 +178,15 @@ export default function Users() {
         }
     }
 
-    const filterUsers = async (filters) => {
+    const filterMessages = async (filters) => {
         try {
-            setIsGetUsers(true);
+            setIsGetMessages(true);
             setCurrentPage(1);
             const filteringString = getFiltersAsQuery(filters);
-            const result = (await getAllUsersInsideThePage(1, pageSize, filteringString)).data;
-            setAllUsersInsideThePage(result.users);
+            const result = (await getAllMessagesInsideThePage(1, pageSize, filteringString)).data;
+            setAllMessagesInsideThePage(result.messages);
             setTotalPagesCount(Math.ceil(result.usersCount / pageSize));
-            setIsGetUsers(false);
+            setIsGetMessages(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -194,7 +194,7 @@ export default function Users() {
                 await router.replace("/login");
             }
             else {
-                setIsGetUsers(false);
+                setIsGetMessages(false);
                 setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
@@ -204,11 +204,11 @@ export default function Users() {
         }
     }
 
-    const deleteUser = async (userIndex) => {
+    const deleteMessage = async (messageIndex) => {
         try {
             setWaitMsg("Please Wait");
-            setSelectedUserIndex(userIndex);
-            const result = (await axios.delete(`${process.env.BASE_API_URL}/users/delete-user?userType=admin&userId=${allUsersInsideThePage[userIndex]._id}&language=${i18n.language}`, {
+            setSelectedMessageIndex(messageIndex);
+            const result = (await axios.delete(`${process.env.BASE_API_URL}/messages/delete-message/${allMessagesInsideThePage[messageIndex]._id}?language=${i18n.language}`, {
                 headers: {
                     Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                 }
@@ -218,15 +218,15 @@ export default function Users() {
                 setSuccessMsg("Deleting Successfull !!");
                 let successTimeout = setTimeout(async () => {
                     setSuccessMsg("");
-                    setSelectedUserIndex(-1);
-                    setAllUsersInsideThePage(allUsersInsideThePage.filter((_, index) => index !== userIndex));
+                    setSelectedMessageIndex(-1);
+                    setAllMessagesInsideThePage(allMessagesInsideThePage.filter((_, index) => index !== messageIndex));
                     clearTimeout(successTimeout);
                 }, 1000);
             } else {
                 setErrorMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
-                    setSelectedUserIndex(-1);
+                    setSelectedMessageIndex(-1);
                     clearTimeout(errorTimeout);
                 }, 1000);
             }
@@ -241,7 +241,7 @@ export default function Users() {
                 setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
-                    setSelectedUserIndex(-1);
+                    setSelectedMessageIndex(-1);
                     clearTimeout(errorTimeout);
                 }, 1500);
             }
@@ -249,45 +249,36 @@ export default function Users() {
     }
 
     return (
-        <div className="users dashboard">
+        <div className="messages dashboard">
             <Head>
-                <title>{t(process.env.WEBSITE_NAME)} {t("Users")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Messages")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
                 {isDisplayConfirmDeleteBox && <ConfirmDelete
-                    name={t("User")}
+                    name={t("Message")}
                     setIsDisplayConfirmDeleteBox={setIsDisplayConfirmDeleteBox}
-                    handleDeleteFunc={() => deleteUser(selectedUserIndex)}
-                    setSelectedElementIndex={setSelectedUserIndex}
+                    handleDeleteFunc={() => deleteMessage(selectedMessageIndex)}
+                    setSelectedElementIndex={setSelectedMessageIndex}
                     waitMsg={waitMsg}
                     errorMsg={errorMsg}
                     successMsg={successMsg}
                 />}
                 {/* Start Page Content */}
                 <div className="page-content">
-                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Users")}</h1>
+                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Messages")}</h1>
                     <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
                     <section className="filters mb-4 bg-white border-3 border-info p-3 text-start">
                         <h5 className="fw-bold text-center">{t("Filters")}: </h5>
                         <hr />
                         <div className="row mb-4">
                             <div className="col-md-6">
-                                <h6 className="me-2 fw-bold text-center">{t("User Id")}</h6>
+                                <h6 className="me-2 fw-bold text-center">{t("Message Id")}</h6>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder={t("Please Enter User Id")}
+                                    placeholder={t("Please Enter Message Id")}
                                     onChange={(e) => setFilters({ ...filters, _id: e.target.value.trim() })}
-                                />
-                            </div>
-                            <div className="col-md-6">
-                                <h6 className="me-2 fw-bold text-center">{t("Email")}</h6>
-                                <input
-                                    type="email"
-                                    className="form-control"
-                                    placeholder={t("Please Enter Email")}
-                                    onChange={(e) => setFilters({ ...filters, email: e.target.value.trim() })}
                                 />
                             </div>
                             <div className="col-md-6 mt-3">
@@ -299,75 +290,79 @@ export default function Users() {
                                     onChange={(e) => setFilters({ ...filters, name: e.target.value.trim() })}
                                 />
                             </div>
+                            <div className="col-md-6">
+                                <h6 className="me-2 fw-bold text-center">{t("Email")}</h6>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    placeholder={t("Please Enter Email")}
+                                    onChange={(e) => setFilters({ ...filters, email: e.target.value.trim() })}
+                                />
+                            </div>
                         </div>
-                        {!isGetUsers && <button
+                        {!isGetMessages && <button
                             className="btn d-block w-25 mx-auto mt-2 orange-btn"
-                            onClick={() => filterUsers(filters)}
+                            onClick={() => filterMessages(filters)}
                         >
                             {t("Filter")}
                         </button>}
-                        {isGetUsers && <button
+                        {isGetMessages && <button
                             className="btn d-block w-25 mx-auto mt-2 orange-btn"
                             disabled
                         >
                             {t("Filtering")} ...
                         </button>}
                     </section>
-                    {allUsersInsideThePage.length > 0 && !isGetUsers && <section className="users-box w-100 admin-dashbboard-data-box">
-                        <table className="users-table mb-4 managment-table bg-white w-100 admin-dashbboard-data-table">
+                    {allMessagesInsideThePage.length > 0 && !isGetMessages && <section className="messages-box w-100 admin-dashbboard-data-box">
+                        <table className="messages-table mb-4 managment-table bg-white w-100 admin-dashbboard-data-table">
                             <thead>
                                 <tr>
                                     <th>{t("Id")}</th>
-                                    <th>{t("Email")}</th>
                                     <th>{t("Name")}</th>
-                                    <th>{t("Image")}</th>
+                                    <th>{t("Email")}</th>
+                                    <th>{t("Subject")}</th>
+                                    <th>{t("Content")}</th>
                                     <th>{t("Date Of Creation")}</th>
-                                    <th>{t("Registration Method")}</th>
                                     <th>{t("Actions")}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {allUsersInsideThePage.map((user, userIndex) => (
-                                    <tr key={user._id}>
-                                        <td className="user-id-cell">
-                                            {user._id}
+                                {allMessagesInsideThePage.map((message, messageIndex) => (
+                                    <tr key={message._id}>
+                                        <td className="message-id-cell">
+                                            {message._id}
                                         </td>
-                                        <td className="user-email-cell">
-                                            {user.email}
+                                        <td className="message-name-cell">
+                                            {message.name}
                                         </td>
-                                        <td className="user-name-cell">
-                                            {user.name}
+                                        <td className="message-email-cell">
+                                            {message.email}
                                         </td>
-                                        <td className="user-image-cell">
-                                            <img
-                                                src={`${process.env.BASE_API_URL}/${user.imagePath}`}
-                                                alt={`${user.name} User Image !!`}
-                                                width="100"
-                                                height="100"
-                                            />
+                                        <td className="subject-email-cell">
+                                            {message.subject}
                                         </td>
-                                        <td className="user-date-of-creation-cell">
-                                            {getDateFormated(user.dateOfCreation)}
+                                        <td className="content-email-cell">
+                                            {message.content}
                                         </td>
-                                        <td className="registration-method-cell">
-                                            {user.provider}
+                                        <td className="message-date-of-creation-cell">
+                                            {getDateFormated(message.createdAt)}
                                         </td>
                                         <td className="delete-cell">
-                                            {selectedUserIndex !== userIndex && <>
+                                            {selectedMessageIndex !== messageIndex && <>
                                                 <button
                                                     className="btn btn-danger global-button"
-                                                    onClick={() => handleDisplayConfirmDeleteBox(userIndex, setSelectedUserIndex, setIsDisplayConfirmDeleteBox)}
+                                                    onClick={() => handleDisplayConfirmDeleteBox(messageIndex, setSelectedMessageIndex, setIsDisplayConfirmDeleteBox)}
                                                 >{t("Delete")}</button>
                                             </>}
-                                            {waitMsg && selectedUserIndex === userIndex && <button
+                                            {waitMsg && selectedMessageIndex === messageIndex && <button
                                                 className="btn btn-info d-block mb-3 mx-auto global-button"
                                                 disabled
                                             >{t(waitMsg)} ...</button>}
-                                            {successMsg && selectedUserIndex === userIndex && <button
+                                            {successMsg && selectedMessageIndex === messageIndex && <button
                                                 className="btn btn-success d-block mx-auto global-button"
                                                 disabled
                                             >{t(successMsg)}</button>}
-                                            {errorMsg && selectedUserIndex === userIndex && <button
+                                            {errorMsg && selectedMessageIndex === messageIndex && <button
                                                 className="btn btn-danger d-block mx-auto global-button"
                                                 disabled
                                             >{t(errorMsg)}</button>}
@@ -377,10 +372,10 @@ export default function Users() {
                             </tbody>
                         </table>
                     </section>}
-                    {allUsersInsideThePage.length === 0 && !isGetUsers && <NotFoundError errorMsg={t("Sorry, Can't Find Any Users !!")} />}
-                    {isGetUsers && <SectionLoader />}
+                    {allMessagesInsideThePage.length === 0 && !isGetMessages && <NotFoundError errorMsg={t("Sorry, Can't Find Any Messages !!")} />}
+                    {isGetMessages && <SectionLoader />}
                     {errorMsgOnGetUsersData && <NotFoundError errorMsg={errorMsgOnGetUsersData} />}
-                    {totalPagesCount > 1 && !isGetUsers &&
+                    {totalPagesCount > 1 && !isGetMessages &&
                         <PaginationBar
                             totalPagesCount={totalPagesCount}
                             currentPage={currentPage}

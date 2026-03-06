@@ -4,9 +4,10 @@ import { useTranslation } from "react-i18next";
 import { AiOutlineEye, AiOutlineTranslation } from "react-icons/ai";
 import { BiNews } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
-import { MdOutlineLogout } from "react-icons/md";
+import { MdOutlineLogout, MdOutlineMessage } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { TbGeometry } from "react-icons/tb";
+
 
 export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = false }) {
 
@@ -76,6 +77,17 @@ export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = 
                         </Link>
                         <div className="link-name-box p-2 fw-bold">
                             {t("Offices")}
+                        </div>
+                    </li>
+                    <li className="managment-customer-account-link-item managment-link-item">
+                        <Link
+                            href="/dashboard/messages"
+                            className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/messages" && "active"}`}
+                        >
+                            <MdOutlineMessage className="customer-account-managment-link-icon managment-link-icon" />
+                        </Link>
+                        <div className="link-name-box p-2 fw-bold">
+                            {t("Messages")}
                         </div>
                     </li>
                 </>}
