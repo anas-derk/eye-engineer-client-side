@@ -1,11 +1,17 @@
-.contact-us{
-    .contact-box{
+.contact-us {
+    .contact-box {
         height: auto !important;
-        .contact-icon{
+
+        .contact-icon {
             font-size: 40px;
         }
+
+        h4 {
+            color: #000;
+        }
     }
-    .contact-us-form{
+
+    .contact-us-form {
         height: auto !important;
     }
 }

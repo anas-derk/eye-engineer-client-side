@@ -155,9 +155,11 @@ export default function ContactUs() {
                                 }}
                             >
                                 <div className="contact-box info-box text-center p-3">
-                                    <MdOutlineWhatsapp className="mb-3 contact-icon" />
-                                    <h4 className="mb-3">{t("Whatsapp")}</h4>
-                                    <h6>{process.env.contactNumber}</h6>
+                                    <a href={`https://wa.me/${process.env.CONTACT_NUMBER}?text=welcome`} target="_blank" className="text-dark">
+                                        <MdOutlineWhatsapp className="mb-3 contact-icon" />
+                                        <h4 className="mb-3">{t("Whatsapp")}</h4>
+                                        <h6>{process.env.contactNumber}</h6>
+                                    </a>
                                 </div>
                             </motion.div>
                             <motion.div className="col-md-3"
@@ -168,9 +170,11 @@ export default function ContactUs() {
                                 }}
                             >
                                 <div className="contact-box info-box text-center p-3">
-                                    <MdOutlineMail className="mb-3 contact-icon" />
-                                    <h4 className="mb-3">{t("Email")}</h4>
-                                    <h6>{process.env.contactEmail}</h6>
+                                    <a href={`mailto:${process.env.CONTACT_EMAIL}`} target="_blank" className="text-dark">
+                                        <MdOutlineMail className="mb-3 contact-icon" />
+                                        <h4 className="mb-3">{t("Email")}</h4>
+                                        <h6>{process.env.contactEmail}</h6>
+                                    </a>
                                 </div>
                             </motion.div>
                             <motion.div

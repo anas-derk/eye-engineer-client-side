@@ -6,6 +6,10 @@
   font-size: 40px;
 }
 
+.contact-us .contact-box h4 {
+  color: #000;
+}
+
 .contact-us .contact-us-form {
   height: auto !important;
 }
