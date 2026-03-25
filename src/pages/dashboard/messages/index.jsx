@@ -124,7 +124,7 @@ export default function Messages() {
             setIsGetMessages(true);
             setErrorMsgOnGetUsersData("");
             const newCurrentPage = currentPage - 1;
-            setAllMessagesInsideThePage((await getAllMessagesInsideThePage(newCurrentPage, pageSize)).data.messages);
+            setAllMessagesInsideThePage((await getAllMessagesInsideThePage(newCurrentPage, pageSize, getFiltersAsQuery(filters))).data.messages);
             setCurrentPage(newCurrentPage);
             setIsGetMessages(false);
         }
@@ -144,7 +144,7 @@ export default function Messages() {
             setIsGetMessages(true);
             setErrorMsgOnGetUsersData("");
             const newCurrentPage = currentPage + 1;
-            setAllMessagesInsideThePage((await getAllMessagesInsideThePage(newCurrentPage, pageSize)).data.messages);
+            setAllMessagesInsideThePage((await getAllMessagesInsideThePage(newCurrentPage, pageSize, getFiltersAsQuery(filters))).data.messages);
             setCurrentPage(newCurrentPage);
             setIsGetMessages(false);
         }
@@ -163,7 +163,7 @@ export default function Messages() {
         try {
             setIsGetMessages(true);
             setErrorMsgOnGetUsersData("");
-            setAllMessagesInsideThePage((await getAllMessagesInsideThePage(pageNumber, pageSize)).data.messages);
+            setAllMessagesInsideThePage((await getAllMessagesInsideThePage(pageNumber, pageSize, getFiltersAsQuery(filters))).data.messages);
             setCurrentPage(pageNumber);
             setIsGetMessages(false);
         }
@@ -182,10 +182,9 @@ export default function Messages() {
         try {
             setIsGetMessages(true);
             setCurrentPage(1);
-            const filteringString = getFiltersAsQuery(filters);
-            const result = (await getAllMessagesInsideThePage(1, pageSize, filteringString)).data;
+            const result = (await getAllMessagesInsideThePage(1, pageSize, getFiltersAsQuery(filters))).data;
             setAllMessagesInsideThePage(result.messages);
-            setTotalPagesCount(Math.ceil(result.usersCount / pageSize));
+            setTotalPagesCount(Math.ceil(result.messagesCount / pageSize));
             setIsGetMessages(false);
         }
         catch (err) {

@@ -3,7 +3,7 @@
     "Please Select Order Owner": "الرجاء اختيار مالك الطلب",
     "Individual": "فرد",
     "Representative of the concerned party": "ممثل عن صاحب العلاقة",
-    "Full Name": "الاسم الكامل",
+    "Owner Full Name": "اسم مالك الطلب الكامل",
     "Representative Full Name": "الاسم الكامل لممثل العلاقة",
     "Legal entity": "الصفة القانونية",
     "City": "المدينة",
@@ -11,5 +11,14 @@
     "Whatsapp Number": "رقم الواتس آب",
     "Property Location": "موقع التقييم",
     "Property Purpose": "غرض التقييم",
-    "Create Order": "إنشاء الطلب"
+    "Create Order": "إنشاء الطلب",
+    "Property Valuation Orders": "طلبات التقييم العقاري",
+    "Property Valuation Order Id": "معرّف طلب التقييم العقاري",
+    "Please Enter Property Valuation Order Id": "الرجاء إدخال معرّف طلب التقييم العقاري",
+    "Owner": "المالك",
+    "Please Enter Owner": "الرجاء اختيار المالك",
+    "individual": "فرد",
+    "representative": "ممثّل",
+    "Please Enter Phone Number": "الرجاء إدخال رقم الهاتف",
+    "Please Enter Whatsapp Number": "الرجاء إدخال رقم الواتس آب"
 }

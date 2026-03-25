@@ -3,7 +3,7 @@
     "Please Select Order Owner": "Bitte wählen Sie den Auftragsinhaber",
     "Individual": "Einzelperson",
     "Representative of the concerned party": "Vertreter der betreffenden Partei",
-    "Full Name": "Vollständiger Name",
+    "Owner Full Name": "Vollständiger Name des Eigentümers",
     "Representative Full Name": "Vollständiger Name des Vertreters",
     "Legal entity": "Juristische Person",
     "City": "Stadt",
@@ -11,5 +11,14 @@
     "Whatsapp Number": "WhatsApp-Nummer",
     "Property Location": "Standort der Immobilie",
     "Property Purpose": "Zweck der Immobilie",
-    "Create Order": "Auftrag erstellen"
+    "Create Order": "Auftrag erstellen",
+    "Property Valuation Orders": "Immobilienbewertungsaufträge",
+    "Property Valuation Order Id": "Immobilienbewertungsauftrags-ID",
+    "Please Enter Property Valuation Order Id": "Bitte geben Sie die Immobilienbewertungsauftrags-ID ein",
+    "Owner": "Eigentümer",
+    "Please Enter Owner": "Bitte Eigentümer eingeben",
+    "individual": "Einzelperson",
+    "representative": "Vertreter",
+    "Please Enter Phone Number": "Bitte geben Sie die Telefonnummer ein",
+    "Please Enter Whatsapp Number": "Bitte geben Sie die WhatsApp-Nummer ein"
 }
