@@ -1,15 +1,15 @@
 {
-    "Get a valuation from top experts": "احصل على التقييم من أفضل الخبراء",
-    "Please Select Order Owner": "الرجاء اختيار مالك الطلب",
-    "Individual": "فرد",
-    "Representative of the concerned party": "ممثل عن صاحب العلاقة",
-    "Full Name": "الاسم الكامل",
-    "Representative Full Name": "الاسم الكامل لممثل العلاقة",
-    "Legal entity": "الصفة القانونية",
-    "City": "المدينة",
-    "Phone Number": "رقم الهاتف",
-    "Whatsapp Number": "رقم الواتس آب",
-    "Property Location": "موقع التقييم",
-    "Property Purpose": "غرض التقييم",
-    "Create Order": "إنشاء الطلب"
+    "Get a valuation from top experts": "Holen Sie eine Bewertung von Top-Experten ein",
+    "Please Select Order Owner": "Bitte wählen Sie den Auftragsinhaber",
+    "Individual": "Einzelperson",
+    "Representative of the concerned party": "Vertreter der betreffenden Partei",
+    "Full Name": "Vollständiger Name",
+    "Representative Full Name": "Vollständiger Name des Vertreters",
+    "Legal entity": "Juristische Person",
+    "City": "Stadt",
+    "Phone Number": "Telefonnummer",
+    "Whatsapp Number": "WhatsApp-Nummer",
+    "Property Location": "Standort der Immobilie",
+    "Property Purpose": "Zweck der Immobilie",
+    "Create Order": "Auftrag erstellen"
 }

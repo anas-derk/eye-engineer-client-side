@@ -1,15 +1,15 @@
 {
-    "Get a valuation from top experts": "احصل على التقييم من أفضل الخبراء",
-    "Please Select Order Owner": "الرجاء اختيار مالك الطلب",
-    "Individual": "فرد",
-    "Representative of the concerned party": "ممثل عن صاحب العلاقة",
-    "Full Name": "الاسم الكامل",
-    "Representative Full Name": "الاسم الكامل لممثل العلاقة",
-    "Legal entity": "الصفة القانونية",
-    "City": "المدينة",
-    "Phone Number": "رقم الهاتف",
-    "Whatsapp Number": "رقم الواتس آب",
-    "Property Location": "موقع التقييم",
-    "Property Purpose": "غرض التقييم",
-    "Create Order": "إنشاء الطلب"
+    "Get a valuation from top experts": "En iyi uzmanlardan değerleme alın",
+    "Please Select Order Owner": "Lütfen Sipariş Sahibini Seçin",
+    "Individual": "Birey",
+    "Representative of the concerned party": "İlgili tarafın temsilcisi",
+    "Full Name": "Ad Soyad",
+    "Representative Full Name": "Temsilci Ad Soyad",
+    "Legal entity": "Tüzel Kişi",
+    "City": "Şehir",
+    "Phone Number": "Telefon Numarası",
+    "Whatsapp Number": "WhatsApp Numarası",
+    "Property Location": "Gayrimenkul Konumu",
+    "Property Purpose": "Gayrimenkul Amacı",
+    "Create Order": "Sipariş Oluştur"
 }
