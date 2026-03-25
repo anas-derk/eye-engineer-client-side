@@ -239,7 +239,7 @@ export default function PropertyValuation() {
                                     <input
                                         type="text"
                                         className={`form-control p-2 border-2 full-name-field ${formValidationErrors["fullName"] ? "border-danger mb-3" : "mb-4"}`}
-                                        placeholder={t("Full Name")}
+                                        placeholder={t("Owner Full Name")}
                                         onChange={(e) => setPropertyValuationData({ ...propertyValuationData, fullName: e.target.value })}
                                         value={propertyValuationData.fullName}
                                     />
