@@ -24,6 +24,7 @@ export default function PropertyValuation() {
         city: "",
         phoneNumber: "",
         whatsappNumber: "",
+        email: "",
         location: "",
         purpose: "",
     });
@@ -48,8 +49,17 @@ export default function PropertyValuation() {
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
                 {
-                    name: "name",
-                    value: propertyValuationData.name,
+                    name: "owner",
+                    value: propertyValuationData.owner,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                    },
+                },
+                {
+                    name: "fullName",
+                    value: propertyValuationData.fullName,
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
@@ -57,6 +67,51 @@ export default function PropertyValuation() {
                         isName: {
                             msg: "Sorry, This Name Is Not Valid !!",
                         },
+                    },
+                },
+                propertyValuationData.owner === "representative" ? {
+                    name: "representativeFullName",
+                    value: propertyValuationData.representativeFullName,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                        isName: {
+                            msg: "Sorry, This Name Is Not Valid !!",
+                        },
+                    },
+                } : null,
+                propertyValuationData.owner === "representative" ? {
+                    name: "legalEntity",
+                    value: propertyValuationData.legalEntity,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                    },
+                } : null,
+                {
+                    name: "city",
+                    value: propertyValuationData.city,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                    },
+                },
+                {
+                    name: "phoneNumber",
+                    value: propertyValuationData.phoneNumber,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                    },
+                },
+                {
+                    name: "whatsappNumber",
+                    value: propertyValuationData.whatsappNumber,
+                    rules: {
                     },
                 },
                 {
@@ -72,8 +127,8 @@ export default function PropertyValuation() {
                     },
                 },
                 {
-                    name: "subject",
-                    value: propertyValuationData.subject,
+                    name: "location",
+                    value: propertyValuationData.location,
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
@@ -81,8 +136,8 @@ export default function PropertyValuation() {
                     },
                 },
                 {
-                    name: "content",
-                    value: propertyValuationData.content,
+                    name: "purpose",
+                    value: propertyValuationData.purpose,
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
@@ -93,12 +148,23 @@ export default function PropertyValuation() {
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Please Wait");
-                const result = (await axios.post(`${process.env.BASE_API_URL}/messages/send-message?language=${i18n.language}`, propertyValuationData)).data;
+                const result = (await axios.post(`${process.env.BASE_API_URL}/property-valuation/create-order?language=${i18n.language}`, propertyValuationData)).data;
                 setWaitMsg("");
                 if (!result.error) {
                     setSuccessMsg(result.msg);
                     let successTimeout = setTimeout(async () => {
-                        setPropertyValuationData({ name: "", email: "", subject: "", content: "" });
+                        setPropertyValuationData({
+                            owner: "",
+                            fullName: "",
+                            representativeFullName: "",
+                            legalEntity: "",
+                            city: "",
+                            phoneNumber: "",
+                            whatsappNumber: "",
+                            email: "",
+                            location: "",
+                            purpose: "",
+                        });
                         setSuccessMsg("");
                         clearTimeout(successTimeout);
                     }, 1500);
@@ -182,9 +248,9 @@ export default function PropertyValuation() {
                                         <input
                                             type="text"
                                             className={`form-control p-2 border-2 representative-full-name-field ${formValidationErrors["representativeFullName"] ? "border-danger mb-3" : "mb-4"}`}
-                                            placeholder={t("Full Name")}
-                                            onChange={(e) => setPropertyValuationData({ ...propertyValuationData, fullName: e.target.value })}
-                                            value={propertyValuationData.fullName}
+                                            placeholder={t("Representative Full Name")}
+                                            onChange={(e) => setPropertyValuationData({ ...propertyValuationData, representativeFullName: e.target.value })}
+                                            value={propertyValuationData.representativeFullName}
                                         />
                                         {formValidationErrors["representativeFullName"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["representativeFullName"])} />}
                                         <input
@@ -232,7 +298,7 @@ export default function PropertyValuation() {
                                         type="text"
                                         className={`form-control p-2 border-2 property-location-field ${formValidationErrors["location"] ? "border-danger mb-3" : "mb-4"}`}
                                         placeholder={t("Property Location")}
-                                        onChange={(e) => setPropertyValuationData({ ...propertyValuationData, propertyLocation: e.target.value })}
+                                        onChange={(e) => setPropertyValuationData({ ...propertyValuationData, location: e.target.value })}
                                         value={propertyValuationData.location}
                                     />
                                     {formValidationErrors["location"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["location"])} />}
@@ -245,7 +311,7 @@ export default function PropertyValuation() {
                                     />
                                     {formValidationErrors["purpose"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["purpose"])} />}
                                     {!waitMsg && !errorMsg && !successMsg && <button type="submit" className="orange-btn btn w-100">
-                                        {t("Send Message")}
+                                        {t("Create Order")}
                                     </button>}
                                     {errorMsg && <button disabled className="btn btn-danger w-100">
                                         {t(errorMsg)}

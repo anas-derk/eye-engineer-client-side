@@ -5,6 +5,7 @@ import contactUsTranslations from "./contact-us";
 import dashboardTranslations from "./dashboard";
 import policesTranslations from "./polices";
 import profileTranslations from "./profile";
+import propertyValuationTranslations from "./property-valuation";
 
 export default {
     ...aboutUsTranslations,
@@ -14,4 +15,5 @@ export default {
     ...dashboardTranslations,
     ...policesTranslations,
     ...profileTranslations,
+    ...propertyValuationTranslations,
 }
