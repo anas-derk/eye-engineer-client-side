@@ -13,7 +13,7 @@ import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import { inputValuesValidation } from "../../../public/global_functions/validations";
 import axios from "axios";
 
-export default function AboutUs() {
+export default function ContactUs() {
 
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 

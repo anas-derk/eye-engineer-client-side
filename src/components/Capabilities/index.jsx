@@ -19,36 +19,43 @@ export default function Capabilities({ appearedSections = [] }) {
             title: "Geometries",
             description: "Contains diverse engineering information and resources",
             imageSrc: ServiceImage1.src,
+            href: "/geometries"
         },
         {
             title: "Educational Videos",
             description: "Provides a collection of instructional videos",
             imageSrc: ServiceImage2.src,
+            href: "/educational-videos"
         },
         {
             title: "Engineering Articles",
             description: "Contains diverse articles",
             imageSrc: ServiceImage3.src,
+            href: "/engineering-articles"
         },
         {
             title: "Recents",
             description: "Provides the latest information and news",
             imageSrc: ServiceImage4.src,
+            href: "/recents"
         },
         {
             title: "Terminologies",
             description: "Provides definitions of technical and professional terms",
             imageSrc: ServiceImage5.src,
+            href: "/terminologies"
         },
         {
             title: "Offices",
             description: "Offers tips and ideas to enhance the work environment in offices",
             imageSrc: ServiceImage6.src,
+            href: "/offices"
         },
         {
             title: "Property Valuation",
             description: "Provides property valuations by experts",
             imageSrc: ServiceImage7.src,
+            href: "/property-valuation"
         },
     ];
 
@@ -78,7 +85,7 @@ export default function Capabilities({ appearedSections = [] }) {
                                         <div className="col-md-8 text-center">
                                             <h6 className="mb-3 fw-bold">{t(service.title)}</h6>
                                             <p className="mb-3 d-block">{t(service.description)}</p>
-                                            <Link href="/" className="orange-btn d-block">{t("View")}</Link>
+                                            <Link href={service.href} className="orange-btn d-block">{t("View")}</Link>
                                         </div>
                                     </div>
                                 </div>
