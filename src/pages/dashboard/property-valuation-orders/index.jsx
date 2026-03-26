@@ -193,7 +193,6 @@ export default function PropertyValuationOrders() {
         try {
             setIsGetPropertyValuationOrders(true);
             setCurrentPage(1);
-            console.log(filters);
             const result = (await getAllPropertyValuationOrdersInsideThePage(1, pageSize, getFiltersAsQuery(filters))).data;
             setAllPropertyValuationOrdersInsideThePage(result.orders);
             setTotalPagesCount(Math.ceil(result.ordersCount / pageSize));

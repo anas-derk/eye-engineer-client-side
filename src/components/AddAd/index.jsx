@@ -26,6 +26,8 @@ export default function AddAd({
 
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
+    const adTypes = ["text", "image"];
+
     const adImageFileElementRef = useRef();
 
     const router = useRouter();
@@ -43,6 +45,15 @@ export default function AddAd({
             if (advertisementType === "text") {
                 validationInputs = [
                     {
+                        name: "type",
+                        value: advertisementType,
+                        rules: {
+                            isRequired: {
+                                msg: "Sorry, This Field Can't Be Empty !!",
+                            },
+                        },
+                    },
+                    {
                         name: "content",
                         value: adData.content,
                         rules: {
@@ -54,6 +65,15 @@ export default function AddAd({
                 ];
             } else {
                 validationInputs = [
+                    {
+                        name: "type",
+                        value: advertisementType,
+                        rules: {
+                            isRequired: {
+                                msg: "Sorry, This Field Can't Be Empty !!",
+                            },
+                        },
+                    },
                     {
                         name: "image",
                         value: adData.image,
@@ -69,15 +89,15 @@ export default function AddAd({
                 ];
             }
             const errorsObject = inputValuesValidation(validationInputs);
+            setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Saving");
-                let formData = new FormData();
-                if (advertisementType === "text") {
-                    formData.append("name", adData.content);
-                } else {
+                let formData = null;
+                if (advertisementType === "image") {
+                    formData = new FormData();
                     formData.append("adImage", adData.image);
                 }
-                const result = (await axios.post(`${process.env.BASE_API_URL}/ads/add-new-${advertisementType}-ad?language=${i18n.language}`, formData, {
+                const result = (await axios.post(`${process.env.BASE_API_URL}/ads/add-${advertisementType}-ad?language=${i18n.language}`, formData ?? { content: adData.content }, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                     }
@@ -121,19 +141,17 @@ export default function AddAd({
             <div className="content-box d-flex align-items-center text-white flex-column p-4 text-center">
                 <h2 className="mb-4 pb-3 border-bottom border-white">{t("Add New Ad")}</h2>
                 <section className="select-advertisement-type w-100">
-                    <div className="row mb-4">
-                        <div className="col-md-12">
-                            <select
-                                className={`select-advertisement-type form-select${i18n.language === "ar" ? " ar" : ""}`}
-                                onChange={(e) => setAdvertisementType(e.target.value)}
-                                value={advertisementType}
-                            >
-                                <option value="" hidden>{t("Please Select Advertisement Type")}</option>
-                                <option value="text">{t("Text")}</option>
-                                <option value="image">{t("Image")}</option>
-                            </select>
-                        </div>
-                    </div>
+                    <select
+                        className={`select-advertisement-type form-select${i18n.language === "ar" ? " ar" : ""} mb-4`}
+                        onChange={(e) => setAdvertisementType(e.target.value)}
+                        value={advertisementType}
+                    >
+                        <option value="" hidden>{t("Please Select Advertisement Type")}</option>
+                        {adTypes.map((type) => (
+                            <option value={type}>{t(type.replace(type[0], type[0].toUpperCase()))}</option>
+                        ))}
+                    </select>
+                    {formValidationErrors["type"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["type"])} />}
                 </section>
                 {advertisementType === "text" && <section className="content mb-4 w-100">
                     <textarea

@@ -23,11 +23,15 @@ export default function Ads() {
 
     const [userInfo, setUserInfo] = useState({});
 
+    const [advertisementType, setAdvertisementType] = useState("text");
+
     const [allAds, setAllAds] = useState([]);
 
-    const [isGetGeometries, setIsGetAds] = useState(false);
+    const [isGetAds, setIsGetAds] = useState(false);
 
     const [selectedAdIndex, setSelectedAdIndex] = useState(-1);
+
+    const [selectedAdImageIndex, setSelectedAdImageIndex] = useState(-1);
 
     const [waitMsg, setWaitMsg] = useState("");
 
@@ -35,11 +39,11 @@ export default function Ads() {
 
     const [successMsg, setSuccessMsg] = useState("");
 
-    const [waitChangeGeometryImageMsg, setWaitChangeAdImageMsg] = useState("");
+    const [waitChangeAdImageMsg, setWaitChangeAdImageMsg] = useState("");
 
-    const [errorChangeGeometryImageMsg, setErrorChangeAdImageMsg] = useState("");
+    const [errorChangeAdImageMsg, setErrorChangeAdImageMsg] = useState("");
 
-    const [successChangeGeometryImageMsg, setSuccessChangeAdImageMsg] = useState("");
+    const [successChangeAdImageMsg, setSuccessChangeAdImageMsg] = useState("");
 
     const [isDisplayConfirmDeleteBox, setIsDisplayConfirmDeleteBox] = useState(false);
 
@@ -50,6 +54,8 @@ export default function Ads() {
     });
 
     const [formValidationErrors, setFormValidationErrors] = useState({});
+
+    const adTypes = ["text", "image"];
 
     const router = useRouter();
 
@@ -69,7 +75,9 @@ export default function Ads() {
                         const adminDetails = result.data;
                         if (adminDetails.isWebsiteOwner) {
                             setUserInfo(result.data);
-                            setAllAds((await getAllAds()).data);
+                            let tempFilters = { type: advertisementType };
+                            setAllAds((await getAllAds(getFilteringString(tempFilters))).data);
+                            setFilters(tempFilters);
                             setIsLoadingPage(false);
                         }
                         else {
@@ -118,10 +126,8 @@ export default function Ads() {
     const filterAds = async (filters) => {
         try {
             setIsGetAds(true);
-            const filteringString = getFilteringString(filters);
-            const result = (await getAllAds(1, pageSize, getFilteringString(filters), "admin", i18n.language)).data;
-            setAllGeometriesInsideThePage(result.geometries);
-            setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
+            const result = (await getAllAds(getFilteringString(filters))).data;
+            setAllAds(result);
             setIsGetAds(false);
         }
         catch (err) {
@@ -131,7 +137,6 @@ export default function Ads() {
             }
             else {
                 setIsGetAds(false);
-                setCurrentPage(-1);
                 setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
@@ -141,11 +146,14 @@ export default function Ads() {
         }
     }
 
-    const changeAdContent = (adIndex, newValue, language) => {
+    const changeAdData = (adIndex, fieldName, newValue, language) => {
+        setSelectedAdImageIndex(-1);
         setSelectedAdIndex(-1);
-        let adTemp = allAds.map((news) => news);
-        adTemp[adIndex].content[language] = newValue;
-        setAllAds(adTemp);
+        if (language) {
+            allAds[adIndex][fieldName][language] = newValue;
+        } else {
+            allAds[adIndex][fieldName] = newValue;
+        }
     }
 
     const updateAd = async (adIndex) => {
@@ -225,13 +233,13 @@ export default function Ads() {
                     },
                 }
             ]);
-            setSelectedAdIndex(adIndex);
+            setSelectedAdImageIndex(adIndex);
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitChangeAdImageMsg("Please Wait");
                 let formData = new FormData();
                 formData.append("adImage", allAds[adIndex].image);
-                const result = (await axios.put(`${process.env.BASE_API_URL}/ads/change-image/${allGeometriesInsideThePage[adIndex]._id}?language=${i18n.language}`, formData, {
+                const result = (await axios.put(`${process.env.BASE_API_URL}/ads/change-image/${allAds[adIndex]._id}?language=${i18n.language}`, formData, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                     }
@@ -241,8 +249,8 @@ export default function Ads() {
                     setSuccessChangeAdImageMsg("Updating Successfull !!");
                     let successTimeout = setTimeout(async () => {
                         setSuccessChangeAdImageMsg("");
-                        setSelectedAdIndex(-1);
-                        setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
+                        setSelectedAdImageIndex(-1);
+                        allAds[adIndex].imagePath = result.data.newAdImagePath;
                         clearTimeout(successTimeout);
                     }, 1500);
                 } else {
@@ -250,7 +258,7 @@ export default function Ads() {
                     setErrorChangeAdImageMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
                     let errorTimeout = setTimeout(() => {
                         setErrorChangeAdImageMsg("");
-                        setSelectedAdIndex(-1);
+                        setSelectedAdImageIndex(-1);
                         clearTimeout(errorTimeout);
                     }, 1500);
                 }
@@ -266,7 +274,7 @@ export default function Ads() {
                 setErrorChangeAdImageMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorChangeAdImageMsg("");
-                    setSelectedAdIndex(-1);
+                    setSelectedAdImageIndex(-1);
                     clearTimeout(errorTimeout);
                 }, 3000);
             }
@@ -348,12 +356,44 @@ export default function Ads() {
                     >
                         {t("Add New Ads")}
                     </button>}
+                    <section className="filters mb-4 bg-white border-3 border-info p-3 text-start">
+                        <h5 className="fw-bold text-center">{t("Filters")}: </h5>
+                        <hr />
+                        <div className="row mb-4">
+                            <div className="col-md-6">
+                                <h6 className="me-2 fw-bold text-center">{t("Type")}</h6>
+                                <select
+                                    className={`select-advertisement-type form-select${i18n.language === "ar" ? " ar" : ""} mb-4`}
+                                    onChange={(e) => { setAdvertisementType(e.target.value); setFilters({ ...filters, type: e.target.value }) }}
+                                    value={advertisementType}
+                                >
+                                    <option value="" hidden>{t("Please Select Advertisement Type")}</option>
+                                    {adTypes.map((type) => (
+                                        <option value={type}>{t(type.replace(type[0], type[0].toUpperCase()))}</option>
+                                    ))}
+                                </select>
+                                {formValidationErrors["type"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["type"])} />}
+                            </div>
+                        </div>
+                        {!isGetAds && <button
+                            className="btn d-block w-25 mx-auto mt-2 orange-btn"
+                            onClick={() => filterAds(filters)}
+                        >
+                            {t("Filter")}
+                        </button>}
+                        {isGetAds && <button
+                            className="btn d-block w-25 mx-auto mt-2 orange-btn"
+                            disabled
+                        >
+                            {t("Filtering")} ...
+                        </button>}
+                    </section>
                     {allAds.length > 0 && <section className="ads-box w-100 admin-dashbboard-data-box">
                         <table className="ads-table mb-4 managment-table bg-white w-100 admin-dashbboard-data-table">
                             <thead>
                                 <tr>
                                     <th>{t("Id")}</th>
-                                    <th>{t("Content")}</th>
+                                    {advertisementType === "text" ? <th>{t("Content")}</th> : <th>{t("Image")}</th>}
                                     <th>{t("Date Of Creation")}</th>
                                     <th>{t("Actions")}</th>
                                 </tr>
@@ -364,7 +404,7 @@ export default function Ads() {
                                         <td className="ad-id-cell">
                                             {ad._id}
                                         </td>
-                                        <td className="ad-content-cell">
+                                        {ad.type === "text" ? <td className="ad-content-cell">
                                             <section className="ad-content mb-4">
                                                 {getLanguagesInfoList("content").map((el) => (
                                                     <div key={el.fullLanguageName}>
@@ -374,15 +414,51 @@ export default function Ads() {
                                                             placeholder={`${t("Please Enter New Content")} ${t(`In ${el.fullLanguageName}`)}`}
                                                             className={`form-control d-block mx-auto p-2 border-2 ad-content-field ${formValidationErrors[el.formField] && adIndex === selectedAdIndex ? "border-danger mb-3" : "mb-4"}`}
                                                             defaultValue={ad.content[el.internationalLanguageCode]}
-                                                            onChange={(e) => changeAdContent(adIndex, e.target.value.trim(), el.internationalLanguageCode)}
+                                                            onChange={(e) => changeAdData(adIndex, "content", e.target.value.trim(), el.internationalLanguageCode)}
                                                         />
                                                         {formValidationErrors[el.formField] && adIndex === selectedAdIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors[el.formField])} />}
                                                     </div>
                                                 ))}
                                             </section>
-                                        </td>
+                                        </td> : <td className="ad-image-cell">
+                                            <img
+                                                src={`${process.env.BASE_API_URL}/${ad.imagePath}`}
+                                                alt={`New Image !!`}
+                                                width="100"
+                                                height="100"
+                                                className="d-block mx-auto mb-4"
+                                            />
+                                            <section className="ad-image mb-4">
+                                                <input
+                                                    type="file"
+                                                    className={`form-control d-block mx-auto p-2 border-2 brand-image-field ${formValidationErrors["image"] && adIndex === selectedAdImageIndex ? "border-danger mb-3" : "mb-4"}`}
+                                                    onChange={(e) => changeAdData(adIndex, "image", e.target.files[0])}
+                                                    accept=".png, .jpg, .webp"
+                                                />
+                                                {formValidationErrors["image"] && selectedAdImageIndex === adIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors["image"])} />}
+                                            </section>
+                                            {(selectedAdImageIndex !== adIndex && selectedAdIndex !== adIndex) &&
+                                                <button
+                                                    className="btn btn-success d-block mb-3 w-50 mx-auto global-button"
+                                                    onClick={() => changeAdImage(adIndex)}
+                                                >{t("Change Image")}</button>
+                                            }
+                                            {waitChangeAdImageMsg && selectedAdImageIndex === adIndex && <button
+                                                className="btn btn-info d-block mb-3 mx-auto global-button"
+                                                disabled
+                                            >{t(waitChangeAdImageMsg)}</button>}
+                                            {successChangeAdImageMsg && selectedAdImageIndex === adIndex && <button
+                                                className="btn btn-success d-block mx-auto global-button"
+                                                disabled
+                                            >{t(successChangeAdImageMsg)}</button>}
+                                            {errorChangeAdImageMsg && selectedAdImageIndex === adIndex && <button
+                                                className="btn btn-danger d-block mx-auto global-button"
+                                                disabled
+                                            >{t(errorChangeAdImageMsg)}</button>}
+                                        </td>}
+
                                         <td className="ad-date-of-creation-cell">
-                                            {getDateFormated(ad.dateOfCreation)}
+                                            {getDateFormated(ad.createdAt)}
                                         </td>
                                         <td className="update-cell">
                                             {selectedAdIndex !== adIndex && <>
@@ -390,11 +466,13 @@ export default function Ads() {
                                                     className="btn btn-danger global-button"
                                                     onClick={() => handleDisplayConfirmDeleteBox(adIndex, setSelectedAdIndex, setIsDisplayConfirmDeleteBox)}
                                                 >{t("Delete")}</button>
-                                                <hr />
-                                                <button
-                                                    className="btn btn-success global-button"
-                                                    onClick={() => updateAd(adIndex)}
-                                                >{t("Update")}</button>
+                                                {advertisementType === "text" && <>
+                                                    <hr />
+                                                    <button
+                                                        className="btn btn-success global-button"
+                                                        onClick={() => updateAd(adIndex)}
+                                                    >{t("Update")}</button>
+                                                </>}
                                             </>}
                                             {waitMsg && selectedAdIndex === adIndex && <button
                                                 className="btn btn-info d-block mb-3 mx-auto global-button"
