@@ -1,0 +1,16 @@
+{
+    "Files": "الملفات",
+    "Geometry Id": "معرّف الهندسة",
+    "Please Enter Geometry Id": "الرجاء إدخال معرّف الهندسة",
+    "Geometry Name": "اسم الهندسة",
+    "Please Enter Geometry Name": "الرجاء إدخال اسم الهندسة",
+    "Parent": "الأب",
+    "Add New Geometry": "إضافة هندسة جديدة",
+    "Please Select Parent": "الرجاء اختيار الأب",
+    "Please Enter Parent Name Or Part Of This": "الرجاء إدخال اسم الاب أو جزء منه",
+    "No Parent": "لا أب",
+    "Change Parent": "تغيير الأب",
+    "Current Parent": "الأب الحالي",
+    "Please Select New Parent": "الرجاء اختيار الأب الجديد",
+    "New Parent": "الأب الجديد"
+}

@@ -9,6 +9,10 @@ import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { TbGeometry } from "react-icons/tb";
 import { AiOutlinePropertySafety } from "react-icons/ai";
 import { RiAdvertisementLine } from "react-icons/ri";
+import { FaLink } from "react-icons/fa6";
+import { LuFiles } from "react-icons/lu";
+import { MdOutlineOndemandVideo } from "react-icons/md";
+import { MdOutlineArticle } from "react-icons/md";
 
 export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = false }) {
 
@@ -126,6 +130,50 @@ export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = 
                             {t("Geometries")}
                         </div>
                     </li>
+                    <li className="managment-customer-account-link-item managment-link-item">
+                        <Link
+                            href="/dashboard/links"
+                            className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/links" && "active"}`}
+                        >
+                            <FaLink className="customer-account-managment-link-icon managment-link-icon" />
+                        </Link>
+                        <div className="link-name-box p-2 fw-bold">
+                            {t("Links")}
+                        </div>
+                    </li>
+                    <li className="managment-customer-account-link-item managment-link-item">
+                        <Link
+                            href="/dashboard/files"
+                            className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/files" && "active"}`}
+                        >
+                            <LuFiles className="customer-account-managment-link-icon managment-link-icon" />
+                        </Link>
+                        <div className="link-name-box p-2 fw-bold">
+                            {t("Files")}
+                        </div>
+                    </li>
+                    {/* <li className="managment-customer-account-link-item managment-link-item">
+                        <Link
+                            href="/dashboard/educational-videos"
+                            className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/educational-videos" && "active"}`}
+                        >
+                            <MdOutlineOndemandVideo className="customer-account-managment-link-icon managment-link-icon" />
+                        </Link>
+                        <div className="link-name-box p-2 fw-bold">
+                            {t("Educational Videos")}
+                        </div>
+                    </li>
+                    <li className="managment-customer-account-link-item managment-link-item">
+                        <Link
+                            href="/dashboard/engineering-articles"
+                            className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/engineering-articles" && "active"}`}
+                        >
+                            <MdOutlineArticle className="customer-account-managment-link-icon managment-link-icon" />
+                        </Link>
+                        <div className="link-name-box p-2 fw-bold">
+                            {t("Engineering Articles")}
+                        </div>
+                    </li> */}
                 </>}
                 <li className="managment-customer-account-link-item managment-link-item">
                     <Link
