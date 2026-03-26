@@ -295,7 +295,7 @@ export default function PropertyValuationOrders() {
                             <div className="col-md-6">
                                 <h6 className="me-2 fw-bold text-center">{t("Owner")}</h6>
                                 <select
-                                    className="select-owner form-select"
+                                    className={`select-owner form-select${i18n.language === "ar" ? " ar" : ""}`}
                                     onChange={(e) => setFilters({ ...filters, owner: e.target.value })}
                                 >
                                     <option value="" hidden>{t("Please Enter Owner")}</option>
