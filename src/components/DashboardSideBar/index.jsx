@@ -8,6 +8,7 @@ import { MdOutlineLogout, MdOutlineMessage } from "react-icons/md";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { TbGeometry } from "react-icons/tb";
 import { AiOutlinePropertySafety } from "react-icons/ai";
+import { RiAdvertisementLine } from "react-icons/ri";
 
 export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = false }) {
 
@@ -99,6 +100,17 @@ export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = 
                         </Link>
                         <div className="link-name-box p-2 fw-bold">
                             {t("Property Valuation Orders")}
+                        </div>
+                    </li>
+                    <li className="managment-customer-account-link-item managment-link-item">
+                        <Link
+                            href="/dashboard/ads"
+                            className={`w-100 d-block managment-customer-account-link managment-link fw-bold ${router.pathname === "/ads" && "active"}`}
+                        >
+                            <RiAdvertisementLine className="customer-account-managment-link-icon managment-link-icon" />
+                        </Link>
+                        <div className="link-name-box p-2 fw-bold">
+                            {t("Ads")}
                         </div>
                     </li>
                 </>}
