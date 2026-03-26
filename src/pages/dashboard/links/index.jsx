@@ -18,7 +18,7 @@ import SectionLoader from "@/components/SectionLoader";
 import AddGeometry from "@/components/AddGeometry";
 import UpdateGeometryParent from "@/components/UpdateGeometryParent";
 
-export default function Geometries() {
+export default function Links() {
 
     const [isLoadingPage, setIsLoadingPage] = useState(true);
 
@@ -26,13 +26,13 @@ export default function Geometries() {
 
     const [userInfo, setUserInfo] = useState({});
 
-    const [allGeometriesInsideThePage, setAllGeometriesInsideThePage] = useState([]);
+    const [allLinksInsideThePage, setAllLinksInsideThePage] = useState([]);
 
-    const [isGetGeometries, setIsGetGeometries] = useState(false);
+    const [isGetLinks, setIsGetLinks] = useState(false);
 
-    const [selectedGeometryIndex, setSelectedGeometryIndex] = useState(-1);
+    const [selectedLinkIndex, setSelectedLinkIndex] = useState(-1);
 
-    const [selectedGeometryImageIndex, setSelectedGeometryImageIndex] = useState(-1);
+    const [selectedFileIndex, setSelectedFileIndex] = useState(-1);
 
     const [waitMsg, setWaitMsg] = useState("");
 
@@ -40,13 +40,13 @@ export default function Geometries() {
 
     const [errorMsg, setErrorMsg] = useState("");
 
-    const [waitChangeGeometryImageMsg, setWaitChangeGeometryImageMsg] = useState("");
+    const [waitChangeFileMsg, setWaitChangeFileMsg] = useState("");
 
-    const [errorChangeGeometryImageMsg, setErrorChangeGeometryImageMsg] = useState("");
+    const [errorChangeFileMsg, setErrorChangeFileMsg] = useState("");
 
-    const [successChangeGeometryImageMsg, setSuccessChangeGeometryImageMsg] = useState("");
+    const [successChangeFileMsg, setSuccessChangeFileMsg] = useState("");
 
-    const [errorMsgOnGetGeometriesData, setErrorMsgOnGetGeometriesData] = useState("");
+    const [errorMsgOnGetLinksData, setErrorMsgOnGetLinksData] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -60,9 +60,9 @@ export default function Geometries() {
 
     const [isDisplayConfirmDeleteBox, setIsDisplayConfirmDeleteBox] = useState(false);
 
-    const [isDisplayAddGeometryBox, setIsDisplayAddGeometryBox] = useState(false);
+    const [isDisplayAddLinkBox, setIsDisplayAddLinkBox] = useState(false);
 
-    const [isDisplayUpdateGeometryParentBox, setIsDisplayUpdateGeometryParentBox] = useState(false);
+    const [isDisplayUpdateRelatedGeomertyBox, setIsDisplayUpdateRelatedGeomertyBox] = useState(false);
 
     const router = useRouter();
 
@@ -90,7 +90,7 @@ export default function Geometries() {
                             const tempFilters = { officeId: adminDetails.officeId };
                             setFilters(tempFilters);
                             result = (await getAllGeometriesInsideThePage(1, pageSize, getFilteringString(tempFilters), "admin", i18n.language)).data;
-                            setAllGeometriesInsideThePage(result.geometries);
+                            setAllLinksInsideThePage(result.geometries);
                             setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
                             setIsLoadingPage(false);
                         } else {
@@ -113,12 +113,12 @@ export default function Geometries() {
 
     const getPreviousPage = async () => {
         try {
-            setIsGetGeometries(true);
-            setErrorMsgOnGetGeometriesData("");
+            setIsGetLinks(true);
+            setErrorMsgOnGetLinksData("");
             const newCurrentPage = currentPage - 1;
-            setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
+            setAllLinksInsideThePage((await getAllGeometriesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
             setCurrentPage(newCurrentPage);
-            setIsGetGeometries(false);
+            setIsGetLinks(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -126,20 +126,20 @@ export default function Geometries() {
                 await router.replace("/login");
             }
             else {
-                setIsGetGeometries(false);
-                setErrorMsgOnGetGeometriesData(err?.message === "Network Error" ? "Network Error When Get Offices Data" : "Sorry, Someting Went Wrong When Get Offices Data, Please Repeate The Process !!");
+                setIsGetLinks(false);
+                setErrorMsgOnGetLinksData(err?.message === "Network Error" ? "Network Error When Get Offices Data" : "Sorry, Someting Went Wrong When Get Offices Data, Please Repeate The Process !!");
             }
         }
     }
 
     const getNextPage = async () => {
         try {
-            setIsGetGeometries(true);
-            setErrorMsgOnGetGeometriesData("");
+            setIsGetLinks(true);
+            setErrorMsgOnGetLinksData("");
             const newCurrentPage = currentPage + 1;
-            setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
+            setAllLinksInsideThePage((await getAllGeometriesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
             setCurrentPage(newCurrentPage);
-            setIsGetGeometries(false);
+            setIsGetLinks(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -147,19 +147,19 @@ export default function Geometries() {
                 await router.replace("/login");
             }
             else {
-                setIsGetGeometries(false);
-                setErrorMsgOnGetGeometriesData(err?.message === "Network Error" ? "Network Error When Get Offices Data" : "Sorry, Someting Went Wrong When Get Offices Data, Please Repeate The Process !!");
+                setIsGetLinks(false);
+                setErrorMsgOnGetLinksData(err?.message === "Network Error" ? "Network Error When Get Offices Data" : "Sorry, Someting Went Wrong When Get Offices Data, Please Repeate The Process !!");
             }
         }
     }
 
     const getSpecificPage = async (pageNumber) => {
         try {
-            setIsGetGeometries(true);
-            setErrorMsgOnGetGeometriesData("");
-            setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(pageNumber, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
+            setIsGetLinks(true);
+            setErrorMsgOnGetLinksData("");
+            setAllLinksInsideThePage((await getAllGeometriesInsideThePage(pageNumber, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
             setCurrentPage(pageNumber);
-            setIsGetGeometries(false);
+            setIsGetLinks(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -167,8 +167,8 @@ export default function Geometries() {
                 await router.replace("/login");
             }
             else {
-                setIsGetGeometries(false);
-                setErrorMsgOnGetGeometriesData(err?.message === "Network Error" ? "Network Error When Get Offices Data" : "Sorry, Someting Went Wrong When Get Offices Data, Please Repeate The Process !!");
+                setIsGetLinks(false);
+                setErrorMsgOnGetLinksData(err?.message === "Network Error" ? "Network Error When Get Offices Data" : "Sorry, Someting Went Wrong When Get Offices Data, Please Repeate The Process !!");
             }
         }
     }
@@ -181,15 +181,15 @@ export default function Geometries() {
         return filteringString;
     }
 
-    const filterGeometries = async (filters) => {
+    const filterLinks = async (filters) => {
         try {
-            setIsGetGeometries(true);
+            setIsGetLinks(true);
             setCurrentPage(1);
             const filteringString = getFilteringString(filters);
             const result = (await getAllGeometriesInsideThePage(1, pageSize, filteringString, "admin", i18n.language)).data;
-            setAllGeometriesInsideThePage(result.geometries);
+            setAllLinksInsideThePage(result.geometries);
             setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
-            setIsGetGeometries(false);
+            setIsGetLinks(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -197,7 +197,7 @@ export default function Geometries() {
                 await router.replace("/login");
             }
             else {
-                setIsGetGeometries(false);
+                setIsGetLinks(false);
                 setCurrentPage(-1);
                 setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
@@ -208,15 +208,15 @@ export default function Geometries() {
         }
     }
 
-    const handleAddNewGeometry = async () => {
+    const handleAddNewLink = async () => {
         try {
-            setIsGetGeometries(true);
+            setIsGetLinks(true);
             setCurrentPage(1);
             const filteringString = getFilteringString(filters);
             const result = (await getAllGeometriesInsideThePage(1, pageSize, filteringString, "admin", i18n.language)).data;
-            setAllGeometriesInsideThePage(result.geometries);
+            setAllLinksInsideThePage(result.geometries);
             setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
-            setIsGetGeometries(false);
+            setIsGetLinks(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -224,7 +224,7 @@ export default function Geometries() {
                 await router.replace("/login");
             }
             else {
-                setIsGetGeometries(false);
+                setIsGetLinks(false);
                 setCurrentPage(-1);
                 setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
@@ -235,23 +235,23 @@ export default function Geometries() {
         }
     }
 
-    const changeGeometryData = (geometryIndex, fieldName, newValue, language) => {
-        setSelectedGeometryImageIndex(-1);
-        setSelectedGeometryIndex(-1);
+    const changeGeometryData = (linkIndex, fieldName, newValue, language) => {
+        setSelectedFileIndex(-1);
+        setSelectedLinkIndex(-1);
         if (language) {
-            allGeometriesInsideThePage[geometryIndex][fieldName][language] = newValue;
+            allLinksInsideThePage[linkIndex][fieldName][language] = newValue;
         } else {
-            allGeometriesInsideThePage[geometryIndex][fieldName] = newValue;
+            allLinksInsideThePage[linkIndex][fieldName] = newValue;
         }
     }
 
-    const changeGeometryImage = async (geometryIndex) => {
+    const changeFile = async (linkIndex) => {
         try {
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
                 {
                     name: "image",
-                    value: allGeometriesInsideThePage[geometryIndex].image,
+                    value: allLinksInsideThePage[linkIndex].image,
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
@@ -262,32 +262,32 @@ export default function Geometries() {
                     },
                 }
             ]);
-            setSelectedGeometryImageIndex(geometryIndex);
+            setSelectedFileIndex(linkIndex);
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
-                setWaitChangeGeometryImageMsg("Please Wait");
+                setWaitChangeFileMsg("Please Wait");
                 let formData = new FormData();
-                formData.append("geometryImage", allGeometriesInsideThePage[geometryIndex].image);
-                const result = (await axios.put(`${process.env.BASE_API_URL}/geometries/change-image/${allGeometriesInsideThePage[geometryIndex]._id}?language=${i18n.language}`, formData, {
+                formData.append("geometryImage", allLinksInsideThePage[linkIndex].image);
+                const result = (await axios.put(`${process.env.BASE_API_URL}/links/change-image/${allLinksInsideThePage[linkIndex]._id}?language=${i18n.language}`, formData, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                     }
                 })).data;
                 if (!result.error) {
-                    setWaitChangeGeometryImageMsg("");
-                    setSuccessChangeGeometryImageMsg("Updating Successfull !!");
+                    setWaitChangeFileMsg("");
+                    setSuccessChangeFileMsg("Updating Successfull !!");
                     let successTimeout = setTimeout(async () => {
-                        setSuccessChangeGeometryImageMsg("");
-                        setSelectedGeometryImageIndex(-1);
-                        setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
+                        setSuccessChangeFileMsg("");
+                        setSelectedFileIndex(-1);
+                        setAllLinksInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
                         clearTimeout(successTimeout);
                     }, 1500);
                 } else {
-                    setWaitChangeGeometryImageMsg("");
-                    setErrorChangeGeometryImageMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
+                    setWaitChangeFileMsg("");
+                    setErrorChangeFileMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
                     let errorTimeout = setTimeout(() => {
-                        setErrorChangeGeometryImageMsg("");
-                        setSelectedGeometryImageIndex(-1);
+                        setErrorChangeFileMsg("");
+                        setSelectedFileIndex(-1);
                         clearTimeout(errorTimeout);
                     }, 1500);
                 }
@@ -299,24 +299,24 @@ export default function Geometries() {
                 await router.replace("/login");
             }
             else {
-                setWaitChangeGeometryImageMsg("");
-                setErrorChangeGeometryImageMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
+                setWaitChangeFileMsg("");
+                setErrorChangeFileMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
-                    setErrorChangeGeometryImageMsg("");
-                    setSelectedGeometryImageIndex(-1);
+                    setErrorChangeFileMsg("");
+                    setSelectedFileIndex(-1);
                     clearTimeout(errorTimeout);
                 }, 3000);
             }
         }
     }
 
-    const updateGeometryData = async (geometryIndex) => {
+    const updateLinkData = async (linkIndex) => {
         try {
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
                 ...["ar", "en", "de", "tr"].map((language) => ({
                     name: `nameIn${language.toUpperCase()}`,
-                    value: allGeometriesInsideThePage[geometryIndex].name[language],
+                    value: allLinksInsideThePage[linkIndex].name[language],
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
@@ -325,11 +325,11 @@ export default function Geometries() {
                 })),
             ]);
             setFormValidationErrors(errorsObject);
-            setSelectedGeometryIndex(geometryIndex);
+            setSelectedLinkIndex(linkIndex);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Please Wait");
-                const result = (await axios.put(`${process.env.BASE_API_URL}/geometries/${allGeometriesInsideThePage[geometryIndex]._id}?language=${i18n.language}`, {
-                    name: allGeometriesInsideThePage[geometryIndex].name,
+                const result = (await axios.put(`${process.env.BASE_API_URL}/links/${allLinksInsideThePage[linkIndex]._id}?language=${i18n.language}`, {
+                    name: allLinksInsideThePage[linkIndex].name,
                 }, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
@@ -340,14 +340,14 @@ export default function Geometries() {
                     setSuccessMsg("Updating Successfull !!");
                     let successTimeout = setTimeout(() => {
                         setSuccessMsg("");
-                        setSelectedGeometryIndex(-1);
+                        setSelectedLinkIndex(-1);
                         clearTimeout(successTimeout);
                     }, 3000);
                 } else {
                     setErrorMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
                     let errorTimeout = setTimeout(() => {
                         setErrorMsg("");
-                        setSelectedGeometryIndex(-1);
+                        setSelectedLinkIndex(-1);
                         clearTimeout(errorTimeout);
                     }, 3000);
                 }
@@ -363,26 +363,26 @@ export default function Geometries() {
             setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
             let errorTimeout = setTimeout(() => {
                 setErrorMsg("");
-                setSelectedGeometryIndex(-1);
+                setSelectedLinkIndex(-1);
                 clearTimeout(errorTimeout);
             }, 3000);
         }
     }
 
-    const handleDisplayUpdateGeometryParentBox = (geometryIndex) => {
-        setSelectedGeometryIndex(geometryIndex);
-        setIsDisplayUpdateGeometryParentBox(true);
+    const handleDisplayUpdateRelatedGeometrytBox = (linkIndex) => {
+        setSelectedLinkIndex(linkIndex);
+        setIsDisplayUpdateRelatedGeomertyBox(true);
     }
 
-    const handleUpdateGeometryParent = async () => {
+    const handleUpdateRelatedGeometrytBox = async () => {
         try {
-            setIsGetGeometries(true);
+            setIsGetLinks(true);
             setCurrentPage(currentPage);
             const filteringString = getFilteringString(filters);
             const result = (await getAllGeometriesInsideThePage(currentPage, pageSize, filteringString, "admin", i18n.language)).data;
-            setAllGeometriesInsideThePage(result.geometries);
+            setAllLinksInsideThePage(result.geometries);
             setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
-            setIsGetGeometries(false);
+            setIsGetLinks(false);
         }
         catch (err) {
             if (err?.response?.status === 401) {
@@ -390,7 +390,7 @@ export default function Geometries() {
                 await router.replace("/login");
             }
             else {
-                setIsGetGeometries(false);
+                setIsGetLinks(false);
                 setCurrentPage(-1);
                 setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
@@ -401,11 +401,11 @@ export default function Geometries() {
         }
     }
 
-    const deleteGeometry = async (geometryIndex) => {
+    const deleteLink = async (linkIndex) => {
         try {
             setWaitMsg("Please Wait");
-            setSelectedGeometryIndex(geometryIndex);
-            let result = (await axios.delete(`${process.env.BASE_API_URL}/geometries/${allGeometriesInsideThePage[geometryIndex]._id}?language=${i18n.language}`, {
+            setSelectedLinkIndex(linkIndex);
+            let result = (await axios.delete(`${process.env.BASE_API_URL}/links/${allLinksInsideThePage[linkIndex]._id}?language=${i18n.language}`, {
                 headers: {
                     Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                 }
@@ -415,8 +415,8 @@ export default function Geometries() {
                 setSuccessMsg("Deleting Successfull !!");
                 let successTimeout = setTimeout(async () => {
                     setSuccessMsg("");
-                    setSelectedGeometryIndex(-1);
-                    setAllGeometriesInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
+                    setSelectedLinkIndex(-1);
+                    setAllLinksInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
                     setCurrentPage(currentPage);
                     clearTimeout(successTimeout);
                 }, 3000);
@@ -424,7 +424,7 @@ export default function Geometries() {
                 setErrorMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
-                    setSelectedGeometryIndex(-1);
+                    setSelectedLinkIndex(-1);
                     clearTimeout(errorTimeout);
                 }, 3000);
             }
@@ -439,46 +439,46 @@ export default function Geometries() {
             setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
             let errorTimeout = setTimeout(() => {
                 setErrorMsg("");
-                setSelectedGeometryIndex(-1);
+                setSelectedLinkIndex(-1);
                 clearTimeout(errorTimeout);
             }, 3000);
         }
     }
 
     return (
-        <div className="geometries dashboard">
+        <div className="links dashboard">
             <Head>
-                <title>{t(process.env.WEBSITE_NAME)} {t("Geometries")}</title>
+                <title>{t(process.env.WEBSITE_NAME)} {t("Links")}</title>
             </Head>
             {!isLoadingPage && !errorMsgOnLoadingThePage && <>
                 <Header />
                 {isDisplayConfirmDeleteBox && <ConfirmDelete
-                    name={t("Geometries")}
+                    name={t("Links")}
                     setIsDisplayConfirmDeleteBox={setIsDisplayConfirmDeleteBox}
-                    handleDeleteFunc={() => deleteGeometry(selectedGeometryIndex)}
-                    setSelectedElementIndex={setSelectedGeometryIndex}
+                    handleDeleteFunc={() => deleteLink(selectedLinkIndex)}
+                    setSelectedElementIndex={setSelectedLinkIndex}
                     waitMsg={waitMsg}
                     errorMsg={errorMsg}
                     successMsg={successMsg}
                 />}
-                {isDisplayAddGeometryBox && <AddGeometry
-                    setIsDisplayAddGeometryBox={setIsDisplayAddGeometryBox}
-                    handleAddNewGeometry={handleAddNewGeometry}
+                {isDisplayAddLinkBox && <AddGeometry
+                    setIsDisplayAddLinkBox={setIsDisplayAddLinkBox}
+                    handleAddNewLink={handleAddNewLink}
                 />}
-                {isDisplayUpdateGeometryParentBox && <UpdateGeometryParent
-                    setIsDisplayUpdateGeometryParentBox={setIsDisplayUpdateGeometryParentBox}
-                    handleUpdateGeometryParent={handleUpdateGeometryParent}
-                    currentParent={allGeometriesInsideThePage[selectedGeometryIndex].parent}
-                    geometryId={allGeometriesInsideThePage[selectedGeometryIndex]._id}
-                    setSelectedGeometryIndex={setSelectedGeometryIndex}
+                {isDisplayUpdateRelatedGeomertyBox && <UpdateGeometryParent
+                    setIsDisplayUpdateRelatedGeomertyBox={setIsDisplayUpdateRelatedGeomertyBox}
+                    handleUpdateRelatedGeometrytBox={handleUpdateRelatedGeometrytBox}
+                    currentParent={allLinksInsideThePage[selectedLinkIndex].parent}
+                    geometryId={allLinksInsideThePage[selectedLinkIndex]._id}
+                    setSelectedLinkIndex={setSelectedLinkIndex}
                 />}
                 {/* Start Page Content */}
                 <div className="page-content">
-                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Geometries")}</h1>
+                    <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Links")}</h1>
                     <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
-                    {!isDisplayAddGeometryBox && <button
+                    {!isDisplayAddLinkBox && <button
                         className="btn d-block w-25 mx-auto mt-2 mb-4 orange-btn"
-                        onClick={() => setIsDisplayAddGeometryBox(true)}
+                        onClick={() => setIsDisplayAddLinkBox(true)}
                     >
                         {t("Add New Geometry")}
                     </button>}
@@ -496,20 +496,20 @@ export default function Geometries() {
                                 />
                             </div>
                         </div>
-                        {!isGetGeometries && <button
+                        {!isGetLinks && <button
                             className="btn btn-success d-block w-25 mx-auto mt-2 global-button"
-                            onClick={() => filterGeometries(filters)}
+                            onClick={() => filterLinks(filters)}
                         >
                             {t("Filter")}
                         </button>}
-                        {isGetGeometries && <button
+                        {isGetLinks && <button
                             className="btn btn-success d-block w-25 mx-auto mt-2 global-button"
                             disabled
                         >
                             {t("Filtering")} ...
                         </button>}
                     </section>
-                    {allGeometriesInsideThePage.length > 0 && !isGetGeometries && <section className="geometries-data-box p-3 data-box admin-dashbboard-data-box">
+                    {allLinksInsideThePage.length > 0 && !isGetLinks && <section className="geometries-data-box p-3 data-box admin-dashbboard-data-box">
                         <table className="geometries-data-table mb-4 managment-table bg-white admin-dashbboard-data-table">
                             <thead>
                                 <tr>
@@ -522,7 +522,7 @@ export default function Geometries() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {allGeometriesInsideThePage.map((geometry, geometryIndex) => (
+                                {allLinksInsideThePage.map((geometry, linkIndex) => (
                                     <tr key={geometry._id}>
                                         <td>{geometry._id}</td>
                                         <td className="geometry-name-cell">
@@ -533,11 +533,11 @@ export default function Geometries() {
                                                         <input
                                                             type="text"
                                                             placeholder={`${t("Please Enter New Geometry Name")} ${t(`In ${el.fullLanguageName}`)}`}
-                                                            className={`form-control d-block mx-auto p-2 border-2 geometry-name-field ${formValidationErrors[el.formField] && geometryIndex === selectedGeometryIndex ? "border-danger mb-3" : "mb-4"}`}
+                                                            className={`form-control d-block mx-auto p-2 border-2 geometry-name-field ${formValidationErrors[el.formField] && linkIndex === selectedLinkIndex ? "border-danger mb-3" : "mb-4"}`}
                                                             defaultValue={geometry.name[el.internationalLanguageCode]}
-                                                            onChange={(e) => changeGeometryData(geometryIndex, "name", e.target.value.trim(), el.internationalLanguageCode)}
+                                                            onChange={(e) => changeGeometryData(linkIndex, "name", e.target.value.trim(), el.internationalLanguageCode)}
                                                         />
-                                                        {formValidationErrors[el.formField] && geometryIndex === selectedGeometryIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors[el.formField])} />}
+                                                        {formValidationErrors[el.formField] && linkIndex === selectedLinkIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors[el.formField])} />}
                                                     </div>
                                                 ))}
                                             </section>
@@ -559,58 +559,58 @@ export default function Geometries() {
                                             <section className="geometry-image mb-4">
                                                 <input
                                                     type="file"
-                                                    className={`form-control d-block mx-auto p-2 border-2 brand-image-field ${formValidationErrors["image"] && geometryIndex === selectedGeometryImageIndex ? "border-danger mb-3" : "mb-4"}`}
-                                                    onChange={(e) => changeGeometryData(geometryIndex, "image", e.target.files[0])}
+                                                    className={`form-control d-block mx-auto p-2 border-2 brand-image-field ${formValidationErrors["image"] && linkIndex === selectedFileIndex ? "border-danger mb-3" : "mb-4"}`}
+                                                    onChange={(e) => changeGeometryData(linkIndex, "image", e.target.files[0])}
                                                     accept=".png, .jpg, .webp"
                                                 />
-                                                {formValidationErrors["image"] && selectedGeometryImageIndex === geometryIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors["image"])} />}
+                                                {formValidationErrors["image"] && selectedFileIndex === linkIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors["image"])} />}
                                             </section>
-                                            {(selectedGeometryImageIndex !== geometryIndex && selectedGeometryIndex !== geometryIndex) &&
+                                            {(selectedFileIndex !== linkIndex && selectedLinkIndex !== linkIndex) &&
                                                 <button
                                                     className="btn btn-success d-block mb-3 w-50 mx-auto global-button"
-                                                    onClick={() => changeGeometryImage(geometryIndex)}
+                                                    onClick={() => changeFile(linkIndex)}
                                                 >{t("Change Image")}</button>
                                             }
-                                            {waitChangeGeometryImageMsg && selectedGeometryImageIndex === geometryIndex && <button
+                                            {waitChangeFileMsg && selectedFileIndex === linkIndex && <button
                                                 className="btn btn-info d-block mb-3 mx-auto global-button"
                                                 disabled
-                                            >{t(waitChangeGeometryImageMsg)}</button>}
-                                            {successChangeGeometryImageMsg && selectedGeometryImageIndex === geometryIndex && <button
+                                            >{t(waitChangeFileMsg)}</button>}
+                                            {successChangeFileMsg && selectedFileIndex === linkIndex && <button
                                                 className="btn btn-success d-block mx-auto global-button"
                                                 disabled
-                                            >{t(successChangeGeometryImageMsg)}</button>}
-                                            {errorChangeGeometryImageMsg && selectedGeometryImageIndex === geometryIndex && <button
+                                            >{t(successChangeFileMsg)}</button>}
+                                            {errorChangeFileMsg && selectedFileIndex === linkIndex && <button
                                                 className="btn btn-danger d-block mx-auto global-button"
                                                 disabled
-                                            >{t(errorChangeGeometryImageMsg)}</button>}
+                                            >{t(errorChangeFileMsg)}</button>}
                                         </td>
                                         <td>
-                                            {selectedGeometryIndex !== geometryIndex && <>
+                                            {selectedLinkIndex !== linkIndex && <>
                                                 <button
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"
-                                                    onClick={() => updateGeometryData(geometryIndex)}
+                                                    onClick={() => updateLinkData(linkIndex)}
                                                 >{t("Update")}
                                                 </button>
                                                 <hr />
-                                                {!isDisplayUpdateGeometryParentBox && <button
+                                                {!isDisplayUpdateRelatedGeomertyBox && <button
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"
-                                                    onClick={() => handleDisplayUpdateGeometryParentBox(geometryIndex)}
+                                                    onClick={() => handleDisplayUpdateRelatedGeometrytBox(linkIndex)}
                                                 >{t("Change Parent")}</button>}
                                                 <hr />
                                                 <button
                                                     className="btn btn-danger global-button"
-                                                    onClick={() => handleDisplayConfirmDeleteBox(geometryIndex, setSelectedGeometryIndex, setIsDisplayConfirmDeleteBox)}
+                                                    onClick={() => handleDisplayConfirmDeleteBox(linkIndex, setSelectedLinkIndex, setIsDisplayConfirmDeleteBox)}
                                                 >{t("Delete")}</button>
                                             </>}
-                                            {waitMsg && selectedGeometryIndex === geometryIndex && <button
+                                            {waitMsg && selectedLinkIndex === linkIndex && <button
                                                 className="btn btn-info d-block mb-3 mx-auto global-button"
                                                 disabled
                                             >{t(waitMsg)} ...</button>}
-                                            {successMsg && selectedGeometryIndex === geometryIndex && <button
+                                            {successMsg && selectedLinkIndex === linkIndex && <button
                                                 className="btn btn-success d-block mx-auto global-button"
                                                 disabled
                                             >{t(successMsg)}</button>}
-                                            {errorMsg && selectedGeometryIndex === geometryIndex && <button
+                                            {errorMsg && selectedLinkIndex === linkIndex && <button
                                                 className="btn btn-danger d-block mx-auto global-button"
                                                 disabled
                                             >{t(errorMsg)}</button>}
@@ -620,10 +620,10 @@ export default function Geometries() {
                             </tbody>
                         </table>
                     </section>}
-                    {allGeometriesInsideThePage.length === 0 && !isGetGeometries && <NotFoundError errorMsg={t("Sorry, Can't Find Any Geometries !!")} />}
-                    {isGetGeometries && <SectionLoader />}
-                    {errorMsgOnGetGeometriesData && <NotFoundError errorMsg={errorMsgOnGetGeometriesData} />}
-                    {totalPagesCount > 1 && !isGetGeometries &&
+                    {allLinksInsideThePage.length === 0 && !isGetLinks && <NotFoundError errorMsg={t("Sorry, Can't Find Any Links !!")} />}
+                    {isGetLinks && <SectionLoader />}
+                    {errorMsgOnGetLinksData && <NotFoundError errorMsg={errorMsgOnGetLinksData} />}
+                    {totalPagesCount > 1 && !isGetLinks &&
                         <PaginationBar
                             totalPagesCount={totalPagesCount}
                             currentPage={currentPage}
