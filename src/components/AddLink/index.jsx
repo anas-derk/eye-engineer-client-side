@@ -5,6 +5,7 @@ import { inputValuesValidation } from "../../../public/global_functions/validati
 import axios from "axios";
 import FormFieldErrorBox from "../FormFieldErrorBox";
 import { getAllGeometriesInsideThePage } from "../../../public/global_functions/popular";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 export default function AddLink({
     setIsDisplayAddLinkBox,
@@ -45,7 +46,7 @@ export default function AddLink({
             const searchedGeometryName = e.target.value;
             setSearchedGeometryName(searchedGeometryName);
             if (searchedGeometryName) {
-                setSearchedGeometries((await getAllGeometriesInsideThePage(1, 1000, `storeId=${adminInfo.storeId}&name=${searchedGeometryName}`)).data.geometries);
+                setSearchedGeometries((await getAllGeometriesInsideThePage(1, 1000, `name=${searchedGeometryName}`, "admin", i18n.language)).data.geometries);
             } else {
                 setSearchedGeometries([]);
             }
@@ -98,11 +99,24 @@ export default function AddLink({
                         }
                     },
                 },
+                {
+                    name: "geometries",
+                    value: selectedGeometries,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                    },
+                },
             ]);
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Saving");
-                const result = (await axios.post(`${process.env.BASE_API_URL}/links/add?language=${i18n.language}`, formData, {
+                const result = (await axios.post(`${process.env.BASE_API_URL}/links/add?language=${i18n.language}`, {
+                    title: linkData.title,
+                    url: linkData.url,
+                    geometries: selectedGeometries.map((geometry) => geometry._id),
+                }, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
                     }
@@ -163,7 +177,7 @@ export default function AddLink({
                     />
                     {formValidationErrors["url"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["url"])} />}
                 </section>
-                <section className="geometries mb-4 overflow-auto">
+                <section className="geometries mb-4 w-100">
                     <h6 className="mb-3 fw-bold">{t("Please Select Geometries")}</h6>
                     <div className="select-geometries-box select-box">
                         <input
@@ -175,17 +189,17 @@ export default function AddLink({
                         <ul className={`geometries-list options-list bg-white border ${formValidationErrors["geometries"] ? "border-danger mb-4" : "border-dark"}`}>
                             <li className="text-center fw-bold border-bottom border-2 border-dark">{t("Existed Geometries List")}</li>
                             {searchedGeometries.length > 0 && searchedGeometries.map((geometry) => (
-                                <li key={geometry._id} onClick={() => handleSelectGeometry(geometry)}>{geometry.name}</li>
+                                <li key={geometry._id} onClick={() => handleSelectGeometry(geometry)}>{geometry.name[i18n.language]}</li>
                             ))}
                         </ul>
-                        {searchedGeometries.length === 0 && searchedGeometryName && <p className="alert alert-danger mt-4">{t("Sorry, Can't Find Any Related Geometries Match This Name") + " !!"}</p>}
+                        {searchedGeometries.length === 0 && searchedGeometryName && <p className="alert alert-danger mt-4">{t("Sorry, Can't Find Any Related Geometries Match This Name !!")}</p>}
                         {formValidationErrors["geometries"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["geometries"])} />}
                     </div>
                 </section>
-                {selectedGeometries.length > 0 ? <div className="selected Geometries row mb-4">
+                {selectedGeometries.length > 0 ? <div className="selected Geometries row mb-4 w-100">
                     {selectedGeometries.map((geometry) => <div className="col-md-4 mb-3" key={geometry._id}>
-                        <div className="selected-geometry-box bg-white p-2 border border-2 border-dark text-center">
-                            <span className="me-2 geometry-name">{geometry.name}</span>
+                        <div className="selected-geometry-box p-2 border border-2 border-dark text-center">
+                            <span className={`${i18n.language !== "ar" ? "me-2" : "ms-2"} geometry-name`}>{geometry.name[i18n.language]}</span>
                             <IoIosCloseCircleOutline className="remove-icon" onClick={() => handleRemoveGeometryFromSelectedGeometriesList(geometry)} />
                         </div>
                     </div>)}

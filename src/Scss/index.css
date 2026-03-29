@@ -341,7 +341,7 @@ textarea {
   z-index: 10000;
 }
 
-.popup-box.add-geometry .content-box, .popup-box.update-geometry-parent .content-box {
+.popup-box.add-geometry .content-box, .popup-box.update-geometry-parent .content-box, .popup-box.add-link .content-box {
   overflow: auto;
   height: 70%;
 }
@@ -392,4 +392,17 @@ textarea {
 
 .select-box .options-list li:hover {
   background-color: #CCC;
+}
+
+.select-box .options-list.geometries-list li {
+  color: #000;
+}
+
+.select-box .options-list.geometries-list li:hover {
+  background-color: #ed7200;
+}
+
+.remove-icon {
+  cursor: pointer;
+  font-size: 22px;
 }

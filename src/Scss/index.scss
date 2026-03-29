@@ -342,7 +342,8 @@ textarea {
     z-index: 10000;
 
     &.add-geometry,
-    &.update-geometry-parent {
+    &.update-geometry-parent,
+    &.add-link {
 
         .content-box {
             overflow: auto;
@@ -398,5 +399,20 @@ textarea {
                 background-color: #CCC;
             }
         }
+
+        &.geometries-list {
+            li {
+                color: #000;
+
+                &:hover {
+                    background-color: #ed7200;
+                }
+            }
+        }
     }
+}
+
+.remove-icon {
+    cursor: pointer;
+    font-size: 22px;
 }

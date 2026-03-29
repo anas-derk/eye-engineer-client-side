@@ -2,5 +2,8 @@
     "Links": "الروابط",
     "Add New Link": "إضافة رابط جديد",
     "Link": "الرابط",
-    "Please Enter Link": "الرجاء إدخال الرابط"
+    "Please Enter Link": "الرجاء إدخال الرابط",
+    "Please Select Geometries": "الرجاء اختيار الهندسات",
+    "Sorry, Can't Find Any Related Geometries Match This Name !!": "عذراً، لا يمكن العثور على أي هندسات ذات صلة تطابق هذا الاسم !!",
+    "Existed Geometries List": "قائمة الهندسات الموجودة"
 }

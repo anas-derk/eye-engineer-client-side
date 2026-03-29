@@ -15,7 +15,6 @@ import { inputValuesValidation } from "../../../../public/global_functions/valid
 import PaginationBar from "@/components/PaginationBar";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import SectionLoader from "@/components/SectionLoader";
-import AddGeometry from "@/components/AddGeometry";
 import UpdateGeometryParent from "@/components/UpdateGeometryParent";
 import AddLink from "@/components/AddLink";
 
@@ -33,7 +32,7 @@ export default function Links() {
 
     const [selectedLinkIndex, setSelectedLinkIndex] = useState(-1);
 
-    const [selectedFileIndex, setSelectedFileIndex] = useState(-1);
+    // const [selectedFileIndex, setSelectedFileIndex] = useState(-1);
 
     const [waitMsg, setWaitMsg] = useState("");
 
@@ -63,7 +62,7 @@ export default function Links() {
 
     const [isDisplayAddLinkBox, setIsDisplayAddLinkBox] = useState(false);
 
-    const [isDisplayUpdateRelatedGeomertyBox, setIsDisplayUpdateRelatedGeomertyBox] = useState(false);
+    const [isDisplayUpdateRelatedGeometriesBox, setIsDisplayUpdateRelatedGeometriesBox] = useState(false);
 
     const router = useRouter();
 
@@ -186,10 +185,9 @@ export default function Links() {
         try {
             setIsGetLinks(true);
             setCurrentPage(1);
-            const filteringString = getFilteringString(filters);
-            const result = (await getAllLinksInsideThePage(1, pageSize, filteringString, "admin", i18n.language)).data;
-            setAllLinksInsideThePage(result.geometries);
-            setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
+            const result = (await getAllLinksInsideThePage(1, pageSize, getFilteringString(filters), "admin", i18n.language)).data;
+            setAllLinksInsideThePage(result.links);
+            setTotalPagesCount(Math.ceil(result.linksCount / pageSize));
             setIsGetLinks(false);
         }
         catch (err) {
@@ -368,7 +366,6 @@ export default function Links() {
             }
         }
         catch (err) {
-            console.log(err)
             if (err?.response?.status === 401) {
                 localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
@@ -384,12 +381,12 @@ export default function Links() {
         }
     }
 
-    const handleDisplayUpdateRelatedGeometrytBox = (linkIndex) => {
+    const handleDisplayUpdateRelatedGeometriesBox = (linkIndex) => {
         setSelectedLinkIndex(linkIndex);
-        setIsDisplayUpdateRelatedGeomertyBox(true);
+        setIsDisplayUpdateRelatedGeometriesBox(true);
     }
 
-    const handleUpdateRelatedGeometrytBox = async () => {
+    const handleUpdateRelatedGeometriestBox = async () => {
         try {
             setIsGetLinks(true);
             setCurrentPage(currentPage);
@@ -480,11 +477,11 @@ export default function Links() {
                     setIsDisplayAddLinkBox={setIsDisplayAddLinkBox}
                     handleAddNewLink={handleAddNewLink}
                 />}
-                {isDisplayUpdateRelatedGeomertyBox && <UpdateGeometryParent
-                    setIsDisplayUpdateRelatedGeomertyBox={setIsDisplayUpdateRelatedGeomertyBox}
-                    handleUpdateRelatedGeometrytBox={handleUpdateRelatedGeometrytBox}
-                    currentParent={allLinksInsideThePage[selectedLinkIndex].parent}
-                    geometryId={allLinksInsideThePage[selectedLinkIndex]._id}
+                {isDisplayUpdateRelatedGeometriesBox && <UpdateGeometryParent
+                    setIsDisplayUpdateRelatedGeometriesBox={setIsDisplayUpdateRelatedGeometriesBox}
+                    handleUpdateRelatedGeometriestBox={handleUpdateRelatedGeometriestBox}
+                    currentGeometries={allLinksInsideThePage[selectedLinkIndex].geometries}
+                    linkId={allLinksInsideThePage[selectedLinkIndex]._id}
                     setSelectedLinkIndex={setSelectedLinkIndex}
                 />}
                 {/* Start Page Content */}
@@ -548,25 +545,30 @@ export default function Links() {
                             <tbody>
                                 {allLinksInsideThePage.map((link, linkIndex) => (
                                     <tr key={link._id}>
-                                        <td className="link-name-cell">
-                                            <section className="link-name mb-4">
-                                                {getLanguagesInfoList("name").map((el) => (
+                                        <td className="link-title-cell">
+                                            <section className="link-title mb-4">
+                                                {getLanguagesInfoList("title").map((el) => (
                                                     <div key={el.fullLanguageName}>
                                                         <h6 className="fw-bold">{t(`In ${el.fullLanguageName}`)} :</h6>
                                                         <input
                                                             type="text"
                                                             placeholder={`${t("Please Enter New Geometry Name")} ${t(`In ${el.fullLanguageName}`)}`}
-                                                            className={`form-control d-block mx-auto p-2 border-2 link-name-field ${formValidationErrors[el.formField] && linkIndex === selectedLinkIndex ? "border-danger mb-3" : "mb-4"}`}
-                                                            defaultValue={link.name[el.internationalLanguageCode]}
-                                                            onChange={(e) => changeLinkData(linkIndex, "name", e.target.value.trim(), el.internationalLanguageCode)}
+                                                            className={`form-control d-block mx-auto p-2 border-2 link-title-field ${formValidationErrors[el.formField] && linkIndex === selectedLinkIndex ? "border-danger mb-3" : "mb-4"}`}
+                                                            defaultValue={link.title[el.internationalLanguageCode]}
+                                                            onChange={(e) => changeLinkData(linkIndex, "title", e.target.value.trim(), el.internationalLanguageCode)}
                                                         />
                                                         {formValidationErrors[el.formField] && linkIndex === selectedLinkIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors[el.formField])} />}
                                                     </div>
-                                                ))}
-                                            </section>
-                                        </td>
+                                                ))
+                                                }
+                                            </section >
+                                        </td >
                                         <td className="link-geometries-cell">
-                                            {link?.geometries?.length > 0 ? <h6 className="bg-info p-2 fw-bold mb-4">{link.geometries[0].name[i18n.language]}</h6> : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Geometries")}</h6>}
+                                            {link?.geometries?.length > 0 ? <>
+                                                {link.geometries.map((geometry, geometryIndex) => (
+                                                    <h6 key={geometryIndex} className="bg-info p-2 mb-4 fw-bold">{geometry.name[i18n.language]}</h6>
+                                                ))}
+                                            </> : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Geometries")}</h6>}
                                         </td>
                                         <td className="link-date-of-creation-cell">
                                             {getDateFormated(link.createdAt)}
@@ -620,9 +622,9 @@ export default function Links() {
                                                 >{t("Update")}
                                                 </button>
                                                 <hr />
-                                                {!isDisplayUpdateRelatedGeomertyBox && <button
+                                                {!isDisplayUpdateRelatedGeometriesBox && <button
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"
-                                                    onClick={() => handleDisplayUpdateRelatedGeometrytBox(linkIndex)}
+                                                    onClick={() => handleDisplayUpdateRelatedGeometriesBox(linkIndex)}
                                                 >{t("Change Related Geometries")}</button>}
                                                 <hr />
                                                 <button
@@ -643,15 +645,16 @@ export default function Links() {
                                                 disabled
                                             >{t(errorMsg)}</button>}
                                         </td>
-                                    </tr>
+                                    </tr >
                                 ))}
-                            </tbody>
-                        </table>
-                    </section>}
+                            </tbody >
+                        </table >
+                    </section >}
                     {allLinksInsideThePage.length === 0 && !isGetLinks && <NotFoundError errorMsg={t("Sorry, Can't Find Any Links !!")} />}
                     {isGetLinks && <SectionLoader />}
                     {errorMsgOnGetLinksData && <NotFoundError errorMsg={errorMsgOnGetLinksData} />}
-                    {totalPagesCount > 1 && !isGetLinks &&
+                    {
+                        totalPagesCount > 1 && !isGetLinks &&
                         <PaginationBar
                             totalPagesCount={totalPagesCount}
                             currentPage={currentPage}
@@ -666,12 +669,12 @@ export default function Links() {
                             isDisplayNavigateToSpecificPageForm={false}
                         />
                     }
-                </div>
+                </div >
                 {/* End Page Content */}
-                <Footer />
+                < Footer />
             </>}
             {isLoadingPage && !errorMsgOnLoadingThePage && <LoaderPage />}
             {errorMsgOnLoadingThePage && <ErrorOnLoadingThePage errorMsg={errorMsgOnLoadingThePage} />}
-        </div>
+        </div >
     );
 }
