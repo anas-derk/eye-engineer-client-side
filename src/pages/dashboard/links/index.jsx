@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorOnLoadingThePage from "@/components/ErrorOnLoadingThePage";
 import { useRouter } from "next/router";
-import { getLanguagesInfoList, getUserInfo, handleDisplayConfirmDeleteBox, handleSelectUserLanguage, getAllGeometriesInsideThePage, getDateFormated } from "../../../../public/global_functions/popular";
+import { getLanguagesInfoList, getUserInfo, handleDisplayConfirmDeleteBox, handleSelectUserLanguage, getAllLinksInsideThePage, getDateFormated } from "../../../../public/global_functions/popular";
 import DashboardSideBar from "@/components/DashboardSideBar";
 import axios from "axios";
 import NotFoundError from "@/components/NotFoundError";
@@ -17,6 +17,7 @@ import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import SectionLoader from "@/components/SectionLoader";
 import AddGeometry from "@/components/AddGeometry";
 import UpdateGeometryParent from "@/components/UpdateGeometryParent";
+import AddLink from "@/components/AddLink";
 
 export default function Links() {
 
@@ -40,11 +41,11 @@ export default function Links() {
 
     const [errorMsg, setErrorMsg] = useState("");
 
-    const [waitChangeFileMsg, setWaitChangeFileMsg] = useState("");
+    // const [waitChangeFileMsg, setWaitChangeFileMsg] = useState("");
 
-    const [errorChangeFileMsg, setErrorChangeFileMsg] = useState("");
+    // const [errorChangeFileMsg, setErrorChangeFileMsg] = useState("");
 
-    const [successChangeFileMsg, setSuccessChangeFileMsg] = useState("");
+    // const [successChangeFileMsg, setSuccessChangeFileMsg] = useState("");
 
     const [errorMsgOnGetLinksData, setErrorMsgOnGetLinksData] = useState("");
 
@@ -89,9 +90,9 @@ export default function Links() {
                             setUserInfo(adminDetails);
                             const tempFilters = { officeId: adminDetails.officeId };
                             setFilters(tempFilters);
-                            result = (await getAllGeometriesInsideThePage(1, pageSize, getFilteringString(tempFilters), "admin", i18n.language)).data;
-                            setAllLinksInsideThePage(result.geometries);
-                            setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
+                            result = (await getAllLinksInsideThePage(1, pageSize, getFilteringString(tempFilters), "admin", i18n.language)).data;
+                            setAllLinksInsideThePage(result.links);
+                            setTotalPagesCount(Math.ceil(result.linksCount / pageSize));
                             setIsLoadingPage(false);
                         } else {
                             await router.replace("/dashboard");
@@ -116,7 +117,7 @@ export default function Links() {
             setIsGetLinks(true);
             setErrorMsgOnGetLinksData("");
             const newCurrentPage = currentPage - 1;
-            setAllLinksInsideThePage((await getAllGeometriesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
+            setAllLinksInsideThePage((await getAllLinksInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
             setCurrentPage(newCurrentPage);
             setIsGetLinks(false);
         }
@@ -137,7 +138,7 @@ export default function Links() {
             setIsGetLinks(true);
             setErrorMsgOnGetLinksData("");
             const newCurrentPage = currentPage + 1;
-            setAllLinksInsideThePage((await getAllGeometriesInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
+            setAllLinksInsideThePage((await getAllLinksInsideThePage(newCurrentPage, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
             setCurrentPage(newCurrentPage);
             setIsGetLinks(false);
         }
@@ -157,7 +158,7 @@ export default function Links() {
         try {
             setIsGetLinks(true);
             setErrorMsgOnGetLinksData("");
-            setAllLinksInsideThePage((await getAllGeometriesInsideThePage(pageNumber, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
+            setAllLinksInsideThePage((await getAllLinksInsideThePage(pageNumber, pageSize, getFilteringString(filters), i18n.language)).data.geometries);
             setCurrentPage(pageNumber);
             setIsGetLinks(false);
         }
@@ -186,7 +187,7 @@ export default function Links() {
             setIsGetLinks(true);
             setCurrentPage(1);
             const filteringString = getFilteringString(filters);
-            const result = (await getAllGeometriesInsideThePage(1, pageSize, filteringString, "admin", i18n.language)).data;
+            const result = (await getAllLinksInsideThePage(1, pageSize, filteringString, "admin", i18n.language)).data;
             setAllLinksInsideThePage(result.geometries);
             setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
             setIsGetLinks(false);
@@ -213,9 +214,9 @@ export default function Links() {
             setIsGetLinks(true);
             setCurrentPage(1);
             const filteringString = getFilteringString(filters);
-            const result = (await getAllGeometriesInsideThePage(1, pageSize, filteringString, "admin", i18n.language)).data;
-            setAllLinksInsideThePage(result.geometries);
-            setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
+            const result = (await getAllLinksInsideThePage(1, pageSize, filteringString, "admin", i18n.language)).data;
+            setAllLinksInsideThePage(result.links);
+            setTotalPagesCount(Math.ceil(result.linksCount / pageSize));
             setIsGetLinks(false);
         }
         catch (err) {
@@ -236,7 +237,7 @@ export default function Links() {
     }
 
     const changeLinkData = (linkIndex, fieldName, newValue, language) => {
-        setSelectedFileIndex(-1);
+        // setSelectedFileIndex(-1);
         setSelectedLinkIndex(-1);
         if (language) {
             allLinksInsideThePage[linkIndex][fieldName][language] = newValue;
@@ -245,70 +246,70 @@ export default function Links() {
         }
     }
 
-    const changeFile = async (linkIndex) => {
-        try {
-            setFormValidationErrors({});
-            const errorsObject = inputValuesValidation([
-                {
-                    name: "image",
-                    value: allLinksInsideThePage[linkIndex].image,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                        isImage: {
-                            msg: "Sorry, Invalid Image Type, Please Upload JPG Or PNG Or WEBP Image File !!",
-                        },
-                    },
-                }
-            ]);
-            setSelectedFileIndex(linkIndex);
-            setFormValidationErrors(errorsObject);
-            if (Object.keys(errorsObject).length == 0) {
-                setWaitChangeFileMsg("Please Wait");
-                let formData = new FormData();
-                formData.append("geometryImage", allLinksInsideThePage[linkIndex].image);
-                const result = (await axios.put(`${process.env.BASE_API_URL}/links/change-image/${allLinksInsideThePage[linkIndex]._id}?language=${i18n.language}`, formData, {
-                    headers: {
-                        Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
-                    }
-                })).data;
-                if (!result.error) {
-                    setWaitChangeFileMsg("");
-                    setSuccessChangeFileMsg("Updating Successfull !!");
-                    let successTimeout = setTimeout(async () => {
-                        setSuccessChangeFileMsg("");
-                        setSelectedFileIndex(-1);
-                        setAllLinksInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
-                        clearTimeout(successTimeout);
-                    }, 1500);
-                } else {
-                    setWaitChangeFileMsg("");
-                    setErrorChangeFileMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
-                    let errorTimeout = setTimeout(() => {
-                        setErrorChangeFileMsg("");
-                        setSelectedFileIndex(-1);
-                        clearTimeout(errorTimeout);
-                    }, 1500);
-                }
-            }
-        }
-        catch (err) {
-            if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
-                await router.replace("/login");
-            }
-            else {
-                setWaitChangeFileMsg("");
-                setErrorChangeFileMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
-                let errorTimeout = setTimeout(() => {
-                    setErrorChangeFileMsg("");
-                    setSelectedFileIndex(-1);
-                    clearTimeout(errorTimeout);
-                }, 3000);
-            }
-        }
-    }
+    // const changeFile = async (linkIndex) => {
+    //     try {
+    //         setFormValidationErrors({});
+    //         const errorsObject = inputValuesValidation([
+    //             {
+    //                 name: "image",
+    //                 value: allLinksInsideThePage[linkIndex].image,
+    //                 rules: {
+    //                     isRequired: {
+    //                         msg: "Sorry, This Field Can't Be Empty !!",
+    //                     },
+    //                     isImage: {
+    //                         msg: "Sorry, Invalid Image Type, Please Upload JPG Or PNG Or WEBP Image File !!",
+    //                     },
+    //                 },
+    //             }
+    //         ]);
+    //         setSelectedFileIndex(linkIndex);
+    //         setFormValidationErrors(errorsObject);
+    //         if (Object.keys(errorsObject).length == 0) {
+    //             setWaitChangeFileMsg("Please Wait");
+    //             let formData = new FormData();
+    //             formData.append("geometryImage", allLinksInsideThePage[linkIndex].image);
+    //             const result = (await axios.put(`${process.env.BASE_API_URL}/links/change-image/${allLinksInsideThePage[linkIndex]._id}?language=${i18n.language}`, formData, {
+    //                 headers: {
+    //                     Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
+    //                 }
+    //             })).data;
+    //             if (!result.error) {
+    //                 setWaitChangeFileMsg("");
+    //                 setSuccessChangeFileMsg("Updating Successfull !!");
+    //                 let successTimeout = setTimeout(async () => {
+    //                     setSuccessChangeFileMsg("");
+    //                     setSelectedFileIndex(-1);
+    //                     setAllLinksInsideThePage((await getAllLinksInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
+    //                     clearTimeout(successTimeout);
+    //                 }, 1500);
+    //             } else {
+    //                 setWaitChangeFileMsg("");
+    //                 setErrorChangeFileMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
+    //                 let errorTimeout = setTimeout(() => {
+    //                     setErrorChangeFileMsg("");
+    //                     setSelectedFileIndex(-1);
+    //                     clearTimeout(errorTimeout);
+    //                 }, 1500);
+    //             }
+    //         }
+    //     }
+    //     catch (err) {
+    //         if (err?.response?.status === 401) {
+    //             localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
+    //             await router.replace("/login");
+    //         }
+    //         else {
+    //             setWaitChangeFileMsg("");
+    //             setErrorChangeFileMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
+    //             let errorTimeout = setTimeout(() => {
+    //                 setErrorChangeFileMsg("");
+    //                 setSelectedFileIndex(-1);
+    //                 clearTimeout(errorTimeout);
+    //             }, 3000);
+    //         }
+    //     }
+    // }
 
     const updateLinkData = async (linkIndex) => {
         try {
@@ -393,7 +394,7 @@ export default function Links() {
             setIsGetLinks(true);
             setCurrentPage(currentPage);
             const filteringString = getFilteringString(filters);
-            const result = (await getAllGeometriesInsideThePage(currentPage, pageSize, filteringString, "admin", i18n.language)).data;
+            const result = (await getAllLinksInsideThePage(currentPage, pageSize, filteringString, "admin", i18n.language)).data;
             setAllLinksInsideThePage(result.geometries);
             setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
             setIsGetLinks(false);
@@ -430,7 +431,7 @@ export default function Links() {
                 let successTimeout = setTimeout(async () => {
                     setSuccessMsg("");
                     setSelectedLinkIndex(-1);
-                    setAllLinksInsideThePage((await getAllGeometriesInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
+                    setAllLinksInsideThePage((await getAllLinksInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
                     setCurrentPage(currentPage);
                     clearTimeout(successTimeout);
                 }, 3000);
@@ -475,7 +476,7 @@ export default function Links() {
                     errorMsg={errorMsg}
                     successMsg={successMsg}
                 />}
-                {isDisplayAddLinkBox && <AddGeometry
+                {isDisplayAddLinkBox && <AddLink
                     setIsDisplayAddLinkBox={setIsDisplayAddLinkBox}
                     handleAddNewLink={handleAddNewLink}
                 />}
@@ -536,9 +537,8 @@ export default function Links() {
                         <table className="geometries-data-table mb-4 managment-table bg-white admin-dashbboard-data-table">
                             <thead>
                                 <tr>
-                                    <th width="50">{t("Id")}</th>
                                     <th width="250">{t("Title")}</th>
-                                    <th width="250">{t("Geometry")}</th>
+                                    <th width="250">{t("Related Geometries")}</th>
                                     <th>{t("Date Of Creation")}</th>
                                     <th width="250">{t("Link")}</th>
                                     {/* <th>{t("Image")}</th> */}
@@ -548,7 +548,6 @@ export default function Links() {
                             <tbody>
                                 {allLinksInsideThePage.map((link, linkIndex) => (
                                     <tr key={link._id}>
-                                        <td>{link._id}</td>
                                         <td className="link-name-cell">
                                             <section className="link-name mb-4">
                                                 {getLanguagesInfoList("name").map((el) => (
@@ -566,8 +565,8 @@ export default function Links() {
                                                 ))}
                                             </section>
                                         </td>
-                                        <td className="link-geometry-cell">
-                                            {link?.geometry?._id ? getLanguagesInfoList("geometry").map((language) => <h6 className="bg-info p-2 fw-bold mb-4">{t(`In ${language.fullLanguageName}`)} : {link.geometry.parent.name[language.internationalLanguageCode]}</h6>) : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Geometry")}</h6>}
+                                        <td className="link-geometries-cell">
+                                            {link?.geometries?.length > 0 ? <h6 className="bg-info p-2 fw-bold mb-4">{link.geometries[0].name[i18n.language]}</h6> : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Geometries")}</h6>}
                                         </td>
                                         <td className="link-date-of-creation-cell">
                                             {getDateFormated(link.createdAt)}
@@ -624,7 +623,7 @@ export default function Links() {
                                                 {!isDisplayUpdateRelatedGeomertyBox && <button
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"
                                                     onClick={() => handleDisplayUpdateRelatedGeometrytBox(linkIndex)}
-                                                >{t("Change Geometry")}</button>}
+                                                >{t("Change Related Geometries")}</button>}
                                                 <hr />
                                                 <button
                                                     className="btn btn-danger global-button"

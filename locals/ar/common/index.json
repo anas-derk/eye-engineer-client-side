@@ -49,12 +49,12 @@
     "?": "؟",
     "Title": "العنوان",
     "Please Enter Title": "الرجاء إدخال العنوان",
-    "Geometry": "الهندسة",
-    "No Geometry": "لا هندسة",
+    "Related Geometries": "الهندسات المرتبطة",
+    "No Geometries": "لا هندسات",
     "Please Select Geometry": "الرجاء اختيار الهندسة",
     "Please Enter Geometry Name Or Part Of This": "الرجاء إدخال اسم الهندسة أو جزء منه",
-    "Change Geometry": "تغيير الهندسة",
-    "Current Geometry": "الهندسة الحالية",
+    "Change Related Geometries": "تغيير الهندسات المرتبطة",
+    "Current Geometries": "الهندسات الحالية",
     "Please Select New Geometry": "الرجاء اختيار الهندسة الجديدة",
     "New Geometry": "الهندسة الجديدة"
 }
