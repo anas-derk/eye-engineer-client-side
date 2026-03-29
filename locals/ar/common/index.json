@@ -46,5 +46,15 @@
     "Please Enter Confirm New Password Here": "الرجاء إدخال تأكيد كلمة السر الجديدة هنا",
     "Show / Hide Services": "إخفاء / إظهار الخدمات",
     "Add Office": "إضافة مكتب",
-    "?": "؟"
+    "?": "؟",
+    "Title": "العنوان",
+    "Please Enter Title": "الرجاء إدخال العنوان",
+    "Geometry": "الهندسة",
+    "No Geometry": "لا هندسة",
+    "Please Select Geometry": "الرجاء اختيار الهندسة",
+    "Please Enter Geometry Name Or Part Of This": "الرجاء إدخال اسم الهندسة أو جزء منه",
+    "Change Geometry": "تغيير الهندسة",
+    "Current Geometry": "الهندسة الحالية",
+    "Please Select New Geometry": "الرجاء اختيار الهندسة الجديدة",
+    "New Geometry": "الهندسة الجديدة"
 }

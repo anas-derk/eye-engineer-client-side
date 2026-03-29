@@ -235,7 +235,7 @@ export default function Links() {
         }
     }
 
-    const changeGeometryData = (linkIndex, fieldName, newValue, language) => {
+    const changeLinkData = (linkIndex, fieldName, newValue, language) => {
         setSelectedFileIndex(-1);
         setSelectedLinkIndex(-1);
         if (language) {
@@ -315,7 +315,7 @@ export default function Links() {
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
                 ...["ar", "en", "de", "tr"].map((language) => ({
-                    name: `nameIn${language.toUpperCase()}`,
+                    name: `titleIn${language.toUpperCase()}`,
                     value: allLinksInsideThePage[linkIndex].name[language],
                     rules: {
                         isRequired: {
@@ -323,13 +323,26 @@ export default function Links() {
                         },
                     },
                 })),
+                {
+                    name: "url",
+                    value: allLinksInsideThePage[linkIndex].url,
+                    rules: {
+                        isRequired: {
+                            msg: "Sorry, This Field Can't Be Empty !!",
+                        },
+                        isURL: {
+                            msg: "Sorry, This URL Is Not Valid !!",
+                        }
+                    },
+                },
             ]);
             setFormValidationErrors(errorsObject);
             setSelectedLinkIndex(linkIndex);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Please Wait");
                 const result = (await axios.put(`${process.env.BASE_API_URL}/links/${allLinksInsideThePage[linkIndex]._id}?language=${i18n.language}`, {
-                    name: allLinksInsideThePage[linkIndex].name,
+                    title: allLinksInsideThePage[linkIndex].title,
+                    url: allLinksInsideThePage[linkIndex].url,
                 }, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
@@ -354,6 +367,7 @@ export default function Links() {
             }
         }
         catch (err) {
+            console.log(err)
             if (err?.response?.status === 401) {
                 localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
@@ -480,7 +494,7 @@ export default function Links() {
                         className="btn d-block w-25 mx-auto mt-2 mb-4 orange-btn"
                         onClick={() => setIsDisplayAddLinkBox(true)}
                     >
-                        {t("Add New Geometry")}
+                        {t("Add New Link")}
                     </button>}
                     <section className="filters mb-3 bg-white border-3 border-info p-3 text-start">
                         <h5 className="section-name fw-bold text-center">{t("Filters")}: </h5>
@@ -493,6 +507,15 @@ export default function Links() {
                                     className="form-control"
                                     placeholder={t("Please Enter Geometry Name")}
                                     onChange={(e) => setFilters({ ...filters, name: e.target.value.trim() })}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <h6 className="me-2 fw-bold text-center">{t("Title")}</h6>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder={t("Please Enter Title")}
+                                    onChange={(e) => setFilters({ ...filters, title: e.target.value.trim() })}
                                 />
                             </div>
                         </div>
@@ -514,53 +537,59 @@ export default function Links() {
                             <thead>
                                 <tr>
                                     <th width="50">{t("Id")}</th>
-                                    <th width="250">{t("Name")}</th>
-                                    <th width="250">{t("Parent")}</th>
+                                    <th width="250">{t("Title")}</th>
+                                    <th width="250">{t("Geometry")}</th>
                                     <th>{t("Date Of Creation")}</th>
-                                    <th>{t("Image")}</th>
+                                    <th width="250">{t("Link")}</th>
+                                    {/* <th>{t("Image")}</th> */}
                                     <th>{t("Actions")}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {allLinksInsideThePage.map((geometry, linkIndex) => (
-                                    <tr key={geometry._id}>
-                                        <td>{geometry._id}</td>
-                                        <td className="geometry-name-cell">
-                                            <section className="geometry-name mb-4">
+                                {allLinksInsideThePage.map((link, linkIndex) => (
+                                    <tr key={link._id}>
+                                        <td>{link._id}</td>
+                                        <td className="link-name-cell">
+                                            <section className="link-name mb-4">
                                                 {getLanguagesInfoList("name").map((el) => (
                                                     <div key={el.fullLanguageName}>
                                                         <h6 className="fw-bold">{t(`In ${el.fullLanguageName}`)} :</h6>
                                                         <input
                                                             type="text"
                                                             placeholder={`${t("Please Enter New Geometry Name")} ${t(`In ${el.fullLanguageName}`)}`}
-                                                            className={`form-control d-block mx-auto p-2 border-2 geometry-name-field ${formValidationErrors[el.formField] && linkIndex === selectedLinkIndex ? "border-danger mb-3" : "mb-4"}`}
-                                                            defaultValue={geometry.name[el.internationalLanguageCode]}
-                                                            onChange={(e) => changeGeometryData(linkIndex, "name", e.target.value.trim(), el.internationalLanguageCode)}
+                                                            className={`form-control d-block mx-auto p-2 border-2 link-name-field ${formValidationErrors[el.formField] && linkIndex === selectedLinkIndex ? "border-danger mb-3" : "mb-4"}`}
+                                                            defaultValue={link.name[el.internationalLanguageCode]}
+                                                            onChange={(e) => changeLinkData(linkIndex, "name", e.target.value.trim(), el.internationalLanguageCode)}
                                                         />
                                                         {formValidationErrors[el.formField] && linkIndex === selectedLinkIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors[el.formField])} />}
                                                     </div>
                                                 ))}
                                             </section>
                                         </td>
-                                        <td className="geometry-parent-cell">
-                                            {geometry.parent?._id ? getLanguagesInfoList("parent").map((language) => <h6 className="bg-info p-2 fw-bold mb-4">{t(`In ${language.fullLanguageName}`)} : {geometry.parent.name[language.internationalLanguageCode]}</h6>) : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Parent")}</h6>}
+                                        <td className="link-geometry-cell">
+                                            {link?.geometry?._id ? getLanguagesInfoList("geometry").map((language) => <h6 className="bg-info p-2 fw-bold mb-4">{t(`In ${language.fullLanguageName}`)} : {link.geometry.parent.name[language.internationalLanguageCode]}</h6>) : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Geometry")}</h6>}
                                         </td>
-                                        <td className="geometry-date-of-creation-cell">
-                                            {getDateFormated(geometry.createdAt)}
+                                        <td className="link-date-of-creation-cell">
+                                            {getDateFormated(link.createdAt)}
                                         </td>
-                                        <td className="geometry-image-cell">
-                                            <img
-                                                src={`${process.env.BASE_API_URL}/${geometry.imagePath}`}
-                                                alt={`${geometry.name[i18n.language]} Geometry Image !!`}
-                                                width="100"
-                                                height="100"
-                                                className="d-block mx-auto mb-4"
-                                            />
-                                            <section className="geometry-image mb-4">
+                                        <td>
+                                            <section className="link-url mb-4">
+                                                <input
+                                                    type="text"
+                                                    defaultValue={link?.url}
+                                                    className={`form-control d-block mx-auto p-2 border-2 link-url-field ${formValidationErrors["url"] && linkIndex === selectedLinkIndex ? "border-danger mb-3" : "mb-4"}`}
+                                                    placeholder={t("Please Enter Link")}
+                                                    onChange={(e) => changeLinkData(linkIndex, "url", e.target.value)}
+                                                />
+                                                {formValidationErrors["url"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["url"])} />}
+                                            </section>
+                                        </td>
+                                        {/* <td className="geomertry=file-cell">
+                                            <section className="geomertry-file mb-4">
                                                 <input
                                                     type="file"
                                                     className={`form-control d-block mx-auto p-2 border-2 brand-image-field ${formValidationErrors["image"] && linkIndex === selectedFileIndex ? "border-danger mb-3" : "mb-4"}`}
-                                                    onChange={(e) => changeGeometryData(linkIndex, "image", e.target.files[0])}
+                                                    onChange={(e) => changeLinkData(linkIndex, "image", e.target.files[0])}
                                                     accept=".png, .jpg, .webp"
                                                 />
                                                 {formValidationErrors["image"] && selectedFileIndex === linkIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors["image"])} />}
@@ -583,7 +612,7 @@ export default function Links() {
                                                 className="btn btn-danger d-block mx-auto global-button"
                                                 disabled
                                             >{t(errorChangeFileMsg)}</button>}
-                                        </td>
+                                        </td> */}
                                         <td>
                                             {selectedLinkIndex !== linkIndex && <>
                                                 <button
@@ -595,7 +624,7 @@ export default function Links() {
                                                 {!isDisplayUpdateRelatedGeomertyBox && <button
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"
                                                     onClick={() => handleDisplayUpdateRelatedGeometrytBox(linkIndex)}
-                                                >{t("Change Parent")}</button>}
+                                                >{t("Change Geometry")}</button>}
                                                 <hr />
                                                 <button
                                                     className="btn btn-danger global-button"

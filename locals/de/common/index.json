@@ -46,5 +46,15 @@
     "Please Enter Confirm New Password Here": "Bitte geben Sie hier die Bestätigung des neuen Passworts ein",
     "Show / Hide Services": "Dienstleistungen anzeigen / ausblenden",
     "Add Office": "Büro hinzufügen",
-    "?": "?"
+    "?": "?",
+    "Title": "Titel",
+    "Please Enter Title": "Bitte geben Sie den Titel ein",
+    "Geometry": "Geometrie",
+    "No Geometry": "Keine Geometrie",
+    "Please Select Geometry": "Bitte wählen Sie eine Geometrie aus",
+    "Please Enter Geometry Name Or Part Of This": "Bitte geben Sie den Namen der Geometrie oder einen Teil davon ein",
+    "Change Geometry": "Geometrie ändern",
+    "Current Geometry": "Aktuelle Geometrie",
+    "Please Select New Geometry": "Bitte wählen Sie eine neue Geometrie aus",
+    "New Geometry": "Neue Geometrie"
 }
