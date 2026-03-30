@@ -54,6 +54,7 @@ export default function Links() {
 
     const [filters, setFilters] = useState({
         officeId: "",
+        geometry: "",
     });
 
     const [formValidationErrors, setFormValidationErrors] = useState({});
@@ -176,7 +177,7 @@ export default function Links() {
     const getFilteringString = (filters) => {
         let filteringString = "";
         if (filters.officeId) filteringString += `officeId=${filters.officeId}&`;
-        if (filters.name) filteringString += `name=${filters.name}&`;
+        if (filters.geometry) filteringString += `geometry=${filters.geometry}&`;
         if (filteringString) filteringString = filteringString.substring(0, filteringString.length - 1);
         return filteringString;
     }
@@ -315,7 +316,7 @@ export default function Links() {
             const errorsObject = inputValuesValidation([
                 ...["ar", "en", "de", "tr"].map((language) => ({
                     name: `titleIn${language.toUpperCase()}`,
-                    value: allLinksInsideThePage[linkIndex].name[language],
+                    value: allLinksInsideThePage[linkIndex].title[language],
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
@@ -366,6 +367,7 @@ export default function Links() {
             }
         }
         catch (err) {
+            console.log(err);
             if (err?.response?.status === 401) {
                 localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
                 await router.replace("/login");
@@ -428,7 +430,7 @@ export default function Links() {
                 let successTimeout = setTimeout(async () => {
                     setSuccessMsg("");
                     setSelectedLinkIndex(-1);
-                    setAllLinksInsideThePage((await getAllLinksInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.geometries);
+                    setAllLinksInsideThePage((await getAllLinksInsideThePage(currentPage, pageSize, getFilteringString(filters), "admin", i18n.language)).data.links);
                     setCurrentPage(currentPage);
                     clearTimeout(successTimeout);
                 }, 3000);
@@ -504,7 +506,7 @@ export default function Links() {
                                     type="text"
                                     className="form-control"
                                     placeholder={t("Please Enter Geometry Name")}
-                                    onChange={(e) => setFilters({ ...filters, name: e.target.value.trim() })}
+                                    onChange={(e) => setFilters({ ...filters, geometry: e.target.value.trim() })}
                                 />
                             </div>
                             <div className="col-md-4">
