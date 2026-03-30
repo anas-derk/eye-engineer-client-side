@@ -25,5 +25,7 @@
     "Sorry, Can't Find Any Messages !!": "Entschuldigung, es konnten keine Nachrichten gefunden werden!!",
     "Sorry, Can't Find Any Property Valuation Orders !!": "Entschuldigung, es konnten keine Immobilienbewertungsaufträge gefunden werden !!",
     "Sorry, Can't Find Any Ads !!": "Entschuldigung, keine Anzeigen gefunden !!",
-    "Sorry, This URL Is Not Valid !!": "Entschuldigung, diese URL ist ungültig!!"
+    "Sorry, This URL Is Not Valid !!": "Entschuldigung, diese URL ist ungültig!!",
+    "Sorry, Can't Find Any Links !!": "Entschuldigung, es konnten keine Links gefunden werden!!",
+    "Sorry, Can't Find Any Geometries Added To The Selected Geometries List !!": "Entschuldigung, es konnten keine Geometrien gefunden werden, die zur ausgewählten Geometrienliste hinzugefügt wurden!!"
 }

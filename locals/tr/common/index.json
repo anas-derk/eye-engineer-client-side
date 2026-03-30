@@ -49,12 +49,12 @@
     "?": "?",
     "Title": "Başlık",
     "Please Enter Title": "Lütfen başlığı girin",
-    "Geometry": "Geometri",
-    "No Geometry": "Geometri Yok",
+    "Related Geometries": "İlgili Geometriler",
+    "No Geometries": "Geometri Yok",
     "Please Select Geometry": "Lütfen bir geometri seçin",
     "Please Enter Geometry Name Or Part Of This": "Lütfen geometri adını veya bu adın bir bölümünü girin",
-    "Change Geometry": "Geometriyi Değiştir",
-    "Current Geometry": "Mevcut Geometri",
+    "Change Related Geometries": "İlgili Geometrileri Değiştir",
+    "Current Geometries": "Mevcut Geometriler",
     "Please Select New Geometry": "Lütfen yeni bir geometri seçin",
     "New Geometry": "Yeni Geometri"
 }

@@ -15,7 +15,6 @@ import { inputValuesValidation } from "../../../../public/global_functions/valid
 import PaginationBar from "@/components/PaginationBar";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import SectionLoader from "@/components/SectionLoader";
-import UpdateGeometryParent from "@/components/UpdateGeometryParent";
 import AddLink from "@/components/AddLink";
 
 export default function Links() {
@@ -55,6 +54,7 @@ export default function Links() {
     const [filters, setFilters] = useState({
         officeId: "",
         geometry: "",
+        title: ""
     });
 
     const [formValidationErrors, setFormValidationErrors] = useState({});
@@ -178,6 +178,7 @@ export default function Links() {
         let filteringString = "";
         if (filters.officeId) filteringString += `officeId=${filters.officeId}&`;
         if (filters.geometry) filteringString += `geometry=${filters.geometry}&`;
+        if (filters.title) filteringString += `title=${filters.title}&`;
         if (filteringString) filteringString = filteringString.substring(0, filteringString.length - 1);
         return filteringString;
     }
@@ -479,13 +480,13 @@ export default function Links() {
                     setIsDisplayAddLinkBox={setIsDisplayAddLinkBox}
                     handleAddNewLink={handleAddNewLink}
                 />}
-                {isDisplayUpdateRelatedGeometriesBox && <UpdateGeometryParent
+                {/* {isDisplayUpdateRelatedGeometriesBox && <UpdateGeometries
                     setIsDisplayUpdateRelatedGeometriesBox={setIsDisplayUpdateRelatedGeometriesBox}
                     handleUpdateRelatedGeometriestBox={handleUpdateRelatedGeometriestBox}
                     currentGeometries={allLinksInsideThePage[selectedLinkIndex].geometries}
                     linkId={allLinksInsideThePage[selectedLinkIndex]._id}
                     setSelectedLinkIndex={setSelectedLinkIndex}
-                />}
+                />} */}
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Links")}</h1>
@@ -626,7 +627,7 @@ export default function Links() {
                                                 <hr />
                                                 {!isDisplayUpdateRelatedGeometriesBox && <button
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"
-                                                    onClick={() => handleDisplayUpdateRelatedGeometriesBox(linkIndex)}
+                                                // onClick={() => handleDisplayUpdateRelatedGeometriesBox(linkIndex)}
                                                 >{t("Change Related Geometries")}</button>}
                                                 <hr />
                                                 <button

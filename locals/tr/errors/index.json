@@ -25,5 +25,7 @@
     "Sorry, Can't Find Any Messages !!": "Üzgünüz, hiçbir mesaj bulunamadı!!",
     "Sorry, Can't Find Any Property Valuation Orders !!": "Üzgünüz, Hiç Gayrimenkul Değerleme Siparişi Bulunamadı !!",
     "Sorry, Can't Find Any Ads !!": "Üzgünüm, hiç ilan bulunamadı !!",
-    "Sorry, This URL Is Not Valid !!": "Üzgünüz, bu URL geçerli değil!!"
+    "Sorry, This URL Is Not Valid !!": "Üzgünüz, bu URL geçerli değil!!",
+    "Sorry, Can't Find Any Links !!": "Üzgünüz, hiçbir link bulunamadı!!",
+    "Sorry, Can't Find Any Geometries Added To The Selected Geometries List !!": "Üzgünüz, seçilen geometriler listesine eklenen hiçbir geometri bulunamadı!!"
 }
