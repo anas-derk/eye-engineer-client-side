@@ -3,6 +3,7 @@
     --main-color-two: #ed7200;
     --main-color-three: #084b22;
     --main-text-color: #000;
+    --dashboard-sidebar-width: 56px;
 }
 
 body {
@@ -292,7 +293,8 @@ textarea {
 
 .dashboard {
     .page-content {
-        padding: 20px 20px 0 70px;
+        padding: 20px 20px 0 20px;
+        padding-left: calc(var(--dashboard-sidebar-width) + 16px);
     }
 }
 
