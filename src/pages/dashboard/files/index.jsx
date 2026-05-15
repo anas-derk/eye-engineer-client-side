@@ -95,6 +95,11 @@ export default function Files() {
         return filteringString;
     }
 
+    const getFileDownloadUrl = (filePath) => {
+        if (!filePath) return "";
+        return `${process.env.BASE_API_URL}/${filePath.replaceAll("\\", "/")}`;
+    }
+
     const getFilesPage = async (pageNumber) => {
         try {
             setIsGetFiles(true);
@@ -292,6 +297,7 @@ export default function Files() {
                                 <tr>
                                     <th>{t("File Name")}</th>
                                     <th>{t("File Type")}</th>
+                                    <th>{t("Download File")}</th>
                                     <th>{t("Related Geometries")}</th>
                                     <th>{t("Date Of Creation")}</th>
                                     <th>{t("Actions")}</th>
@@ -302,6 +308,15 @@ export default function Files() {
                                     <tr key={file._id}>
                                         <td>{file.name[i18n.language]}</td>
                                         <td>{t(file.type)}</td>
+                                        <td>
+                                            <a
+                                                className="file-download-link"
+                                                href={getFileDownloadUrl(file.filePath)}
+                                                download={file.originalName || file.name[i18n.language]}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                            >{t("Download File")}</a>
+                                        </td>
                                         <td>
                                             {file?.geometries?.length > 0 ? <>
                                                 {file.geometries.map((geometry, geometryIndex) => (
