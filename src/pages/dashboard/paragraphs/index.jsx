@@ -16,6 +16,7 @@ import PaginationBar from "@/components/PaginationBar";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import SectionLoader from "@/components/SectionLoader";
 import AddParagraph from "@/components/AddParagraph";
+import UpdateGeometries from "@/components/UpdateGeometries";
 
 export default function Paragraphs() {
 
@@ -39,6 +40,7 @@ export default function Paragraphs() {
     const [formValidationErrors, setFormValidationErrors] = useState({});
     const [isDisplayConfirmDeleteBox, setIsDisplayConfirmDeleteBox] = useState(false);
     const [isDisplayAddParagraphBox, setIsDisplayAddParagraphBox] = useState(false);
+    const [isDisplayUpdateRelatedGeometriesBox, setIsDisplayUpdateRelatedGeometriesBox] = useState(false);
 
     const router = useRouter();
     const pageSize = 3;
@@ -143,6 +145,15 @@ export default function Paragraphs() {
 
     const handleAddNewParagraph = async () => {
         await getParagraphsPage(1);
+    }
+
+    const handleDisplayUpdateRelatedGeometriesBox = (paragraphIndex) => {
+        setSelectedParagraphIndex(paragraphIndex);
+        setIsDisplayUpdateRelatedGeometriesBox(true);
+    }
+
+    const handleUpdateRelatedGeometriestBox = async () => {
+        await getParagraphsPage(currentPage);
     }
 
     const changeParagraphData = (paragraphIndex, fieldName, newValue, language) => {
@@ -284,6 +295,14 @@ export default function Paragraphs() {
                     setIsDisplayAddParagraphBox={setIsDisplayAddParagraphBox}
                     handleAddNewParagraph={handleAddNewParagraph}
                 />}
+                {isDisplayUpdateRelatedGeometriesBox && selectedParagraphIndex > -1 && <UpdateGeometries
+                    setIsDisplayUpdateRelatedGeometriesBox={setIsDisplayUpdateRelatedGeometriesBox}
+                    handleUpdateRelatedGeometriestBox={handleUpdateRelatedGeometriestBox}
+                    currentGeometries={allParagraphsInsideThePage[selectedParagraphIndex].geometries}
+                    endpointName="paragraphs"
+                    itemId={allParagraphsInsideThePage[selectedParagraphIndex]._id}
+                    setSelectedLinkIndex={setSelectedParagraphIndex}
+                />}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Paragraphs")}</h1>
                     <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
@@ -388,6 +407,11 @@ export default function Paragraphs() {
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"
                                                     onClick={() => updateParagraphData(paragraphIndex)}
                                                 >{t("Update")}</button>
+                                                <hr />
+                                                {!isDisplayUpdateRelatedGeometriesBox && <button
+                                                    className="btn btn-success d-block mb-3 mx-auto global-button"
+                                                    onClick={() => handleDisplayUpdateRelatedGeometriesBox(paragraphIndex)}
+                                                >{t("Change Related Geometries")}</button>}
                                                 <hr />
                                                 <button
                                                     className="btn btn-danger global-button"

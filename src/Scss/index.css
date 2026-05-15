@@ -408,3 +408,26 @@ textarea {
   cursor: pointer;
   font-size: 22px;
 }
+
+.ee-update-geometries-box {
+  color: var(--main-text-color);
+}
+
+.ee-update-geometries-title,
+.ee-update-geometries-section-title {
+  color: var(--main-text-color);
+}
+
+.ee-update-geometries-chip {
+  background-color: color-mix(in srgb, var(--main-color-one) 82%, var(--main-color-two) 18%);
+  border-color: color-mix(in srgb, var(--main-text-color) 48%, var(--main-color-two) 52%) !important;
+  color: var(--main-text-color);
+}
+
+.ee-update-geometries-chip .remove-icon {
+  color: var(--main-color-two);
+}
+
+.ee-update-geometries-chip .remove-icon:hover {
+  color: #dc3545;
+}

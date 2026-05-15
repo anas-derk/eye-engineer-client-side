@@ -16,6 +16,7 @@ import PaginationBar from "@/components/PaginationBar";
 import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import SectionLoader from "@/components/SectionLoader";
 import AddLink from "@/components/AddLink";
+import UpdateGeometries from "@/components/UpdateGeometries";
 
 export default function Links() {
 
@@ -395,8 +396,8 @@ export default function Links() {
             setCurrentPage(currentPage);
             const filteringString = getFilteringString(filters);
             const result = (await getAllLinksInsideThePage(currentPage, pageSize, filteringString, "admin", i18n.language)).data;
-            setAllLinksInsideThePage(result.geometries);
-            setTotalPagesCount(Math.ceil(result.geometriesCount / pageSize));
+            setAllLinksInsideThePage(result.links);
+            setTotalPagesCount(Math.ceil(result.linksCount / pageSize));
             setIsGetLinks(false);
         }
         catch (err) {
@@ -480,13 +481,13 @@ export default function Links() {
                     setIsDisplayAddLinkBox={setIsDisplayAddLinkBox}
                     handleAddNewLink={handleAddNewLink}
                 />}
-                {/* {isDisplayUpdateRelatedGeometriesBox && <UpdateGeometries
+                {isDisplayUpdateRelatedGeometriesBox && selectedLinkIndex > -1 && <UpdateGeometries
                     setIsDisplayUpdateRelatedGeometriesBox={setIsDisplayUpdateRelatedGeometriesBox}
                     handleUpdateRelatedGeometriestBox={handleUpdateRelatedGeometriestBox}
                     currentGeometries={allLinksInsideThePage[selectedLinkIndex].geometries}
                     linkId={allLinksInsideThePage[selectedLinkIndex]._id}
                     setSelectedLinkIndex={setSelectedLinkIndex}
-                />} */}
+                />}
                 {/* Start Page Content */}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Links")}</h1>
@@ -627,7 +628,7 @@ export default function Links() {
                                                 <hr />
                                                 {!isDisplayUpdateRelatedGeometriesBox && <button
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"
-                                                // onClick={() => handleDisplayUpdateRelatedGeometriesBox(linkIndex)}
+                                                    onClick={() => handleDisplayUpdateRelatedGeometriesBox(linkIndex)}
                                                 >{t("Change Related Geometries")}</button>}
                                                 <hr />
                                                 <button

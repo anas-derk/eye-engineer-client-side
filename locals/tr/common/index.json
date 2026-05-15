@@ -54,6 +54,7 @@
     "Please Select Geometry": "Lütfen bir geometri seçin",
     "Please Enter Geometry Name Or Part Of This": "Lütfen geometri adını veya bu adın bir bölümünü girin",
     "Change Related Geometries": "İlgili Geometrileri Değiştir",
+    "Update Related Geometries": "İlgili Geometrileri Güncelle",
     "Current Geometries": "Mevcut Geometriler",
     "Please Select New Geometry": "Lütfen yeni bir geometri seçin",
     "New Geometry": "Yeni Geometri"

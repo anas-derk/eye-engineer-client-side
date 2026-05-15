@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { inputValuesValidation } from "../../../public/global_functions/validations";
 import axios from "axios";
@@ -7,43 +7,41 @@ import FormFieldErrorBox from "../FormFieldErrorBox";
 import { getAllGeometriesInsideThePage } from "../../../public/global_functions/popular";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
-export default function UpdateRelatedGeometries({
+export default function UpdateGeometries({
     setIsDisplayUpdateRelatedGeometriesBox,
     handleUpdateRelatedGeometriestBox,
-    currentGeometries,
+    currentGeometries = [],
+    endpointName = "links",
     linkId,
+    itemId,
     setSelectedLinkIndex
 }) {
 
     const [searchedGeometryName, setSearchedGeometryName] = useState("");
-
     const [searchedGeometries, setSearchedGeometries] = useState([]);
-
-    const [selectedGeometries, setSelectedGeometries] = useState([]);
-
+    const [selectedGeometries, setSelectedGeometries] = useState(currentGeometries);
     const [waitMsg, setWaitMsg] = useState("");
-
     const [errorMsg, setErrorMsg] = useState("");
-
     const [successMsg, setSuccessMsg] = useState("");
-
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
     const router = useRouter();
-
     const { t, i18n } = useTranslation();
 
     const handleClosePopupBox = () => {
-        setIsDisplayAddLinkBox(false);
+        setSelectedLinkIndex(-1);
+        setIsDisplayUpdateRelatedGeometriesBox(false);
     }
 
     const handleGetGeometriesByName = async (e) => {
         try {
             setWaitMsg("Please Waiting To Get Geometries ...");
-            const searchedGeometryName = e.target.value;
-            setSearchedGeometryName(searchedGeometryName);
-            if (searchedGeometryName) {
-                setSearchedGeometries((await getAllGeometriesInsideThePage(1, 1000, `name=${searchedGeometryName}`, "admin", i18n.language)).data.geometries);
+            const geometryName = e.target.value;
+            setSearchedGeometryName(geometryName);
+            if (geometryName) {
+                const geometries = (await getAllGeometriesInsideThePage(1, 1000, `name=${geometryName}`, "admin", i18n.language)).data.geometries;
+                const selectedIds = selectedGeometries.map((geometry) => geometry._id);
+                setSearchedGeometries(geometries.filter((geometry) => !selectedIds.includes(geometry._id)));
             } else {
                 setSearchedGeometries([]);
             }
@@ -60,9 +58,10 @@ export default function UpdateRelatedGeometries({
     }
 
     const handleSelectGeometry = (selectedGeometry) => {
-        if ((selectedGeometries.filter((geometry) => geometry._id !== selectedGeometry._id)).length === selectedGeometries.length) {
+        if (!selectedGeometries.some((geometry) => geometry._id === selectedGeometry._id)) {
             setSearchedGeometries(searchedGeometries.filter((geometry) => geometry._id !== selectedGeometry._id));
             setSelectedGeometries([...selectedGeometries, selectedGeometry]);
+            setFormValidationErrors({});
         }
     }
 
@@ -71,31 +70,10 @@ export default function UpdateRelatedGeometries({
         if (searchedGeometryName) setSearchedGeometries([...searchedGeometries, geometry]);
     }
 
-    const addLink = async () => {
+    const updateRelatedGeometries = async () => {
         try {
             setFormValidationErrors({});
             const errorsObject = inputValuesValidation([
-                {
-                    name: "title",
-                    value: linkData.title,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                    },
-                },
-                {
-                    name: "url",
-                    value: linkData.url,
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                        isURL: {
-                            msg: "Sorry, This URL Is Not Valid !!",
-                        }
-                    },
-                },
                 {
                     name: "geometries",
                     value: selectedGeometries,
@@ -109,9 +87,7 @@ export default function UpdateRelatedGeometries({
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length == 0) {
                 setWaitMsg("Saving");
-                const result = (await axios.post(`${process.env.BASE_API_URL}/links/add?language=${i18n.language}`, {
-                    title: linkData.title,
-                    url: linkData.url,
+                const result = (await axios.put(`${process.env.BASE_API_URL}/${endpointName}/${itemId || linkId}?language=${i18n.language}`, {
                     geometries: selectedGeometries.map((geometry) => geometry._id),
                 }, {
                     headers: {
@@ -120,11 +96,11 @@ export default function UpdateRelatedGeometries({
                 })).data;
                 setWaitMsg("");
                 if (!result.error) {
-                    setSuccessMsg("Adding Successfull !!");
+                    setSuccessMsg("Updating Successfull !!");
                     let successTimeout = setTimeout(async () => {
                         setSuccessMsg("");
                         handleClosePopupBox();
-                        await handleAddNewLink();
+                        await handleUpdateRelatedGeometriestBox();
                         clearTimeout(successTimeout);
                     }, 1500);
                 } else {
@@ -143,7 +119,7 @@ export default function UpdateRelatedGeometries({
             }
             else {
                 setWaitMsg("");
-                setErrorMsg(err?.message === "Network Error" ?? "Sorry, Something Went Wrong, Please Repeat The Process !!");
+                setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
                 let errorTimeout = setTimeout(() => {
                     setErrorMsg("");
                     clearTimeout(errorTimeout);
@@ -153,29 +129,23 @@ export default function UpdateRelatedGeometries({
     }
 
     return (
-        <div className="add-link popup-box">
-            <div className="content-box d-flex align-items-center text-white flex-column p-4 text-center">
-                <h2 className="mb-5 pb-3 border-bottom border-white">{t("Update Related Geometries")}</h2>
-                <section className="title mb-4 w-100">
-                    <input
-                        type="text"
-                        placeholder={t("Please Enter Title")}
-                        className={`form-control p-3 border-2 ${formValidationErrors["title"] ? "border-danger mb-3" : ""}`}
-                        onChange={(e) => setLinkData({ ...linkData, title: e.target.value.trim() })}
-                    />
-                    {formValidationErrors["title"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["title"])} />}
-                </section>
-                <section className="url mb-4 w-100">
-                    <input
-                        type="text"
-                        placeholder={t("Please Enter Link")}
-                        className={`form-control p-3 border-2 ${formValidationErrors["url"] ? "border-danger mb-3" : ""}`}
-                        onChange={(e) => setLinkData({ ...linkData, url: e.target.value.trim() })}
-                    />
-                    {formValidationErrors["url"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["url"])} />}
+        <div className="update-related-geometries add-link popup-box">
+            <div className="content-box ee-update-geometries-box d-flex align-items-center flex-column p-4 text-center">
+                <h2 className="ee-update-geometries-title mb-5 pb-3 border-bottom">{t("Update Related Geometries")}</h2>
+                <section className="current-geometries mb-4 w-100">
+                    <h6 className="ee-update-geometries-section-title mb-3 fw-bold">{t("Current Geometries")}</h6>
+                    {currentGeometries.length > 0 ? <div className="row w-100 mx-0">
+                        {currentGeometries.map((geometry) => (
+                            <div className="col-md-4 mb-3" key={geometry._id}>
+                                <div className="ee-update-geometries-chip selected-geometry-box p-2 border border-2 text-center">
+                                    <span className="geometry-name">{geometry.name[i18n.language]}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div> : <FormFieldErrorBox errorMsg={t("Sorry, Can't Find Any Geometries Added To The Selected Geometries List !!")} />}
                 </section>
                 <section className="geometries mb-4 w-100">
-                    <h6 className="mb-3 fw-bold">{t("Please Select Geometries")}</h6>
+                    <h6 className="ee-update-geometries-section-title mb-3 fw-bold">{t("Please Select New Geometry")}</h6>
                     <div className="select-geometries-box select-box">
                         <input
                             type="text"
@@ -195,7 +165,7 @@ export default function UpdateRelatedGeometries({
                 </section>
                 {selectedGeometries.length > 0 ? <div className="selected Geometries row mb-4 w-100">
                     {selectedGeometries.map((geometry) => <div className="col-md-4 mb-3" key={geometry._id}>
-                        <div className="selected-geometry-box p-2 border border-2 border-dark text-center">
+                        <div className="ee-update-geometries-chip selected-geometry-box p-2 border border-2 text-center">
                             <span className={`${i18n.language !== "ar" ? "me-2" : "ms-2"} geometry-name`}>{geometry.name[i18n.language]}</span>
                             <IoIosCloseCircleOutline className="remove-icon" onClick={() => handleRemoveGeometryFromSelectedGeometriesList(geometry)} />
                         </div>
@@ -207,9 +177,9 @@ export default function UpdateRelatedGeometries({
                     !successMsg &&
                     <button
                         className="btn btn-success d-block mx-auto mb-4 global-button"
-                        onClick={addLink}
+                        onClick={updateRelatedGeometries}
                     >
-                        {t("Add")}
+                        {t("Save Changes")}
                     </button>
                 }
                 {waitMsg &&
