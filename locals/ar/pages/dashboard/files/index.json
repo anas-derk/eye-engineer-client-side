@@ -1,0 +1,23 @@
+{
+    "Files": "الملفات",
+    "Add New File": "إضافة ملف جديد",
+    "Update File": "تعديل الملف",
+    "File Name": "اسم الملف",
+    "Please Enter File Name": "الرجاء إدخال اسم الملف",
+    "File Type": "نوع الملف",
+    "Please Select File Type": "الرجاء اختيار نوع الملف",
+    "Select New File": "اختر ملفاً جديداً",
+    "PDF": "PDF",
+    "VIDEO": "فيديو",
+    "Images": "صور",
+    "ZIP": "ZIP",
+    "Audios": "صوتيات",
+    "All": "الكل",
+    "Sorry, Can't Find Any Files !!": "عذراً، لا يمكن العثور على أي ملفات !!",
+    "Network Error When Get Files Data": "خطأ في الشبكة أثناء جلب بيانات الملفات",
+    "Sorry, Someting Went Wrong When Get Files Data, Please Repeate The Process !!": "عذراً، حدث خطأ أثناء جلب بيانات الملفات، الرجاء إعادة العملية !!",
+    "Sorry, Please Send All Required File Data !!": "عذراً، الرجاء إرسال جميع بيانات الملف المطلوبة !!",
+    "Sorry, Invalid File Type !!": "عذراً، نوع الملف غير صالح !!",
+    "Sorry, Uploaded File Does Not Match Selected File Type !!": "عذراً، الملف المرفوع لا يطابق نوع الملف المختار !!",
+    "Sorry, Invalid File Mimetype !!": "عذراً، نوع الملف المرفوع غير صالح !!"
+}

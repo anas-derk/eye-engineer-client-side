@@ -1,0 +1,23 @@
+{
+    "Files": "Dateien",
+    "Add New File": "Neue Datei hinzufügen",
+    "Update File": "Datei aktualisieren",
+    "File Name": "Dateiname",
+    "Please Enter File Name": "Bitte Dateinamen eingeben",
+    "File Type": "Dateityp",
+    "Please Select File Type": "Bitte Dateityp auswählen",
+    "Select New File": "Neue Datei auswählen",
+    "PDF": "PDF",
+    "VIDEO": "Video",
+    "Images": "Bilder",
+    "ZIP": "ZIP",
+    "Audios": "Audios",
+    "All": "Alle",
+    "Sorry, Can't Find Any Files !!": "Entschuldigung, es wurden keine Dateien gefunden !!",
+    "Network Error When Get Files Data": "Netzwerkfehler beim Abrufen der Dateidaten",
+    "Sorry, Someting Went Wrong When Get Files Data, Please Repeate The Process !!": "Entschuldigung, beim Abrufen der Dateidaten ist ein Fehler aufgetreten. Bitte wiederholen Sie den Vorgang !!",
+    "Sorry, Please Send All Required File Data !!": "Entschuldigung, bitte senden Sie alle erforderlichen Dateidaten !!",
+    "Sorry, Invalid File Type !!": "Entschuldigung, ungültiger Dateityp !!",
+    "Sorry, Uploaded File Does Not Match Selected File Type !!": "Entschuldigung, die hochgeladene Datei entspricht nicht dem ausgewählten Dateityp !!",
+    "Sorry, Invalid File Mimetype !!": "Entschuldigung, ungültiger Datei-MIME-Typ !!"
+}

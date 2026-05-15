@@ -1,0 +1,23 @@
+{
+    "Files": "Dosyalar",
+    "Add New File": "Yeni Dosya Ekle",
+    "Update File": "Dosyayı Güncelle",
+    "File Name": "Dosya Adı",
+    "Please Enter File Name": "Lütfen dosya adını girin",
+    "File Type": "Dosya Türü",
+    "Please Select File Type": "Lütfen dosya türünü seçin",
+    "Select New File": "Yeni Dosya Seç",
+    "PDF": "PDF",
+    "VIDEO": "Video",
+    "Images": "Görseller",
+    "ZIP": "ZIP",
+    "Audios": "Sesler",
+    "All": "Tümü",
+    "Sorry, Can't Find Any Files !!": "Üzgünüz, hiçbir dosya bulunamadı !!",
+    "Network Error When Get Files Data": "Dosya verileri alınırken ağ hatası oluştu",
+    "Sorry, Someting Went Wrong When Get Files Data, Please Repeate The Process !!": "Üzgünüz, dosya verileri alınırken bir hata oluştu. Lütfen işlemi tekrarlayın !!",
+    "Sorry, Please Send All Required File Data !!": "Üzgünüz, lütfen gerekli tüm dosya verilerini gönderin !!",
+    "Sorry, Invalid File Type !!": "Üzgünüz, geçersiz dosya türü !!",
+    "Sorry, Uploaded File Does Not Match Selected File Type !!": "Üzgünüz, yüklenen dosya seçilen dosya türüyle eşleşmiyor !!",
+    "Sorry, Invalid File Mimetype !!": "Üzgünüz, geçersiz dosya MIME türü !!"
+}

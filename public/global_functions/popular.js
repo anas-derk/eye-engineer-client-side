@@ -161,6 +161,19 @@ const getAllParagraphsInsideThePage = async (pageNumber, pageSize, filters, user
     }
 }
 
+const getAllFilesInsideThePage = async (pageNumber, pageSize, filters, language) => {
+    try {
+        return (await axios.get(`${process.env.BASE_API_URL}/files/all-inside-the-page?pageNumber=${pageNumber}&pageSize=${pageSize}&language=${language}&${filters ? filters : ""}`, {
+            headers: {
+                Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE)
+            }
+        })).data;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
 const getAppearedSections = async () => {
     try {
         const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
@@ -185,5 +198,6 @@ export {
     getAllGeometriesInsideThePage,
     getAllLinksInsideThePage,
     getAllParagraphsInsideThePage,
+    getAllFilesInsideThePage,
     getAppearedSections
 }
