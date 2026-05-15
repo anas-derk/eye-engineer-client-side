@@ -8,6 +8,7 @@ import { FaLink, FaUsers } from "react-icons/fa6";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { LuFiles } from "react-icons/lu";
 import { MdMenu, MdMenuOpen, MdOutlineLogout, MdOutlineMessage, MdOutlineVpnKey } from "react-icons/md";
+import { PiArticle } from "react-icons/pi";
 import { RiAdvertisementLine } from "react-icons/ri";
 import { TbGeometry } from "react-icons/tb";
 
@@ -98,6 +99,7 @@ export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = 
                       items: [
                           { href: "/dashboard/geometries", label: t("Geometries"), Icon: TbGeometry },
                           { href: "/dashboard/links", label: t("Links"), Icon: FaLink },
+                          { href: "/dashboard/paragraphs", label: t("Paragraphs"), Icon: PiArticle },
                           { href: "/dashboard/files", label: t("Files"), Icon: LuFiles },
                       ],
                   }

@@ -4,6 +4,7 @@ import linksTranslations from "./links";
 import messagesTranslations from "./messages";
 import newsTranslations from "./news";
 import officesTranslations from "./offices";
+import paragraphsTranslations from "./paragraphs";
 import terminologiesTranslations from "./terminologies";
 import usersTranslations from "./users";
 
@@ -14,6 +15,7 @@ export default {
     ...messagesTranslations,
     ...newsTranslations,
     ...officesTranslations,
+    ...paragraphsTranslations,
     ...terminologiesTranslations,
     ...usersTranslations,
 }

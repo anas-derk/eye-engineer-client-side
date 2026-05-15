@@ -1,0 +1,14 @@
+{
+    "Paragraphs": "Makaleler",
+    "Add New Paragraph": "Yeni Makale Ekle",
+    "Article Title": "Makale Başlığı",
+    "Content": "İçerik",
+    "Please Enter Article Title": "Lütfen makale başlığını girin",
+    "Please Enter Article Content": "Lütfen makale içeriğini girin",
+    "Sorry, Can't Find Any Paragraphs !!": "Üzgünüz, hiçbir makale bulunamadı !!",
+    "Please Waiting To Get Geometries ...": "Geometriler alınırken lütfen bekleyin ...",
+    "Network Error On Search !!": "Arama sırasında ağ hatası oluştu !!",
+    "Sorry, Someting Went Wrong, Please Repeate The Search !!": "Üzgünüz, bir hata oluştu. Lütfen aramayı tekrarlayın !!",
+    "Network Error When Get Paragraphs Data": "Makale verileri alınırken ağ hatası oluştu",
+    "Sorry, Someting Went Wrong When Get Paragraphs Data, Please Repeate The Process !!": "Üzgünüz, makale verileri alınırken bir hata oluştu. Lütfen işlemi tekrarlayın !!"
+}

@@ -1,0 +1,14 @@
+{
+    "Paragraphs": "Artikel",
+    "Add New Paragraph": "Neuen Artikel hinzufügen",
+    "Article Title": "Artikeltitel",
+    "Content": "Inhalt",
+    "Please Enter Article Title": "Bitte Artikeltitel eingeben",
+    "Please Enter Article Content": "Bitte Artikelinhalt eingeben",
+    "Sorry, Can't Find Any Paragraphs !!": "Entschuldigung, es wurden keine Artikel gefunden !!",
+    "Please Waiting To Get Geometries ...": "Bitte warten, Geometrien werden geladen ...",
+    "Network Error On Search !!": "Netzwerkfehler bei der Suche !!",
+    "Sorry, Someting Went Wrong, Please Repeate The Search !!": "Entschuldigung, etwas ist schiefgelaufen. Bitte wiederholen Sie die Suche !!",
+    "Network Error When Get Paragraphs Data": "Netzwerkfehler beim Abrufen der Artikeldaten",
+    "Sorry, Someting Went Wrong When Get Paragraphs Data, Please Repeate The Process !!": "Entschuldigung, beim Abrufen der Artikeldaten ist ein Fehler aufgetreten. Bitte wiederholen Sie den Vorgang !!"
+}

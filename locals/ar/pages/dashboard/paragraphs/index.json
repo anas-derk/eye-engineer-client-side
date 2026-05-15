@@ -1,0 +1,14 @@
+{
+    "Paragraphs": "المقالات",
+    "Add New Paragraph": "إضافة مقال جديد",
+    "Article Title": "عنوان المقال",
+    "Content": "المحتوى",
+    "Please Enter Article Title": "الرجاء إدخال عنوان المقال",
+    "Please Enter Article Content": "الرجاء إدخال محتوى المقال",
+    "Sorry, Can't Find Any Paragraphs !!": "عذراً، لا يمكن العثور على أي مقالات !!",
+    "Please Waiting To Get Geometries ...": "الرجاء الانتظار أثناء جلب الهندسات ...",
+    "Network Error On Search !!": "خطأ في الشبكة أثناء البحث !!",
+    "Sorry, Someting Went Wrong, Please Repeate The Search !!": "عذراً، حدث خطأ ما، الرجاء إعادة البحث !!",
+    "Network Error When Get Paragraphs Data": "خطأ في الشبكة أثناء جلب بيانات المقالات",
+    "Sorry, Someting Went Wrong When Get Paragraphs Data, Please Repeate The Process !!": "عذراً، حدث خطأ أثناء جلب بيانات المقالات، الرجاء إعادة العملية !!"
+}
