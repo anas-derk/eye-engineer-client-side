@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaLongArrowAltRight, FaLongArrowAltLeft, FaInstagram, FaTiktok } from "react-icons/fa";
 import { BiLogoMicrosoftTeams } from "react-icons/bi";
 import { IoLogoFacebook } from "react-icons/io";
@@ -8,15 +8,56 @@ import { MdEmail } from "react-icons/md";
 import { getAnimationSettings, getInitialStateForElementBeforeAnimation, handleSelectUserLanguage } from "../../../public/global_functions/popular";
 import { motion } from "motion/react";
 import WebsiteLogo from "../../../public/images/LogoWithTransparentBackground.webp"
+import axios from "axios";
 
 export default function Footer() {
 
     const { i18n, t } = useTranslation();
 
+    const [subscriptionEmail, setSubscriptionEmail] = useState("");
+
+    const [subscriptionWaitMsg, setSubscriptionWaitMsg] = useState("");
+
+    const [subscriptionSuccessMsg, setSubscriptionSuccessMsg] = useState("");
+
+    const [subscriptionErrorMsg, setSubscriptionErrorMsg] = useState("");
+
     useEffect(() => {
         const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
         handleSelectUserLanguage(userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en", i18n.changeLanguage);
     }, []);
+
+    const subscribe = async (e) => {
+        try {
+            e.preventDefault();
+            setSubscriptionSuccessMsg("");
+            setSubscriptionErrorMsg("");
+            const email = subscriptionEmail.trim();
+            if (!email) {
+                setSubscriptionErrorMsg("Please Enter Email Here");
+                return;
+            }
+            setSubscriptionWaitMsg("Please Wait");
+            const result = (await axios.post(`${process.env.BASE_API_URL}/subscriptions/add?language=${i18n.language}`, {
+                email,
+            })).data;
+            setSubscriptionWaitMsg("");
+            if (!result.error) {
+                setSubscriptionEmail("");
+                setSubscriptionSuccessMsg(result.msg || "Subscription Process Has Been Successfully !!");
+                let successTimeout = setTimeout(() => {
+                    setSubscriptionSuccessMsg("");
+                    clearTimeout(successTimeout);
+                }, 3000);
+            } else {
+                setSubscriptionErrorMsg(result.msg || "Sorry, Something Went Wrong, Please Repeat The Process !!");
+            }
+        }
+        catch (err) {
+            setSubscriptionWaitMsg("");
+            setSubscriptionErrorMsg(err?.response?.data?.msg || (err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!"));
+        }
+    }
 
     return (
         <footer className="pt-4 pb-4">
@@ -35,6 +76,26 @@ export default function Footer() {
                         }}
                     >
                         <img src={WebsiteLogo.src} alt={`${process.env.WEBSITE_NAME} Image`} className="mw-100 mb-4" />
+                        <form className="footer-subscribe-form text-center" onSubmit={subscribe}>
+                            <h5 className="footer-subscribe-title fw-bold mb-4 pb-2 mx-auto">{t("Subscribe")}</h5>
+                            <p className="footer-subscribe-text mb-3">{t("Enter Your Email Address")}</p>
+                            <p className="footer-subscribe-text mb-4">{t("I want to receive all updates by email")}</p>
+                            <input
+                                type="email"
+                                className="footer-subscribe-input form-control mb-3"
+                                placeholder={t("Please Enter Email Here")}
+                                value={subscriptionEmail}
+                                onChange={(e) => {
+                                    setSubscriptionEmail(e.target.value);
+                                    setSubscriptionSuccessMsg("");
+                                    setSubscriptionErrorMsg("");
+                                }}
+                            />
+                            {!subscriptionWaitMsg && !subscriptionSuccessMsg && !subscriptionErrorMsg && <button type="submit" className="footer-subscribe-button btn">{t("Subscribe")}</button>}
+                            {subscriptionWaitMsg && <button type="button" className="footer-subscribe-button btn" disabled>{t(subscriptionWaitMsg)} ...</button>}
+                            {subscriptionSuccessMsg && <button type="button" className="footer-subscribe-button footer-subscribe-button--success btn" disabled>{t(subscriptionSuccessMsg)}</button>}
+                            {subscriptionErrorMsg && <button type="button" className="footer-subscribe-button footer-subscribe-button--error btn" disabled>{t(subscriptionErrorMsg)}</button>}
+                        </form>
                     </motion.div>
                     <motion.div
                         className="col-xl-3"

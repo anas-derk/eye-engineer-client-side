@@ -25,4 +25,47 @@ footer{
     .website-link{
         color: var(--main-text-color);
     }
+    .footer-subscribe-form{
+        max-width: 240px;
+        margin: 0 auto;
+        .footer-subscribe-title{
+            width: fit-content;
+            font-size: 14px;
+            border-bottom: 2px solid var(--main-text-color);
+            color: var(--main-text-color);
+        }
+        .footer-subscribe-text{
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        .footer-subscribe-input{
+            border: 3px solid var(--main-text-color);
+            border-radius: 3px;
+            color: var(--main-text-color);
+            background-color: transparent;
+            text-align: center;
+            font-size: 12px !important;
+            padding: 8px !important;
+        }
+        .footer-subscribe-input::placeholder{
+            color: #777;
+        }
+        .footer-subscribe-button{
+            background-color: #00c8ef;
+            color: #000;
+            border: 3px solid #000;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 12px !important;
+        }
+        .footer-subscribe-button--success{
+            background-color: #198754;
+            color: #FFF;
+        }
+        .footer-subscribe-button--error{
+            background-color: #dc3545;
+            color: #FFF;
+        }
+    }
 }
