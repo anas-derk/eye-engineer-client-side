@@ -6,13 +6,13 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "motion/react";
-import { Carousel } from "react-bootstrap";
 import NavigateToUpOrDown from "@/components/NavigateToUpOrDown";
 import { MdOutlineContactPhone, MdOutlineMail } from "react-icons/md";
 import { FaTimes, FaWhatsapp } from "react-icons/fa";
 import Capabilities from "@/components/Capabilities";
 import Footer from "@/components/Footer";
 import { getAppearedSections, getUserInfo, handleSelectUserLanguage } from "../../public/global_functions/popular";
+import axios from "axios";
 
 export default function Home() {
 
@@ -26,7 +26,13 @@ export default function Home() {
 
   const [isGetAppearedSections, setIsGetAppearedSections] = useState(false);
 
+  const [isGetAds, setIsGetAds] = useState(true);
+
   const [appearedSections, setAppearedSections] = useState([]);
+
+  const [textAds, setTextAds] = useState([]);
+
+  const [imageAds, setImageAds] = useState([]);
 
   const { t, i18n } = useTranslation();
 
@@ -74,10 +80,28 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!isGetUserInfo && !isGetAppearedSections) {
+    const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
+    const selectedLanguage = userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en";
+    Promise.all([
+      axios.get(`${process.env.BASE_API_URL}/ads/all-ads?type=text&language=${selectedLanguage}`),
+      axios.get(`${process.env.BASE_API_URL}/ads/all-ads?type=image&language=${selectedLanguage}`),
+    ])
+      .then(([textAdsResult, imageAdsResult]) => {
+        setTextAds(textAdsResult.data?.data || []);
+        setImageAds(imageAdsResult.data?.data || []);
+        setIsGetAds(false);
+      })
+      .catch((err) => {
+        setIsLoadingPage(false);
+        setErrorMsgOnLoadingThePage(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Try Again !");
+      });
+  }, []);
+
+  useEffect(() => {
+    if (!isGetUserInfo && !isGetAppearedSections && !isGetAds) {
       setIsLoadingPage(false);
     }
-  }, [isGetUserInfo, isGetAppearedSections]);
+  }, [isGetUserInfo, isGetAppearedSections, isGetAds]);
 
   return (
     <div className="home page">
@@ -102,9 +126,9 @@ export default function Home() {
         {/* End Contact Icons Box */}
         {/* Start Page Content */}
         <div className="page-content">
-          <Slider />
+          <Slider imageAds={imageAds} />
           {/* Start Text Ads Section */}
-          {5 > 0 && <motion.section
+          {textAds.length > 0 && <motion.section
             className="text-ads text-center p-3 fw-bold mb-4"
             initial={{
               width: 0,
@@ -116,15 +140,11 @@ export default function Home() {
               }
             }}
           >
-            <Carousel indicators={false} controls={false}>
-              {[{ content: "If you are an engineering & specialist and interested, it's our pleasure to share and spread the benefit" }, { content: "We seek to provide useful engineering & Website for Information,Knowledge has no limits" }].map((ad, index) => (
-                <Carousel.Item key={index}>
-                  <Carousel.Caption>
-                    <p className="ad-content m-0">{ad.content}</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
+            <div className="text-ads-track">
+              {[...textAds, ...textAds].map((ad, index) => (
+                <span className="ad-content" key={`${ad._id}-${index}`}>{ad.content[i18n.language] || ad.content.en}</span>
               ))}
-            </Carousel>
+            </div>
           </motion.section>}
           {/* End Text Ads Section */}
           {/* Start Our Capabilities Section */}
