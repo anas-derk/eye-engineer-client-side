@@ -13,6 +13,8 @@ import "../pages/contact-us/contact_us.css";
 import "../pages/property-valuation/property_valuation.css";
 import "../pages/account-verification/account_verification.css";
 import "../pages/profile/profile.css";
+import "../pages/geometries/geometries.css";
+import "../pages/recents/recents.css";
 import "../components/Capabilities/capabilities.css";
 import "../components/DashboardSideBar/dashboard_side_bar.css";
 import "../components/PaginationBar/pagination_bar.css";

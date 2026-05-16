@@ -58,5 +58,12 @@
     "Current Geometries": "Aktuelle Geometrien",
     "Please Select New Geometry": "Bitte wählen Sie eine neue Geometrie aus",
     "New Geometry": "Neue Geometrie",
-    "Advertising Bar": "Werbeleiste"
+    "Advertising Bar": "Werbeleiste",
+    "Geometries": "Geometrien",
+    "Files": "Dateien",
+    "Articles": "Artikel",
+    "Links": "Links",
+    "Sub Geometries": "Untergeometrien",
+    "Back To Geometries": "Zur\u00fcck zu Geometrien",
+    "No Sub Geometries": "Keine Untergeometrien"
 }

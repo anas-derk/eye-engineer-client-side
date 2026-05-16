@@ -58,5 +58,12 @@
     "Current Geometries": "Mevcut Geometriler",
     "Please Select New Geometry": "Lütfen yeni bir geometri seçin",
     "New Geometry": "Yeni Geometri",
-    "Advertising Bar": "Reklam \u015eeridi"
+    "Advertising Bar": "Reklam \u015eeridi",
+    "Geometries": "Geometriler",
+    "Files": "Dosyalar",
+    "Articles": "Makaleler",
+    "Links": "Ba\u011flant\u0131lar",
+    "Sub Geometries": "Alt Geometriler",
+    "Back To Geometries": "Geometrilere Geri D\u00f6n",
+    "No Sub Geometries": "Alt geometri yok"
 }
