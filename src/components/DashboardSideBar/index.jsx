@@ -100,16 +100,12 @@ export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = 
                           { href: "/dashboard/geometries", label: t("Geometries"), Icon: TbGeometry },
                           { href: "/dashboard/links", label: t("Links"), Icon: FaLink },
                           { href: "/dashboard/paragraphs", label: t("Paragraphs"), Icon: PiArticle },
+                          { href: "/dashboard/terminologies-translation", label: t("Terminologies"), Icon: AiOutlineTranslation },
                           { href: "/dashboard/files", label: t("Files"), Icon: LuFiles },
                       ],
                   }
                 : null,
         [isEngineer, t, i18n.language],
-    );
-
-    const commonItems = useMemo(
-        () => [{ href: "/dashboard/terminologies-translation", label: t("Terminologies"), Icon: AiOutlineTranslation }],
-        [t, i18n.language],
     );
 
     const toggleExpanded = useCallback(() => {
@@ -203,27 +199,6 @@ export default function DashboardSideBar({ isWebsiteOwner = false, isEngineer = 
                         </ul>
                     </section>
                 )}
-
-                <section className="ee-dashboard-sidebar__section">
-                    <ul className="ee-dashboard-sidebar__list">
-                        {commonItems.map((item) => {
-                            const active = isRouteActive(pathname, item.href);
-                            return (
-                                <li key={item.href} className="ee-dashboard-sidebar__item">
-                                    <Link
-                                        href={item.href}
-                                        className={`ee-dashboard-sidebar__link${active ? " ee-dashboard-sidebar__link--active" : ""}`}
-                                        aria-current={active ? "page" : undefined}
-                                        title={!expanded ? item.label : undefined}
-                                    >
-                                        <item.Icon className="ee-dashboard-sidebar__icon" aria-hidden />
-                                        {expanded && <span className="ee-dashboard-sidebar__label">{item.label}</span>}
-                                    </Link>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </section>
             </nav>
 
             <div className="ee-dashboard-sidebar__footer">
