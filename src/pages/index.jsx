@@ -36,6 +36,11 @@ export default function Home() {
 
   const { t, i18n } = useTranslation();
 
+  const displayedTextAds = textAds.length > 0 ? textAds : [{
+    _id: "default-text-ad",
+    content: {}
+  }];
+
   useEffect(() => {
     const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
     handleSelectUserLanguage(userLanguage === "ar" || userLanguage === "en" || userLanguage === "tr" || userLanguage === "de" ? userLanguage : "en", i18n.changeLanguage);
@@ -128,7 +133,7 @@ export default function Home() {
         <div className="page-content">
           <Slider imageAds={imageAds} />
           {/* Start Text Ads Section */}
-          {textAds.length > 0 && <motion.section
+          <motion.section
             className="text-ads text-center p-3 fw-bold mb-4"
             initial={{
               width: 0,
@@ -141,11 +146,11 @@ export default function Home() {
             }}
           >
             <div className="text-ads-track">
-              {[...textAds, ...textAds].map((ad, index) => (
-                <span className="ad-content" key={`${ad._id}-${index}`}>{ad.content[i18n.language] || ad.content.en}</span>
+              {[...displayedTextAds, ...displayedTextAds].map((ad, index) => (
+                <span className="ad-content" key={`${ad._id}-${index}`}>{ad.content[i18n.language] || ad.content.en || t("Advertising Bar")}</span>
               ))}
             </div>
-          </motion.section>}
+          </motion.section>
           {/* End Text Ads Section */}
           {/* Start Our Capabilities Section */}
           <Capabilities appearedSections={appearedSections} />
