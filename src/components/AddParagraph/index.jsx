@@ -6,6 +6,7 @@ import axios from "axios";
 import FormFieldErrorBox from "../FormFieldErrorBox";
 import { getAllGeometriesInsideThePage } from "../../../public/global_functions/popular";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import ArticleRichEditor from "../ArticleRichEditor";
 
 export default function AddParagraph({
     setIsDisplayAddParagraphBox,
@@ -88,7 +89,7 @@ export default function AddParagraph({
                 },
                 {
                     name: "content",
-                    value: paragraphData.content,
+                    value: paragraphData.content.replace(/<[^>]*>/g, "").trim() || paragraphData.content.includes("<img"),
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
@@ -111,6 +112,7 @@ export default function AddParagraph({
                 const result = (await axios.post(`${process.env.BASE_API_URL}/paragraphs/add?language=${i18n.language}`, {
                     title: paragraphData.title,
                     content: paragraphData.content,
+                    sourceLanguage: i18n.language,
                     geometries: selectedGeometries.map((geometry) => geometry._id),
                 }, {
                     headers: {
@@ -155,14 +157,28 @@ export default function AddParagraph({
         <div className="add-link add-paragraph popup-box">
             <div className="content-box d-flex align-items-center text-white flex-column p-4 text-center">
                 <h2 className="mb-5 pb-3 border-bottom border-white">{t("Add New Paragraph")}</h2>
-                <section className="title mb-4 w-100">
+                <section className="article-title mb-4 w-100">
+                    <h6 className="paragraph-editor-label fw-bold">{t("Article Title")}</h6>
                     <input
                         type="text"
+                        dir={i18n.language === "ar" ? "rtl" : "ltr"}
                         placeholder={t("Please Enter Article Title")}
                         className={`form-control p-3 border-2 ${formValidationErrors["title"] ? "border-danger mb-3" : ""}`}
-                        onChange={(e) => setParagraphData({ ...paragraphData, title: e.target.value.trim() })}
+                        value={paragraphData.title}
+                        onChange={(e) => setParagraphData({ ...paragraphData, title: e.target.value })}
                     />
                     {formValidationErrors["title"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["title"])} />}
+                </section>
+                <section className="article-content mb-4 w-100">
+                    <h6 className="paragraph-editor-label fw-bold">{t("Article Content")}</h6>
+                    <ArticleRichEditor
+                        value={paragraphData.content}
+                        onChange={(content) => setParagraphData({ ...paragraphData, content })}
+                        placeholder={t("Write The Article Here")}
+                        language={i18n.language}
+                        errorMsg={formValidationErrors["content"]}
+                    />
+                    {formValidationErrors["content"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["content"])} />}
                 </section>
                 <section className="geometries mb-4 w-100">
                     <h6 className="mb-3 fw-bold">{t("Please Select Geometries")}</h6>
@@ -191,14 +207,6 @@ export default function AddParagraph({
                         </div>
                     </div>)}
                 </div> : <FormFieldErrorBox errorMsg={t("Sorry, Can't Find Any Geometries Added To The Selected Geometries List !!")} />}
-                <section className="content mb-4 w-100">
-                    <textarea
-                        placeholder={t("Please Enter Article Content")}
-                        className={`form-control p-3 border-2 ${formValidationErrors["content"] ? "border-danger mb-3" : ""}`}
-                        onChange={(e) => setParagraphData({ ...paragraphData, content: e.target.value.trim() })}
-                    ></textarea>
-                    {formValidationErrors["content"] && <FormFieldErrorBox errorMsg={t(formValidationErrors["content"])} />}
-                </section>
                 {
                     !waitMsg &&
                     !errorMsg &&

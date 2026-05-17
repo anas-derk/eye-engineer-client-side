@@ -2,9 +2,10 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import FormFieldErrorBox from "../FormFieldErrorBox";
-import { getLanguagesInfoList } from "../../../public/global_functions/popular";
 import { inputValuesValidation } from "../../../public/global_functions/validations";
+import { getLanguagesInfoList } from "../../../public/global_functions/popular";
+import ArticleRichEditor from "../ArticleRichEditor";
+import FormFieldErrorBox from "../FormFieldErrorBox";
 
 const fieldSettings = {
     title: {
@@ -29,6 +30,8 @@ export default function UpdateParagraphField({
     handleUpdateParagraphField,
 }) {
     const settings = fieldSettings[fieldName] || fieldSettings.title;
+    const { t, i18n } = useTranslation();
+    const [activeLanguage, setActiveLanguage] = useState(i18n.language);
     const [fieldValue, setFieldValue] = useState({
         ar: paragraph?.[fieldName]?.ar || "",
         en: paragraph?.[fieldName]?.en || "",
@@ -41,32 +44,43 @@ export default function UpdateParagraphField({
     const [formValidationErrors, setFormValidationErrors] = useState({});
 
     const router = useRouter();
-    const { t, i18n } = useTranslation();
 
     const handleClosePopupBox = () => {
         setSelectedParagraphIndex(-1);
         setIsDisplayUpdateParagraphFieldBox(false);
     }
 
+    const updateActiveLanguageValue = (value) => {
+        setFieldValue({
+            ...fieldValue,
+            [activeLanguage]: value,
+        });
+    }
+
     const updateParagraphField = async () => {
         try {
             setFormValidationErrors({});
-            const errorsObject = inputValuesValidation(
-                getLanguagesInfoList(fieldName).map((language) => ({
-                    name: language.formField,
-                    value: fieldValue[language.internationalLanguageCode],
+            const activeFieldName = `${fieldName}In${activeLanguage.toUpperCase()}`;
+            const errorsObject = inputValuesValidation([
+                {
+                    name: activeFieldName,
+                    value: fieldValue[activeLanguage],
                     rules: {
                         isRequired: {
                             msg: "Sorry, This Field Can't Be Empty !!",
                         },
                     },
-                }))
-            );
+                }
+            ]);
+            if (fieldName === "content" && !((fieldValue[activeLanguage] || "").replace(/<[^>]*>/g, "").trim() || (fieldValue[activeLanguage] || "").includes("<img"))) {
+                errorsObject[activeFieldName] = "Sorry, This Field Can't Be Empty !!";
+            }
             setFormValidationErrors(errorsObject);
             if (Object.keys(errorsObject).length === 0) {
                 setWaitMsg("Please Wait");
                 const result = (await axios.put(`${process.env.BASE_API_URL}/paragraphs/${paragraph._id}?language=${i18n.language}`, {
-                    [fieldName]: fieldValue,
+                    [fieldName]: fieldValue[activeLanguage],
+                    sourceLanguage: activeLanguage,
                 }, {
                     headers: {
                         Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
@@ -109,32 +123,40 @@ export default function UpdateParagraphField({
         <div className={`update-paragraph-field ${settings.sectionClassName} add-link popup-box`}>
             <div className="content-box d-flex align-items-center text-white flex-column p-4 text-center">
                 <h2 className="mb-5 pb-3 border-bottom border-white">{t(settings.modalTitle)}</h2>
-                <section className="paragraph-field-form mb-4 w-100">
+                <ul className="paragraph-update-language-tabs mb-4" role="tablist">
                     {getLanguagesInfoList(fieldName).map((language) => (
-                        <div key={language.fullLanguageName} className="mb-4">
-                            <h6 className="fw-bold">{t(`In ${language.fullLanguageName}`)} :</h6>
-                            {settings.inputType === "textarea" ? <textarea
-                                placeholder={`${t(settings.placeholder)} ${t(`In ${language.fullLanguageName}`)}`}
-                                className={`form-control p-3 border-2 ${formValidationErrors[language.formField] ? "border-danger mb-3" : ""}`}
-                                value={fieldValue[language.internationalLanguageCode]}
-                                onChange={(e) => setFieldValue({
-                                    ...fieldValue,
-                                    [language.internationalLanguageCode]: e.target.value,
-                                })}
-                            ></textarea> : <input
-                                type="text"
-                                placeholder={`${t(settings.placeholder)} ${t(`In ${language.fullLanguageName}`)}`}
-                                className={`form-control p-3 border-2 ${formValidationErrors[language.formField] ? "border-danger mb-3" : ""}`}
-                                value={fieldValue[language.internationalLanguageCode]}
-                                onChange={(e) => setFieldValue({
-                                    ...fieldValue,
-                                    [language.internationalLanguageCode]: e.target.value,
-                                })}
-                            />}
-                            {formValidationErrors[language.formField] && <FormFieldErrorBox errorMsg={t(formValidationErrors[language.formField])} />}
-                        </div>
+                        <li key={language.internationalLanguageCode}>
+                            <button
+                                type="button"
+                                className={`paragraph-update-language-tab ${activeLanguage === language.internationalLanguageCode ? "active" : ""}`}
+                                onClick={() => setActiveLanguage(language.internationalLanguageCode)}
+                            >
+                                {t(language.fullLanguageName)}
+                            </button>
+                        </li>
                     ))}
-                </section>
+                </ul>
+                {fieldName === "content" ? <section className="article-content mb-4 w-100">
+                    <ArticleRichEditor
+                        key={activeLanguage}
+                        value={fieldValue[activeLanguage]}
+                        onChange={updateActiveLanguageValue}
+                        placeholder={t("Write The Article Here")}
+                        language={activeLanguage}
+                        errorMsg={formValidationErrors[`contentIn${activeLanguage.toUpperCase()}`]}
+                    />
+                    {formValidationErrors[`contentIn${activeLanguage.toUpperCase()}`] && <FormFieldErrorBox errorMsg={t(formValidationErrors[`contentIn${activeLanguage.toUpperCase()}`])} />}
+                </section> : <section className="article-title mb-4 w-100">
+                    <input
+                        type="text"
+                        dir={activeLanguage === "ar" ? "rtl" : "ltr"}
+                        placeholder={t(settings.placeholder)}
+                        className={`form-control p-3 border-2 ${formValidationErrors[`titleIn${activeLanguage.toUpperCase()}`] ? "border-danger mb-3" : ""}`}
+                        value={fieldValue[activeLanguage]}
+                        onChange={(e) => updateActiveLanguageValue(e.target.value)}
+                    />
+                    {formValidationErrors[`titleIn${activeLanguage.toUpperCase()}`] && <FormFieldErrorBox errorMsg={t(formValidationErrors[`titleIn${activeLanguage.toUpperCase()}`])} />}
+                </section>}
                 {!waitMsg && !errorMsg && !successMsg && <button
                     className="btn btn-success d-block mx-auto mb-4 global-button"
                     onClick={updateParagraphField}

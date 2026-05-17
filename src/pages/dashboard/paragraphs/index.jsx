@@ -320,12 +320,11 @@ export default function Paragraphs() {
                                             </> : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Geometries")}</h6>}
                                         </td>
                                         <td>
-                                            <p
+                                            <div
                                                 className="paragraph-content-preview paragraph-localized-preview mb-0"
                                                 dir={currentLanguageDirection}
-                                            >
-                                                {paragraph.content[i18n.language] || paragraph.content.en}
-                                            </p>
+                                                dangerouslySetInnerHTML={{ __html: paragraph.content[i18n.language] || paragraph.content.en }}
+                                            />
                                         </td>
                                         <td>
                                             {getDateFormated(paragraph.createdAt)}
