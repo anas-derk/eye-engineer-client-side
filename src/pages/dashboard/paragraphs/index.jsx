@@ -11,12 +11,11 @@ import DashboardSideBar from "@/components/DashboardSideBar";
 import axios from "axios";
 import NotFoundError from "@/components/NotFoundError";
 import ConfirmDelete from "@/components/ConfirmDelete";
-import { inputValuesValidation } from "../../../../public/global_functions/validations";
 import PaginationBar from "@/components/PaginationBar";
-import FormFieldErrorBox from "@/components/FormFieldErrorBox";
 import SectionLoader from "@/components/SectionLoader";
 import AddParagraph from "@/components/AddParagraph";
 import UpdateGeometries from "@/components/UpdateGeometries";
+import UpdateParagraphField from "@/components/UpdateParagraphField";
 
 export default function Paragraphs() {
 
@@ -37,14 +36,16 @@ export default function Paragraphs() {
         geometry: "",
         title: ""
     });
-    const [formValidationErrors, setFormValidationErrors] = useState({});
     const [isDisplayConfirmDeleteBox, setIsDisplayConfirmDeleteBox] = useState(false);
     const [isDisplayAddParagraphBox, setIsDisplayAddParagraphBox] = useState(false);
     const [isDisplayUpdateRelatedGeometriesBox, setIsDisplayUpdateRelatedGeometriesBox] = useState(false);
+    const [isDisplayUpdateParagraphFieldBox, setIsDisplayUpdateParagraphFieldBox] = useState(false);
+    const [updatedParagraphFieldName, setUpdatedParagraphFieldName] = useState("title");
 
     const router = useRouter();
     const pageSize = 3;
     const { t, i18n } = useTranslation();
+    const currentLanguageDirection = i18n.language === "ar" ? "rtl" : "ltr";
 
     useEffect(() => {
         const userLanguage = localStorage.getItem(process.env.USER_LANGUAGE_FIELD_NAME_IN_LOCAL_STORAGE);
@@ -156,80 +157,14 @@ export default function Paragraphs() {
         await getParagraphsPage(currentPage);
     }
 
-    const changeParagraphData = (paragraphIndex, fieldName, newValue, language) => {
-        setSelectedParagraphIndex(-1);
-        const paragraphsTemp = allParagraphsInsideThePage.map((paragraph) => paragraph);
-        paragraphsTemp[paragraphIndex][fieldName][language] = newValue;
-        setAllParagraphsInsideThePage(paragraphsTemp);
+    const handleDisplayUpdateParagraphFieldBox = (paragraphIndex, fieldName) => {
+        setSelectedParagraphIndex(paragraphIndex);
+        setUpdatedParagraphFieldName(fieldName);
+        setIsDisplayUpdateParagraphFieldBox(true);
     }
 
-    const updateParagraphData = async (paragraphIndex) => {
-        try {
-            setFormValidationErrors({});
-            const errorsObject = inputValuesValidation([
-                ...["ar", "en", "de", "tr"].map((language) => ({
-                    name: `titleIn${language.toUpperCase()}`,
-                    value: allParagraphsInsideThePage[paragraphIndex].title[language],
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                    },
-                })),
-                ...["ar", "en", "de", "tr"].map((language) => ({
-                    name: `contentIn${language.toUpperCase()}`,
-                    value: allParagraphsInsideThePage[paragraphIndex].content[language],
-                    rules: {
-                        isRequired: {
-                            msg: "Sorry, This Field Can't Be Empty !!",
-                        },
-                    },
-                })),
-            ]);
-            setFormValidationErrors(errorsObject);
-            setSelectedParagraphIndex(paragraphIndex);
-            if (Object.keys(errorsObject).length == 0) {
-                setWaitMsg("Please Wait");
-                const result = (await axios.put(`${process.env.BASE_API_URL}/paragraphs/${allParagraphsInsideThePage[paragraphIndex]._id}?language=${i18n.language}`, {
-                    title: allParagraphsInsideThePage[paragraphIndex].title,
-                    content: allParagraphsInsideThePage[paragraphIndex].content,
-                }, {
-                    headers: {
-                        Authorization: localStorage.getItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE),
-                    }
-                })).data;
-                setWaitMsg("");
-                if (!result.error) {
-                    setSuccessMsg("Updating Successfull !!");
-                    let successTimeout = setTimeout(() => {
-                        setSuccessMsg("");
-                        setSelectedParagraphIndex(-1);
-                        clearTimeout(successTimeout);
-                    }, 3000);
-                } else {
-                    setErrorMsg("Sorry, Something Went Wrong, Please Repeat The Process !!");
-                    let errorTimeout = setTimeout(() => {
-                        setErrorMsg("");
-                        setSelectedParagraphIndex(-1);
-                        clearTimeout(errorTimeout);
-                    }, 3000);
-                }
-            }
-        }
-        catch (err) {
-            if (err?.response?.status === 401) {
-                localStorage.removeItem(process.env.USER_TOKEN_NAME_IN_LOCAL_STORAGE);
-                await router.replace("/login");
-                return;
-            }
-            setWaitMsg("");
-            setErrorMsg(err?.message === "Network Error" ? "Network Error" : "Sorry, Something Went Wrong, Please Repeat The Process !!");
-            let errorTimeout = setTimeout(() => {
-                setErrorMsg("");
-                setSelectedParagraphIndex(-1);
-                clearTimeout(errorTimeout);
-            }, 3000);
-        }
+    const handleUpdateParagraphField = async () => {
+        await getParagraphsPage(currentPage);
     }
 
     const deleteParagraph = async (paragraphIndex) => {
@@ -303,6 +238,13 @@ export default function Paragraphs() {
                     itemId={allParagraphsInsideThePage[selectedParagraphIndex]._id}
                     setSelectedLinkIndex={setSelectedParagraphIndex}
                 />}
+                {isDisplayUpdateParagraphFieldBox && selectedParagraphIndex > -1 && <UpdateParagraphField
+                    paragraph={allParagraphsInsideThePage[selectedParagraphIndex]}
+                    fieldName={updatedParagraphFieldName}
+                    setIsDisplayUpdateParagraphFieldBox={setIsDisplayUpdateParagraphFieldBox}
+                    setSelectedParagraphIndex={setSelectedParagraphIndex}
+                    handleUpdateParagraphField={handleUpdateParagraphField}
+                />}
                 <div className="page-content">
                     <h1 className="section-name text-center mb-4 text-white h5">{t("Welcome To You In Page")} : {t("Paragraphs")}</h1>
                     <DashboardSideBar isWebsiteOwner={userInfo.isWebsiteOwner} isEngineer={userInfo.isEngineer} />
@@ -363,19 +305,12 @@ export default function Paragraphs() {
                                 {allParagraphsInsideThePage.map((paragraph, paragraphIndex) => (
                                     <tr key={paragraph._id}>
                                         <td>
-                                            {getLanguagesInfoList("title").map((el) => (
-                                                <div key={el.fullLanguageName}>
-                                                    <h6 className="fw-bold">{t(`In ${el.fullLanguageName}`)} :</h6>
-                                                    <input
-                                                        type="text"
-                                                        placeholder={`${t("Please Enter Article Title")} ${t(`In ${el.fullLanguageName}`)}`}
-                                                        className={`form-control d-block mx-auto p-2 border-2 ${formValidationErrors[el.formField] && paragraphIndex === selectedParagraphIndex ? "border-danger mb-3" : "mb-4"}`}
-                                                        defaultValue={paragraph.title[el.internationalLanguageCode]}
-                                                        onChange={(e) => changeParagraphData(paragraphIndex, "title", e.target.value.trim(), el.internationalLanguageCode)}
-                                                    />
-                                                    {formValidationErrors[el.formField] && paragraphIndex === selectedParagraphIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors[el.formField])} />}
-                                                </div>
-                                            ))}
+                                            <p
+                                                className="paragraph-title-preview paragraph-localized-preview mb-0"
+                                                dir={currentLanguageDirection}
+                                            >
+                                                {paragraph.title[i18n.language] || paragraph.title.en}
+                                            </p>
                                         </td>
                                         <td>
                                             {paragraph?.geometries?.length > 0 ? <>
@@ -385,18 +320,12 @@ export default function Paragraphs() {
                                             </> : <h6 className="bg-danger p-2 mb-4 text-white">{t("No Geometries")}</h6>}
                                         </td>
                                         <td>
-                                            {getLanguagesInfoList("content").map((el) => (
-                                                <div key={el.fullLanguageName}>
-                                                    <h6 className="fw-bold">{t(`In ${el.fullLanguageName}`)} :</h6>
-                                                    <textarea
-                                                        placeholder={`${t("Please Enter Article Content")} ${t(`In ${el.fullLanguageName}`)}`}
-                                                        className={`form-control d-block mx-auto p-2 border-2 ${formValidationErrors[el.formField] && paragraphIndex === selectedParagraphIndex ? "border-danger mb-3" : "mb-4"}`}
-                                                        defaultValue={paragraph.content[el.internationalLanguageCode]}
-                                                        onChange={(e) => changeParagraphData(paragraphIndex, "content", e.target.value.trim(), el.internationalLanguageCode)}
-                                                    ></textarea>
-                                                    {formValidationErrors[el.formField] && paragraphIndex === selectedParagraphIndex && <FormFieldErrorBox errorMsg={t(formValidationErrors[el.formField])} />}
-                                                </div>
-                                            ))}
+                                            <p
+                                                className="paragraph-content-preview paragraph-localized-preview mb-0"
+                                                dir={currentLanguageDirection}
+                                            >
+                                                {paragraph.content[i18n.language] || paragraph.content.en}
+                                            </p>
                                         </td>
                                         <td>
                                             {getDateFormated(paragraph.createdAt)}
@@ -405,8 +334,13 @@ export default function Paragraphs() {
                                             {selectedParagraphIndex !== paragraphIndex && <>
                                                 <button
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"
-                                                    onClick={() => updateParagraphData(paragraphIndex)}
-                                                >{t("Update")}</button>
+                                                    onClick={() => handleDisplayUpdateParagraphFieldBox(paragraphIndex, "title")}
+                                                >{t("Update Article Title")}</button>
+                                                <hr />
+                                                <button
+                                                    className="btn btn-success d-block mb-3 mx-auto global-button"
+                                                    onClick={() => handleDisplayUpdateParagraphFieldBox(paragraphIndex, "content")}
+                                                >{t("Update Article Content")}</button>
                                                 <hr />
                                                 {!isDisplayUpdateRelatedGeometriesBox && <button
                                                     className="btn btn-success d-block mb-3 mx-auto global-button"

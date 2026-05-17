@@ -355,6 +355,19 @@ textarea {
     }
 }
 
+.paragraph-content-preview {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    line-height: 1.7;
+}
+
+.paragraph-localized-preview {
+    color: #000;
+    text-align: center;
+}
+
 .popup-box {
     position: fixed;
     left: 0;
@@ -371,6 +384,18 @@ textarea {
         .content-box {
             overflow: auto;
             height: 70%;
+        }
+    }
+
+    &.update-paragraph-content {
+        .content-box {
+            height: 82%;
+        }
+    }
+
+    &.update-paragraph-field {
+        textarea {
+            min-height: 180px;
         }
     }
 

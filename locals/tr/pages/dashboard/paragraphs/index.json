@@ -5,6 +5,8 @@
     "Content": "İçerik",
     "Please Enter Article Title": "Lütfen makale başlığını girin",
     "Please Enter Article Content": "Lütfen makale içeriğini girin",
+    "Update Article Title": "Makale başlığını düzenle",
+    "Update Article Content": "Makale içeriğini düzenle",
     "Sorry, Can't Find Any Paragraphs !!": "Üzgünüz, hiçbir makale bulunamadı !!",
     "Please Waiting To Get Geometries ...": "Geometriler alınırken lütfen bekleyin ...",
     "Network Error On Search !!": "Arama sırasında ağ hatası oluştu !!",

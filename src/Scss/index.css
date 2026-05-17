@@ -348,6 +348,19 @@ textarea {
   width: 150%;
 }
 
+.paragraph-content-preview {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  line-height: 1.7;
+}
+
+.paragraph-localized-preview {
+  color: #000;
+  text-align: center;
+}
+
 @media (max-width: 991px) {
   .admin-dashbboard-data-box .admin-dashbboard-data-table {
     width: 300%;
@@ -367,6 +380,14 @@ textarea {
 .popup-box.add-geometry .content-box, .popup-box.update-geometry-parent .content-box, .popup-box.add-link .content-box {
   overflow: auto;
   height: 70%;
+}
+
+.popup-box.update-paragraph-content .content-box {
+  height: 82%;
+}
+
+.popup-box.update-paragraph-field textarea {
+  min-height: 180px;
 }
 
 .popup-box .content-box {
