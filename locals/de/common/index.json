@@ -65,5 +65,17 @@
     "Links": "Links",
     "Sub Geometries": "Untergeometrien",
     "Back To Geometries": "Zur\u00fcck zu Geometrien",
-    "No Sub Geometries": "Keine Untergeometrien"
+    "No Sub Geometries": "Keine Untergeometrien",
+    "Clear Filters": "Filter Zur\u00fccksetzen",
+    "File Name": "Dateiname",
+    "Please Enter File Name": "Bitte geben Sie den Dateinamen ein",
+    "File Type": "Dateityp",
+    "Download File": "Datei Herunterladen",
+    "All": "Alle",
+    "PDF": "PDF-Datei",
+    "VIDEO": "Video",
+    "Images": "Bilder",
+    "ZIP": "ZIP-Datei",
+    "Audios": "Audiodateien",
+    "Sorry, Can't Find Any Files !!": "Entschuldigung, es wurden keine Dateien gefunden !!"
 }

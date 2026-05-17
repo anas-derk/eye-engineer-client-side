@@ -65,5 +65,17 @@
     "Links": "Ba\u011flant\u0131lar",
     "Sub Geometries": "Alt Geometriler",
     "Back To Geometries": "Geometrilere Geri D\u00f6n",
-    "No Sub Geometries": "Alt geometri yok"
+    "No Sub Geometries": "Alt geometri yok",
+    "Clear Filters": "Filtreleri Temizle",
+    "File Name": "Dosya Ad\u0131",
+    "Please Enter File Name": "L\u00fctfen dosya ad\u0131n\u0131 girin",
+    "File Type": "Dosya T\u00fcr\u00fc",
+    "Download File": "Dosyay\u0131 \u0130ndir",
+    "All": "T\u00fcm\u00fc",
+    "PDF": "PDF Dosyas\u0131",
+    "VIDEO": "Video",
+    "Images": "G\u00f6rseller",
+    "ZIP": "ZIP Dosyas\u0131",
+    "Audios": "Ses Dosyalar\u0131",
+    "Sorry, Can't Find Any Files !!": "\u00dczg\u00fcn\u00fcz, hi\u00e7 dosya bulunamad\u0131 !!"
 }
